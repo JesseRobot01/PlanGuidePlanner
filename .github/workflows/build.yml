@@ -37,31 +37,31 @@ jobs:
 
       #Configure!
       - name: Configure Cmake
-        runs:
+        run:
           mkdir build
           cmake -Bbuild -DCMAKE_BUILD_TYPE=${{ inputs.build_type } -G Ninja
 
       #Build!
       - name: Build!
-        runs: cmake --build build
+        run: cmake --build build
 
       # Pack
       #TODO no known ways to pack for linux. so get a install directory instead..
 
       - name: Install Application
         if: ${{ matrix.os == 'windows-latest' }}
-        runs: |
+        run: |
           cmake --install build --prefix ./install
 
       - name: Create installer (Windows)
         if: ${{ matrix.os == 'windows-latest' }}
-        runs: |
+        run: |
           cd build
           cpack -G NSIS64
 
       - name: Create package (Linux)
         if: ${{ matrix.os == 'ubuntu-latest' }}
-        runs: |
+        run: |
           cd build
           cpack -G TXZ
 
