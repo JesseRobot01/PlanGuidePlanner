@@ -1,0 +1,13 @@
+name: Build Dev build
+
+on:
+  #every branch...
+  push:
+  pull_request:
+
+jobs:
+  build-dev:
+    name: Build Dev Release
+    uses: ./.github/workflows/build.yml
+    with:
+      build_type: Debug

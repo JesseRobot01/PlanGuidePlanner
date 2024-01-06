@@ -1,0 +1,88 @@
+name: Build
+
+on:
+  workflow_call:
+    inputs:
+      BUILD_TYPE:
+        description: Type of build (Debug, Release, RelWithDebInfo, MinSizeRel)
+        type: string
+        default: Debug
+
+  workflow_dispatch: #For manually enable
+    inputs:
+      BUILD_TYPE:
+        description: Type of build (Debug, Release, RelWithDebInfo, MinSizeRel)
+        type: string
+        default: Debug
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+
+          - os: ubuntu-latest
+            #TODO macOS
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      #Inialise
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+
+      #Configure!
+      - name: Configure Cmake
+        runs:
+          mkdir build
+          cmake -Bbuild -DCMAKE_BUILD_TYPE=${{ inputs.build_type } -G Ninja
+
+      #Build!
+      - name: Build!
+        runs: cmake --build build
+
+      # Pack
+      #TODO no known ways to pack for linux. so get a install directory instead..
+
+      - name: Install Application
+        if: ${{ matrix.os == 'windows-latest' }}
+        runs: |
+          cmake --install build --prefix ./install
+
+      - name: Create installer (Windows)
+        if: ${{ matrix.os == 'windows-latest' }}
+        runs: |
+          cd build
+          cpack -G NSIS64
+
+      - name: Create package (Linux)
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        runs: |
+          cd build
+          cpack -G TXZ
+
+        # Upload
+      - name: Upload binaries (Windows)
+        if: ${{ matrix.os == 'windows-latest' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: Study Guide-windows
+          path: install
+
+      - name: Upload setup (Windows)
+        if: ${{ matrix.os == 'windows-latest' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: Study Guide-windows-setup
+          path: build/*.exe
+
+      - name: Upload binaries (Linux)
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: Study Guide-linux
+          path: build/*.tar.xz

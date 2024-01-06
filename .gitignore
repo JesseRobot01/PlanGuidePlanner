@@ -1,5 +1,8 @@
 # All the build directories
 *build*
+#But i want the workflow files
+!.github/workflows/build.yml
+!.github/workflows/dev-build.yml
 
 #.idea directory
 .idea
