@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<studyguide>
+    <name>Example</name>
+    <shortname>TEST</shortname>
+    <info>This is an example Guide!</info>
+    <period>2</period>
+    <index>
+        <goal>
+            <name>Hello World!</name>
+            <number>1.1</number>
+            <time>90</time>
+            <work>Make exercise 1 to 6.</work>
+            <watch>How to make an egg on YouTube.</watch>
+            <read>The book you've choose</read>
+            <process>The vocab</process>
+            <progress>1</progress>
+            <week>53</week>
+        </goal>
+    </index>
+    <test>
+        <shortname>HW1</shortname>
+        <name>Hello World</name>
+        <info>Know how the StudyGuide Work</info>
+        <week>0</week>
+    </test>
+    <report>
+        <test>
+            <name>Hello World</name>
+            <weight>3</weight>
+        </test>
+        <test>
+            <name>Bye World</name>
+            <weight>2048</weight>
+        </test>
+    </report>
+</studyguide>
