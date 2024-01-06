@@ -76,11 +76,11 @@ jobs:
           cd build
           cpack -G NSIS64
 
-      - name: Create package (Linux)
-        if: ${{ matrix.os == 'ubuntu-latest' }}
-        run: |
-          cd build
-          cpack -G TXZ
+        # - name: Create package (Linux)
+        #   if: ${{ matrix.os == 'ubuntu-latest' }}
+        #   run: |
+        #     cd build
+        #     cpack -G TXZ
 
         # Upload
       - name: Upload binaries (Windows)
@@ -97,9 +97,9 @@ jobs:
           name: Study Guide-windows-setup
           path: build/*.exe
 
-      - name: Upload binaries (Linux)
-        if: ${{ matrix.os == 'ubuntu-latest' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: Study Guide-linux
-          path: build/*.tar.xz
+      # - name: Upload binaries (Linux)
+      #   if: ${{ matrix.os == 'ubuntu-latest' }}
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: Study Guide-linux
+      #     path: build/*.tar.xz
