@@ -39,7 +39,7 @@ jobs:
       - name: Configure Cmake
         run:
           mkdir build
-          cmake -Bbuild -DCMAKE_BUILD_TYPE=${{ inputs.build_type } -G Ninja
+          cmake -Bbuild -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -G Ninja
 
       #Build!
       - name: Build!
