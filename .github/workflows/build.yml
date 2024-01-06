@@ -34,6 +34,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Install Dependencies (Linux
+        run: |
+          sudo apt-get -y update
+          sudo apt-get -y install ninja-build
+
+      - name: Install Ninja (windows)
+        if: ${{matrix.os == 'windows-latest'}}
+        run: choco install ninja
+
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
         with:
@@ -42,11 +51,11 @@ jobs:
       #Configure!
       - name: Configure Cmake
         run: |
-          cmake -Bbuild -DCMAKE_BUILD_TYPE=${{ inputs.build_type }}
+          cmake -Bbuild -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -G Ninja
 
       #Build!
       - name: Build!
-        run: cmake --build build --config ${{ inputs.build_type }}
+        run: cmake --build build
 
       # Pack
       #TODO no known ways to pack for linux. so get a install directory instead..
@@ -54,7 +63,7 @@ jobs:
       - name: Install Application
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
-          cmake --install build --prefix ./install --config ${{ inputs.build_type }}
+          cmake --install build --prefix ./install 
 
       - name: Create installer (Windows)
         if: ${{ matrix.os == 'windows-latest' }}
