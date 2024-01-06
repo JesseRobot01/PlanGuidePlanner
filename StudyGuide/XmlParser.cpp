@@ -5,7 +5,6 @@
 #include <QFile>
 #include <QXmlStreamReader>
 #include "XmlParser.h"
-#include "application.h"
 #include "guide/GuideData.h"
 
 GuideData::Data XmlParser::readXml(QFile* xmlFileP) {
