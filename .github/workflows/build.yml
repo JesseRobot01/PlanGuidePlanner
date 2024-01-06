@@ -22,8 +22,10 @@ jobs:
       matrix:
         include:
           - os: windows-latest
-
+            qt_version: "6.6.1"
           - os: ubuntu-latest
+            qt_version: "6.6.1"
+
             #TODO macOS
 
     runs-on: ${{ matrix.os }}
@@ -34,13 +36,15 @@ jobs:
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
+        with:
+          version: ${{ matrix.qt_version }}
 
       #Configure!
       - name: Configure Cmake
         run: |
           tree
           mkdir build
-          cmake -Bbuild -DCMAKE_BUILD_TYPE=${{ inputs.build_type }}  -DCMAKE_PREFIX_PATH="./qt/lib/cmake"
+          cmake -Bbuild -DCMAKE_BUILD_TYPE=${{ inputs.build_type }}
 
       #Build!
       - name: Build!
