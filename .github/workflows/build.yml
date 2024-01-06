@@ -46,7 +46,7 @@ jobs:
 
       - name: Configure MSVC (windows)
         if: ${{matrix.os == 'windows-latest'}}
-        uses: ilammy/msvc-dev-cmd@v
+        uses: ilammy/msvc-dev-cmd@v1
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
