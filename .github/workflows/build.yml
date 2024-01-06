@@ -39,7 +39,7 @@ jobs:
       - name: Configure Cmake
         run: |
           mkdir build
-          cmake -Bbuild -DCMAKE_BUILD_TYPE=${{ inputs.build_type }}  -DCMAKE_PREFIX_PATH=./qt/lib/cmake
+          cmake -Bbuild -DCMAKE_BUILD_TYPE=${{ inputs.build_type }}  -DCMAKE_PREFIX_PATH="./qt/lib/cmake"
 
       #Build!
       - name: Build!
