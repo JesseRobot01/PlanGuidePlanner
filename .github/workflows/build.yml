@@ -44,6 +44,10 @@ jobs:
         if: ${{matrix.os == 'windows-latest'}}
         run: choco install ninja
 
+      - name: Configure MSVC (windows)
+        if: ${{matrix.os == 'windows-latest'}}
+        uses: ilammy/msvc-dev-cmd@v
+
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
         with:
