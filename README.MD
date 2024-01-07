@@ -14,3 +14,6 @@ A tool for tracking your progress with your study.
 
 Download the development builds form [GitHub actions](https://github.com/JesseRobot01/StudyGuide/actions).
 
+### Building
+
+You can get the build instructions [here](https://github.com/JesseRobot01/StudyGuide/wiki/Building).
