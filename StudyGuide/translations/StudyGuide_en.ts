@@ -156,7 +156,7 @@
         <translation>File</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+13"/>
         <location/>
         <source>Exit</source>
         <translation>Exit</translation>
@@ -175,23 +175,19 @@
     </message>
     <message>
         <location line="+5"/>
+        <location/>
         <source>Save Guide As</source>
-        <translation type="unfinished"></translation>
+        <translation>Save Guide As</translation>
     </message>
     <message>
-        <location line="+5"/>
-        <source>Save Guide TEST </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/MainWindow.cpp" line="+40"/>
-        <location line="+154"/>
+        <location filename="../ui/MainWindow.cpp" line="+34"/>
+        <location line="+136"/>
         <source>Open StudyGuide</source>
         <translation>Open StudyGuides</translation>
     </message>
     <message>
-        <location line="-152"/>
-        <location line="+155"/>
+        <location line="-134"/>
+        <location line="+137"/>
         <source>XML Files (*.xml);;All Files (*)</source>
         <translation>XML FIles (*.xml);;All files (*)</translation>
     </message>
@@ -205,77 +201,14 @@
         <translation>Preferences</translation>
     </message>
     <message>
-        <location line="+43"/>
-        <location/>
-        <source>Appearance</source>
-        <translation>Appearance</translation>
-    </message>
-    <message>
-        <location line="+14"/>
-        <source>Work Indicator Colour</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+27"/>
-        <source>Watck/ Listen Indicator Colour</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+27"/>
-        <source>Read Indicator Colour</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+27"/>
-        <source>Process Indicator Colour</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+27"/>
-        <source>Finished Colour</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+27"/>
-        <source>Buzy Colour</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+27"/>
-        <source>Not started Colour</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+27"/>
-        <source>Header Colour</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+27"/>
-        <source>Text Colour</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+34"/>
-        <location/>
-        <source>Scale</source>
-        <translation>Scale</translation>
-    </message>
-    <message>
-        <location line="+19"/>
-        <location/>
-        <source>Previeuw</source>
-        <translation>Previeuw</translation>
-    </message>
-    <message>
-        <location line="+8"/>
+        <location line="+40"/>
         <location/>
         <source>Directories</source>
         <translation>Directories</translation>
     </message>
     <message>
-        <location line="+27"/>
-        <source>Use Auto Save</source>
+        <location line="+30"/>
+        <source>Use Auto Save (Not available ye))</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -286,8 +219,9 @@
     </message>
     <message>
         <location line="+10"/>
+        <location/>
         <source>Use Auto Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Use auto open</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -368,7 +302,7 @@
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../ui/PreferenceWindow.cpp" line="+26"/>
+        <location filename="../ui/PreferenceWindow.cpp" line="+23"/>
         <source>English</source>
         <translation>English (English)</translation>
     </message>
