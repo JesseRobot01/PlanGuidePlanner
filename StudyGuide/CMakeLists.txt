@@ -48,9 +48,9 @@ if (DEFINED WIN32)
             WindowConsole.h)
 endif ()
 
-configure_file(config.h.in ${CMAKE_CURRENT_BINARY_DIR}/StudyGuide_autogen/include/config.h @ONLY)
+configure_file(config.h.in ${CMAKE_CURRENT_BINARY_DIR}/studyguide_autogen/include/config.h @ONLY)
 if (MSVC)
-    configure_file(config.h.in ${CMAKE_CURRENT_BINARY_DIR}/StudyGuide_autogen/include_debug/config.h @ONLY) #msvc....
+    configure_file(config.h.in ${CMAKE_CURRENT_BINARY_DIR}/studyguide_autogen/include_debug/config.h @ONLY) #msvc....
 endif ()
 
 qt_add_executable(${EXECUTABLE_NAME} ${SOURCES} ${UI} ${WIN_SOURCES})
