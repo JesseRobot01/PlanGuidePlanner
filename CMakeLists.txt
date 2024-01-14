@@ -14,6 +14,10 @@ find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets LinguistTools)
 
 set(EXECUTABLE_NAME "StudyGuide")
 
+if (UNIX)
+    set(EXECUTABLE_NAME "studyguide") #Linux is case-sensitive, so this should make it possible to call from command line like every regular app. (Without using shift)
+endif ()
+
 set(CMAKE_WIN32_EXECUTABLE ON)
 
 
@@ -56,8 +60,19 @@ set(CPACK_PACKAGE_VERSION_MAJOR ${STUDYGUIDE_VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${STUDYGUIDE_VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${STUDYGUIDE_VERSION_PATCH})
 
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6core6")
+set(CPACK_PACKAGE_CONTACT "JesseRobot01")
+
+if (UNIX)
+    set(CPACK_PACKAGE_NAME "StudyGuide")
+endif ()
 include(InstallRequiredSystemLibraries)
 include(CPack)
+
+if (UNIX)
+    set(BINARY_DEST_DIR "bin")
+    set(LIBRARY_DEST_DIR "lib")
+endif ()
 
 add_subdirectory(StudyGuide)
 

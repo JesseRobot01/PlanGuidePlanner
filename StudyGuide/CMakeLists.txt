@@ -85,73 +85,77 @@ target_link_libraries(${EXECUTABLE_NAME} PUBLIC Qt::Core Qt::Gui Qt::Widgets)
 
 #The bundle mess!!!
 
-#Now for windows only, maybe some other systems in the future
 set(QT_PLUGINS_DIR ${QT6_INSTALL_PREFIX}/${QT6_INSTALL_PLUGINS})
 set(QT_LIBS_DIR ${QT6_INSTALL_PREFIX}/${QT6_INSTALL_LIBS})
 set(QT_LIBEXECS_DIR ${QT6_INSTALL_PREFIX}/${QT6_INSTALL_LIBEXECS})
 set(DIRS ${QT_LIBS_DIR} ${QT_LIBEXECS_DIR} ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
-set(APPS "\${CMAKE_INSTALL_PREFIX}/${EXECUTABLE_NAME}.exe")
+if (WIN32)
+    set(APPS "\${CMAKE_INSTALL_PREFIX}/${EXECUTABLE_NAME}.exe")
 
-set(BINARY_DEST_DIR ".")
-set(LIBRARY_DEST_DIR ".")
-set(PLUGIN_DEST_DIR ".")
-set(RESOURCES_DEST_DIR ".")
+    set(BINARY_DEST_DIR ".")
+    set(LIBRARY_DEST_DIR ".")
+    set(PLUGIN_DEST_DIR ".")
+    set(RESOURCES_DEST_DIR ".")
 
+endif ()
 
 install(TARGETS ${EXECUTABLE_NAME}
         BUNDLE DESTINATION "." COMPONENT Runtime
         LIBRARY DESTINATION ${LIBRARY_DEST_DIR} COMPONENT Runtime
         RUNTIME DESTINATION ${BINARY_DEST_DIR} COMPONENT Runtime
 )
-#Example.xml
-install(
-        FILES Example.xml
-        DESTINATION .
-        COMPONENT Runtime
-)
 
-# Platform
-install(
-        DIRECTORY "${QT_PLUGINS_DIR}/platforms"
-        CONFIGURATIONS Debug RelWithDebInfo ""
-        DESTINATION ${PLUGIN_DEST_DIR}
-        COMPONENT Runtime
-        REGEX "minimal|linuxfb|offscreen" EXCLUDE
-)
-install(
-        DIRECTORY "${QT_PLUGINS_DIR}/platforms"
-        CONFIGURATIONS Release MinSizeRel
-        DESTINATION ${PLUGIN_DEST_DIR}
-        COMPONENT Runtime
-        REGEX "minimal|linuxfb|offscreen" EXCLUDE
-        REGEX "[^2]d\\." EXCLUDE
-        REGEX "_debug\\." EXCLUDE
-        REGEX "\\.dSYM" EXCLUDE
-)
-
-# Style plugins
-if (EXISTS "${QT_PLUGINS_DIR}/styles")
+if (WIN32)
+    #Example.xml
     install(
-            DIRECTORY "${QT_PLUGINS_DIR}/styles"
+            FILES Example.xml
+            DESTINATION .
+            COMPONENT Runtime
+    )
+    # Platform
+    install(
+            DIRECTORY "${QT_PLUGINS_DIR}/platforms"
             CONFIGURATIONS Debug RelWithDebInfo ""
             DESTINATION ${PLUGIN_DEST_DIR}
             COMPONENT Runtime
+            REGEX "minimal|linuxfb|offscreen" EXCLUDE
     )
     install(
-            DIRECTORY "${QT_PLUGINS_DIR}/styles"
+            DIRECTORY "${QT_PLUGINS_DIR}/platforms"
             CONFIGURATIONS Release MinSizeRel
             DESTINATION ${PLUGIN_DEST_DIR}
             COMPONENT Runtime
-            REGEX "d\\." EXCLUDE
+            REGEX "minimal|linuxfb|offscreen" EXCLUDE
+            REGEX "[^2]d\\." EXCLUDE
             REGEX "_debug\\." EXCLUDE
             REGEX "\\.dSYM" EXCLUDE
     )
-endif ()
 
-install(CODE "
+    # Style plugins
+    if (EXISTS "${QT_PLUGINS_DIR}/styles")
+        install(
+                DIRECTORY "${QT_PLUGINS_DIR}/styles"
+                CONFIGURATIONS Debug RelWithDebInfo ""
+                DESTINATION ${PLUGIN_DEST_DIR}
+                COMPONENT Runtime
+        )
+        install(
+                DIRECTORY "${QT_PLUGINS_DIR}/styles"
+                CONFIGURATIONS Release MinSizeRel
+                DESTINATION ${PLUGIN_DEST_DIR}
+                COMPONENT Runtime
+                REGEX "d\\." EXCLUDE
+                REGEX "_debug\\." EXCLUDE
+                REGEX "\\.dSYM" EXCLUDE
+        )
+    endif ()
+
+    install(CODE "
 include(BundleUtilities)
 file(GLOB_RECURSE QTPLUGINS \"${CMAKE_INSTALL_PREFIX}/${PLUGIN_DEST_DIR}/*${CMAKE_SHARED_LIBRARY_SUFFIX}\")
 fixup_bundle(\"${APPS}\" \"${QTPLUGINS}\" \"${DIRS}\")"
-        COMPONENT Runtime
-)
+            COMPONENT Runtime
+    )
+endif ()
+
