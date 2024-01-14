@@ -5,7 +5,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 
-set(version 1.0.0)
+set(STUDYGUIDE_VERSION_MAJOR 0)
+set(STUDYGUIDE_VERSION_MINOR 1)
+set(STUDYGUIDE_VERSION_PATCH 0)
+set(STUDYGUIDE_VERSION ${STUDYGUIDE_VERSION_MAJOR}.${STUDYGUIDE_VERSION_MINOR}.${STUDYGUIDE_VERSION_PATCH})
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets LinguistTools)
 
@@ -13,8 +16,6 @@ set(EXECUTABLE_NAME "StudyGuide")
 
 set(CMAKE_WIN32_EXECUTABLE ON)
 
-include(InstallRequiredSystemLibraries)
-include(CPack)
 
 #Get Git commit and tag
 execute_process(
@@ -35,9 +36,28 @@ message("Git tag: ${GIT_TAG}")
 
 message("Git commit hash: ${GIT_COMMIT_HASH}")
 
-if (CMAKE_BUILD_TYPE STREQUAL "Release")
-    set(version "${version}-${GIT_COMMIT_HASH}")
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(STUDYGUIDE_VERSION "${STUDYGUIDE_VERSION}-${GIT_COMMIT_HASH}")
 endif ()
+
+# Cpack stuff
+set(CPACK_PACKAGE_NAME "Study Guide")
+set(CPACK_NSIS_PACKAGE_NAME ${CPACK_PACKAGE_NAME})
+set(CPACK_PACKAGE_VENDOR "JesseRobot01")
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "Study Guide")
+set(CPACK_NSIS_MODIFY_PATH "YES")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
+
+set(CPACK_PACKAGE_EXECUTABLES "..\\\\${EXECUTABLE_NAME}" "Study Guide") #The ..\ is because CPack looks in the BIN directory, and not in the root as where the executable is.
+set(CPACK_CREATE_DESKTOP_LINKS "..\\\\${EXECUTABLE_NAME}" "Study Guide")
+
+set(CPACK_PACKAGE_VERSION ${STUDYGUIDE_VERSION})
+set(CPACK_PACKAGE_VERSION_MAJOR ${STUDYGUIDE_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${STUDYGUIDE_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${STUDYGUIDE_VERSION_PATCH})
+
+include(InstallRequiredSystemLibraries)
+include(CPack)
 
 add_subdirectory(StudyGuide)
 
