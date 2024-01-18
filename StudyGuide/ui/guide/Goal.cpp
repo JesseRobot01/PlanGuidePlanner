@@ -5,18 +5,32 @@
 #include "Goal.h"
 #include "ui_Goal.h"
 
-Goal::Goal(QWidget* parent) : QWidget(parent), ui(new Ui::Goal) {
+Goal::Goal(QWidget *parent) : QWidget(parent), ui(new Ui::Goal) {
     ui->setupUi(this);
     ui->progressSlider->setStyleSheet("background-color: rgb(234, 67, 53);");
+    ui->progressBackground->setStyleSheet("background-color: rgb(234, 67, 53); border-color:white;color : white;");
     ui->progressSlider->installEventFilter(this);
+    ui->progressBackground->installEventFilter(this);
+    ui->progressBackground->setAttribute(Qt::WA_Hover);
+    ui->progressSlider->hide();
 }
 
 // disable scrolling on scrollwheel
-bool Goal::eventFilter(QObject* obj, QEvent* event) {
+bool Goal::eventFilter(QObject *obj, QEvent *event) {
     if (obj == ui->progressSlider && event->type() == QEvent::Wheel) {
         event->ignore();
         return true;
     }
+    if (obj == ui->progressSlider && event->type() == QEvent::HoverLeave) {
+        ui->progressSlider->hide();
+        setProgress(ui->progressSlider->value()); // force update
+        return true;
+    }
+    if (obj == ui->progressBackground && event->type() == QEvent::HoverEnter) {
+        ui->progressSlider->show();
+        return true;
+    }
+
     return false;
 }
 
@@ -24,19 +38,19 @@ Goal::~Goal() {
     delete ui;
 }
 
-void Goal::setName(const QString&name) {
+void Goal::setName(const QString &name) {
     ui->goalName->setText(name);
 }
 
-void Goal::setGoalNumber(const QString&goalNumber) {
+void Goal::setGoalNumber(const QString &goalNumber) {
     ui->leraningGoal->setText(goalNumber);
 }
 
-void Goal::setTime(const QString&time) {
+void Goal::setTime(const QString &time) {
     ui->goalTime->setText(time);
 }
 
-void Goal::addWork(const QString&workName) {
+void Goal::addWork(const QString &workName) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
     prefix.prefix = GuideData::Work;
@@ -44,7 +58,7 @@ void Goal::addWork(const QString&workName) {
     prefixes.append(prefix);
 
     // work indicator generation
-    QLabel* workIndicator = new QLabel(this);
+    QLabel *workIndicator = new QLabel(this);
     workIndicator->setGeometry(0, size, 90, 40);
     QFont indicatorFont;
     indicatorFont.setPointSize(22);
@@ -57,7 +71,7 @@ void Goal::addWork(const QString&workName) {
     workIndicator->setText(tr("UI_WORKINDICATOR"));
 
     // and now the text
-    QLabel* work = new QLabel(this);
+    QLabel *work = new QLabel(this);
     work->setGeometry(QRect(90, size, 890, 40));
     QFont workFont;
     workFont.setPointSize(12);
@@ -72,7 +86,7 @@ void Goal::addWork(const QString&workName) {
     size += 40;
 }
 
-void Goal::addWatch(const QString&watchName) {
+void Goal::addWatch(const QString &watchName) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
     prefix.prefix = GuideData::Watch;
@@ -80,21 +94,21 @@ void Goal::addWatch(const QString&watchName) {
     prefixes.append(prefix);
 
     // watch indicator generation
-    QLabel* watchIndicator = new QLabel(this);
+    QLabel *watchIndicator = new QLabel(this);
     watchIndicator->setGeometry(0, size, 90, 40);
     QFont indicatorFont;
     indicatorFont.setPointSize(22);
     indicatorFont.setBold(true);
     watchIndicator->setFont(indicatorFont);
     watchIndicator->setStyleSheet(
-        QString::fromUtf8("background-color:rgb(111, 168, 220);color : white;border-color : white;"));
+            QString::fromUtf8("background-color:rgb(111, 168, 220);color : white;border-color : white;"));
     watchIndicator->setFrameShape(QFrame::Box);
     watchIndicator->setLineWidth(3);
     watchIndicator->setAlignment(Qt::AlignCenter);
     watchIndicator->setText(tr("UI_WATCHINDICATOR"));
 
     // and now the text
-    QLabel* watch = new QLabel(this);
+    QLabel *watch = new QLabel(this);
     watch->setGeometry(QRect(90, size, 890, 40));
     QFont workFont;
     workFont.setPointSize(12);
@@ -109,7 +123,7 @@ void Goal::addWatch(const QString&watchName) {
     size += 40;
 }
 
-void Goal::addRead(const QString&readName) {
+void Goal::addRead(const QString &readName) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
     prefix.prefix = GuideData::Read;
@@ -118,21 +132,21 @@ void Goal::addRead(const QString&readName) {
 
 
     // Read indicator generation
-    QLabel* readIndicator = new QLabel(this);
+    QLabel *readIndicator = new QLabel(this);
     readIndicator->setGeometry(0, size, 90, 40);
     QFont indicatorFont;
     indicatorFont.setPointSize(22);
     indicatorFont.setBold(true);
     readIndicator->setFont(indicatorFont);
     readIndicator->setStyleSheet(
-        QString::fromUtf8("background-color:rgb(255, 217, 102);color : white;border-color : white;"));
+            QString::fromUtf8("background-color:rgb(255, 217, 102);color : white;border-color : white;"));
     readIndicator->setFrameShape(QFrame::Box);
     readIndicator->setLineWidth(3);
     readIndicator->setAlignment(Qt::AlignCenter);
     readIndicator->setText(tr("UI_READINDICATOR"));
 
     // and now the text
-    QLabel* read = new QLabel(this);
+    QLabel *read = new QLabel(this);
     read->setGeometry(QRect(90, size, 890, 40));
     QFont workFont;
     workFont.setPointSize(12);
@@ -147,7 +161,7 @@ void Goal::addRead(const QString&readName) {
     size += 40;
 }
 
-void Goal::addProcess(const QString&processName) {
+void Goal::addProcess(const QString &processName) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
     prefix.prefix = GuideData::Process;
@@ -155,21 +169,21 @@ void Goal::addProcess(const QString&processName) {
     prefixes.append(prefix);
 
     // Process indicator generation
-    QLabel* processIndicator = new QLabel(this);
+    QLabel *processIndicator = new QLabel(this);
     processIndicator->setGeometry(0, size, 90, 40);
     QFont indicatorFont;
     indicatorFont.setPointSize(22);
     indicatorFont.setBold(true);
     processIndicator->setFont(indicatorFont);
     processIndicator->setStyleSheet(
-        QString::fromUtf8("background-color: rgb(142, 124, 195);color : white;border-color : white;"));
+            QString::fromUtf8("background-color: rgb(142, 124, 195);color : white;border-color : white;"));
     processIndicator->setFrameShape(QFrame::Box);
     processIndicator->setLineWidth(3);
     processIndicator->setAlignment(Qt::AlignCenter);
     processIndicator->setText(tr("UI_PROCESSINDICATOR"));
 
     // and now the text
-    QLabel* process = new QLabel(this);
+    QLabel *process = new QLabel(this);
     process->setGeometry(QRect(90, size, 890, 40));
     QFont workFont;
     workFont.setPointSize(12);
@@ -184,49 +198,44 @@ void Goal::addProcess(const QString&processName) {
     size += 40;
 }
 
-void Goal::setWeek(const QString&week) {
+void Goal::setWeek(const QString &week) {
     ui->week->setText(week);
 }
 
 void Goal::finalise() {
     ui->week->setGeometry(1090, 0, 100, size);
     ui->progressSlider->setGeometry(983, 3, 104, size - 6);
+    ui->progressBackground->setGeometry(983, 3, 104, size - 6);
 }
 
-void Goal::setProgress(const QString&progress) {
-    int progressINT = progress.toInt();
-    switch (progressINT) {
+void Goal::setProgress(int progress) {
+    switch (progress) {
         case 2:
             ui->progressSlider->setStyleSheet("background-color: rgb(52, 168, 83);");
+            ui->progressBackground->setStyleSheet(
+                    "background-color: rgb(52, 168, 83);border-color: white;color : white;");
             break;
         case 1:
             ui->progressSlider->setStyleSheet("background-color: rgb(255, 153, 0);");
+            ui->progressBackground->setStyleSheet(
+                    "background-color: rgb(255, 153, 0);border-color: white;color : white;");
             break;
         case 0:
             ui->progressSlider->setStyleSheet("background-color: rgb(234, 67, 53);");
+            ui->progressBackground->setStyleSheet(
+                    "background-color: rgb(234, 67, 53);border-color: white;color : white;");
             break;
         default:
             ui->progressSlider->setStyleSheet("background-color: rgb(8, 73, 149);");
+            ui->progressBackground->setStyleSheet(
+                    "background-color: rgb(8, 73, 149);border-color: white;color : white;");
             break;
     }
-    ui->progressSlider->setValue(progressINT);
+    ui->progressSlider->setValue(progress);
 }
 
 void Goal::on_progressSlider_sliderMoved(int newValue) {
-    switch (newValue) {
-        case 2:
-            ui->progressSlider->setStyleSheet("background-color: rgb(52, 168, 83);");
-            break;
-        case 1:
-            ui->progressSlider->setStyleSheet("background-color: rgb(255, 153, 0);");
-            break;
-        case 0:
-            ui->progressSlider->setStyleSheet("background-color: rgb(234, 67, 53);");
-            break;
-        default:
-            ui->progressSlider->setStyleSheet("background-color: rgb(8, 73, 149);");
-            break;
-    }
+    setProgress(newValue);
 }
 
 GuideData::GuideGoals Goal::getGoal() {

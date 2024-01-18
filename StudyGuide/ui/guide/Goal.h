@@ -44,7 +44,11 @@ public:
 
     void addProcess(const QString&processName);
 
-    void setProgress(const QString&progressValue);
+    void setProgress(int progress);
+
+    void setProgress(const QString&progress){
+        setProgress(progress.toInt());
+    }
 
     void finalise();
 

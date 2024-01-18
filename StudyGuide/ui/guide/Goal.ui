@@ -198,6 +198,40 @@
     <enum>QSlider::TicksBothSides</enum>
    </property>
   </widget>
+  <widget class="QLabel" name="progressBackground">
+   <property name="geometry">
+    <rect>
+     <x>983</x>
+     <y>3</y>
+     <width>104</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="mouseTracking">
+    <bool>true</bool>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(8, 73, 149);color : white;border-color : white;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::NoFrame</enum>
+   </property>
+   <property name="lineWidth">
+    <number>0</number>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <zorder>progressBackground</zorder>
+  <zorder>leraningGoal</zorder>
+  <zorder>goalName</zorder>
+  <zorder>goalTime</zorder>
+  <zorder>week</zorder>
+  <zorder>progressSlider</zorder>
  </widget>
  <resources/>
  <connections/>
