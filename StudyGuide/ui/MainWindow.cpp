@@ -68,7 +68,7 @@ void MainWindow::on_actionOpen_File_triggered() {
                                                 (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
                                                  "/open guides")).toString();
 
-        if (copyToDestination.mkdir(".")) {
+        if (copyToDestination.mkpath(".")) {
             for (QFile fileToCopy: files) {
                 QFileInfo fileInfo(fileToCopy);
                 if (!copyToDestination.exists(fileInfo.fileName())) {
@@ -83,6 +83,8 @@ void MainWindow::on_actionOpen_File_triggered() {
                     qWarning() << "File already copied over.";
                 loadGuide->increaseProgress();
             }
+        } else{
+            qCritical() << "Failed to create auto open dir.";
         }
     }
     delete loadGuide;
