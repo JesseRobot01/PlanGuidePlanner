@@ -77,7 +77,7 @@ Application::Application(int &argc, char **argv) : QApplication(argc, argv) {
 
     logFile = std::unique_ptr<QFile>(new QFile(logsDir.path() + "/Log" + QString::number(latestLog + 1) + ".txt"));
     if (!logFile->open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate))
-        qFatal() << "Can't open log file!";
+        qFatal("Can't open log file!");
 
     qInstallMessageHandler(messageHandler);
 
