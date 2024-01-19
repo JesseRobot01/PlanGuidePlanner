@@ -16,8 +16,8 @@
 #include "dialogs/RestartDialog.h"
 
 
-PreferenceWindow::PreferenceWindow(QWidget* parent)
-    : QDialog(parent), ui(new Ui::PreferenceWindow) {
+PreferenceWindow::PreferenceWindow(QWidget *parent)
+        : QDialog(parent), ui(new Ui::PreferenceWindow) {
     ui->setupUi(this);
 
     ui->languageSelector->addItem(tr("English"), "en");
@@ -39,11 +39,11 @@ void PreferenceWindow::loadSettings() {
     ui->autoSaveDir->setText(settings.value("AutoSaveDir",
                                             (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
                                              "/open guides")).
-        toString());
+            toString());
     ui->autoOpenDir->setText(settings.value("AutoOpenDir",
                                             (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
                                              "/open guides")).
-        toString());
+            toString());
 
 
     ui->copyNewFilesCheckBox->setChecked(settings.value("AutoCopyGuide", "1").toBool());
@@ -56,6 +56,9 @@ void PreferenceWindow::loadSettings() {
         ui->autoOpenDir->setEnabled(false);
         ui->copyNewFilesCheckBox->setEnabled(false);
     }
+    ui->logsDirectory->setText(settings.value("LogsDir",
+                                              (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
+                                               "/logs")).toString());
 }
 
 
@@ -67,6 +70,7 @@ void PreferenceWindow::saveSettings() {
     settings.setValue("AutoOpen", ui->useAutoOpenCheck->isChecked());
     settings.setValue("AutoSaveDir", ui->autoSaveDir->text());
     settings.setValue("AutoOpenDir", ui->autoOpenDir->text());
+    settings.setValue("LogsDir", ui->logsDirectory->text());
 
     settings.setValue("AutoCopyGuide", ui->copyNewFilesCheckBox->isChecked());
 }
@@ -74,7 +78,7 @@ void PreferenceWindow::saveSettings() {
 void PreferenceWindow::accept() {
     saveSettings();
     delete this;
-    RestartDialog* restartDialog = new RestartDialog();
+    RestartDialog *restartDialog = new RestartDialog();
     restartDialog->show();
 }
 
@@ -99,18 +103,27 @@ void PreferenceWindow::on_clearDirButton_pressed() {
     QDir autoOpenDir(settings.value("AutoOpenDir",
                                     (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
                                      "/open guides")).toString());
+    QDir logsDir(settings.value("LogsDir",
+                                (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
+                                 "/logs")).toString());
 
     if (autoSaveDir.exists()) {
         if (autoSaveDir.removeRecursively())
-            qDebug() << "Succesfully cleared the auto save dir.";
+            qDebug() << "Successfully cleared the auto save dir.";
         else
             qWarning() << "Failed to clear the auto save dir.";
     }
     if (autoSaveDir.exists()) {
         if (autoOpenDir.removeRecursively())
-            qDebug() << "Succesfully cleared the auto open dir.";
+            qDebug() << "Successfully cleared the auto open dir.";
         else
             qWarning() << "Failed to clear the auto open dir.";
+    }
+    if (logsDir.exists()) {
+        if (logsDir.removeRecursively())
+            qDebug() << "Successfully cleared the logs dir";
+        else
+            qWarning() << "Failed to clear the logs dir.";
     }
 }
 

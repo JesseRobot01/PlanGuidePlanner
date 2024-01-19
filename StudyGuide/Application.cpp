@@ -67,8 +67,8 @@ Application::Application(int &argc, char **argv) : QApplication(argc, argv) {
             " "
             "%{message}");
 
-    QDir logsDir(settings.value("logDir", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
-                                          "/logs").toString());
+    QDir logsDir(settings.value("logsDir", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
+                                           "/logs").toString());
     if (!logsDir.exists())
         logsDir.mkpath(".");
 
