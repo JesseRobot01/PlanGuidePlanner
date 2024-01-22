@@ -110,7 +110,7 @@ Guide::~Guide() {
 }
 
 
-void Guide::addIndex(Index *index) {
+void Guide::addIndex(Index* index) {
     indexes.append(index);
     objectOrder.append(GuideData::Index);
     index->setGeometry(30, size, 1240, index->size + 5);
@@ -118,7 +118,7 @@ void Guide::addIndex(Index *index) {
     resize(1285, size);
 }
 
-void Guide::addTest(Test *test) {
+void Guide::addTest(Test* test) {
     tests.append(test);
     objectOrder.append(GuideData::Test);
     test->setGeometry(50, size, 1260, test->size);
@@ -126,7 +126,7 @@ void Guide::addTest(Test *test) {
     resize(1285, size);
 }
 
-void Guide::addReport(Report *report) {
+void Guide::addReport(Report* report) {
     reports.append(report);
     objectOrder.append(GuideData::Report);
     report->setGeometry(30, size, 1240, report->size + 5);
@@ -134,7 +134,7 @@ void Guide::addReport(Report *report) {
     resize(1285, size);
 }
 
-void Guide::setName(const QString &nameE) {
+void Guide::setName(const QString&nameE) {
     name = nameE;
     ui->subject_name->setText(name);
 }
@@ -143,11 +143,11 @@ void Guide::setInfo(const QString&info) {
     ui->info->setText(info);
 }
 
-void Guide::setPeriod(const QString &period) {
+void Guide::setPeriod(const QString&period) {
     ui->period_number->setText(period);
 }
 
-void Guide::setShortName(const QString &shortNameE) {
+void Guide::setShortName(const QString&shortNameE) {
     shortName = shortNameE;
 }
 
@@ -164,19 +164,19 @@ GuideData::Data Guide::getGuide() {
 
     for (GuideData::ObjectTypes type: objectOrder) {
         if (type == GuideData::Index) {
-            Index &index = *indexes.at(currentIndex);
+            Index&index = *indexes.at(currentIndex);
 
             finalGuide.objects.append(index.getGuideObject());
             currentIndex++;
         }
         if (type == GuideData::Test) {
-            Test &test = *tests.at(currentTest);
+            Test&test = *tests.at(currentTest);
 
             finalGuide.objects.append(test.getGuideobject());
             currentTest++;
         }
         if (type == GuideData::Report) {
-            Report &report = *reports.at(currentReport);
+            Report&report = *reports.at(currentReport);
 
             finalGuide.objects.append(report.getGuideobject());
             currentReport++;
