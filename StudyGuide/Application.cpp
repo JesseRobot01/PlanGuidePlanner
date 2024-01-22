@@ -6,8 +6,7 @@
 
 #include <iostream>
 #include <thread>
-#include <QProcess>
-#include <QCommandLineParser>
+#include "config.h"
 
 #include "XmlParser.h"
 #include "ui/dialogs/LoadGuide.h"
@@ -80,6 +79,9 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
         qFatal("Can't open log file!");
 
     qInstallMessageHandler(messageHandler);
+    // Logger is installed, so let's put the version in it!
+    qDebug() << "Version:" << version;
+
 
     // themes
     {
