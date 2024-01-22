@@ -4,15 +4,37 @@
 
 #include "Goal.h"
 #include "ui_Goal.h"
+#include "themes/GuidePalette.h"
 
 Goal::Goal(QWidget *parent) : QWidget(parent), ui(new Ui::Goal) {
     ui->setupUi(this);
-    ui->progressSlider->setStyleSheet("background-color: rgb(234, 67, 53);");
-    ui->progressBackground->setStyleSheet("background-color: rgb(234, 67, 53); border-color:white;color : white;");
+    GuidePalette palette;
+    QString defaultSlider = QString::fromLatin1("background-color:%1;").arg(
+            palette.getColor(GuidePalette::Progress_NotStarted).name());
+
+    ui->progressSlider->setStyleSheet(defaultSlider);
+    ui->progressBackground->setStyleSheet(defaultSlider);
     ui->progressSlider->installEventFilter(this);
     ui->progressBackground->installEventFilter(this);
     ui->progressBackground->setAttribute(Qt::WA_Hover);
     ui->progressSlider->hide();
+
+    updateStyle();
+}
+
+void Goal::updateStyle() {
+    GuidePalette palette;
+    QString headerStyle =
+            QString::fromLatin1(
+                    "background-color: %1; border-width: 3px; border-style: solid; border-color:%2;color:%3")
+                    .arg(palette.getColor(GuidePalette::HeaderBackground).name())
+                    .arg(palette.color(QPalette::Base).name())
+                    .arg(palette.getColor(GuidePalette::HeaderText).name());
+
+    ui->goalName->setStyleSheet(headerStyle);
+    ui->goalTime->setStyleSheet(headerStyle);
+    ui->leraningGoal->setStyleSheet(headerStyle);
+    ui->week->setStyleSheet(headerStyle);
 }
 
 // disable scrolling on scrollwheel
@@ -53,9 +75,16 @@ void Goal::setTime(const QString &time) {
 void Goal::addWork(const QString &workName) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
+    GuidePalette palette;
     prefix.prefix = GuideData::Work;
     prefix.prefixText = workName;
     prefixes.append(prefix);
+
+    QString indicatorStyle = QString::fromLatin1(
+            "background-color:%1; border-width:3px; border-style:solid; border-color:%2;color:%3")
+            .arg(palette.getColor(GuidePalette::WorkIndicatorBackground).name())
+            .arg(palette.color(QPalette::Base).name())
+            .arg(palette.getColor(GuidePalette::WorkIndicatorText).name());
 
     // work indicator generation
     QLabel *workIndicator = new QLabel(this);
@@ -64,7 +93,7 @@ void Goal::addWork(const QString &workName) {
     indicatorFont.setPointSize(22);
     indicatorFont.setBold(true);
     workIndicator->setFont(indicatorFont);
-    workIndicator->setStyleSheet("background-color:rgb(147, 196, 125);color : white;border-color : white;");
+    workIndicator->setStyleSheet(indicatorStyle);
     workIndicator->setFrameShape(QFrame::Box);
     workIndicator->setLineWidth(3);
     workIndicator->setAlignment(Qt::AlignCenter);
@@ -77,7 +106,6 @@ void Goal::addWork(const QString &workName) {
     workFont.setPointSize(12);
     workFont.setBold(false);
     work->setFont(workFont);
-    work->setStyleSheet(QString::fromUtf8("border-color : white;"));
     work->setFrameShape(QFrame::NoFrame);
     work->setLineWidth(3);
     work->setAlignment(Qt::AlignCenter);
@@ -89,6 +117,14 @@ void Goal::addWork(const QString &workName) {
 void Goal::addWatch(const QString &watchName) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
+    GuidePalette palette;
+
+    QString indicatorStyle = QString::fromLatin1(
+            "background-color:%1; border-width:3px; border-style:solid; border-color:%2;color:%3")
+            .arg(palette.getColor(GuidePalette::WatchIndicatorBackground).name())
+            .arg(palette.color(QPalette::Base).name())
+            .arg(palette.getColor(GuidePalette::WatchIndicatorText).name());
+
     prefix.prefix = GuideData::Watch;
     prefix.prefixText = watchName;
     prefixes.append(prefix);
@@ -100,8 +136,7 @@ void Goal::addWatch(const QString &watchName) {
     indicatorFont.setPointSize(22);
     indicatorFont.setBold(true);
     watchIndicator->setFont(indicatorFont);
-    watchIndicator->setStyleSheet(
-            QString::fromUtf8("background-color:rgb(111, 168, 220);color : white;border-color : white;"));
+    watchIndicator->setStyleSheet(indicatorStyle);
     watchIndicator->setFrameShape(QFrame::Box);
     watchIndicator->setLineWidth(3);
     watchIndicator->setAlignment(Qt::AlignCenter);
@@ -114,7 +149,6 @@ void Goal::addWatch(const QString &watchName) {
     workFont.setPointSize(12);
     workFont.setBold(false);
     watch->setFont(workFont);
-    watch->setStyleSheet(QString::fromUtf8("border-color : white;"));
     watch->setFrameShape(QFrame::NoFrame);
     watch->setLineWidth(3);
     watch->setAlignment(Qt::AlignCenter);
@@ -126,9 +160,16 @@ void Goal::addWatch(const QString &watchName) {
 void Goal::addRead(const QString &readName) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
+    GuidePalette palette;
     prefix.prefix = GuideData::Read;
     prefix.prefixText = readName;
     prefixes.append(prefix);
+
+    QString indicatorStyle = QString::fromLatin1(
+            "background-color:%1; border-width:3px; border-style:solid; border-color:%2; color:%3;")
+            .arg(palette.getColor(GuidePalette::ReadIndicatorBackground).name())
+            .arg(palette.color(QPalette::Base).name())
+            .arg(palette.getColor(GuidePalette::ReadIndicatorText).name());
 
 
     // Read indicator generation
@@ -138,8 +179,7 @@ void Goal::addRead(const QString &readName) {
     indicatorFont.setPointSize(22);
     indicatorFont.setBold(true);
     readIndicator->setFont(indicatorFont);
-    readIndicator->setStyleSheet(
-            QString::fromUtf8("background-color:rgb(255, 217, 102);color : white;border-color : white;"));
+    readIndicator->setStyleSheet(indicatorStyle);
     readIndicator->setFrameShape(QFrame::Box);
     readIndicator->setLineWidth(3);
     readIndicator->setAlignment(Qt::AlignCenter);
@@ -152,7 +192,6 @@ void Goal::addRead(const QString &readName) {
     workFont.setPointSize(12);
     workFont.setBold(false);
     read->setFont(workFont);
-    read->setStyleSheet(QString::fromUtf8("border-color : white;"));
     read->setFrameShape(QFrame::NoFrame);
     read->setLineWidth(3);
     read->setAlignment(Qt::AlignCenter);
@@ -164,9 +203,16 @@ void Goal::addRead(const QString &readName) {
 void Goal::addProcess(const QString &processName) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
+    GuidePalette palette;
     prefix.prefix = GuideData::Process;
     prefix.prefixText = processName;
     prefixes.append(prefix);
+
+    QString indicatorStyle = QString::fromLatin1(
+            "background-color:%1; border-width:3px; border-style:solid; border-color:%2;color:%3")
+            .arg(palette.getColor(GuidePalette::ProcessIndicatorBackground).name())
+            .arg(palette.color(QPalette::Base).name())
+            .arg(palette.getColor(GuidePalette::ProcessIndicatorText).name());
 
     // Process indicator generation
     QLabel *processIndicator = new QLabel(this);
@@ -175,10 +221,7 @@ void Goal::addProcess(const QString &processName) {
     indicatorFont.setPointSize(22);
     indicatorFont.setBold(true);
     processIndicator->setFont(indicatorFont);
-    processIndicator->setStyleSheet(
-            QString::fromUtf8("background-color: rgb(142, 124, 195);color : white;border-color : white;"));
-    processIndicator->setFrameShape(QFrame::Box);
-    processIndicator->setLineWidth(3);
+    processIndicator->setStyleSheet(indicatorStyle);
     processIndicator->setAlignment(Qt::AlignCenter);
     processIndicator->setText(tr("UI_PROCESSINDICATOR"));
 
@@ -189,7 +232,6 @@ void Goal::addProcess(const QString &processName) {
     workFont.setPointSize(12);
     workFont.setBold(false);
     process->setFont(workFont);
-    process->setStyleSheet(QString::fromUtf8("border-color : white;"));
     process->setFrameShape(QFrame::NoFrame);
     process->setLineWidth(3);
     process->setAlignment(Qt::AlignCenter);
@@ -209,26 +251,37 @@ void Goal::finalise() {
 }
 
 void Goal::setProgress(int progress) {
+    QString colour;
+    GuidePalette palette;
+
     switch (progress) {
         case 2:
-            ui->progressSlider->setStyleSheet("background-color: rgb(52, 168, 83);");
-            ui->progressBackground->setStyleSheet(
-                    "background-color: rgb(52, 168, 83);border-color: white;color : white;");
+            colour = QString::fromLatin1("background-color:%1;").arg(
+                    palette.getColor(GuidePalette::Progress_Finished).name());
+
+            ui->progressSlider->setStyleSheet(colour);
+            ui->progressBackground->setStyleSheet(colour);
             break;
         case 1:
-            ui->progressSlider->setStyleSheet("background-color: rgb(255, 153, 0);");
-            ui->progressBackground->setStyleSheet(
-                    "background-color: rgb(255, 153, 0);border-color: white;color : white;");
+            colour = QString::fromLatin1("background-color:%1;").arg(
+                    palette.getColor(GuidePalette::Progress_Working).name());
+
+            ui->progressSlider->setStyleSheet(colour);
+            ui->progressBackground->setStyleSheet(colour);
             break;
         case 0:
-            ui->progressSlider->setStyleSheet("background-color: rgb(234, 67, 53);");
-            ui->progressBackground->setStyleSheet(
-                    "background-color: rgb(234, 67, 53);border-color: white;color : white;");
+            colour = QString::fromLatin1("background-color:%1;").arg(
+                    palette.getColor(GuidePalette::Progress_NotStarted).name());
+
+            ui->progressSlider->setStyleSheet(colour);
+            ui->progressBackground->setStyleSheet(colour);
             break;
         default:
-            ui->progressSlider->setStyleSheet("background-color: rgb(8, 73, 149);");
-            ui->progressBackground->setStyleSheet(
-                    "background-color: rgb(8, 73, 149);border-color: white;color : white;");
+            colour = QString::fromLatin1("background-color:%1;").arg(
+                    palette.getColor(GuidePalette::HeaderBackground).name());
+
+            ui->progressSlider->setStyleSheet(colour);
+            ui->progressBackground->setStyleSheet(colour);
             break;
     }
     ui->progressSlider->setValue(progress);

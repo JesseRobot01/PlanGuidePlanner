@@ -19,7 +19,7 @@
 
 #endif
 
-void messageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg) {
+void messageHandler(QtMsgType type, const QMessageLogContext&context, const QString&msg) {
     static std::mutex loggerMutex;
     const std::lock_guard<std::mutex> lock(loggerMutex); // synchronized, QFile logFile is not thread-safe
 
@@ -32,7 +32,7 @@ void messageHandler(QtMsgType type, const QMessageLogContext &context, const QSt
     fflush(stderr);
 }
 
-Application::Application(int &argc, char **argv) : QApplication(argc, argv) {
+Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
 #ifdef WIN32
     AttachWindowsConsole();
 #endif
@@ -43,8 +43,8 @@ Application::Application(int &argc, char **argv) : QApplication(argc, argv) {
     QCommandLineParser commandLineParser;
 
     commandLineParser.addOptions({
-                                         {{"L", "lang"}, "Sets the language of the application", "lang"}
-                                 }
+            {{"L", "lang"}, "Sets the language of the application", "lang"}
+        }
     );
     commandLineParser.addHelpOption();
 
@@ -55,17 +55,17 @@ Application::Application(int &argc, char **argv) : QApplication(argc, argv) {
     QSettings settings;
 
     qSetMessagePattern(
-            "%{time process}"
-            " "
-            "%{if-debug}DEBUG   %{endif}"
-            "%{if-info}INFO    %{endif}"
-            "%{if-warning}WARNING %{endif}"
-            "%{if-critical}CRITICAL%{endif}"
-            "%{if-fatal}FATAL   %{endif}"
-            " "
-            "|"
-            " "
-            "%{message}");
+        "%{time process}"
+        " "
+        "%{if-debug}DEBUG   %{endif}"
+        "%{if-info}INFO    %{endif}"
+        "%{if-warning}WARNING %{endif}"
+        "%{if-critical}CRITICAL%{endif}"
+        "%{if-fatal}FATAL   %{endif}"
+        " "
+        "|"
+        " "
+        "%{message}");
 
     QDir logsDir(settings.value("logsDir", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
                                            "/logs").toString());
@@ -80,6 +80,51 @@ Application::Application(int &argc, char **argv) : QApplication(argc, argv) {
         qFatal("Can't open log file!");
 
     qInstallMessageHandler(messageHandler);
+
+    // themes
+    {
+        QString currentTheme = settings.value("Theme", "fusion_dark").toString();
+
+        if (currentTheme == "fusion_dark") {
+            setStyle("fusion");
+            QPalette darkPalette;
+            darkPalette.setColor(QPalette::Window, QColor(53, 53, 53));
+            darkPalette.setColor(QPalette::WindowText, Qt::white);
+            darkPalette.setColor(QPalette::Base, QColor(25, 25, 25));
+            darkPalette.setColor(QPalette::AlternateBase, QColor(53, 53, 53));
+            darkPalette.setColor(QPalette::ToolTipBase, Qt::white);
+            darkPalette.setColor(QPalette::ToolTipText, Qt::white);
+            darkPalette.setColor(QPalette::Text, Qt::white);
+            darkPalette.setColor(QPalette::Button, QColor(53, 53, 53));
+            darkPalette.setColor(QPalette::ButtonText, Qt::white);
+            darkPalette.setColor(QPalette::BrightText, Qt::red);
+            darkPalette.setColor(QPalette::Link, QColor(42, 130, 218));
+            darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
+            darkPalette.setColor(QPalette::HighlightedText, Qt::black);
+            setPalette(darkPalette);
+        }
+        if (currentTheme == "fusion_light") {
+            setStyle("fusion");
+            QPalette lightPalette;
+            lightPalette.setColor(QPalette::Window, Qt::white);
+            lightPalette.setColor(QPalette::WindowText, Qt::black);
+            lightPalette.setColor(QPalette::Base, Qt::white);
+            lightPalette.setColor(QPalette::AlternateBase, QColor(240, 240, 240));
+            lightPalette.setColor(QPalette::ToolTipBase, Qt::white);
+            lightPalette.setColor(QPalette::ToolTipText, Qt::black);
+            lightPalette.setColor(QPalette::Text, Qt::black);
+            lightPalette.setColor(QPalette::Button, QColor(240, 240, 240));
+            lightPalette.setColor(QPalette::ButtonText, Qt::black);
+            lightPalette.setColor(QPalette::BrightText, Qt::red);
+            lightPalette.setColor(QPalette::Link, QColor(42, 130, 218));
+            lightPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
+            lightPalette.setColor(QPalette::HighlightedText, Qt::white);
+            setPalette(lightPalette);
+        }
+        if (currentTheme == "system") {
+            // let system decide. So no passing in agruments.
+        }
+    }
 
     translator = new QTranslator();
 
@@ -110,10 +155,10 @@ Application::Application(int &argc, char **argv) : QApplication(argc, argv) {
         if (autoOpenDir.exists() && !autoOpenDir.isEmpty()) {
             QStringList guideFileNames = autoOpenDir.entryList(QDir::Files);
             QStringList guideFiles;
-            LoadGuide *loadGuide = new LoadGuide(nullptr, guideFileNames.count() * 2); // 1 for reading, 1 for opening.
+            LoadGuide* loadGuide = new LoadGuide(nullptr, guideFileNames.count() * 2); // 1 for reading, 1 for opening.
             loadGuide->show();
 
-            for (const QString &GuideFileName: guideFileNames)
+            for (const QString&GuideFileName: guideFileNames)
                 guideFiles.append(autoOpenDir.filePath(GuideFileName));
 
             QVector<GuideData::Data> guides = XmlParser::readXml(guideFiles);
@@ -131,17 +176,19 @@ Application::Application(int &argc, char **argv) : QApplication(argc, argv) {
 Application::~Application() {
 }
 
-void Application::setLanguage(const QString &languageCode) {
+void Application::setLanguage(const QString&languageCode) {
     if (translator->load(":/translations/StudyGuide_" + languageCode + ".qm")) {
         installTranslator(translator);
         qDebug() << "Succesfully loaded translations for" << languageCode;
-    } else {
+    }
+    else {
         qCritical() << "Failed to load translation for" << languageCode;
         qInfo() << "Falling back to default translations.";
 
         if (translator->load(":/translations/StudyGuide_en.qm")) {
             installTranslator(translator);
-        } else {
+        }
+        else {
             qCritical() << "Failed to load translations.";
         }
     }

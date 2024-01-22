@@ -4,23 +4,35 @@
 
 #include "Report.h"
 #include "ui_Report.h"
+#include "themes/GuidePalette.h"
 
-Report::Report(QWidget* parent) : QWidget(parent), ui(new Ui::Report) {
+Report::Report(QWidget *parent) : QWidget(parent), ui(new Ui::Report) {
     ui->setupUi(this);
+    updateStyle();
+
+}
+
+void Report::updateStyle() {
+    GuidePalette palette;
+    QString frameStyle = QString::fromLatin1("background-color: %1;").arg(palette.color(QPalette::Base).name());
+    QString textStyle = QString::fromLatin1("color: %1;").arg(palette.getColor(GuidePalette::ObjectText).name());
+
+    ui->frame->setStyleSheet(frameStyle);
+    ui->report->setStyleSheet(textStyle);
 }
 
 Report::~Report() {
     delete ui;
 }
 
-void Report::addTest(const QString&name, const QString&weight) {
+void Report::addTest(const QString &name, const QString &weight) {
     GuideData::ReportTests test;
     test.name = name;
     test.weight = weight;
     tests.append(test);
 
-    QLabel* testName = new QLabel(ui->frame);
-    QLabel* testWeight = new QLabel(ui->frame);
+    QLabel *testName = new QLabel(ui->frame);
+    QLabel *testWeight = new QLabel(ui->frame);
 
 
     // first the test name
@@ -29,7 +41,6 @@ void Report::addTest(const QString&name, const QString&weight) {
     testNameFont.setPointSize(12);
     testNameFont.setBold(false);
     testName->setFont(testNameFont);
-    testName->setStyleSheet(QString::fromUtf8("color : black;"));
     testName->setFrameShape(QFrame::NoFrame);
     testName->setLineWidth(3);
     testName->setAlignment(Qt::AlignCenter);
@@ -41,7 +52,6 @@ void Report::addTest(const QString&name, const QString&weight) {
     testWeightFont.setPointSize(15);
     testWeightFont.setBold(true);
     testWeight->setFont(testWeightFont);
-    testWeight->setStyleSheet(QString::fromUtf8("color : black;"));
     testWeight->setFrameShape(QFrame::NoFrame);
     testWeight->setLineWidth(3);
     testWeight->setAlignment(Qt::AlignCenter);

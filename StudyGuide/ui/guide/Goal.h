@@ -21,49 +21,52 @@ namespace Ui {
 QT_END_NAMESPACE
 
 class Goal : public QWidget {
-    Q_OBJECT
+Q_OBJECT
 
 public:
-    explicit Goal(QWidget* parent = nullptr);
+    explicit Goal(QWidget *parent = nullptr);
 
     ~Goal() override;
 
-    bool eventFilter(QObject* obj, QEvent* event);
+    bool eventFilter(QObject *obj, QEvent *event);
 
-    void addWork(const QString&workName);
+    void addWork(const QString &workName);
 
-    void setName(const QString&name);
+    void setName(const QString &name);
 
-    void setGoalNumber(const QString&goalNumber);
+    void setGoalNumber(const QString &goalNumber);
 
-    void setTime(const QString&time);
+    void setTime(const QString &time);
 
-    void addWatch(const QString&watchName);
+    void addWatch(const QString &watchName);
 
-    void addRead(const QString&readName);
+    void addRead(const QString &readName);
 
-    void addProcess(const QString&processName);
+    void addProcess(const QString &processName);
 
     void setProgress(int progress);
 
-    void setProgress(const QString&progress){
+    void setProgress(const QString &progress) {
         setProgress(progress.toInt());
     }
 
     void finalise();
 
-    void setWeek(const QString&week);
+    void setWeek(const QString &week);
 
     GuideData::GuideGoals getGoal();
 
     int size = 40;
 
 private slots:
+
     void on_progressSlider_sliderMoved(int newValue);
 
 private:
-    Ui::Goal* ui;
+    Ui::Goal *ui;
     QVector<GuideData::GuideGoalPrefixes> prefixes;
+
+    void updateStyle();
 };
 
 

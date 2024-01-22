@@ -1,177 +1,180 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Index</class>
- <widget class="QWidget" name="Index">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>1240</width>
-    <height>100</height>
-   </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Index</string>
-  </property>
-  <widget class="QFrame" name="Frame">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1240</width>
-     <height>100</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: white;</string>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::WinPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
-   </property>
-   <widget class="QLabel" name="subjectIndex">
-    <property name="geometry">
-     <rect>
-      <x>-2</x>
-      <y>5</y>
-      <width>1240</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>23</pointsize>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color:rgb(248, 122, 44)</string>
-    </property>
-    <property name="text">
-     <string>Subject Index</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="wordWrap">
-     <bool>false</bool>
-    </property>
-    <property name="textInteractionFlags">
-     <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="time">
-    <property name="geometry">
-     <rect>
-      <x>920</x>
-      <y>60</y>
-      <width>80</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>18</pointsize>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(8, 73, 149);
-color : white;
-border-color : white;</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Box</enum>
-    </property>
-    <property name="lineWidth">
-     <number>3</number>
-    </property>
-    <property name="text">
-     <string>Time</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="textInteractionFlags">
-     <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="done">
-    <property name="geometry">
-     <rect>
-      <x>1000</x>
-      <y>60</y>
-      <width>110</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>18</pointsize>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(8, 73, 149);
-color : white;
-border-color : white;</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Box</enum>
-    </property>
-    <property name="lineWidth">
-     <number>3</number>
-    </property>
-    <property name="text">
-     <string>Done</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="textInteractionFlags">
-     <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="Week">
-    <property name="geometry">
-     <rect>
-      <x>1110</x>
-      <y>60</y>
-      <width>100</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>18</pointsize>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(8, 73, 149);
-color : white;
-border-color : white;</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Box</enum>
-    </property>
-    <property name="lineWidth">
-     <number>3</number>
-    </property>
-    <property name="text">
-     <string>Week</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="textInteractionFlags">
-     <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-    </property>
-   </widget>
-  </widget>
- </widget>
- <resources/>
- <connections/>
+    <class>Index</class>
+    <widget class="QWidget" name="Index">
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>1240</width>
+                <height>100</height>
+            </rect>
+        </property>
+        <property name="windowTitle">
+            <string>Index</string>
+        </property>
+        <widget class="QFrame" name="frame">
+            <property name="geometry">
+                <rect>
+                    <x>0</x>
+                    <y>0</y>
+                    <width>1240</width>
+                    <height>100</height>
+                </rect>
+            </property>
+            <property name="styleSheet">
+                <string notr="true">background-color: white;</string>
+            </property>
+            <property name="frameShape">
+                <enum>QFrame::WinPanel</enum>
+            </property>
+            <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+            </property>
+            <widget class="QLabel" name="subjectIndex">
+                <property name="geometry">
+                    <rect>
+                        <x>-2</x>
+                        <y>5</y>
+                        <width>1240</width>
+                        <height>50</height>
+                    </rect>
+                </property>
+                <property name="font">
+                    <font>
+                        <pointsize>23</pointsize>
+                        <bold>true</bold>
+                    </font>
+                </property>
+                <property name="styleSheet">
+                    <string notr="true">color:rgb(248, 122, 44)</string>
+                </property>
+                <property name="text">
+                    <string>Subject Index</string>
+                </property>
+                <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                </property>
+                <property name="wordWrap">
+                    <bool>false</bool>
+                </property>
+                <property name="textInteractionFlags">
+                    <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+                </property>
+            </widget>
+            <widget class="QLabel" name="time">
+                <property name="geometry">
+                    <rect>
+                        <x>920</x>
+                        <y>60</y>
+                        <width>80</width>
+                        <height>40</height>
+                    </rect>
+                </property>
+                <property name="font">
+                    <font>
+                        <pointsize>18</pointsize>
+                        <bold>true</bold>
+                    </font>
+                </property>
+                <property name="styleSheet">
+                    <string notr="true">background-color: rgb(8, 73, 149);
+                        color : white;
+                        border-color : white;
+                    </string>
+                </property>
+                <property name="frameShape">
+                    <enum>QFrame::Box</enum>
+                </property>
+                <property name="lineWidth">
+                    <number>3</number>
+                </property>
+                <property name="text">
+                    <string>Time</string>
+                </property>
+                <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                </property>
+                <property name="textInteractionFlags">
+                    <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+                </property>
+            </widget>
+            <widget class="QLabel" name="done">
+                <property name="geometry">
+                    <rect>
+                        <x>1000</x>
+                        <y>60</y>
+                        <width>110</width>
+                        <height>40</height>
+                    </rect>
+                </property>
+                <property name="font">
+                    <font>
+                        <pointsize>18</pointsize>
+                        <bold>true</bold>
+                    </font>
+                </property>
+                <property name="styleSheet">
+                    <string notr="true">background-color: rgb(8, 73, 149);
+                        color : white;
+                        border-color : white;
+                    </string>
+                </property>
+                <property name="frameShape">
+                    <enum>QFrame::Box</enum>
+                </property>
+                <property name="lineWidth">
+                    <number>3</number>
+                </property>
+                <property name="text">
+                    <string>Done</string>
+                </property>
+                <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                </property>
+                <property name="textInteractionFlags">
+                    <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+                </property>
+            </widget>
+            <widget class="QLabel" name="week">
+                <property name="geometry">
+                    <rect>
+                        <x>1110</x>
+                        <y>60</y>
+                        <width>100</width>
+                        <height>40</height>
+                    </rect>
+                </property>
+                <property name="font">
+                    <font>
+                        <pointsize>18</pointsize>
+                        <bold>true</bold>
+                    </font>
+                </property>
+                <property name="styleSheet">
+                    <string notr="true">background-color: rgb(8, 73, 149);
+                        color : white;
+                        border-color : white;
+                    </string>
+                </property>
+                <property name="frameShape">
+                    <enum>QFrame::Box</enum>
+                </property>
+                <property name="lineWidth">
+                    <number>3</number>
+                </property>
+                <property name="text">
+                    <string>Week</string>
+                </property>
+                <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                </property>
+                <property name="textInteractionFlags">
+                    <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+                </property>
+            </widget>
+        </widget>
+    </widget>
+    <resources/>
+    <connections/>
 </ui>

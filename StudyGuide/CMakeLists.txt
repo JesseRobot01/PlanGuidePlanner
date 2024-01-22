@@ -20,6 +20,8 @@ set(SOURCES main.cpp
         ui/dialogs/LoadGuide.cpp
         ui/dialogs/LoadGuide.h
         guide/GuideData.h
+        themes/GuidePalette.cpp
+        themes/GuidePalette.h
 )
 
 set(UI

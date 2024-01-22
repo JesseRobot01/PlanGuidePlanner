@@ -6,8 +6,8 @@
             <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>449</width>
-                <height>514</height>
+                <width>416</width>
+                <height>482</height>
             </rect>
         </property>
         <property name="sizePolicy">
@@ -55,6 +55,55 @@
                     <property name="movable">
                         <bool>false</bool>
                     </property>
+                    <widget class="QWidget" name="tab">
+                        <attribute name="title">
+                            <string>Appearence</string>
+                        </attribute>
+                        <layout class="QHBoxLayout" name="horizontalLayout">
+                            <item>
+                                <widget class="QScrollArea" name="scrollArea_4">
+                                    <property name="widgetResizable">
+                                        <bool>true</bool>
+                                    </property>
+                                    <widget class="QWidget" name="scrollAreaWidgetContents_4">
+                                        <property name="geometry">
+                                            <rect>
+                                                <x>0</x>
+                                                <y>0</y>
+                                                <width>372</width>
+                                                <height>383</height>
+                                            </rect>
+                                        </property>
+                                        <layout class="QVBoxLayout" name="verticalLayout_2">
+                                            <item>
+                                                <widget class="QLabel" name="label_3">
+                                                    <property name="text">
+                                                        <string>Theme</string>
+                                                    </property>
+                                                </widget>
+                                            </item>
+                                            <item>
+                                                <widget class="QComboBox" name="themes"/>
+                                            </item>
+                                            <item>
+                                                <spacer name="verticalSpacer_4">
+                                                    <property name="orientation">
+                                                        <enum>Qt::Vertical</enum>
+                                                    </property>
+                                                    <property name="sizeHint" stdset="0">
+                                                        <size>
+                                                            <width>20</width>
+                                                            <height>342</height>
+                                                        </size>
+                                                    </property>
+                                                </spacer>
+                                            </item>
+                                        </layout>
+                                    </widget>
+                                </widget>
+                            </item>
+                        </layout>
+                    </widget>
                     <widget class="QWidget" name="tab_3">
                         <attribute name="title">
                             <string>Directories</string>
@@ -76,8 +125,8 @@
                                             <rect>
                                                 <x>0</x>
                                                 <y>0</y>
-                                                <width>405</width>
-                                                <height>415</height>
+                                                <width>372</width>
+                                                <height>383</height>
                                             </rect>
                                         </property>
                                         <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -192,8 +241,8 @@
                                             <rect>
                                                 <x>0</x>
                                                 <y>0</y>
-                                                <width>98</width>
-                                                <height>68</height>
+                                                <width>372</width>
+                                                <height>383</height>
                                             </rect>
                                         </property>
                                         <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -247,8 +296,8 @@
                                             <rect>
                                                 <x>0</x>
                                                 <y>0</y>
-                                                <width>354</width>
-                                                <height>186</height>
+                                                <width>372</width>
+                                                <height>383</height>
                                             </rect>
                                         </property>
                                         <layout class="QVBoxLayout" name="verticalLayout_5">

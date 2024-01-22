@@ -20,14 +20,14 @@ namespace Ui {
 QT_END_NAMESPACE
 
 class Report : public QWidget {
-    Q_OBJECT
+Q_OBJECT
 
 public:
-    explicit Report(QWidget* parent = nullptr);
+    explicit Report(QWidget *parent = nullptr);
 
     ~Report() override;
 
-    void addTest(const QString&name, const QString&weight);
+    void addTest(const QString &name, const QString &weight);
 
     void finalise();
 
@@ -36,8 +36,10 @@ public:
     GuideData::GuideObject getGuideobject();
 
 private:
-    Ui::Report* ui;
+    Ui::Report *ui;
     QVector<GuideData::ReportTests> tests;
+
+    void updateStyle();
 };
 
 

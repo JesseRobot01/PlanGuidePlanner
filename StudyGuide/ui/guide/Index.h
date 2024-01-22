@@ -22,14 +22,14 @@ namespace Ui {
 QT_END_NAMESPACE
 
 class Index : public QWidget {
-    Q_OBJECT
+Q_OBJECT
 
 public:
-    explicit Index(QWidget* parent = nullptr);
+    explicit Index(QWidget *parent = nullptr);
 
     ~Index() override;
 
-    void addGoal(Goal* goal);
+    void addGoal(Goal *goal);
 
     void finalise();
 
@@ -38,9 +38,11 @@ public:
     GuideData::GuideObject getGuideObject();
 
 private:
-    Ui::Index* ui;
+    Ui::Index *ui;
 
     QVector<Goal *> goals;
+
+    void updateStyle();
 };
 
 

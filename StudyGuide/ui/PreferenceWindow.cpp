@@ -16,12 +16,20 @@
 #include "dialogs/RestartDialog.h"
 
 
-PreferenceWindow::PreferenceWindow(QWidget *parent)
-        : QDialog(parent), ui(new Ui::PreferenceWindow) {
+PreferenceWindow::PreferenceWindow(QWidget* parent)
+    : QDialog(parent), ui(new Ui::PreferenceWindow) {
     ui->setupUi(this);
 
     ui->languageSelector->addItem(tr("English"), "en");
     ui->languageSelector->addItem(tr("Dutch"), "nl");
+
+    ui->themes->addItem(tr("Fusion Dark"), "fusion_dark");
+    ui->themes->addItem(tr("Fusion Light"), "fusion_light");
+
+#ifdef WIN32
+    // on linux it's already fusion.
+    ui->themes->addItem(tr("System"), "system");
+#endif
 
     loadSettings();
 }
@@ -35,15 +43,16 @@ void PreferenceWindow::loadSettings() {
 
     // Qt, why did you made this part so wierd, just add a SetCurrentData() function!
     ui->languageSelector->setCurrentIndex(ui->languageSelector->findData(settings.value("Lang", "en")));
+    ui->themes->setCurrentIndex(ui->themes->findData(settings.value("Theme", "fusion_dark")));
 
     ui->autoSaveDir->setText(settings.value("AutoSaveDir",
                                             (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
                                              "/open guides")).
-            toString());
+        toString());
     ui->autoOpenDir->setText(settings.value("AutoOpenDir",
                                             (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
                                              "/open guides")).
-            toString());
+        toString());
 
 
     ui->copyNewFilesCheckBox->setChecked(settings.value("AutoCopyGuide", "1").toBool());
@@ -65,6 +74,7 @@ void PreferenceWindow::loadSettings() {
 void PreferenceWindow::saveSettings() {
     QSettings settings;
     settings.setValue("Lang", ui->languageSelector->currentData());
+    settings.setValue("Theme", ui->themes->currentData());
 
     settings.setValue("AutoSave", ui->useAutoSaveCheck->isChecked());
     settings.setValue("AutoOpen", ui->useAutoOpenCheck->isChecked());
@@ -78,7 +88,7 @@ void PreferenceWindow::saveSettings() {
 void PreferenceWindow::accept() {
     saveSettings();
     delete this;
-    RestartDialog *restartDialog = new RestartDialog();
+    RestartDialog* restartDialog = new RestartDialog();
     restartDialog->show();
 }
 

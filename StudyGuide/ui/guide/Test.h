@@ -20,20 +20,20 @@ namespace Ui {
 QT_END_NAMESPACE
 
 class Test : public QWidget {
-    Q_OBJECT
+Q_OBJECT
 
 public:
-    explicit Test(QWidget* parent = nullptr);
+    explicit Test(QWidget *parent = nullptr);
 
     ~Test() override;
 
-    void setName(const QString&name);
+    void setName(const QString &name);
 
-    void setShortName(const QString&shortName);
+    void setShortName(const QString &shortName);
 
-    void setInfo(const QString&info);
+    void setInfo(const QString &info);
 
-    void setWeek(const QString&week);
+    void setWeek(const QString &week);
 
     void finalise();
 
@@ -42,7 +42,9 @@ public:
     int size = 80;
 
 private:
-    Ui::Test* ui;
+    Ui::Test *ui;
+
+    void updateStyle();
 };
 
 
