@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+    <class>About</class>
+    <widget class="QWidget" name="About">
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>349</width>
+                <height>424</height>
+            </rect>
+        </property>
+        <property name="windowTitle">
+            <string>About</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+                <widget class="QLabel" name="label">
+                    <property name="font">
+                        <font>
+                            <family>Segoe UI</family>
+                            <pointsize>22</pointsize>
+                            <fontweight>Black</fontweight>
+                        </font>
+                    </property>
+                    <property name="text">
+                        <string>StudyGuide</string>
+                    </property>
+                    <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                    </property>
+                </widget>
+            </item>
+            <item>
+                <widget class="QLabel" name="version">
+                    <property name="text">
+                        <string notr="true">Version</string>
+                    </property>
+                    <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                    </property>
+                </widget>
+            </item>
+            <item>
+                <widget class="Line" name="line">
+                    <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                    </property>
+                </widget>
+            </item>
+            <item>
+                <widget class="QLabel" name="label_3">
+                    <property name="text">
+                        <string>A tool for tracking your progress.</string>
+                    </property>
+                    <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                    </property>
+                </widget>
+            </item>
+            <item>
+                <widget class="QLabel" name="label_2">
+                    <property name="text">
+                        <string notr="true">&lt;a href=&quot;https://github.com/JesseRobot01/StudyGuide&quot;&gt;https://github.com/JesseRobot01/StudyGuide&lt;/a&gt;</string>
+                    </property>
+                    <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="openExternalLinks">
+                        <bool>true</bool>
+                    </property>
+                    <property name="textInteractionFlags">
+                        <set>Qt::LinksAccessibleByMouse</set>
+                    </property>
+                </widget>
+            </item>
+            <item>
+                <widget class="QLabel" name="label_4">
+                    <property name="text">
+                        <string notr="true">© 2023-2024 JesseRobot01</string>
+                    </property>
+                    <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                    </property>
+                </widget>
+            </item>
+            <item>
+                <widget class="Line" name="line_2">
+                    <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                    </property>
+                </widget>
+            </item>
+            <item>
+                <widget class="QLabel" name="date">
+                    <property name="text">
+                        <string notr="true">Build date</string>
+                    </property>
+                    <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                    </property>
+                </widget>
+            </item>
+            <item>
+                <widget class="QLabel" name="commit">
+                    <property name="text">
+                        <string notr="true">Git Commit</string>
+                    </property>
+                    <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                    </property>
+                </widget>
+            </item>
+            <item>
+                <widget class="QLabel" name="tag">
+                    <property name="text">
+                        <string notr="true">Git Tag</string>
+                    </property>
+                    <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                    </property>
+                </widget>
+            </item>
+            <item>
+                <spacer name="verticalSpacer">
+                    <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                        <size>
+                            <width>17</width>
+                            <height>155</height>
+                        </size>
+                    </property>
+                </spacer>
+            </item>
+            <item>
+                <layout class="QHBoxLayout" name="horizontalLayout">
+                    <item>
+                        <widget class="QPushButton" name="aboutQT">
+                            <property name="minimumSize">
+                                <size>
+                                    <width>0</width>
+                                    <height>0</height>
+                                </size>
+                            </property>
+                            <property name="text">
+                                <string>About QT</string>
+                            </property>
+                            <property name="checkable">
+                                <bool>false</bool>
+                            </property>
+                            <property name="autoRepeat">
+                                <bool>false</bool>
+                            </property>
+                            <property name="autoExclusive">
+                                <bool>false</bool>
+                            </property>
+                            <property name="autoDefault">
+                                <bool>false</bool>
+                            </property>
+                            <property name="default">
+                                <bool>true</bool>
+                            </property>
+                            <property name="flat">
+                                <bool>false</bool>
+                            </property>
+                        </widget>
+                    </item>
+                    <item>
+                        <spacer name="horizontalSpacer">
+                            <property name="orientation">
+                                <enum>Qt::Horizontal</enum>
+                            </property>
+                            <property name="sizeHint" stdset="0">
+                                <size>
+                                    <width>40</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                    </item>
+                    <item>
+                        <widget class="QPushButton" name="close">
+                            <property name="text">
+                                <string>Close</string>
+                            </property>
+                        </widget>
+                    </item>
+                </layout>
+            </item>
+        </layout>
+    </widget>
+    <resources/>
+    <connections>
+        <connection>
+            <sender>close</sender>
+            <signal>clicked()</signal>
+            <receiver>About</receiver>
+            <slot>close()</slot>
+            <hints>
+                <hint type="sourcelabel">
+                    <x>301</x>
+                    <y>401</y>
+                </hint>
+                <hint type="destinationlabel">
+                    <x>174</x>
+                    <y>211</y>
+                </hint>
+            </hints>
+        </connection>
+    </connections>
+</ui>

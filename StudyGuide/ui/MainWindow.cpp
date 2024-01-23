@@ -8,6 +8,8 @@
 #include <guide/GuideData.h>
 
 #include "MainWindow.h"
+
+#include "AboutWindow.h"
 #include "ui_MainWindow.h"
 #include "XmlParser.h"
 
@@ -83,7 +85,8 @@ void MainWindow::on_actionOpen_File_triggered() {
                     qWarning() << "File already copied over.";
                 loadGuide->increaseProgress();
             }
-        } else{
+        }
+        else {
             qCritical() << "Failed to create auto open dir.";
         }
     }
@@ -183,4 +186,9 @@ void MainWindow::on_actionSave_Guide_As_triggered() {
     //get the guide;
     GuideData::Data guide = guideToSave->getGuide();
     XmlParser::saveXml(guide, fileToSave);
+}
+
+void MainWindow::on_actionAbout_triggered() {
+    AboutWindow* aboutWindow = new AboutWindow();
+    aboutWindow->show();
 }

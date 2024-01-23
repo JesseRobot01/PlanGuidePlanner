@@ -36,6 +36,9 @@ set(UI
         ui/dialogs/RestartDialog.cpp
         ui/dialogs/RestartDialog.h
         ui/dialogs/RestartDialog.ui
+        ui/AboutWindow.cpp
+        ui/AboutWindow.h
+        ui/About.ui
 
 )
 
@@ -48,11 +51,6 @@ if (DEFINED WIN32)
     set(WIN_SOURCES
             WindowConsole.cpp
             WindowConsole.h)
-endif ()
-
-configure_file(config.h.in ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE_NAME}_autogen/include/config.h @ONLY)
-if (MSVC)
-    configure_file(config.h.in ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE_NAME}_autogen/include_debug/config.h @ONLY) #msvc....
 endif ()
 
 qt_add_executable(${EXECUTABLE_NAME} ${SOURCES} ${UI} ${WIN_SOURCES})
@@ -82,7 +80,7 @@ qt_add_resources(${EXECUTABLE_NAME} translations
 )
 
 
-target_link_libraries(${EXECUTABLE_NAME} PUBLIC Qt::Core Qt::Gui Qt::Widgets)
+target_link_libraries(${EXECUTABLE_NAME} PUBLIC Qt::Core Qt::Gui Qt::Widgets BuildConfig)
 
 
 #The bundle mess!!!

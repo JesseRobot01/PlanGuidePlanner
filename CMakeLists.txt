@@ -36,9 +36,12 @@ execute_process(
         OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
-message("Git tag: ${GIT_TAG}")
+message(STATUS "Git tag: ${GIT_TAG}")
 
-message("Git commit hash: ${GIT_COMMIT_HASH}")
+message(STATUS "Git commit hash: ${GIT_COMMIT_HASH}")
+
+string(TIMESTAMP TODAY "%Y-%m-%d")
+set(STUDYGUIDE_BUILD_DATE "${TODAY}")
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     set(STUDYGUIDE_VERSION "${STUDYGUIDE_VERSION}-${GIT_COMMIT_HASH}")
@@ -74,5 +77,6 @@ if (UNIX)
     set(LIBRARY_DEST_DIR "lib")
 endif ()
 
+add_subdirectory(BuildConfig)
 add_subdirectory(StudyGuide)
 

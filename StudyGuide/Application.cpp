@@ -6,7 +6,7 @@
 
 #include <iostream>
 #include <thread>
-#include "config.h"
+#include "Config.h"
 
 #include "XmlParser.h"
 #include "ui/dialogs/LoadGuide.h"
@@ -80,7 +80,7 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
 
     qInstallMessageHandler(messageHandler);
     // Logger is installed, so let's put the version in it!
-    qDebug() << "Version:" << version;
+    qDebug() << "Version:" << Config.version;
 
 
     // themes
