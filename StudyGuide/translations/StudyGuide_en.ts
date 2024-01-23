@@ -2,24 +2,75 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_GB" sourcelanguage="en_GB">
 <context>
+    <name>About</name>
+    <message>
+        <location filename="../ui/About.ui" line="+14"/>
+        <location/>
+        <source>About</source>
+        <translation>About Study Guide</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <location/>
+        <source>StudyGuide</source>
+        <translation>Study Guide</translation>
+    </message>
+    <message>
+        <location line="+27"/>
+        <location/>
+        <source>A tool for tracking your progress.</source>
+        <translation>A tool for tracking your progress with your study.</translation>
+    </message>
+    <message>
+        <location line="+94"/>
+        <location/>
+        <source>About QT</source>
+        <translation>About QT</translation>
+    </message>
+    <message>
+        <location line="+38"/>
+        <location/>
+        <source>Close</source>
+        <translation>Close</translation>
+    </message>
+</context>
+    <context>
+        <name>AboutWindow</name>
+        <message>
+            <location filename="../ui/AboutWindow.cpp" line="+18"/>
+            <source>Build Date: %1</source>
+            <translation>Build Date: %1</translation>
+        </message>
+        <message>
+            <location line="+6"/>
+            <source>Git commit: %1</source>
+            <translation>Git Commit: %1</translation>
+        </message>
+        <message>
+            <location line="+6"/>
+            <source>Git tag: %1</source>
+            <translation>Git Tag: %1</translation>
+        </message>
+    </context>
+    <context>
     <name>Goal</name>
     <message>
-        <location filename="../ui/guide/Goal.cpp" line="+57"/>
+        <location filename="../ui/guide/Goal.cpp" line="+100"/>
         <source>UI_WORKINDICATOR</source>
         <translation>W</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+43"/>
         <source>UI_WATCHINDICATOR</source>
         <translation>W/L</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+43"/>
         <source>UI_READINDICATOR</source>
         <translation>R</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+40"/>
         <source>UI_PROCESSINDICATOR</source>
         <translation>P</translation>
     </message>
@@ -45,7 +96,7 @@
         <translation>Period</translation>
     </message>
     <message>
-        <location line="+197"/>
+        <location line="+196"/>
         <location/>
         <source>UI_WORKINDICATOR</source>
         <translation>W</translation>
@@ -108,19 +159,19 @@
         <translation>Subject Index</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+40"/>
         <location/>
         <source>Time</source>
         <translation>Time</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+37"/>
         <location/>
         <source>Done</source>
         <translation>Done</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+37"/>
         <location/>
         <source>Week</source>
         <translation>Week</translation>
@@ -156,7 +207,13 @@
         <translation>File</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+10"/>
+        <location/>
+        <source>Help</source>
+        <translation>Help</translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <location/>
         <source>Exit</source>
         <translation>Exit</translation>
@@ -180,14 +237,20 @@
         <translation>Save Guide As</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="+34"/>
-        <location line="+136"/>
+        <location line="+5"/>
+        <location/>
+        <source>About</source>
+        <translation>About Study Guide</translation>
+    </message>
+    <message>
+        <location filename="../ui/MainWindow.cpp" line="+36"/>
+        <location line="+139"/>
         <source>Open StudyGuide</source>
         <translation>Open StudyGuides</translation>
     </message>
     <message>
-        <location line="-134"/>
-        <location line="+137"/>
+        <location line="-137"/>
+        <location line="+140"/>
         <source>XML Files (*.xml);;All Files (*)</source>
         <translation>XML FIles (*.xml);;All files (*)</translation>
     </message>
@@ -203,12 +266,30 @@
     <message>
         <location line="+40"/>
         <location/>
+        <source>Appearence</source>
+        <translation>Appearence</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <location/>
+        <source>Theme</source>
+        <translation>Theme</translation>
+    </message>
+    <message>
+        <location line="+28"/>
+        <location/>
         <source>Directories</source>
         <translation>Directories</translation>
     </message>
     <message>
-        <location line="+30"/>
-        <source>Use Auto Save (Not available ye))</source>
+        <location line="+27"/>
+        <location/>
+        <source>Logs directory</source>
+        <translation>Logs directory</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Use Auto Save (Not available yet)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -310,6 +391,21 @@
         <location line="+1"/>
         <source>Dutch</source>
         <translation>Dutch (Nederlands)</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Fusion Dark</source>
+        <translation>Fusion Dark</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Fusion Light</source>
+        <translation>Fusion Light</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>System</source>
+        <translation>System</translation>
     </message>
 </context>
 <context>

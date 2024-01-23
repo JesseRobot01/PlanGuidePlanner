@@ -2,24 +2,75 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="nl_NL" sourcelanguage="en_GB">
     <context>
+        <name>About</name>
+        <message>
+            <location filename="../ui/About.ui" line="+14"/>
+            <location/>
+            <source>About</source>
+            <translation>Over Studie Wijzer</translation>
+        </message>
+        <message>
+            <location line="+13"/>
+            <location/>
+            <source>StudyGuide</source>
+            <translation>Studie Wijzer</translation>
+        </message>
+        <message>
+            <location line="+27"/>
+            <location/>
+            <source>A tool for tracking your progress.</source>
+            <translation>Een tool voor het volgen van je voortgang met je studie.</translation>
+        </message>
+        <message>
+            <location line="+94"/>
+            <location/>
+            <source>About QT</source>
+            <translation>Over QT</translation>
+        </message>
+        <message>
+            <location line="+38"/>
+            <location/>
+            <source>Close</source>
+            <translation>Sluiten</translation>
+        </message>
+    </context>
+    <context>
+        <name>AboutWindow</name>
+        <message>
+            <location filename="../ui/AboutWindow.cpp" line="+18"/>
+            <source>Build Date: %1</source>
+            <translation>Bouw Datum: %1</translation>
+        </message>
+        <message>
+            <location line="+6"/>
+            <source>Git commit: %1</source>
+            <translation>Git Commit: %1</translation>
+        </message>
+        <message>
+            <location line="+6"/>
+            <source>Git tag: %1</source>
+            <translation>Git Tag: %1</translation>
+        </message>
+    </context>
+    <context>
         <name>Goal</name>
         <message>
-            <location filename="../ui/guide/Goal.cpp" line="+57"/>
+            <location filename="../ui/guide/Goal.cpp" line="+100"/>
             <source>UI_WORKINDICATOR</source>
             <translation>M</translation>
         </message>
         <message>
-            <location line="+37"/>
+            <location line="+43"/>
             <source>UI_WATCHINDICATOR</source>
             <translation>K/L</translation>
         </message>
         <message>
-            <location line="+38"/>
+            <location line="+43"/>
             <source>UI_READINDICATOR</source>
             <translation>L</translation>
         </message>
         <message>
-            <location line="+37"/>
+            <location line="+40"/>
             <source>UI_PROCESSINDICATOR</source>
             <translation>V</translation>
         </message>
@@ -45,7 +96,7 @@
             <translation>Periode</translation>
         </message>
         <message>
-            <location line="+197"/>
+            <location line="+196"/>
             <location/>
             <source>UI_WORKINDICATOR</source>
             <translation>M</translation>
@@ -108,19 +159,19 @@
             <translation>Vakinhoud</translation>
         </message>
         <message>
-            <location line="+39"/>
+            <location line="+40"/>
             <location/>
             <source>Time</source>
             <translation>Tijd</translation>
         </message>
         <message>
-            <location line="+36"/>
+            <location line="+37"/>
             <location/>
             <source>Done</source>
             <translation>Af</translation>
         </message>
         <message>
-            <location line="+36"/>
+            <location line="+37"/>
             <location/>
             <source>Week</source>
             <translation>Week</translation>
@@ -156,7 +207,13 @@
             <translation>Bestand</translation>
         </message>
         <message>
-            <location line="+13"/>
+            <location line="+10"/>
+            <location/>
+            <source>Help</source>
+            <translation>Help</translation>
+        </message>
+        <message>
+            <location line="+10"/>
             <location/>
             <source>Exit</source>
             <translation>Afsluiten</translation>
@@ -180,14 +237,20 @@
             <translation>Wijzer opslaan als</translation>
         </message>
         <message>
-            <location filename="../ui/MainWindow.cpp" line="+34"/>
-            <location line="+136"/>
+            <location line="+5"/>
+            <location/>
+            <source>About</source>
+            <translation>Over Studie Wijzer</translation>
+        </message>
+        <message>
+            <location filename="../ui/MainWindow.cpp" line="+36"/>
+            <location line="+139"/>
             <source>Open StudyGuide</source>
             <translation>Open Studie Wijzers</translation>
         </message>
         <message>
-            <location line="-134"/>
-            <location line="+137"/>
+            <location line="-137"/>
+            <location line="+140"/>
             <source>XML Files (*.xml);;All Files (*)</source>
             <translation>Xml bestanden (*.xml);;Alle Bestanden (*)</translation>
         </message>
@@ -203,12 +266,30 @@
         <message>
             <location line="+40"/>
             <location/>
+            <source>Appearence</source>
+            <translation>Uiterlijk</translation>
+        </message>
+        <message>
+            <location line="+21"/>
+            <location/>
+            <source>Theme</source>
+            <translation>Thema</translation>
+        </message>
+        <message>
+            <location line="+28"/>
+            <location/>
             <source>Directories</source>
             <translation>Mappen</translation>
         </message>
         <message>
-            <location line="+30"/>
-            <source>Use Auto Save (Not available ye))</source>
+            <location line="+27"/>
+            <location/>
+            <source>Logs directory</source>
+            <translation>Log map</translation>
+        </message>
+        <message>
+            <location line="+13"/>
+            <source>Use Auto Save (Not available yet)</source>
             <translation type="unfinished"></translation>
         </message>
         <message>
@@ -312,6 +393,21 @@
             <location line="+1"/>
             <source>Dutch</source>
             <translation>Nederlands (Nederlands)</translation>
+        </message>
+        <message>
+            <location line="+2"/>
+            <source>Fusion Dark</source>
+            <translation>Fusion Donker</translation>
+        </message>
+        <message>
+            <location line="+1"/>
+            <source>Fusion Light</source>
+            <translation>Fusion licht</translation>
+        </message>
+        <message>
+            <location line="+4"/>
+            <source>System</source>
+            <translation>Systeem</translation>
         </message>
     </context>
     <context>
