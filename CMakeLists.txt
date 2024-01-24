@@ -77,6 +77,6 @@ if (UNIX)
     set(LIBRARY_DEST_DIR "lib")
 endif ()
 
-add_subdirectory(BuildConfig)
+add_subdirectory(buildconfig)
 add_subdirectory(StudyGuide)
 
