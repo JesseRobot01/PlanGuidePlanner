@@ -6,7 +6,7 @@
 
 #include "AboutWindow.h"
 #include "ui_About.h"
-#include "config.h"
+#include "Config.h"
 
 
 AboutWindow::AboutWindow(QWidget* parent) : QWidget(parent), ui(new Ui::About) {
