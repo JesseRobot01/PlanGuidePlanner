@@ -30,7 +30,7 @@ public:
 
     bool eventFilter(QObject *obj, QEvent *event);
 
-    void addWork(const QString &workName);
+    void addWork(const QString &workName, const QString&link = "");
 
     void setName(const QString &name);
 
@@ -38,11 +38,11 @@ public:
 
     void setTime(const QString &time);
 
-    void addWatch(const QString &watchName);
+    void addWatch(const QString &watchName, const QString&link = "");
 
-    void addRead(const QString &readName);
+    void addRead(const QString &readName, const QString&link = "");
 
-    void addProcess(const QString &processName);
+    void addProcess(const QString &processName, const QString&link = "");
 
     void setProgress(int progress);
 

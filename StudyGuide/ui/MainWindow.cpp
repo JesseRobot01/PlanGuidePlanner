@@ -120,16 +120,16 @@ void MainWindow::processGuide(GuideData::Data guide) {
                 for (GuideData::GuideGoalPrefixes goalPrefix: goal.prefixes) {
                     switch (goalPrefix.prefix) {
                         case GuideData::Work:
-                            finalGoal->addWork(goalPrefix.prefixText);
+                            finalGoal->addWork(goalPrefix.prefixText,goalPrefix.link);
                             break;
                         case GuideData::Read:
-                            finalGoal->addRead(goalPrefix.prefixText);
+                            finalGoal->addRead(goalPrefix.prefixText,goalPrefix.link);
                             break;
                         case GuideData::Watch:
-                            finalGoal->addWatch(goalPrefix.prefixText);
+                            finalGoal->addWatch(goalPrefix.prefixText,goalPrefix.link);
                             break;
                         case GuideData::Process:
-                            finalGoal->addProcess(goalPrefix.prefixText);
+                            finalGoal->addProcess(goalPrefix.prefixText,goalPrefix.link);
                             break;
                     }
                 }

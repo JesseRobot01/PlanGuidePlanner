@@ -75,16 +75,37 @@ GuideData::Data XmlParser::readXml(QFile* xmlFileP) {
                                         goal.time = xml.readElementText();
                                     }
                                     if (elementName == "work") {
-                                        goal.addWork(xml.readElementText());
+                                        QString link = "";
+                                        for(QXmlStreamAttribute attribute : xml.attributes() )
+                                            if(attribute.name().toString() == "href")
+                                                link = attribute.value().toString();
+
+                                        goal.addWork(xml.readElementText(),link);
                                     }
                                     if (elementName == "watch") {
-                                        goal.addWatch(xml.readElementText());
+                                        QString link = "";
+                                        for(QXmlStreamAttribute attribute : xml.attributes() )
+                                            if(attribute.name().toString() == "href")
+                                                link = attribute.value().toString();
+
+                                        goal.addWatch(xml.readElementText(), link);
                                     }
                                     if (elementName == "read") {
-                                        goal.addRead(xml.readElementText());
+                                        QString link = "";
+                                        for(QXmlStreamAttribute attribute : xml.attributes() )
+                                            if(attribute.name().toString() == "href")
+                                                link = attribute.value().toString();
+
+                                        goal.addRead(xml.readElementText(), link);
                                     }
                                     if (elementName == "process") {
-                                        goal.addProcess(xml.readElementText());
+                                        QString link = "";
+                                        for(QXmlStreamAttribute attribute : xml.attributes() )
+                                            if(attribute.name().toString() == "href")
+                                                link = attribute.value().toString();
+
+                                        
+                                        goal.addProcess(xml.readElementText(),link);
                                     }
                                     if (elementName == "week") {
                                         goal.week = xml.readElementText();
@@ -153,7 +174,6 @@ GuideData::Data XmlParser::readXml(QFile* xmlFileP) {
                     }
                 }
 
-                // emit Application::addGuide(guide);
                 qDebug() << "Finished reading xml file" << xmlFile.fileName();
                 xml.clear();
                 xmlFile.close();

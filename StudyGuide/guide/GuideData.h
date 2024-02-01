@@ -38,6 +38,7 @@ public:
     struct GuideGoalPrefixes {
         PrefixTypes prefix;
         QString prefixText;
+        QString link;
     };
 
     struct ReportTests {
@@ -54,31 +55,35 @@ public:
         QString week;
         QString progress;
 
-        void addWork(const QString&name) {
+        void addWork(const QString&name, const QString&link = "") {
             GuideGoalPrefixes work;
             work.prefix = Work;
             work.prefixText = name;
+            work.link = link;
             prefixes.append(work);
         }
 
-        void addRead(const QString&name) {
+        void addRead(const QString&name, const QString&link = "") {
             GuideGoalPrefixes read;
             read.prefix = Read;
             read.prefixText = name;
+            read.link = link;
             prefixes.append(read);
         }
 
-        void addWatch(const QString&name) {
+        void addWatch(const QString&name, const QString&link = "") {
             GuideGoalPrefixes watch;
             watch.prefix = Watch;
             watch.prefixText = name;
+            watch.link = link;
             prefixes.append(watch);
         }
 
-        void addProcess(const QString&name) {
+        void addProcess(const QString&name, const QString&link = "") {
             GuideGoalPrefixes process;
             process.prefix = Process;
             process.prefixText = name;
+            process.link = link;
             prefixes.append(process);
         }
     };

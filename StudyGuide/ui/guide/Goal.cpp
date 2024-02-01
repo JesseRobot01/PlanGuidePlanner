@@ -72,7 +72,7 @@ void Goal::setTime(const QString &time) {
     ui->goalTime->setText(time);
 }
 
-void Goal::addWork(const QString &workName) {
+void Goal::addWork(const QString &workName, const QString&link) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
     GuidePalette palette;
@@ -109,12 +109,20 @@ void Goal::addWork(const QString &workName) {
     work->setFrameShape(QFrame::NoFrame);
     work->setLineWidth(3);
     work->setAlignment(Qt::AlignCenter);
+
+    if(!link.isEmpty()){
+        QString workText = QString("<a href=\"%2\">%1</a>")
+        .arg(workName)
+        .arg(link);
+        work->setOpenExternalLinks(true);
+        work->setText(workText);
+    } else
     work->setText(workName);
 
     size += 40;
 }
 
-void Goal::addWatch(const QString &watchName) {
+void Goal::addWatch(const QString &watchName, const QString&link) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
     GuidePalette palette;
@@ -152,12 +160,21 @@ void Goal::addWatch(const QString &watchName) {
     watch->setFrameShape(QFrame::NoFrame);
     watch->setLineWidth(3);
     watch->setAlignment(Qt::AlignCenter);
-    watch->setText(watchName);
+
+    if(!link.isEmpty()){
+        QString watchText = QString("<a href=\"%2\">%1</a>")
+                .arg(watchName)
+                .arg(link);
+
+        watch->setOpenExternalLinks(true);
+        watch->setText(watchText);
+    } else
+        watch->setText(watchName);
 
     size += 40;
 }
 
-void Goal::addRead(const QString &readName) {
+void Goal::addRead(const QString &readName, const QString&link) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
     GuidePalette palette;
@@ -195,12 +212,21 @@ void Goal::addRead(const QString &readName) {
     read->setFrameShape(QFrame::NoFrame);
     read->setLineWidth(3);
     read->setAlignment(Qt::AlignCenter);
-    read->setText(readName);
+
+    if(!link.isEmpty()){
+        QString readText = QString("<a href=\"%2\">%1</a>")
+                .arg(readName)
+                .arg(link);
+
+        read->setOpenExternalLinks(true);
+        read->setText(readText);
+    } else
+        read->setText(readName);
 
     size += 40;
 }
 
-void Goal::addProcess(const QString &processName) {
+void Goal::addProcess(const QString &processName, const QString&link) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
     GuidePalette palette;
@@ -235,7 +261,16 @@ void Goal::addProcess(const QString &processName) {
     process->setFrameShape(QFrame::NoFrame);
     process->setLineWidth(3);
     process->setAlignment(Qt::AlignCenter);
-    process->setText(processName);
+
+    if(!link.isEmpty()){
+        QString processText = QString("<a href=\"%2\">%1</a>")
+                .arg(processName)
+                .arg(link);
+
+        process->setOpenExternalLinks(true);
+        process->setText(processText);
+    } else
+        process->setText(processName);
 
     size += 40;
 }
