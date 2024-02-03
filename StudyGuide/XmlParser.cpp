@@ -76,36 +76,36 @@ GuideData::Data XmlParser::readXml(QFile* xmlFileP) {
                                     }
                                     if (elementName == "work") {
                                         QString link = "";
-                                        for(QXmlStreamAttribute attribute : xml.attributes() )
-                                            if(attribute.name().toString() == "href")
+                                        for (QXmlStreamAttribute attribute: xml.attributes())
+                                            if (attribute.name().toString() == "href")
                                                 link = attribute.value().toString();
 
-                                        goal.addWork(xml.readElementText(),link);
+                                        goal.addWork(xml.readElementText(), link);
                                     }
                                     if (elementName == "watch") {
                                         QString link = "";
-                                        for(QXmlStreamAttribute attribute : xml.attributes() )
-                                            if(attribute.name().toString() == "href")
+                                        for (QXmlStreamAttribute attribute: xml.attributes())
+                                            if (attribute.name().toString() == "href")
                                                 link = attribute.value().toString();
 
                                         goal.addWatch(xml.readElementText(), link);
                                     }
                                     if (elementName == "read") {
                                         QString link = "";
-                                        for(QXmlStreamAttribute attribute : xml.attributes() )
-                                            if(attribute.name().toString() == "href")
+                                        for (QXmlStreamAttribute attribute: xml.attributes())
+                                            if (attribute.name().toString() == "href")
                                                 link = attribute.value().toString();
 
                                         goal.addRead(xml.readElementText(), link);
                                     }
                                     if (elementName == "process") {
                                         QString link = "";
-                                        for(QXmlStreamAttribute attribute : xml.attributes() )
-                                            if(attribute.name().toString() == "href")
+                                        for (QXmlStreamAttribute attribute: xml.attributes())
+                                            if (attribute.name().toString() == "href")
                                                 link = attribute.value().toString();
 
-                                        
-                                        goal.addProcess(xml.readElementText(),link);
+
+                                        goal.addProcess(xml.readElementText(), link);
                                     }
                                     if (elementName == "week") {
                                         goal.week = xml.readElementText();
@@ -222,17 +222,41 @@ void XmlParser::saveXml(const GuideData::Data&guide, QFile&fileToSaveTo) {
                         for (GuideData::GuideGoalPrefixes prefix: goal.prefixes) {
                             switch (prefix.prefix) {
                                 case GuideData::Work:
-                                    xml.writeTextElement("work", prefix.prefixText);
+                                    xml.writeStartElement("work");
+
+                                    if (!prefix.link.isEmpty())
+                                        xml.writeAttribute("href", prefix.link);
+
+                                    xml.writeCharacters(prefix.prefixText);
+                                    xml.writeEndElement(); // Work
                                     break;
                                 case GuideData::Read:
-                                    xml.writeTextElement("read", prefix.prefixText);
-                                    break;
+                                    xml.writeStartElement("read");
+
+                                if (!prefix.link.isEmpty())
+                                    xml.writeAttribute("href", prefix.link);
+
+                                xml.writeCharacters(prefix.prefixText);
+                                xml.writeEndElement(); // Read
+                                break;
                                 case GuideData::Watch:
-                                    xml.writeTextElement("watch", prefix.prefixText);
-                                    break;
+                                    xml.writeStartElement("watch");
+
+                                if (!prefix.link.isEmpty())
+                                    xml.writeAttribute("href", prefix.link);
+
+                                xml.writeCharacters(prefix.prefixText);
+                                xml.writeEndElement(); // Watch
+                                break;
                                 case GuideData::Process:
-                                    xml.writeTextElement("process", prefix.prefixText);
-                                    break;
+                                    xml.writeStartElement("process");
+
+                                if (!prefix.link.isEmpty())
+                                    xml.writeAttribute("href", prefix.link);
+
+                                xml.writeCharacters(prefix.prefixText);
+                                xml.writeEndElement(); // process
+                                break;
                             }
                         }
                         xml.writeEndElement(); // goal

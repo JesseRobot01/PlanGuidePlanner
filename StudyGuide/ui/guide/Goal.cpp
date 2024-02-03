@@ -78,6 +78,7 @@ void Goal::addWork(const QString &workName, const QString&link) {
     GuidePalette palette;
     prefix.prefix = GuideData::Work;
     prefix.prefixText = workName;
+    prefix.link = link;
     prefixes.append(prefix);
 
     QString indicatorStyle = QString::fromLatin1(
@@ -135,6 +136,7 @@ void Goal::addWatch(const QString &watchName, const QString&link) {
 
     prefix.prefix = GuideData::Watch;
     prefix.prefixText = watchName;
+    prefix.link = link;
     prefixes.append(prefix);
 
     // watch indicator generation
@@ -180,6 +182,7 @@ void Goal::addRead(const QString &readName, const QString&link) {
     GuidePalette palette;
     prefix.prefix = GuideData::Read;
     prefix.prefixText = readName;
+    prefix.link = link;
     prefixes.append(prefix);
 
     QString indicatorStyle = QString::fromLatin1(
@@ -232,6 +235,7 @@ void Goal::addProcess(const QString &processName, const QString&link) {
     GuidePalette palette;
     prefix.prefix = GuideData::Process;
     prefix.prefixText = processName;
+    prefix.link = link;
     prefixes.append(prefix);
 
     QString indicatorStyle = QString::fromLatin1(
