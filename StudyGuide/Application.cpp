@@ -56,6 +56,8 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
     qSetMessagePattern(
         "%{time process}"
         " "
+        "%{threadid}"
+        " "
         "%{if-debug}DEBUG   %{endif}"
         "%{if-info}INFO    %{endif}"
         "%{if-warning}WARNING %{endif}"
