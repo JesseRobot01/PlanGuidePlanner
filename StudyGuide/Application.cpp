@@ -72,9 +72,15 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
         logsDir.mkpath(".");
 
     // get highest number.
-    int latestLog = logsDir.entryList(QDir::Files).count();
-
-    logFile = std::unique_ptr<QFile>(new QFile(logsDir.path() + "/Log" + QString::number(latestLog + 1) + ".txt"));
+    int highestLogNumber = 0;
+   for(QFileInfo file : logsDir.entryInfoList( QDir::Files)){
+      QString fileName =  file.baseName();
+       fileName.replace("Log", "");
+       int fileNumber = fileName.toInt();
+       if(fileNumber > highestLogNumber)
+           highestLogNumber = fileNumber;
+   }
+    logFile = std::unique_ptr<QFile>(new QFile(logsDir.path() + "/Log" + QString::number(highestLogNumber + 1) + ".txt"));
     if (!logFile->open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate))
         qFatal("Can't open log file!");
 
