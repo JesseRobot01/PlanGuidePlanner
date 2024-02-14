@@ -7,11 +7,12 @@
 #include "XmlParser.h"
 #include "guide/GuideData.h"
 
-GuideData::Data XmlParser::readXml(QFile* xmlFileP) {
-    QFile&xmlFile = *xmlFileP;
-    qDebug() << "Starting reading xml file" << xmlFile.fileName();
+GuideData::Data XmlParser::readXml(QFile *xmlFileP) {
+    QFile &xmlFile = *xmlFileP;
+    QFileInfo fileInfo(xmlFile);
+    qDebug() << "Reading xml file" << fileInfo.fileName();
     if (!xmlFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qWarning() << "Failed to open file " << xmlFile.fileName();
+        qWarning() << "Failed to open file" << fileInfo.fileName();
         // He really wants something...
         GuideData::Data hello;
         return hello;
@@ -174,7 +175,7 @@ GuideData::Data XmlParser::readXml(QFile* xmlFileP) {
                     }
                 }
 
-                qDebug() << "Finished reading xml file" << xmlFile.fileName();
+                qDebug() << "Finished reading xml file" << fileInfo.fileName();
                 xml.clear();
                 xmlFile.close();
                 return guide;
@@ -183,16 +184,16 @@ GuideData::Data XmlParser::readXml(QFile* xmlFileP) {
     }
 
     catch (...) {
-        qCritical() << "Error while reading XML file" << xmlFile.fileName();
+        qCritical() << "Error while reading XML file" << fileInfo.fileName();
         xmlFile.close();
     }
 }
 
-void XmlParser::saveXml(const GuideData::Data&guide, QFile&fileToSaveTo) {
+void XmlParser::saveXml(const GuideData::Data &guide, QFile &fileToSaveTo) {
     // QFile&fileToSaveTo = *fileToSaveToP;
-
+    QFileInfo fileInfo(fileToSaveTo);
     if (!fileToSaveTo.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        qWarning() << "Failed to open file " << fileToSaveTo.fileName() << "for saving.";
+        qWarning() << "Failed to open file " << fileInfo.fileName() << "for saving.";
     }
     try {
         QXmlStreamWriter xml(&fileToSaveTo);
@@ -233,30 +234,30 @@ void XmlParser::saveXml(const GuideData::Data&guide, QFile&fileToSaveTo) {
                                 case GuideData::Read:
                                     xml.writeStartElement("read");
 
-                                if (!prefix.link.isEmpty())
-                                    xml.writeAttribute("href", prefix.link);
+                                    if (!prefix.link.isEmpty())
+                                        xml.writeAttribute("href", prefix.link);
 
-                                xml.writeCharacters(prefix.prefixText);
-                                xml.writeEndElement(); // Read
-                                break;
+                                    xml.writeCharacters(prefix.prefixText);
+                                    xml.writeEndElement(); // Read
+                                    break;
                                 case GuideData::Watch:
                                     xml.writeStartElement("watch");
 
-                                if (!prefix.link.isEmpty())
-                                    xml.writeAttribute("href", prefix.link);
+                                    if (!prefix.link.isEmpty())
+                                        xml.writeAttribute("href", prefix.link);
 
-                                xml.writeCharacters(prefix.prefixText);
-                                xml.writeEndElement(); // Watch
-                                break;
+                                    xml.writeCharacters(prefix.prefixText);
+                                    xml.writeEndElement(); // Watch
+                                    break;
                                 case GuideData::Process:
                                     xml.writeStartElement("process");
 
-                                if (!prefix.link.isEmpty())
-                                    xml.writeAttribute("href", prefix.link);
+                                    if (!prefix.link.isEmpty())
+                                        xml.writeAttribute("href", prefix.link);
 
-                                xml.writeCharacters(prefix.prefixText);
-                                xml.writeEndElement(); // process
-                                break;
+                                    xml.writeCharacters(prefix.prefixText);
+                                    xml.writeEndElement(); // process
+                                    break;
                             }
                         }
                         xml.writeEndElement(); // goal
@@ -285,10 +286,10 @@ void XmlParser::saveXml(const GuideData::Data&guide, QFile&fileToSaveTo) {
 
         xml.writeEndElement(); // studyguide
         xml.writeEndDocument();
-        qDebug() << "Finished saving file" << fileToSaveTo.fileName();;
+        qDebug() << "Finished saving file" << fileInfo.fileName();;
     }
     catch (...) {
-        qCritical() << "Failed to save Xml file" << fileToSaveTo.fileName();;
+        qCritical() << "Failed to save Xml file" << fileInfo.fileName();;
     }
     fileToSaveTo.close();
 }
