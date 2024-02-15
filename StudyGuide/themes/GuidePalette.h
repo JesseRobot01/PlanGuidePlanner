@@ -34,6 +34,9 @@ public:
 
     QColor getColor(GuideElements element);
 
+    void setFusionDark();
+    void setFusionLight();
+
 private:
     QColor getLightModeColor(GuideElements element);
 
