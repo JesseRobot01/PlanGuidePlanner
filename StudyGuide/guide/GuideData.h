@@ -32,7 +32,8 @@ public:
         Work,
         Read,
         Watch,
-        Process
+        Process,
+        Info
     };
 
     struct GuideGoalPrefixes {
@@ -85,6 +86,13 @@ public:
             process.prefixText = name;
             process.link = link;
             prefixes.append(process);
+        }
+        void addInfo(const QString&name, const QString&link = "") {
+            GuideGoalPrefixes info;
+            info.prefix = Info;
+            info.prefixText = name;
+            info.link = link;
+            prefixes.append(info);
         }
     };
 

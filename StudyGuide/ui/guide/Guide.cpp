@@ -22,6 +22,9 @@ Guide::Guide(QWidget* parent) : QWidget(parent), ui(new Ui::Guide) {
 
 void Guide::updateStyle() {
     GuidePalette palette;
+
+    QString objectTextStyle = QString::fromLatin1("color: %1;").arg(palette.getColor(GuidePalette::ObjectText).name());
+
     QString frameStyle = QString::fromLatin1("background-color: %1;").arg(palette.color(QPalette::Base).name());
 
     QString borderColourString = QString::fromLatin1("border-width:3px;border-style:solid;border-color: %1;")
@@ -78,10 +81,21 @@ void Guide::updateStyle() {
                                         .arg(palette.getColor(GuidePalette::ProcessIndicatorText).name())
                                         + borderColourString;
 
+    QString infoIndicatorStyle = QString::fromLatin1("background-color: %1;color:%2;")
+                                            .arg(palette.getColor(GuidePalette::InfoIndicatorBackground).name())
+                                            .arg(palette.getColor(GuidePalette::InfoIndicatorText).name())
+                                    + borderColourString;
+
+    QString infoIndicatorTextStyle = QString::fromLatin1("background-color: %1;color:%2;")
+                                                .arg(palette.getColor(GuidePalette::InfoIndicatorExample).name())
+                                                .arg(palette.getColor(GuidePalette::InfoIndicatorText).name())
+                                        + borderColourString;
+
 
     ui->infoFrame->setStyleSheet(frameStyle);
     ui->headerFrame->setStyleSheet(HeaderStyle);
     ui->period_number->setStyleSheet(periodStyle);
+    ui->mainInfoLabel->setStyleSheet(objectTextStyle);
 
     ui->work_indicator_name->setStyleSheet(workIndicatorTextStyle);
     ui->work_indicator_example->setStyleSheet(workIndicatorStyle);
@@ -94,6 +108,9 @@ void Guide::updateStyle() {
 
     ui->process_indicator_name->setStyleSheet(processIndicatorTextStyle);
     ui->process_indicator_example->setStyleSheet(processIndicatorStyle);
+
+    ui->info_indicator_name->setStyleSheet(infoIndicatorTextStyle);
+    ui->info_indicator_example->setStyleSheet(infoIndicatorStyle);
 }
 
 Guide::~Guide() {

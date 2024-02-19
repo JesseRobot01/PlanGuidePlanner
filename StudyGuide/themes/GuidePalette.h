@@ -29,7 +29,10 @@ public:
         Progress_NotStarted,
         Progress_Working,
         Progress_Finished,
-        TestBackground
+        TestBackground,
+        InfoIndicatorBackground,
+        InfoIndicatorText,
+        InfoIndicatorExample,
     };
 
     QColor getColor(GuideElements element);

@@ -44,6 +44,9 @@ public:
 
     void addProcess(const QString &processName, const QString&link = "");
 
+    void addInfo(const QString &info, const QString&link = "");
+
+
     void setProgress(int progress);
 
     void setProgress(const QString &progress) {

@@ -108,6 +108,15 @@ GuideData::Data XmlParser::readXml(QFile *xmlFileP) {
 
                                         goal.addProcess(xml.readElementText(), link);
                                     }
+                                    if (elementName == "info") {
+                                        QString link = "";
+                                        for (QXmlStreamAttribute attribute: xml.attributes())
+                                            if (attribute.name().toString() == "href")
+                                                link = attribute.value().toString();
+
+
+                                        goal.addInfo(xml.readElementText(), link);
+                                    }
                                     if (elementName == "week") {
                                         goal.week = xml.readElementText();
                                     }
@@ -257,6 +266,15 @@ void XmlParser::saveXml(const GuideData::Data &guide, QFile &fileToSaveTo) {
 
                                     xml.writeCharacters(prefix.prefixText);
                                     xml.writeEndElement(); // process
+                                    break;
+                                case GuideData::Info:
+                                    xml.writeStartElement("info");
+
+                                    if (!prefix.link.isEmpty())
+                                        xml.writeAttribute("href", prefix.link);
+
+                                    xml.writeCharacters(prefix.prefixText);
+                                    xml.writeEndElement(); // info
                                     break;
                             }
                         }

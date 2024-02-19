@@ -198,9 +198,7 @@
                                             <item>
                                                 <widget class="QCheckBox" name="copyNewFilesCheckBox">
                                                     <property name="text">
-                                                        <string>Automaticly copy new opened files to auto open
-                                                            directory
-                                                        </string>
+                                                        <string>Automaticly copy new opened files to auto open directory</string>
                                                     </property>
                                                 </widget>
                                             </item>
@@ -338,9 +336,7 @@
                                             <item>
                                                 <widget class="QCheckBox" name="fullResetCheck">
                                                     <property name="text">
-                                                        <string>I'm sure I want to reset everything (This cannot be
-                                                            undone!)
-                                                        </string>
+                                                        <string>I'm sure I want to reset everything (This cannot be undone!)</string>
                                                     </property>
                                                 </widget>
                                             </item>

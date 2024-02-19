@@ -10,7 +10,7 @@
         <translation>About Study Guide</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+12"/>
         <location/>
         <source>StudyGuide</source>
         <translation>Study Guide</translation>
@@ -34,45 +34,50 @@
         <translation>Close</translation>
     </message>
 </context>
-    <context>
-        <name>AboutWindow</name>
-        <message>
-            <location filename="../ui/AboutWindow.cpp" line="+18"/>
-            <source>Build Date: %1</source>
-            <translation>Build Date: %1</translation>
-        </message>
-        <message>
-            <location line="+6"/>
-            <source>Git commit: %1</source>
-            <translation>Git Commit: %1</translation>
-        </message>
-        <message>
-            <location line="+6"/>
-            <source>Git tag: %1</source>
-            <translation>Git Tag: %1</translation>
-        </message>
-    </context>
-    <context>
+<context>
+    <name>AboutWindow</name>
+    <message>
+        <location filename="../ui/AboutWindow.cpp" line="+18"/>
+        <source>Build Date: %1</source>
+        <translation>Build Date: %1</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Git commit: %1</source>
+        <translation>Git Commit: %1</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Git tag: %1</source>
+        <translation>Git Tag: %1</translation>
+    </message>
+</context>
+<context>
     <name>Goal</name>
     <message>
-        <location filename="../ui/guide/Goal.cpp" line="+100"/>
+        <location filename="../ui/guide/Goal.cpp" line="+101"/>
         <source>UI_WORKINDICATOR</source>
         <translation>W</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+52"/>
         <source>UI_WATCHINDICATOR</source>
         <translation>W/L</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+53"/>
         <source>UI_READINDICATOR</source>
         <translation>R</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+50"/>
         <source>UI_PROCESSINDICATOR</source>
         <translation>P</translation>
+    </message>
+    <message>
+        <location line="+50"/>
+        <source>UI_INFOINDICATOR</source>
+        <translation>I</translation>
     </message>
     <message>
         <location filename="../ui/guide/Goal.ui" line="+14"/>
@@ -96,7 +101,7 @@
         <translation>Period</translation>
     </message>
     <message>
-        <location line="+196"/>
+        <location line="+195"/>
         <location/>
         <source>UI_WORKINDICATOR</source>
         <translation>W</translation>
@@ -142,6 +147,21 @@
         <location/>
         <source>UI_PROCESSINDICATOR</source>
         <translation>P</translation>
+    </message>
+    <message>
+        <location line="+28"/>
+        <source>Main Information</source>
+        <translation>Main Information</translation>
+    </message>
+    <message>
+        <location line="+31"/>
+        <source>Information</source>
+        <translation>Information</translation>
+    </message>
+    <message>
+        <location line="+34"/>
+        <source>UI_INFOINDICATOR</source>
+        <translation>I</translation>
     </message>
 </context>
 <context>
@@ -244,13 +264,13 @@
     </message>
     <message>
         <location filename="../ui/MainWindow.cpp" line="+36"/>
-        <location line="+139"/>
+        <location line="+143"/>
         <source>Open StudyGuide</source>
         <translation>Open StudyGuides</translation>
     </message>
     <message>
-        <location line="-137"/>
-        <location line="+140"/>
+        <location line="-141"/>
+        <location line="+144"/>
         <source>XML Files (*.xml);;All Files (*)</source>
         <translation>XML FIles (*.xml);;All files (*)</translation>
     </message>

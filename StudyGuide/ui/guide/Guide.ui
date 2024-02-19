@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1285</width>
-    <height>290</height>
+    <height>340</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>20</x>
      <y>10</y>
      <width>1260</width>
-     <height>280</height>
+     <height>330</height>
     </rect>
    </property>
    <widget class="QFrame" name="headerFrame">
@@ -191,7 +191,7 @@
       <x>10</x>
       <y>110</y>
       <width>1240</width>
-      <height>150</height>
+      <height>200</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -207,7 +207,7 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>0</y>
+       <y>50</y>
        <width>950</width>
        <height>148</height>
       </rect>
@@ -218,8 +218,7 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">
-</string>
+      <string notr="true"/>
      </property>
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
@@ -244,7 +243,7 @@
      <property name="geometry">
       <rect>
        <x>1130</x>
-       <y>14</y>
+       <y>20</y>
        <width>80</width>
        <height>30</height>
       </rect>
@@ -278,7 +277,7 @@ color:white;
      <property name="geometry">
       <rect>
        <x>1130</x>
-       <y>74</y>
+       <y>80</y>
        <width>80</width>
        <height>30</height>
       </rect>
@@ -312,7 +311,7 @@ color:white;
      <property name="geometry">
       <rect>
        <x>1130</x>
-       <y>44</y>
+       <y>50</y>
        <width>80</width>
        <height>30</height>
       </rect>
@@ -346,7 +345,7 @@ color:white;
      <property name="geometry">
       <rect>
        <x>960</x>
-       <y>74</y>
+       <y>80</y>
        <width>170</width>
        <height>30</height>
       </rect>
@@ -377,7 +376,7 @@ color:white;
      <property name="geometry">
       <rect>
        <x>960</x>
-       <y>14</y>
+       <y>20</y>
        <width>170</width>
        <height>30</height>
       </rect>
@@ -411,7 +410,7 @@ color:white;
      <property name="geometry">
       <rect>
        <x>960</x>
-       <y>44</y>
+       <y>50</y>
        <width>170</width>
        <height>30</height>
       </rect>
@@ -442,7 +441,7 @@ color:white;
      <property name="geometry">
       <rect>
        <x>960</x>
-       <y>104</y>
+       <y>110</y>
        <width>170</width>
        <height>30</height>
       </rect>
@@ -473,7 +472,7 @@ color:white;
      <property name="geometry">
       <rect>
        <x>1130</x>
-       <y>104</y>
+       <y>110</y>
        <width>80</width>
        <height>30</height>
       </rect>
@@ -498,6 +497,99 @@ color:white;
      </property>
      <property name="text">
       <string>UI_PROCESSINDICATOR</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="mainInfoLabel">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>941</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>23</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:rgb(248, 122, 44)</string>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="text">
+      <string>Main Information</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="info_indicator_name">
+     <property name="geometry">
+      <rect>
+       <x>960</x>
+       <y>140</y>
+       <width>170</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+				background-color: rgb(124, 124, 124);
+color:white;
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::WinPanel</enum>
+     </property>
+     <property name="text">
+      <string>Information</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="info_indicator_example">
+     <property name="geometry">
+      <rect>
+       <x>1130</x>
+       <y>140</y>
+       <width>80</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+				background-color: rgb(182, 182, 182);
+		color:white;
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::WinPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="text">
+      <string>UI_INFOINDICATOR</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

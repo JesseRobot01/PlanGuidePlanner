@@ -131,6 +131,10 @@ void MainWindow::processGuide(GuideData::Data guide) {
                         case GuideData::Process:
                             finalGoal->addProcess(goalPrefix.prefixText,goalPrefix.link);
                             break;
+
+                        case GuideData::Info:
+                            finalGoal->addInfo(goalPrefix.prefixText,goalPrefix.link);
+                            break;
                     }
                 }
                 finalGoal->finalise();

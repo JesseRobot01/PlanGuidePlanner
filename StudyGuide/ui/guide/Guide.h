@@ -51,7 +51,7 @@ private:
 
     QString shortName;
 
-    int size = 310;
+    int size = 360;
 
     QVector<Index *> indexes;
     QVector<Test *> tests;

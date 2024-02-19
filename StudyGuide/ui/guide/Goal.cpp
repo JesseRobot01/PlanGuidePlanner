@@ -279,6 +279,56 @@ void Goal::addProcess(const QString &processName, const QString&link) {
     size += 40;
 }
 
+void Goal::addInfo(const QString &infoText, const QString&link) {
+    // First save them in the Vector for resaving
+    GuideData::GuideGoalPrefixes prefix;
+    GuidePalette palette;
+    prefix.prefix = GuideData::Info;
+    prefix.prefixText = infoText;
+    prefix.link = link;
+    prefixes.append(prefix);
+
+    QString indicatorStyle = QString::fromLatin1(
+            "background-color:%1; border-width:3px; border-style:solid; border-color:%2;color:%3")
+            .arg(palette.getColor(GuidePalette::InfoIndicatorBackground).name())
+            .arg(palette.color(QPalette::Base).name())
+            .arg(palette.getColor(GuidePalette::InfoIndicatorText).name());
+
+    // Info indicator generation
+    QLabel *InfoIndicator = new QLabel(this);
+    InfoIndicator->setGeometry(0, size, 90, 40);
+    QFont indicatorFont;
+    indicatorFont.setPointSize(22);
+    indicatorFont.setBold(true);
+    InfoIndicator->setFont(indicatorFont);
+    InfoIndicator->setStyleSheet(indicatorStyle);
+    InfoIndicator->setAlignment(Qt::AlignCenter);
+    InfoIndicator->setText(tr("UI_INFOINDICATOR"));
+
+    // and now the text
+    QLabel *info = new QLabel(this);
+    info->setGeometry(QRect(90, size, 890, 40));
+    QFont workFont;
+    workFont.setPointSize(12);
+    workFont.setBold(false);
+    info->setFont(workFont);
+    info->setFrameShape(QFrame::NoFrame);
+    info->setLineWidth(3);
+    info->setAlignment(Qt::AlignCenter);
+
+    if(!link.isEmpty()){
+        QString infoTextLink = QString("<a href=\"%2\">%1</a>")
+                .arg(infoText)
+                .arg(link);
+
+        info->setOpenExternalLinks(true);
+        info->setText(infoTextLink);
+    } else
+        info->setText(infoText);
+
+    size += 40;
+}
+
 void Goal::setWeek(const QString &week) {
     ui->week->setText(week);
 }
