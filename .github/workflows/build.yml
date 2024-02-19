@@ -22,9 +22,28 @@ jobs:
       matrix:
         include:
           - os: windows-latest
-            qt_version: "6.6.1"
+            name: "Windows"
+            qt_version: "6.6.2"
+            target: "desktop"
+            target_arch: "win64_msvc2019_64"
+            
           - os: ubuntu-latest
+            name: "Linux"
             qt_version: "6.4.2"
+            target: "desktop"
+            target_arch: "gcc_64"
+            
+          - os: ubuntu-latest 
+            name: "WASM"
+            qt_version: "6.6.2"
+            target: "desktop"
+            target_arch: "wasm_multithread"
+            
+          - os: ubuntu-latest 
+            name: "Android"
+            qt_version: "6.6.2"
+            target: "android"
+            target_arch: "android_arm64_v8a"
 
             #TODO macOS
 
@@ -40,6 +59,30 @@ jobs:
           sudo apt-get -y update
           sudo apt-get -y install ninja-build
 
+      - name: Install Dependencies (WASM)
+        if: ${{ matrix.name == 'WASM' }}
+        run: |
+          git clone https://github.com/emscripten-core/emsdk.git
+          cd emsdk
+          
+          # 3.1.37 is the one Qt uses
+          ./emsdk install 3.1.37
+          ./emsdk activate 3.1.37
+
+      - name: Install Java (Android)
+        if: ${{ matrix.name == 'Android' }}
+        run: |
+            #Install JDK
+            sudo apt-get -y update
+            apt-get -y install openjdk-11-jdk
+            export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+
+      - name: Install Android SDK (Android)
+        if: ${{ matrix.name == 'Android' }}
+        uses: android-actions/setup-android@v3.2.0
+        with:
+          packages: 'platforms;android-33 platform-tools build-tools;33.0.0 ndk;25.1.8937393'
+
       - name: Install Ninja (windows)
         if: ${{matrix.os == 'windows-latest'}}
         run: choco install ninja
@@ -52,11 +95,20 @@ jobs:
         uses: jurplel/install-qt-action@v3
         with:
           version: ${{ matrix.qt_version }}
+          target: ${{ matrix.target }}
+          arch: ${{ matrix.target_arch }}
 
       #Configure!
       - name: Configure Cmake
+        if: ${{ matrix.name != "Android" }}
         run: |
           cmake -Bbuild -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -G Ninja
+
+      - name: Configure Cmake (Android)
+        if: ${{ matrix.name == "Android" }}
+        run: |
+          #Release builds not avable yet. Going with debug.
+          cmake -Bbuild -DCMAKE_BUILD_TYPE=Debug -DANDROID_SDK_ROOT=$ANDROID_SDK_ROOT -DANDROID_NDK_ROOT=$ANDROID_SDK_ROOT\ndk\25.1.8937393\ -G Ninja
 
       #Build!
       - name: Build!
@@ -66,7 +118,6 @@ jobs:
       #TODO no known ways to pack for linux. so get a install directory instead..
 
       - name: Install Application
-        if: ${{ matrix.os == 'windows-latest' }}
         run: |
           cmake --install build --prefix ./install 
 
@@ -84,11 +135,11 @@ jobs:
           cpack -G DEB
 
         # Upload
-      - name: Upload binaries (Windows)
-        if: ${{ matrix.os == 'windows-latest' }}
+      - name: Upload install directory
+        if: ${{ matrix.name != 'linux' }}
         uses: actions/upload-artifact@v4
         with:
-          name: Study Guide-windows
+          name: Study Guide-${{matrix.name}} 
           path: install
 
       - name: Upload setup (Windows)
