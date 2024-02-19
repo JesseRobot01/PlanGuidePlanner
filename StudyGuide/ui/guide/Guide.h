@@ -2,7 +2,7 @@
 // Created by Jesse on 3 okt. 2023.
 //
 
-#ifndef studyGUIDE_GUIDE_H
+#ifndef STUDYGUIDE_GUIDE_H
 #define STUDYGUIDE_GUIDE_H
 
 #include "guide/GuideData.h"

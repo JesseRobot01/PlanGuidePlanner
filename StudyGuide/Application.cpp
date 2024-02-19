@@ -4,19 +4,20 @@
 
 #include "Application.h"
 
-#include <iostream>
 #include <thread>
 #include "Config.h"
 
 #include "XmlParser.h"
 #include "ui/dialogs/LoadGuide.h"
 #include "ui/guide/Guide.h"
-
-#ifdef WIN32
-
-#include "WindowConsole.h"
 #include "themes/GuidePalette.h"
 
+#ifdef WIN32
+#include "WindowConsole.h"
+#endif
+
+#ifdef Q_OS_ANDROID
+#include <private/qandroidextras_p.h>
 #endif
 
 void messageHandler(QtMsgType type, const QMessageLogContext&context, const QString&msg) {
@@ -57,8 +58,6 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
     qSetMessagePattern(
         "%{time process}"
         " "
-        "%{threadid}"
-        " "
         "%{if-debug}DEBUG   %{endif}"
         "%{if-info}INFO    %{endif}"
         "%{if-warning}WARNING %{endif}"
@@ -97,12 +96,40 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
         QString currentTheme = settings.value("Theme", "fusion_dark").toString();
 
         if (currentTheme == "fusion_dark") {
-           GuidePalette palette;
-            palette.setFusionDark();
+            setStyle("fusion");
+            QPalette darkPalette;
+            darkPalette.setColor(QPalette::Window, QColor(53, 53, 53));
+            darkPalette.setColor(QPalette::WindowText, Qt::white);
+            darkPalette.setColor(QPalette::Base, QColor(25, 25, 25));
+            darkPalette.setColor(QPalette::AlternateBase, QColor(53, 53, 53));
+            darkPalette.setColor(QPalette::ToolTipBase, Qt::white);
+            darkPalette.setColor(QPalette::ToolTipText, Qt::white);
+            darkPalette.setColor(QPalette::Text, Qt::white);
+            darkPalette.setColor(QPalette::Button, QColor(53, 53, 53));
+            darkPalette.setColor(QPalette::ButtonText, Qt::white);
+            darkPalette.setColor(QPalette::BrightText, Qt::red);
+            darkPalette.setColor(QPalette::Link, QColor(42, 130, 218));
+            darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
+            darkPalette.setColor(QPalette::HighlightedText, Qt::black);
+            setPalette(darkPalette);
         }
         if (currentTheme == "fusion_light") {
-            GuidePalette palette;
-            palette.setFusionLight();
+            setStyle("fusion");
+            QPalette lightPalette;
+            lightPalette.setColor(QPalette::Window, Qt::white);
+            lightPalette.setColor(QPalette::WindowText, Qt::black);
+            lightPalette.setColor(QPalette::Base, Qt::white);
+            lightPalette.setColor(QPalette::AlternateBase, QColor(240, 240, 240));
+            lightPalette.setColor(QPalette::ToolTipBase, Qt::white);
+            lightPalette.setColor(QPalette::ToolTipText, Qt::black);
+            lightPalette.setColor(QPalette::Text, Qt::black);
+            lightPalette.setColor(QPalette::Button, QColor(240, 240, 240));
+            lightPalette.setColor(QPalette::ButtonText, Qt::black);
+            lightPalette.setColor(QPalette::BrightText, Qt::red);
+            lightPalette.setColor(QPalette::Link, QColor(42, 130, 218));
+            lightPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
+            lightPalette.setColor(QPalette::HighlightedText, Qt::white);
+            setPalette(lightPalette);
         }
         if (currentTheme == "system") {
             // let system decide. So no passing in agruments.
@@ -183,3 +210,27 @@ void Application::restart() {
     exit(0);
     qDebug() << "Exiting current instance";
 }
+
+#ifdef Q_OS_ANDROID
+void Application::requestStoragePermission(){
+    bool value = QJniObject::callStaticMethod<jboolean>(
+            "android/os/Environment",
+            "isExternalStorageManager");
+    if(value == false){
+        QJniObject filepermit = QJniObject::getStaticObjectField(
+                "android/provider/Settings",
+                "ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION",
+                "Ljava/lang/String;");
+        //you must changing the YOURPKGNAME at below
+        QJniObject pkgName = QJniObject::fromString("package:YOURPKGNAME");
+        QJniObject parsedUri = QJniObject::callStaticObjectMethod(
+                "android/net/Uri",
+                "parse","(Ljava/lang/String;)Landroid/net/Uri;",
+                pkgName.object<jstring>());
+        QJniObject intent("android/content/Intent",
+                          "(Ljava/lang/String;Landroid/net/Uri;)V",
+                          filepermit.object<jstring>(),parsedUri.object());
+        QtAndroidPrivate::startActivity(intent, 0);
+    }
+}
+#endif

@@ -14,7 +14,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets LinguistTools)
 
 set(EXECUTABLE_NAME "StudyGuide")
 
-if (UNIX)
+if (LINUX)
     set(EXECUTABLE_NAME "studyguide") #Linux is case-sensitive, so this should make it possible to call from command line like every regular app. (Without using shift)
 endif ()
 

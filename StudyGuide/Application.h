@@ -23,6 +23,10 @@ public:
 
     std::unique_ptr<QFile> logFile;
 
+#ifdef Q_OS_ANDROID
+    void requestStoragePermission();
+#endif
+
 public slots:
 
     static void addGuide(GuideData::Data data);
@@ -32,4 +36,5 @@ private:
 
     MainWindow *appWindow;
     QTranslator *translator;
+
 };

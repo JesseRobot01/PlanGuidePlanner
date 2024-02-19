@@ -55,6 +55,12 @@ endif ()
 
 qt_add_executable(${EXECUTABLE_NAME} ${SOURCES} ${UI} ${WIN_SOURCES})
 
+if(ANDROID)
+    set(android_source_dir ${CMAKE_SOURCE_DIR}/buildconfig/Android)
+    message(${android_source_dir})
+    set_target_properties(${EXECUTABLE_NAME} PROPERTIES QT_ANDROID_PACKAGE_SOURCE_DIR ${android_source_dir})
+endif()
+
 qt_add_translations(${EXECUTABLE_NAME} TS_FILES ${TRANSLATIONS}
         QM_FILES_OUTPUT_VARIABLE qm_files)
 
@@ -77,11 +83,15 @@ endforeach ()
 qt_add_resources(${EXECUTABLE_NAME} translations
         PREFIX "/translations"
         FILES ${qm_files}
+        FILES Example.xml
 )
 
 
 target_link_libraries(${EXECUTABLE_NAME} PUBLIC Qt::Core Qt::Gui Qt::Widgets BuildConfig)
 
+if(ANDROID)
+target_link_libraries(${EXECUTABLE_NAME} PUBLIC Qt::CorePrivate)
+endif()
 
 #The bundle mess!!!
 
@@ -92,19 +102,21 @@ set(DIRS ${QT_LIBS_DIR} ${QT_LIBEXECS_DIR} ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} ${C
 
 if (WIN32)
     set(APPS "\${CMAKE_INSTALL_PREFIX}/${EXECUTABLE_NAME}.exe")
-
+endif ()
+if (WIN32 OR EMSCRIPTEN)
     set(BINARY_DEST_DIR ".")
     set(LIBRARY_DEST_DIR ".")
     set(PLUGIN_DEST_DIR ".")
     set(RESOURCES_DEST_DIR ".")
-
 endif ()
 
+if(NOT ANDROID)
 install(TARGETS ${EXECUTABLE_NAME}
         BUNDLE DESTINATION "." COMPONENT Runtime
         LIBRARY DESTINATION ${LIBRARY_DEST_DIR} COMPONENT Runtime
         RUNTIME DESTINATION ${BINARY_DEST_DIR} COMPONENT Runtime
 )
+endif()
 
 if (WIN32)
     #Example.xml
@@ -159,3 +171,42 @@ fixup_bundle(\"${APPS}\" \"${QTPLUGINS}\" \"${DIRS}\")"
     )
 endif ()
 
+if (EMSCRIPTEN)
+    file(GLOB HTML_FILES
+            "${CMAKE_CURRENT_BINARY_DIR}/*.html"
+    )
+    file(GLOB JS_FILES
+            "${CMAKE_CURRENT_BINARY_DIR}/*.js"
+    )
+    file(GLOB WASM_FILES
+            "${CMAKE_CURRENT_BINARY_DIR}/*.wasm"
+    )
+    file(GLOB SVG_FILES
+            "${CMAKE_CURRENT_BINARY_DIR}/*.svg"
+    )
+
+    #Exclude the main HTML
+    list(REMOVE_ITEM HTML_FILES "${CMAKE_CURRENT_BINARY_DIR}/studyguide.html")
+
+    install(
+            FILES "${CMAKE_CURRENT_BINARY_DIR}/studyguide.html"
+            RENAME "index.html"
+            DESTINATION .
+            COMPONENT Runtime
+    )
+    install(
+            FILES ${HTML_FILES} ${JS_FILES} ${WASM_FILES} ${SVG_FILES}
+            DESTINATION .
+            COMPONENT Runtime
+    )
+endif ()
+
+if(ANDROID)
+    file(GLOB_RECURSE APK_FILES
+            "${CMAKE_CURRENT_BINARY_DIR}/android-build/build/outputs/apk/*.apk"
+    )
+    install(
+            FILES ${APK_FILES}
+            DESTINATION .
+    )
+endif()

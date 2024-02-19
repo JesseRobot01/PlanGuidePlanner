@@ -15,9 +15,10 @@
 
 #include "guide/Guide.h"
 #include "ui/dialogs/LoadGuide.h"
+#include "Application.h"
 
 
-MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 }
 
@@ -30,7 +31,40 @@ void MainWindow::on_actionPreference_triggered() {
     preferenceWindow->show();
 }
 
+#ifdef Q_OS_WASM
+
+// for web, not as fancy as the original
 void MainWindow::on_actionOpen_File_triggered() {
+    auto uploadedGuide = [this](const QString &fileName, const QByteArray &fileContent) {
+        if (fileName.isEmpty()) {
+            qWarning() << "No file was given, returning";
+            return;
+        } else {
+            QFile file("/tmp/guide.xml");
+
+            if (file.open(QIODevice::WriteOnly)) {
+                file.write(fileContent);
+                file.close();
+                GuideData::Data guide = XmlParser::readXml(&file);
+                processGuide(guide);
+
+            } else {
+                qFatal() << "Cannot open file!";
+                return;
+            }
+
+        }
+    };
+
+    QFileDialog::getOpenFileContent(tr("XML Files (*.xml);;All Files (*)"), uploadedGuide);
+}
+#else
+void MainWindow::on_actionOpen_File_triggered() {
+
+#ifdef Q_OS_ANDROID
+    // make sure to have permission to storage
+    APPLICATION->requestStoragePermission();
+#endif
     QSettings settings;
 
     QStringList files = QFileDialog::getOpenFileNames(this, tr("Open StudyGuide"),
@@ -44,9 +78,9 @@ void MainWindow::on_actionOpen_File_triggered() {
 
     settings.setValue("LastOpenedDir", lastOpenedPath.path());
 
-    LoadGuide* loadGuide = new LoadGuide(
-        nullptr,
-        files.count() * (settings.value("AutoOpen", "1").toBool() && settings.value("AutoCopyGuide", "1").toBool()
+    LoadGuide *loadGuide = new LoadGuide(
+            nullptr,
+            files.count() * (settings.value("AutoOpen", "1").toBool() && settings.value("AutoCopyGuide", "1").toBool()
                              ? 3
                              : 2));
     // the * 2 (or * 3) is for reading, Opening and copying over the guides
@@ -64,6 +98,7 @@ void MainWindow::on_actionOpen_File_triggered() {
         loadGuide->increaseProgress();
     }
 
+
     // Copy them over to auto open dir
     if (settings.value("AutoOpen", "1").toBool() && settings.value("AutoCopyGuide", "1").toBool()) {
         QDir copyToDestination = settings.value("AutoOpenDir",
@@ -76,26 +111,26 @@ void MainWindow::on_actionOpen_File_triggered() {
                 if (!copyToDestination.exists(fileInfo.fileName())) {
                     if (fileToCopy.copy(copyToDestination.filePath(fileInfo.fileName()))) {
                         qDebug() << "Succesfully copied over file" << fileInfo.fileName() << "to auto open directory.";
-                    }
-                    else {
+                    } else {
                         qCritical() << "Failed to copy over file" << fileInfo.fileName();
                     }
-                }
-                else
+                } else
                     qWarning() << "File already copied over.";
                 loadGuide->increaseProgress();
             }
-        }
-        else {
+        } else {
             qCritical() << "Failed to create auto open dir.";
         }
     }
     delete loadGuide;
+
 }
+#endif
+
 
 void MainWindow::processGuide(GuideData::Data guide) {
     // default things
-    Guide* finalGuide = new Guide(this);
+    Guide *finalGuide = new Guide(this);
     QString name = guide.name;
     QString shortName = guide.shortName;
     finalGuide->setName(name);
@@ -107,9 +142,9 @@ void MainWindow::processGuide(GuideData::Data guide) {
     //Processing the guide objects
     for (GuideData::GuideObject guideObject: guide.objects) {
         if (guideObject.objectType == GuideData::Index) {
-            Index* index = new Index(finalGuide);
+            Index *index = new Index(finalGuide);
             for (GuideData::GuideGoals goal: guideObject.goals) {
-                Goal* finalGoal = new Goal(index);
+                Goal *finalGoal = new Goal(index);
                 finalGoal->setName(goal.name);
                 finalGoal->setProgress(goal.progress);
                 finalGoal->setTime(goal.time);
@@ -120,16 +155,16 @@ void MainWindow::processGuide(GuideData::Data guide) {
                 for (GuideData::GuideGoalPrefixes goalPrefix: goal.prefixes) {
                     switch (goalPrefix.prefix) {
                         case GuideData::Work:
-                            finalGoal->addWork(goalPrefix.prefixText,goalPrefix.link);
+                            finalGoal->addWork(goalPrefix.prefixText, goalPrefix.link);
                             break;
                         case GuideData::Read:
-                            finalGoal->addRead(goalPrefix.prefixText,goalPrefix.link);
+                            finalGoal->addRead(goalPrefix.prefixText, goalPrefix.link);
                             break;
                         case GuideData::Watch:
-                            finalGoal->addWatch(goalPrefix.prefixText,goalPrefix.link);
+                            finalGoal->addWatch(goalPrefix.prefixText, goalPrefix.link);
                             break;
                         case GuideData::Process:
-                            finalGoal->addProcess(goalPrefix.prefixText,goalPrefix.link);
+                            finalGoal->addProcess(goalPrefix.prefixText, goalPrefix.link);
                             break;
 
                         case GuideData::Info:
@@ -144,7 +179,7 @@ void MainWindow::processGuide(GuideData::Data guide) {
             finalGuide->addIndex(index);
         }
         if (guideObject.objectType == GuideData::Test) {
-            Test* test = new Test(finalGuide);
+            Test *test = new Test(finalGuide);
             test->setName(guideObject.name);
             test->setWeek(guideObject.week);
             test->setInfo(guideObject.info);
@@ -153,7 +188,7 @@ void MainWindow::processGuide(GuideData::Data guide) {
             finalGuide->addTest(test);
         }
         if (guideObject.objectType == GuideData::Report) {
-            Report* report = new Report(finalGuide);
+            Report *report = new Report(finalGuide);
             for (GuideData::ReportTests test: guideObject.tests)
                 report->addTest(test.name, test.weight);
             report->finalise();
@@ -165,21 +200,38 @@ void MainWindow::processGuide(GuideData::Data guide) {
     addGuide(finalGuide, shortName.isEmpty() ? name : shortName);
 }
 
-void MainWindow::addGuide(Guide* guide, const QString&name) {
+void MainWindow::addGuide(Guide *guide, const QString &name) {
     guides.append(guide);
-    QScrollArea* scrollArea = new QScrollArea;
+    QScrollArea *scrollArea = new QScrollArea;
     scrollArea->setWidget(guide);
     ui->tabWidget->addTab(scrollArea, name);
 }
+#ifdef Q_OS_WASM
+void MainWindow::on_actionSave_Guide_As_triggered() {
+    Guide *guideToSave = guides.at(ui->tabWidget->currentIndex());
+    GuideData::Data guide = guideToSave->getGuide();
 
+    QFile tmpFile("/tmp/savingGuide.xml");
+
+    XmlParser::saveXml(guide, tmpFile);
+    if (tmpFile.open(QIODevice::ReadOnly)) {
+        QByteArray fileContent(tmpFile.readAll());
+
+        QFileDialog::saveFileContent(fileContent, QString("%1.xml").arg(guide.name));
+    } else {
+        qFatal() << "Error while saving. Can't open file.";
+    }
+}
+
+#else
 void MainWindow::on_actionSave_Guide_As_triggered() {
     QSettings settings;
-    Guide* guideToSave = guides.at(ui->tabWidget->currentIndex());
+    Guide *guideToSave = guides.at(ui->tabWidget->currentIndex());
 
     QString saveFileName = QFileDialog::getSaveFileName(this, tr("Open StudyGuide"),
                                                         settings.value("LastOpenedDir", ".").toString() + "/" +
                                                         guideToSave->
-                                                        name, tr("XML Files (*.xml);;All Files (*)"));
+                                                                name, tr("XML Files (*.xml);;All Files (*)"));
 
     if (saveFileName.isEmpty()) {
         qWarning() << "No save file given. Can't save";
@@ -191,8 +243,9 @@ void MainWindow::on_actionSave_Guide_As_triggered() {
     GuideData::Data guide = guideToSave->getGuide();
     XmlParser::saveXml(guide, fileToSave);
 }
+#endif
 
 void MainWindow::on_actionAbout_triggered() {
-    AboutWindow* aboutWindow = new AboutWindow();
+    AboutWindow *aboutWindow = new AboutWindow();
     aboutWindow->show();
 }
