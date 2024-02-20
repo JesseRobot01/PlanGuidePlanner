@@ -102,6 +102,12 @@ jobs:
           version: ${{ matrix.qt_version }}
           target: ${{ matrix.target }}
           arch: ${{ matrix.target_arch }}
+          aqtversion: '==3.1.*'
+          
+      - name: Set Qt host path
+        if: ${{ matrix.name == "Android" || matrix.name == "WASM }}
+        run: QT_HOST_PATH=${{ env.Qt6_DIR }}/../gcc_64
+        
 
       #Configure!
       - name: Configure Cmake
