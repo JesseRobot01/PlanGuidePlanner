@@ -104,7 +104,7 @@ jobs:
         if: ${{ matrix.name == 'Android' || matrix.name == 'WASM' }}
         run: |
           echo "QT_HOST_PATH=${{ env.Qt6_DIR }}/../gcc_64" >> $GITHUB_ENV
-          ln -s ${{ env.Qt6_DIR }}/lib/cmake/Qt6LinguistTools ${{ env.Qt6_DIR }}/../gcc_64/lib/cmake/Qt6LinguistTools
+          ln -s ${{ env.Qt6_DIR }}/../gcc_64/lib/cmake/Qt6LinguistTools  ${{ env.Qt6_DIR }}/lib/cmake/Qt6LinguistTools
 
       #Configure!
       - name: Configure Cmake
