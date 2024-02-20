@@ -43,7 +43,7 @@ jobs:
             name: "Android"
             qt_version: "6.6.*"
             target: "android"
-            target_arch: "android_arm64_v8a"
+            target_arch: "android_armv7"
 
             #TODO macOS
 
@@ -57,7 +57,7 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
           sudo apt-get -y update
-          sudo apt-get -y install ninja-build linguist-qt6
+          sudo apt-get -y install ninja-build
 
       - name: Install Dependencies (WASM)
         if: ${{ matrix.name == 'WASM' }}
@@ -102,7 +102,10 @@ jobs:
           
       - name: Set Qt host path
         if: ${{ matrix.name == 'Android' || matrix.name == 'WASM' }}
-        run: echo "QT_HOST_PATH=${{ env.Qt6_DIR }}/../gcc_64" >> $GITHUB_ENV
+        run: |
+          echo "QT_HOST_PATH=${{ env.Qt6_DIR }}/../gcc_64" >> $GITHUB_ENV
+          echo "Qt6LinguistTools_DIR=${{ env.Qt6_DIR }}/../gcc_64/lib/cmake/Qt6LinguistTools" >> $GITHUB_ENV
+          
 
       #Configure!
       - name: Configure Cmake
