@@ -105,7 +105,7 @@ jobs:
           aqtversion: '==3.1.*'
           
       - name: Set Qt host path
-        if: ${{ matrix.name == "Android" || matrix.name == "WASM }}
+        if: ${{ matrix.name == 'Android' || matrix.name == 'WASM' }}
         run: QT_HOST_PATH=${{ env.Qt6_DIR }}/../gcc_64
         
 
