@@ -23,7 +23,7 @@ jobs:
         include:
           - os: windows-latest
             name: "Windows"
-            qt_version: "6.6.2"
+            qt_version: "6.6.*"
             target: "desktop"
             target_arch: "win64_msvc2019_64"
             
@@ -35,13 +35,13 @@ jobs:
             
           - os: ubuntu-latest 
             name: "WASM"
-            qt_version: "6.6.2"
+            qt_version: "6.6.*"
             target: "desktop"
             target_arch: "wasm_multithread"
             
           - os: ubuntu-latest 
             name: "Android"
-            qt_version: "6.6.2"
+            qt_version: "6.6.*"
             target: "android"
             target_arch: "android_arm64_v8a"
 
@@ -90,6 +90,12 @@ jobs:
         if: ${{matrix.os == 'windows-latest'}}
         uses: ilammy/msvc-dev-cmd@v1
 
+      - name: Install Qt Host (Android, WASM)
+        if: ${{ matrix.name == 'Android' || matrix.name == 'WASM' }}
+        uses: jurplel/install-qt-action@v3.3.0
+        with:
+          version: ${{ matrix.qt_version }}
+          
       - name: Install Qt
         uses: jurplel/install-qt-action@v3.3.0
         with:
