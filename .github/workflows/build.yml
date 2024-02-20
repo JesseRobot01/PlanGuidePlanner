@@ -68,7 +68,7 @@ jobs:
           # 3.1.37 is the one Qt uses
           ./emsdk install 3.1.37
           ./emsdk activate 3.1.37
-          echo "emsdk=$PWD" >> $GITHUB_ENV
+          echo "EMSDK=$PWD" >> $GITHUB_ENV
 
       - name: Install Java (Android)
         if: ${{ matrix.name == 'Android' }}
@@ -91,11 +91,12 @@ jobs:
         if: ${{matrix.os == 'windows-latest'}}
         uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Install Qt Host (Android, WASM)
+      - name: Install host Qt (Android, WASM)
         if: ${{ matrix.name == 'Android' || matrix.name == 'WASM' }}
         uses: jurplel/install-qt-action@v3.3.0
         with:
           version: ${{ matrix.qt_version }}
+          archives: 'qttools' #For QtLinguist not being installed for android. Why? I don't know!
           
       - name: Install Qt
         uses: jurplel/install-qt-action@v3.3.0
