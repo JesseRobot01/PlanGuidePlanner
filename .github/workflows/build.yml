@@ -68,7 +68,7 @@ jobs:
           # 3.1.37 is the one Qt uses
           ./emsdk install 3.1.37
           ./emsdk activate 3.1.37
-          source ./emsdk_env.sh
+          echo "emsdk=$PWD" >> $GITHUB_ENV
 
       - name: Install Java (Android)
         if: ${{ matrix.name == 'Android' }}
@@ -107,8 +107,7 @@ jobs:
           
       - name: Set Qt host path
         if: ${{ matrix.name == 'Android' || matrix.name == 'WASM' }}
-        run: export QT_HOST_PATH=${{ env.Qt6_DIR }}/../gcc_64
-        
+        run: echo "QT_HOST_PATH=${{ env.Qt6_DIR }}/../gcc_64" >> $GITHUB_ENV
 
       #Configure!
       - name: Configure Cmake
