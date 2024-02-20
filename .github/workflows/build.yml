@@ -91,15 +91,6 @@ jobs:
         if: ${{matrix.os == 'windows-latest'}}
         uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Install host Qt (Android, WASM)
-        if: ${{ matrix.name == 'Android' || matrix.name == 'WASM' }}
-        uses: jurplel/install-qt-action@v3.3.0
-        with:
-          version: ${{ matrix.qt_version }}
-       #   archives: 'qtbase qttools qttranslations ' #For QtLinguist not being installed for android. Why? I don't know!
-          aqtversion: '==3.1.*'
-
-          
       - name: Install Qt
         uses: jurplel/install-qt-action@v3.3.0
         with:
@@ -107,10 +98,11 @@ jobs:
           target: ${{ matrix.target }}
           arch: ${{ matrix.target_arch }}
           aqtversion: '==3.1.*'
+          extra: "--autodesktop"
           
-      - name: Set Qt host path
-        if: ${{ matrix.name == 'Android' || matrix.name == 'WASM' }}
-        run: echo "QT_HOST_PATH=${{ env.Qt6_DIR }}/../gcc_64" >> $GITHUB_ENV
+     # - name: Set Qt host path
+      #  if: ${{ matrix.name == 'Android' || matrix.name == 'WASM' }}
+       # run: echo "QT_HOST_PATH=${{ env.Qt6_DIR }}/../gcc_64" >> $GITHUB_ENV
 
       #Configure!
       - name: Configure Cmake
