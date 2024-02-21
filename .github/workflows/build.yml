@@ -21,7 +21,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          -
+
           - name: "Windows"
             os: windows-latest
             qt_version: "6.6.2"
