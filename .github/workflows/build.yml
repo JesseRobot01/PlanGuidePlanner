@@ -27,6 +27,7 @@ jobs:
             target: "desktop"
             target_arch: "win64_msvc2019_64"
             host_arch: "win64_msvc2019_64"
+            arch_dir: "msvc2019_64"
             
           - os: ubuntu-latest
             name: "Linux"
@@ -34,13 +35,15 @@ jobs:
             target: "desktop"
             target_arch: "gcc_64"
             host_arch: "gcc_64"
-            
+            arch_dir: "gcc_64"
+
           - os: ubuntu-latest 
             name: "WASM"
             qt_version: "6.6.2"
             target: "desktop"
             target_arch: "wasm_multithread"
             host_arch: "gcc_64"
+            arch_dir: "wasm_multithread"
 
           - os: ubuntu-latest 
             name: "Android"
@@ -48,6 +51,7 @@ jobs:
             target: "android"
             target_arch: "android_armv7"
             host_arch: "gcc_64"
+            arch_dir: "android_armv7"
 
             #TODO macOS
 
@@ -109,7 +113,7 @@ jobs:
         shell: bash
         run: |
           echo "QT_ROOT_PATH=${{ runner.workspace }}/Qt/${{ matrix.qt_version }}" >> $GITHUB_ENV
-          echo "QT_TARGET_PATH=${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/${{ matrix.target_arch }}" >> $GITHUB_ENV
+          echo "QT_TARGET_PATH=${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/${{ matrix.arch_dir }}" >> $GITHUB_ENV
           echo "QT_HOST_PATH=${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/${{ matrix.host_arch }}" >> $GITHUB_ENV
 
       #Configure!
@@ -122,7 +126,7 @@ jobs:
         if: ${{ matrix.name == 'Android' }}
         run: |
           #Release builds not avable yet. Going with debug.
-          cmake -Bbuild -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="${{ env.QT_TARGET_PATH }}/lib/cmake/Qt6/qt.toolchain.cmake" -DANDROID_SDK_ROOT=$ANDROID_SDK_ROOT -DANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/25.1.8937393 -G Ninja
+          cmake -Bbuild -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="${{ env.QT_TARGET_PATH }}/lib/cmake/Qt6/qt.toolchain.cmake" -DQT_ANDROID_BUILD_ALL_ABIS=TRUE -DANDROID_SDK_ROOT=$ANDROID_SDK_ROOT -DANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/25.1.8937393 -G Ninja
 
       #Build!
       - name: Build!
