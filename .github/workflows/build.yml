@@ -23,7 +23,7 @@ jobs:
         include:
           - os: windows-latest
             name: "Windows"
-            qt_version: "6.6.*"
+            qt_version: "6.6.2"
             target: "desktop"
             target_arch: "win64_msvc2019_64"
             host_arch: "win64_msvc2019_64"
@@ -37,14 +37,14 @@ jobs:
             
           - os: ubuntu-latest 
             name: "WASM"
-            qt_version: "6.6.*"
+            qt_version: "6.6.2"
             target: "desktop"
             target_arch: "wasm_multithread"
             host_arch: "gcc_64"
 
           - os: ubuntu-latest 
             name: "Android"
-            qt_version: "6.6.*"
+            qt_version: "6.6.2"
             target: "android"
             target_arch: "android_armv7"
             host_arch: "gcc_64"
