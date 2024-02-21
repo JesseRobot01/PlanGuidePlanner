@@ -173,23 +173,23 @@ endif ()
 
 if (EMSCRIPTEN)
     file(GLOB HTML_FILES
-            "${CMAKE_CURRENT_BINARY_DIR}/*.html"
+            ${CMAKE_CURRENT_BINARY_DIR}/*.html
     )
     file(GLOB JS_FILES
-            "${CMAKE_CURRENT_BINARY_DIR}/*.js"
+            ${CMAKE_CURRENT_BINARY_DIR}/*.js
     )
     file(GLOB WASM_FILES
-            "${CMAKE_CURRENT_BINARY_DIR}/*.wasm"
+            ${CMAKE_CURRENT_BINARY_DIR}/*.wasm
     )
     file(GLOB SVG_FILES
-            "${CMAKE_CURRENT_BINARY_DIR}/*.svg"
+            ${CMAKE_CURRENT_BINARY_DIR}/*.svg
     )
 
     #Exclude the main HTML
-    list(REMOVE_ITEM HTML_FILES "${CMAKE_CURRENT_BINARY_DIR}/studyguide.html")
+    list(REMOVE_ITEM HTML_FILES "${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE_NAME}.html")
 
     install(
-            FILES "${CMAKE_CURRENT_BINARY_DIR}/studyguide.html"
+            FILES "${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE_NAME}.html"
             RENAME "index.html"
             DESTINATION .
             COMPONENT Runtime
@@ -202,11 +202,11 @@ if (EMSCRIPTEN)
 endif ()
 
 if(ANDROID)
-    file(GLOB_RECURSE APK_FILES
-            "${CMAKE_CURRENT_BINARY_DIR}/android-build/build/outputs/apk/*.apk"
+    file(GLOB APK_FILES
+            "${CMAKE_CURRENT_BINARY_DIR}/android-build/*.apk"
     )
     install(
-            FILES ${APK_FILES}
+            FILES ${CMAKE_CURRENT_BINARY_DIR}/android-build/${EXECUTABLE_NAME}.apk
             DESTINATION .
     )
 endif()

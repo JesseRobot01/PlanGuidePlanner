@@ -106,6 +106,7 @@ jobs:
           set-env: false
           
       - name: Set Qt enviorment
+        shell: bash
         run: |
           echo "QT_ROOT_PATH=${{ runner.workspace }}/Qt/${{ matrix.qt_version }}" >> $GITHUB_ENV
           echo "QT_TARGET_PATH=${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/${{ matrix.target_arch }}" >> $GITHUB_ENV
