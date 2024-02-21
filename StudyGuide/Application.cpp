@@ -205,10 +205,14 @@ void Application::setLanguage(const QString&languageCode) {
 }
 
 void Application::restart() {
+    #ifndef Q_OS_WASM
     QProcess::startDetached(applicationFilePath());
     qDebug() << "Booted new instance";
     exit(0);
     qDebug() << "Exiting current instance";
+    #else
+    qFatal() << "You can't restart, so get an error!";
+    #endif
 }
 
 #ifdef Q_OS_ANDROID

@@ -107,9 +107,9 @@ jobs:
           
       - name: Set Qt enviorment
         run: |
-          echo "QT_ROOT_PATH=$RUNNER_WORKSPACE/Qt/${{ matrix.qt_version }}/" >> $GITHUB_ENV
-          echo "QT_TARGET_PATH=$RUNNER_WORKSPACE/Qt/${{ matrix.qt_version }}/${{ matrix.target_arch }}/" >> $GITHUB_ENV
-          echo "QT_HOST_PATH=$RUNNER_WORKSPACE/Qt/${{ matrix.qt_version }}/${{ matrix.host_arch }}/" >> $GITHUB_ENV
+          echo "QT_ROOT_PATH=${{ github.workspace }}/Qt/${{ matrix.qt_version }}/" >> $GITHUB_ENV
+          echo "QT_TARGET_PATH=${{ github.workspace }}/Qt/${{ matrix.qt_version }}/${{ matrix.target_arch }}/" >> $GITHUB_ENV
+          echo "QT_HOST_PATH=${{ github.workspace }}/Qt/${{ matrix.qt_version }}/${{ matrix.host_arch }}/" >> $GITHUB_ENV
 
       #Configure!
       - name: Configure Cmake
@@ -139,7 +139,7 @@ jobs:
           cpack -G NSIS64
 
       - name: Create packages (Linux)
-        if: ${{ matrix.os == 'ubuntu-latest' }}
+        if: ${{ matrix.name == 'linux' }}
         run: |
           cd build
           cpack -G TXZ
@@ -154,21 +154,21 @@ jobs:
           path: install
 
       - name: Upload setup (Windows)
-        if: ${{ matrix.os == 'windows-latest' }}
+        if: ${{ matrix.name == 'Windows' }}
         uses: actions/upload-artifact@v4
         with:
           name: Study Guide-windows-setup
           path: build/*.exe
 
       - name: Upload binaries (Linux)
-        if: ${{ matrix.os == 'ubuntu-latest' }}
+        if: ${{ matrix.name == 'linux' }}
         uses: actions/upload-artifact@v4
         with:
           name: Study Guide-linux (tar.xz)
           path: build/*.tar.xz
 
       - name: Upload deb (Linux)
-        if: ${{ matrix.os == 'ubuntu-latest' }}
+        if: ${{ matrix.name == 'linux' }}
         uses: actions/upload-artifact@v4
         with:
           name: Study Guide-linux (deb)
