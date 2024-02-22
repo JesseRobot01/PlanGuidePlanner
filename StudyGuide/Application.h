@@ -23,8 +23,17 @@ public:
 
     std::unique_ptr<QFile> logFile;
 
+    QString getLogsDirLocation();
+
+    QString getAutoOpenLocation();
+
+    QString getAutoSaveLocation();
+
+
 #ifdef Q_OS_ANDROID
+
     void requestStoragePermission();
+
 #endif
 
 public slots:

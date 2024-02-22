@@ -17,10 +17,12 @@
 #endif
 
 #ifdef Q_OS_ANDROID
+
 #include <private/qandroidextras_p.h>
+
 #endif
 
-void messageHandler(QtMsgType type, const QMessageLogContext&context, const QString&msg) {
+void messageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg) {
     static std::mutex loggerMutex;
     const std::lock_guard<std::mutex> lock(loggerMutex); // synchronized, QFile logFile is not thread-safe
 
@@ -33,7 +35,7 @@ void messageHandler(QtMsgType type, const QMessageLogContext&context, const QStr
     fflush(stderr);
 }
 
-Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
+Application::Application(int &argc, char **argv) : QApplication(argc, argv) {
 #ifdef WIN32
     AttachWindowsConsole();
 #endif
@@ -44,8 +46,8 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
     QCommandLineParser commandLineParser;
 
     commandLineParser.addOptions({
-            {{"L", "lang"}, "Sets the language of the application", "lang"}
-        }
+                                         {{"L", "lang"}, "Sets the language of the application", "lang"}
+                                 }
     );
     commandLineParser.addHelpOption();
 
@@ -56,33 +58,33 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
     QSettings settings;
 
     qSetMessagePattern(
-        "%{time process}"
-        " "
-        "%{if-debug}DEBUG   %{endif}"
-        "%{if-info}INFO    %{endif}"
-        "%{if-warning}WARNING %{endif}"
-        "%{if-critical}CRITICAL%{endif}"
-        "%{if-fatal}FATAL   %{endif}"
-        " "
-        "|"
-        " "
-        "%{message}");
+            "%{time process}"
+            " "
+            "%{if-debug}DEBUG   %{endif}"
+            "%{if-info}INFO    %{endif}"
+            "%{if-warning}WARNING %{endif}"
+            "%{if-critical}CRITICAL%{endif}"
+            "%{if-fatal}FATAL   %{endif}"
+            " "
+            "|"
+            " "
+            "%{message}");
 
-    QDir logsDir(settings.value("logsDir", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
-                                           "/logs").toString());
+    QDir logsDir(getLogsDirLocation());
     if (!logsDir.exists())
         logsDir.mkpath(".");
 
     // get highest number.
     int highestLogNumber = 0;
-   for(QFileInfo file : logsDir.entryInfoList( QDir::Files)){
-      QString fileName =  file.baseName();
-       fileName.replace("Log", "");
-       int fileNumber = fileName.toInt();
-       if(fileNumber > highestLogNumber)
-           highestLogNumber = fileNumber;
-   }
-    logFile = std::unique_ptr<QFile>(new QFile(logsDir.path() + "/Log" + QString::number(highestLogNumber + 1) + ".txt"));
+    for (QFileInfo file: logsDir.entryInfoList(QDir::Files)) {
+        QString fileName = file.baseName();
+        fileName.replace("Log", "");
+        int fileNumber = fileName.toInt();
+        if (fileNumber > highestLogNumber)
+            highestLogNumber = fileNumber;
+    }
+    logFile = std::unique_ptr<QFile>(
+            new QFile(logsDir.path() + "/Log" + QString::number(highestLogNumber + 1) + ".txt"));
     if (!logFile->open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate))
         qFatal("Can't open log file!");
 
@@ -96,8 +98,8 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
         QString currentTheme = settings.value("Theme", "fusion_dark").toString();
 
         if (currentTheme == "fusion_dark") {
-           GuidePalette palette;
-           palette.setFusionDark();
+            GuidePalette palette;
+            palette.setFusionDark();
         }
         if (currentTheme == "fusion_light") {
             GuidePalette palette;
@@ -131,16 +133,14 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
 
     // auto open all files.
     if (settings.value("AutoOpen", "1").toBool()) {
-        QDir autoOpenDir = settings.value("AutoOpenDir",
-                                          (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
-                                           "/open guides")).toString();
+        QDir autoOpenDir = getAutoOpenLocation();
         if (autoOpenDir.exists() && !autoOpenDir.isEmpty()) {
             QStringList guideFileNames = autoOpenDir.entryList(QDir::Files);
             QStringList guideFiles;
-            LoadGuide* loadGuide = new LoadGuide(nullptr, guideFileNames.count() * 2); // 1 for reading, 1 for opening.
+            LoadGuide *loadGuide = new LoadGuide(nullptr, guideFileNames.count() * 2); // 1 for reading, 1 for opening.
             loadGuide->show();
 
-            for (const QString&GuideFileName: guideFileNames)
+            for (const QString &GuideFileName: guideFileNames)
                 guideFiles.append(autoOpenDir.filePath(GuideFileName));
 
             QVector<GuideData::Data> guides = XmlParser::readXml(guideFiles);
@@ -158,55 +158,97 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
 Application::~Application() {
 }
 
-void Application::setLanguage(const QString&languageCode) {
+void Application::setLanguage(const QString &languageCode) {
     if (translator->load(":/translations/StudyGuide_" + languageCode + ".qm")) {
         installTranslator(translator);
         qDebug() << "Succesfully loaded translations for" << languageCode;
-    }
-    else {
+    } else {
         qCritical() << "Failed to load translation for" << languageCode;
         qInfo() << "Falling back to default translations.";
 
         if (translator->load(":/translations/StudyGuide_en.qm")) {
             installTranslator(translator);
-        }
-        else {
+        } else {
             qCritical() << "Failed to load translations.";
         }
     }
 }
 
 void Application::restart() {
-    #ifndef Q_OS_WASM
+#ifndef Q_OS_WASM
     QProcess::startDetached(applicationFilePath());
     qDebug() << "Booted new instance";
     exit(0);
     qDebug() << "Exiting current instance";
-    #else
+#else
     qFatal() << "You can't restart, so get an error!";
-    #endif
+#endif
 }
 
 #ifdef Q_OS_ANDROID
-void Application::requestStoragePermission(){
+
+void Application::requestStoragePermission() {
     bool value = QJniObject::callStaticMethod<jboolean>(
             "android/os/Environment",
             "isExternalStorageManager");
-    if(value == false){
+    if (value == false) {
         QJniObject filepermit = QJniObject::getStaticObjectField(
                 "android/provider/Settings",
                 "ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION",
                 "Ljava/lang/String;");
-        //you must changing the YOURPKGNAME at below
-        QJniObject pkgName = QJniObject::fromString("package:YOURPKGNAME");
+        QJniObject pkgName = QJniObject::fromString("package:io.jesserobot.studyguide");
         QJniObject parsedUri = QJniObject::callStaticObjectMethod(
                 "android/net/Uri",
-                "parse","(Ljava/lang/String;)Landroid/net/Uri;",
+                "parse", "(Ljava/lang/String;)Landroid/net/Uri;",
                 pkgName.object<jstring>());
         QJniObject intent("android/content/Intent",
                           "(Ljava/lang/String;Landroid/net/Uri;)V",
-                          filepermit.object<jstring>(),parsedUri.object());
+                          filepermit.object<jstring>(), parsedUri.object());
         QtAndroidPrivate::startActivity(intent, 0);
     }
 }
+
 #endif
+
+QString Application::getLogsDirLocation() {
+    QSettings settings;
+
+#ifdef Q_OS_ANDROID
+    return settings.value("LogsDir",
+                          (QStandardPaths::writableLocation(QStandardPaths::HomeLocation) +
+                           "/logs")).toString();
+#else
+    return settings.value("LogsDir",
+                          (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
+                           "/logs")).toString();
+#endif
+
+}
+
+QString Application::getAutoOpenLocation() {
+    QSettings settings;
+
+#ifdef Q_OS_ANDROID
+    return settings.value("AutoOpenDir",
+                          (QStandardPaths::writableLocation(QStandardPaths::HomeLocation) +
+                           "/open guides")).toString();
+#else
+    return settings.value("AutoOpenDir",
+                          (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
+                           "/open guides")).toString();
+#endif
+}
+
+QString Application::getAutoSaveLocation() {
+    QSettings settings;
+
+#ifdef Q_OS_ANDROID
+    return settings.value("AutoSaveDir",
+                          (QStandardPaths::writableLocation(QStandardPaths::HomeLocation) +
+                           "/open guides")).toString();
+#else
+    return settings.value("AutoSaveDir",
+                          (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
+                           "/open guides")).toString();
+#endif
+}

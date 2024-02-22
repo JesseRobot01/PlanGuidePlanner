@@ -101,9 +101,7 @@ void MainWindow::on_actionOpen_File_triggered() {
 
     // Copy them over to auto open dir
     if (settings.value("AutoOpen", "1").toBool() && settings.value("AutoCopyGuide", "1").toBool()) {
-        QDir copyToDestination = settings.value("AutoOpenDir",
-                                                (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
-                                                 "/open guides")).toString();
+        QDir copyToDestination(APPLICATION->getAutoOpenLocation());
 
         if (copyToDestination.mkpath(".")) {
             for (QFile fileToCopy: files) {

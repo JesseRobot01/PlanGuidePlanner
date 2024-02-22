@@ -45,14 +45,8 @@ void PreferenceWindow::loadSettings() {
     ui->languageSelector->setCurrentIndex(ui->languageSelector->findData(settings.value("Lang", "en")));
     ui->themes->setCurrentIndex(ui->themes->findData(settings.value("Theme", "fusion_dark")));
 
-    ui->autoSaveDir->setText(settings.value("AutoSaveDir",
-                                            (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
-                                             "/open guides")).
-        toString());
-    ui->autoOpenDir->setText(settings.value("AutoOpenDir",
-                                            (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
-                                             "/open guides")).
-        toString());
+    ui->autoSaveDir->setText(APPLICATION->getAutoSaveLocation());
+    ui->autoOpenDir->setText(APPLICATION->getAutoOpenLocation());
 
 
     ui->copyNewFilesCheckBox->setChecked(settings.value("AutoCopyGuide", "1").toBool());
@@ -65,9 +59,7 @@ void PreferenceWindow::loadSettings() {
         ui->autoOpenDir->setEnabled(false);
         ui->copyNewFilesCheckBox->setEnabled(false);
     }
-    ui->logsDirectory->setText(settings.value("LogsDir",
-                                              (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
-                                               "/logs")).toString());
+    ui->logsDirectory->setText(APPLICATION->getLogsDirLocation());
 }
 
 
