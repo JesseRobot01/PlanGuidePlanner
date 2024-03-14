@@ -55,7 +55,7 @@
 <context>
     <name>Goal</name>
     <message>
-        <location filename="../ui/guide/Goal.cpp" line="+101"/>
+        <location filename="../ui/guide/Goal.cpp" line="+102"/>
         <source>UI_WORKINDICATOR</source>
         <translation>M</translation>
     </message>
@@ -150,16 +150,19 @@
     </message>
     <message>
         <location line="+28"/>
+        <location/>
         <source>Main Information</source>
         <translation>Algemene Informatie</translation>
     </message>
     <message>
         <location line="+31"/>
+        <location/>
         <source>Information</source>
         <translation>Informatie</translation>
     </message>
     <message>
         <location line="+34"/>
+        <location/>
         <source>UI_INFOINDICATOR</source>
         <translation>I</translation>
     </message>
@@ -227,7 +230,7 @@
         <translation>Bestand</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+11"/>
         <location/>
         <source>Help</source>
         <translation>Help</translation>
@@ -263,14 +266,20 @@
         <translation>Over Studie Wijzer</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="+36"/>
-        <location line="+143"/>
+        <location line="+5"/>
+        <source>Save Guide</source>
+        <translation>Wijzer opslaan</translation>
+    </message>
+    <message>
+        <location filename="../ui/MainWindow.cpp" line="+75"/>
+        <location line="+164"/>
         <source>Open StudyGuide</source>
         <translation>Open Studie Wijzers</translation>
     </message>
     <message>
-        <location line="-141"/>
-        <location line="+144"/>
+        <location line="-176"/>
+        <location line="+14"/>
+        <location line="+165"/>
         <source>XML Files (*.xml);;All Files (*)</source>
         <translation>Xml bestanden (*.xml);;Alle Bestanden (*)</translation>
     </message>
@@ -309,8 +318,9 @@
     </message>
     <message>
         <location line="+13"/>
-        <source>Use Auto Save (Not available yet)</source>
-        <translation type="unfinished"></translation>
+        <source>Use Auto Save</source>
+        <translatorcomment>Gebruik automatische opslag</translatorcomment>
+        <translation></translation>
     </message>
     <message>
         <location line="+16"/>

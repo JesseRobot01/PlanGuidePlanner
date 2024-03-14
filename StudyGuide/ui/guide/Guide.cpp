@@ -178,6 +178,8 @@ GuideData::Data Guide::getGuide() {
     finalGuide.shortName = shortName;
     finalGuide.period = ui->period_number->text();
     finalGuide.info = ui->info->text();
+    finalGuide.originalFile = originalFile;
+    finalGuide.autoSaveFile = autoSaveFile;
 
     for (GuideData::ObjectTypes type: objectOrder) {
         if (type == GuideData::Index) {

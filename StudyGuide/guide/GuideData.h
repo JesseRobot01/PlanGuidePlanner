@@ -8,6 +8,7 @@
 #include <qlist.h>
 #include <qstring.h>
 #include <QDebug>
+#include <qfileinfo.h>
 
 /**
  * \brief This class is used for saving Guides
@@ -153,6 +154,8 @@ public:
         QString info;
         QString period;
         QString shortName;
+        QFileInfo originalFile;
+        QFileInfo autoSaveFile;
     };
 };
 

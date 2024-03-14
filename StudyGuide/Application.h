@@ -2,16 +2,17 @@
 // Created by Jesse on 7 okt. 2023.
 //
 
+
+#include <QFile>
+#include <QTimer>
+#include "guide/GuideData.h"
+#include "ui/MainWindow.h"
+
+
 #if defined(APPLICATION)
 #undef APPLICATION
 #endif
 #define APPLICATION (static_cast<Application*>(QCoreApplication::instance()))
-
-
-#include <QFile>
-
-#include "guide/GuideData.h"
-#include "ui/MainWindow.h"
 
 class Application : public QApplication {
 public:
@@ -29,6 +30,12 @@ public:
 
     QString getAutoSaveLocation();
 
+    QVector<Guide *> guidesToSave;
+
+    void startAutoSaveTimer();
+
+    bool isAutoSaveTimerStarted = false;
+
 
 #ifdef Q_OS_ANDROID
 
@@ -38,12 +45,13 @@ public:
 
 public slots:
 
-    static void addGuide(GuideData::Data data);
+    void autoSaveTriggered();
 
 private:
     void setLanguage(const QString &languageCode);
 
     MainWindow *appWindow;
     QTranslator *translator;
+    QTimer *autoSaveTimer = new QTimer(this);
 
 };

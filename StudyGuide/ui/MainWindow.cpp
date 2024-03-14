@@ -12,10 +12,14 @@
 #include "AboutWindow.h"
 #include "ui_MainWindow.h"
 #include "XmlParser.h"
-
+#include "guide/Index.h"
+#include "guide/Test.h"
+#include "guide/Report.h"
 #include "guide/Guide.h"
 #include "ui/dialogs/LoadGuide.h"
 #include "Application.h"
+#include "ui/guide/Goal.h"
+#include <QCloseEvent>
 
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
@@ -59,6 +63,7 @@ void MainWindow::on_actionOpen_File_triggered() {
     QFileDialog::getOpenFileContent(tr("XML Files (*.xml);;All Files (*)"), uploadedGuide);
 }
 #else
+
 void MainWindow::on_actionOpen_File_triggered() {
 
 #ifdef Q_OS_ANDROID
@@ -123,6 +128,7 @@ void MainWindow::on_actionOpen_File_triggered() {
     delete loadGuide;
 
 }
+
 #endif
 
 
@@ -135,6 +141,8 @@ void MainWindow::processGuide(GuideData::Data guide) {
     finalGuide->setShortName(shortName);
     finalGuide->setInfo(guide.info);
     finalGuide->setPeriod(guide.period);
+    finalGuide->originalFile = guide.originalFile;
+    finalGuide->autoSaveFile = guide.autoSaveFile;
 
 
     //Processing the guide objects
@@ -144,11 +152,11 @@ void MainWindow::processGuide(GuideData::Data guide) {
             for (GuideData::GuideGoals goal: guideObject.goals) {
                 Goal *finalGoal = new Goal(index);
                 finalGoal->setName(goal.name);
-                finalGoal->setProgress(goal.progress);
+                finalGoal->setProgress(goal.progress, false);
                 finalGoal->setTime(goal.time);
                 finalGoal->setWeek(goal.week);
                 finalGoal->setGoalNumber(goal.goalNumber);
-
+                finalGoal->parentGuide = finalGuide;
 
                 for (GuideData::GuideGoalPrefixes goalPrefix: goal.prefixes) {
                     switch (goalPrefix.prefix) {
@@ -166,7 +174,7 @@ void MainWindow::processGuide(GuideData::Data guide) {
                             break;
 
                         case GuideData::Info:
-                            finalGoal->addInfo(goalPrefix.prefixText,goalPrefix.link);
+                            finalGoal->addInfo(goalPrefix.prefixText, goalPrefix.link);
                             break;
                     }
                 }
@@ -204,6 +212,7 @@ void MainWindow::addGuide(Guide *guide, const QString &name) {
     scrollArea->setWidget(guide);
     ui->tabWidget->addTab(scrollArea, name);
 }
+
 #ifdef Q_OS_WASM
 void MainWindow::on_actionSave_Guide_As_triggered() {
     Guide *guideToSave = guides.at(ui->tabWidget->currentIndex());
@@ -222,14 +231,19 @@ void MainWindow::on_actionSave_Guide_As_triggered() {
 }
 
 #else
+
 void MainWindow::on_actionSave_Guide_As_triggered() {
     QSettings settings;
     Guide *guideToSave = guides.at(ui->tabWidget->currentIndex());
 
+    QString baseFileName;
+    if (!guideToSave->originalFile.exists())
+        baseFileName = guideToSave->originalFile.filePath();
+    else
+        baseFileName = settings.value("LastOpenedDir", ".").toString() + "/" + guideToSave->name + ".xml";
+
     QString saveFileName = QFileDialog::getSaveFileName(this, tr("Open StudyGuide"),
-                                                        settings.value("LastOpenedDir", ".").toString() + "/" +
-                                                        guideToSave->
-                                                                name, tr("XML Files (*.xml);;All Files (*)"));
+                                                        baseFileName, tr("XML Files (*.xml);;All Files (*)"));
 
     if (saveFileName.isEmpty()) {
         qWarning() << "No save file given. Can't save";
@@ -241,9 +255,35 @@ void MainWindow::on_actionSave_Guide_As_triggered() {
     GuideData::Data guide = guideToSave->getGuide();
     XmlParser::saveXml(guide, fileToSave);
 }
+
 #endif
+
+void MainWindow::on_actionSave_triggered() {
+    QSettings settings;
+    Guide *guideToSave = guides.at(ui->tabWidget->currentIndex());
+
+    QString saveFileName = guideToSave->originalFile.filePath();
+
+    if (saveFileName.isEmpty()) {
+        on_actionSave_Guide_As_triggered(); //Trigger the save as.
+        return;
+    }
+
+    QFile fileToSave(saveFileName);
+    //get the guide;
+    GuideData::Data guide = guideToSave->getGuide();
+    XmlParser::saveXml(guide, fileToSave);
+}
 
 void MainWindow::on_actionAbout_triggered() {
     AboutWindow *aboutWindow = new AboutWindow();
     aboutWindow->show();
+}
+
+void MainWindow::closeEvent(QCloseEvent *event) {
+    if (APPLICATION->isAutoSaveTimerStarted) {
+        // force auto save
+        APPLICATION->autoSaveTriggered();
+    }
+    event->accept();
 }

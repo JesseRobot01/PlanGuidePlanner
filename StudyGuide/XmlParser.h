@@ -13,18 +13,18 @@
 
 class XmlParser {
 public:
-    static GuideData::Data readXml(QFile* xmlFile);
+    static GuideData::Data readXml(QFile *xmlFile);
 
-    static GuideData::Data readXml(const QString&xmlFile) {
-        QFile* file = new QFile(xmlFile);
+    static GuideData::Data readXml(const QString &xmlFile) {
+        QFile *file = new QFile(xmlFile);
         return readXml(file);
     }
 
-    static QVector<GuideData::Data> readXml(const QStringList&xmlFiles) {
+    static QVector<GuideData::Data> readXml(const QStringList &xmlFiles) {
         QVector<GuideData::Data> guides;
         QVector<QFuture<GuideData::Data>> futures;
 
-        for (const QString&xmlFile: xmlFiles) {
+        for (const QString &xmlFile: xmlFiles) {
             futures.append(QtConcurrent::run([xmlFile]() {
                 return readXml(xmlFile);
             }));
@@ -36,15 +36,16 @@ public:
         }
 
         // Retrieve the results
-        for (const QFuture<GuideData::Data>&future: futures) {
+        for (const QFuture<GuideData::Data> &future: futures) {
             guides.append(future.result());
         }
 
         return guides;
     }
 
-    static void saveXml(const GuideData::Data&guide, QFile&fileToSaveTo);
-};
+    static void saveXml(const GuideData::Data &guide, QFile &fileToSaveTo, bool isAutoSave = false, bool useAutoFormatting = true);
 
+    static void autoSaveXml(QVector<GuideData::Data> GuidesToSave);
+};
 
 #endif //STUDYGUIDE_XMLPARSER_H

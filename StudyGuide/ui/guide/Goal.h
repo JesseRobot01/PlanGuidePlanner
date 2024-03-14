@@ -10,6 +10,7 @@
 #include <QFile>
 
 #include "guide/GuideData.h"
+#include "Guide.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -47,10 +48,10 @@ public:
     void addInfo(const QString &info, const QString&link = "");
 
 
-    void setProgress(int progress);
+    void setProgress(int progress, bool changedFile = true);
 
-    void setProgress(const QString &progress) {
-        setProgress(progress.toInt());
+    void setProgress(const QString &progress , bool changedFile = true) {
+        setProgress(progress.toInt(), changedFile);
     }
 
     void finalise();
@@ -60,6 +61,9 @@ public:
     GuideData::GuideGoals getGoal();
 
     int size = 40;
+    Guide* parentGuide; // for knowing which guide to save for auto save.
+
+
 
 private slots:
 

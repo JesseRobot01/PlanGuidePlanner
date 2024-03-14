@@ -6,11 +6,11 @@
 #define STUDYGUIDE_GUIDE_H
 
 #include "guide/GuideData.h"
+#include <QWidget>
 
-#include "Index.h"
-#include "Test.h"
-#include "Report.h"
-
+class Index;
+class Test;
+class Report;
 
 QT_BEGIN_NAMESPACE
 
@@ -46,6 +46,11 @@ public:
 
     QString name;
 
+    QFileInfo originalFile;
+
+    QFileInfo autoSaveFile;
+
+    bool isInAutoSaveList = false;
 private:
     Ui::Guide *ui;
 

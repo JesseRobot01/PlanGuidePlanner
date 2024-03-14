@@ -6,6 +6,8 @@
 #include <QXmlStreamReader>
 #include "XmlParser.h"
 #include "guide/GuideData.h"
+#include "Application.h"
+#include <QString>
 
 GuideData::Data XmlParser::readXml(QFile *xmlFileP) {
     QFile &xmlFile = *xmlFileP;
@@ -30,7 +32,14 @@ GuideData::Data XmlParser::readXml(QFile *xmlFileP) {
 
             if (elementName == "studyguide" && token != QXmlStreamReader::EndElement) {
                 GuideData::Data guide;
-
+                guide.originalFile = fileInfo;
+                for (QXmlStreamAttribute attribute: xml.attributes()) {
+                    if (attribute.name().toString() == "autosavefile" && attribute.value().toString() == "true") {
+                        guide.autoSaveFile = fileInfo;
+                    } else if (attribute.name().toString() == "originalfile") {
+                        guide.originalFile = QFileInfo(attribute.value().toString());
+                    }
+                }
                 elementName = "";
 
                 while (!(token == QXmlStreamReader::EndElement && elementName == "studyguide")) {
@@ -198,7 +207,7 @@ GuideData::Data XmlParser::readXml(QFile *xmlFileP) {
     }
 }
 
-void XmlParser::saveXml(const GuideData::Data &guide, QFile &fileToSaveTo) {
+void XmlParser::saveXml(const GuideData::Data &guide, QFile &fileToSaveTo, bool isAutoSave, bool useAutoFormatting) {
     // QFile&fileToSaveTo = *fileToSaveToP;
     QFileInfo fileInfo(fileToSaveTo);
     if (!fileToSaveTo.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -206,10 +215,14 @@ void XmlParser::saveXml(const GuideData::Data &guide, QFile &fileToSaveTo) {
     }
     try {
         QXmlStreamWriter xml(&fileToSaveTo);
-        xml.setAutoFormatting(true);
+        xml.setAutoFormatting(useAutoFormatting);
 
         xml.writeStartDocument();
         xml.writeStartElement("studyguide");
+        if (isAutoSave) {
+            xml.writeAttribute("autosavefile", "true");
+            xml.writeAttribute("originalfile", guide.originalFile.filePath());
+        }
         xml.writeTextElement("name", guide.name);
         xml.writeTextElement("shortname", guide.shortName);
         xml.writeTextElement("period", guide.period);
@@ -311,3 +324,20 @@ void XmlParser::saveXml(const GuideData::Data &guide, QFile &fileToSaveTo) {
     }
     fileToSaveTo.close();
 }
+
+void XmlParser::autoSaveXml(QVector<GuideData::Data> GuidesToSave) {
+    QVector<QFuture<void>> futures;
+
+    for (auto guide: GuidesToSave) {
+        if (!guide.autoSaveFile.exists()) {
+            QFileInfo autoSaveFile(APPLICATION->getAutoSaveLocation(), guide.originalFile.fileName());
+            guide.autoSaveFile = autoSaveFile;
+        }
+
+        futures.append(QtConcurrent::run([guide]() {
+            QFile autoSaveFile = guide.autoSaveFile.filePath();
+            return saveXml(guide, autoSaveFile, true, false);
+        }));
+    }
+}
+

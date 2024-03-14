@@ -5,6 +5,7 @@
 #include "Goal.h"
 #include "ui_Goal.h"
 #include "themes/GuidePalette.h"
+#include "Application.h"
 
 Goal::Goal(QWidget *parent) : QWidget(parent), ui(new Ui::Goal) {
     ui->setupUi(this);
@@ -72,7 +73,7 @@ void Goal::setTime(const QString &time) {
     ui->goalTime->setText(time);
 }
 
-void Goal::addWork(const QString &workName, const QString&link) {
+void Goal::addWork(const QString &workName, const QString &link) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
     GuidePalette palette;
@@ -111,19 +112,19 @@ void Goal::addWork(const QString &workName, const QString&link) {
     work->setLineWidth(3);
     work->setAlignment(Qt::AlignCenter);
 
-    if(!link.isEmpty()){
+    if (!link.isEmpty()) {
         QString workText = QString("<a href=\"%2\">%1</a>")
-        .arg(workName)
-        .arg(link);
+                .arg(workName)
+                .arg(link);
         work->setOpenExternalLinks(true);
         work->setText(workText);
     } else
-    work->setText(workName);
+        work->setText(workName);
 
     size += 40;
 }
 
-void Goal::addWatch(const QString &watchName, const QString&link) {
+void Goal::addWatch(const QString &watchName, const QString &link) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
     GuidePalette palette;
@@ -163,7 +164,7 @@ void Goal::addWatch(const QString &watchName, const QString&link) {
     watch->setLineWidth(3);
     watch->setAlignment(Qt::AlignCenter);
 
-    if(!link.isEmpty()){
+    if (!link.isEmpty()) {
         QString watchText = QString("<a href=\"%2\">%1</a>")
                 .arg(watchName)
                 .arg(link);
@@ -176,7 +177,7 @@ void Goal::addWatch(const QString &watchName, const QString&link) {
     size += 40;
 }
 
-void Goal::addRead(const QString &readName, const QString&link) {
+void Goal::addRead(const QString &readName, const QString &link) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
     GuidePalette palette;
@@ -216,7 +217,7 @@ void Goal::addRead(const QString &readName, const QString&link) {
     read->setLineWidth(3);
     read->setAlignment(Qt::AlignCenter);
 
-    if(!link.isEmpty()){
+    if (!link.isEmpty()) {
         QString readText = QString("<a href=\"%2\">%1</a>")
                 .arg(readName)
                 .arg(link);
@@ -229,7 +230,7 @@ void Goal::addRead(const QString &readName, const QString&link) {
     size += 40;
 }
 
-void Goal::addProcess(const QString &processName, const QString&link) {
+void Goal::addProcess(const QString &processName, const QString &link) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
     GuidePalette palette;
@@ -266,7 +267,7 @@ void Goal::addProcess(const QString &processName, const QString&link) {
     process->setLineWidth(3);
     process->setAlignment(Qt::AlignCenter);
 
-    if(!link.isEmpty()){
+    if (!link.isEmpty()) {
         QString processText = QString("<a href=\"%2\">%1</a>")
                 .arg(processName)
                 .arg(link);
@@ -279,7 +280,7 @@ void Goal::addProcess(const QString &processName, const QString&link) {
     size += 40;
 }
 
-void Goal::addInfo(const QString &infoText, const QString&link) {
+void Goal::addInfo(const QString &infoText, const QString &link) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
     GuidePalette palette;
@@ -316,7 +317,7 @@ void Goal::addInfo(const QString &infoText, const QString&link) {
     info->setLineWidth(3);
     info->setAlignment(Qt::AlignCenter);
 
-    if(!link.isEmpty()){
+    if (!link.isEmpty()) {
         QString infoTextLink = QString("<a href=\"%2\">%1</a>")
                 .arg(infoText)
                 .arg(link);
@@ -339,7 +340,7 @@ void Goal::finalise() {
     ui->progressBackground->setGeometry(983, 3, 104, size - 6);
 }
 
-void Goal::setProgress(int progress) {
+void Goal::setProgress(int progress, bool changedFile) {
     QString colour;
     GuidePalette palette;
 
@@ -372,6 +373,12 @@ void Goal::setProgress(int progress) {
             ui->progressSlider->setStyleSheet(colour);
             ui->progressBackground->setStyleSheet(colour);
             break;
+    }
+    QSettings settings;
+    if (changedFile && !parentGuide->isInAutoSaveList && settings.value("AutoSave", "1").toBool()) {
+        parentGuide->isInAutoSaveList = true;
+        APPLICATION->guidesToSave.append(parentGuide);
+        APPLICATION->startAutoSaveTimer();
     }
     ui->progressSlider->setValue(progress);
 }

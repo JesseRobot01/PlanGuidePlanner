@@ -13,7 +13,9 @@
 #include "themes/GuidePalette.h"
 
 #ifdef WIN32
+
 #include "WindowConsole.h"
+
 #endif
 
 #ifdef Q_OS_ANDROID
@@ -59,6 +61,8 @@ Application::Application(int &argc, char **argv) : QApplication(argc, argv) {
 
     qSetMessagePattern(
             "%{time process}"
+            " "
+            "%{pid}"
             " "
             "%{if-debug}DEBUG   %{endif}"
             "%{if-info}INFO    %{endif}"
@@ -251,4 +255,32 @@ QString Application::getAutoSaveLocation() {
                           (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
                            "/open guides")).toString();
 #endif
+}
+
+void Application::startAutoSaveTimer() {
+    if (!isAutoSaveTimerStarted) {
+        int autoSaveInterval = 300000;
+        qDebug() << "Starting auto save timer.";
+        qInfo() << "Auto saving in" << autoSaveInterval << "Milliseconds.";
+
+        connect(autoSaveTimer, &QTimer::timeout, this, [=]() { this->autoSaveTriggered(); });
+        autoSaveTimer->setSingleShot(true);
+        autoSaveTimer->start(autoSaveInterval);
+        isAutoSaveTimerStarted = true;
+    }
+
+}
+
+void Application::autoSaveTriggered() {
+    qDebug() << "Auto saving...";
+    QVector<GuideData::Data> guideDataToSave;
+
+    //extract the guideData
+    for (Guide *guide: guidesToSave) {
+        guide->isInAutoSaveList = false;
+        guideDataToSave.append(guide->getGuide());
+    }
+    XmlParser::autoSaveXml(guideDataToSave);
+
+    isAutoSaveTimerStarted = false;
 }
