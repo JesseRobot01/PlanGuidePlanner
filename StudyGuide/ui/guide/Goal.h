@@ -29,7 +29,7 @@ public:
 
     ~Goal() override;
 
-    bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
     void addWork(const QString &workName, const QString&link = "");
 

@@ -20,7 +20,7 @@ public:
     ~RestartDialog() override;
 
 private slots:
-    void accept();
+    void accept() override;
 
 private:
     Ui::RestartDialog *ui;

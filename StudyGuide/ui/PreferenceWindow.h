@@ -18,7 +18,7 @@ public:
     ~PreferenceWindow() override;
 
 private slots:
-    void accept();
+    void accept() override;
 
     void on_clearDirCheck_clicked(bool isChecked);
 
