@@ -15,9 +15,12 @@
 #include "themes/GuidePalette.h"
 
 
-Guide::Guide(QWidget* parent) : QWidget(parent), ui(new Ui::Guide) {
+Guide::Guide(QWidget *parent) : QWidget(parent), ui(new Ui::Guide) {
     ui->setupUi(this);
     updateStyle();
+    ui->period->hide();
+    ui->period_number->hide();
+    ui->subject_name->setGeometry(0,0,ui->headerFrame->width() -5,68 );
 }
 
 void Guide::updateStyle() {
@@ -30,8 +33,8 @@ void Guide::updateStyle() {
     QString borderColourString = QString::fromLatin1("border-width:3px;border-style:solid;border-color: %1;")
             .arg(palette.color(QPalette::Base).name());
 
-    QString HeaderStyle = QString::fromLatin1("background-color: %1;").arg(
-        palette.getColor(GuidePalette::HeaderBackground).name());
+    QString headerStyle = QString::fromLatin1("background-color: %1;").arg(
+            palette.getColor(GuidePalette::HeaderBackground).name());
 
     QString periodStyle = QString::fromLatin1("background-color: %1; color:%2")
             .arg(palette.getColor(GuidePalette::TestBackground).name())
@@ -39,63 +42,64 @@ void Guide::updateStyle() {
 
 
     QString workIndicatorStyle = QString::fromLatin1("background-color: %1;color:%2;")
-                                 .arg(palette.getColor(GuidePalette::WorkIndicatorBackground).name())
-                                 .arg(palette.getColor(GuidePalette::WorkIndicatorText).name())
+                                         .arg(palette.getColor(GuidePalette::WorkIndicatorBackground).name())
+                                         .arg(palette.getColor(GuidePalette::WorkIndicatorText).name())
                                  + borderColourString;
 
     QString workIndicatorTextStyle = QString::fromLatin1("background-color: %1;color:%2;")
-                                     .arg(palette.getColor(GuidePalette::WorkIndicatorExample).name())
-                                     .arg(palette.getColor(GuidePalette::WorkIndicatorText).name())
+                                             .arg(palette.getColor(GuidePalette::WorkIndicatorExample).name())
+                                             .arg(palette.getColor(GuidePalette::WorkIndicatorText).name())
                                      + borderColourString;
 
 
     QString watchIndicatorStyle = QString::fromLatin1("background-color: %1;color:%2;")
-                                  .arg(palette.getColor(GuidePalette::WatchIndicatorBackground).name())
-                                  .arg(palette.getColor(GuidePalette::WatchIndicatorText).name())
+                                          .arg(palette.getColor(GuidePalette::WatchIndicatorBackground).name())
+                                          .arg(palette.getColor(GuidePalette::WatchIndicatorText).name())
                                   + borderColourString;
 
     QString watchIndicatorTextStyle = QString::fromLatin1("background-color: %1;color:%2;")
-                                      .arg(palette.getColor(GuidePalette::WatchIndicatorExample).name())
-                                      .arg(palette.getColor(GuidePalette::WatchIndicatorText).name())
+                                              .arg(palette.getColor(GuidePalette::WatchIndicatorExample).name())
+                                              .arg(palette.getColor(GuidePalette::WatchIndicatorText).name())
                                       + borderColourString;
 
 
     QString readIndicatorStyle = QString::fromLatin1("background-color: %1;color:%2;")
-                                 .arg(palette.getColor(GuidePalette::ReadIndicatorBackground).name())
-                                 .arg(palette.getColor(GuidePalette::ReadIndicatorText).name())
+                                         .arg(palette.getColor(GuidePalette::ReadIndicatorBackground).name())
+                                         .arg(palette.getColor(GuidePalette::ReadIndicatorText).name())
                                  + borderColourString;
 
     QString readIndicatorTextStyle = QString::fromLatin1("background-color: %1;color:%2;")
-                                     .arg(palette.getColor(GuidePalette::ReadIndicatorExample).name())
-                                     .arg(palette.getColor(GuidePalette::ReadIndicatorText).name())
+                                             .arg(palette.getColor(GuidePalette::ReadIndicatorExample).name())
+                                             .arg(palette.getColor(GuidePalette::ReadIndicatorText).name())
                                      + borderColourString;
 
 
     QString processIndicatorStyle = QString::fromLatin1("background-color: %1;color:%2;")
-                                    .arg(palette.getColor(GuidePalette::ProcessIndicatorBackground).name())
-                                    .arg(palette.getColor(GuidePalette::ProcessIndicatorText).name())
+                                            .arg(palette.getColor(GuidePalette::ProcessIndicatorBackground).name())
+                                            .arg(palette.getColor(GuidePalette::ProcessIndicatorText).name())
                                     + borderColourString;
 
     QString processIndicatorTextStyle = QString::fromLatin1("background-color: %1;color:%2;")
-                                        .arg(palette.getColor(GuidePalette::ProcessIndicatorExample).name())
-                                        .arg(palette.getColor(GuidePalette::ProcessIndicatorText).name())
+                                                .arg(palette.getColor(GuidePalette::ProcessIndicatorExample).name())
+                                                .arg(palette.getColor(GuidePalette::ProcessIndicatorText).name())
                                         + borderColourString;
 
     QString infoIndicatorStyle = QString::fromLatin1("background-color: %1;color:%2;")
-                                            .arg(palette.getColor(GuidePalette::InfoIndicatorBackground).name())
-                                            .arg(palette.getColor(GuidePalette::InfoIndicatorText).name())
-                                    + borderColourString;
+                                         .arg(palette.getColor(GuidePalette::InfoIndicatorBackground).name())
+                                         .arg(palette.getColor(GuidePalette::InfoIndicatorText).name())
+                                 + borderColourString;
 
     QString infoIndicatorTextStyle = QString::fromLatin1("background-color: %1;color:%2;")
-                                                .arg(palette.getColor(GuidePalette::InfoIndicatorExample).name())
-                                                .arg(palette.getColor(GuidePalette::InfoIndicatorText).name())
-                                        + borderColourString;
+                                             .arg(palette.getColor(GuidePalette::InfoIndicatorExample).name())
+                                             .arg(palette.getColor(GuidePalette::InfoIndicatorText).name())
+                                     + borderColourString;
 
 
     ui->infoFrame->setStyleSheet(frameStyle);
-    ui->headerFrame->setStyleSheet(HeaderStyle);
+    ui->headerFrame->setStyleSheet(headerStyle);
     ui->period_number->setStyleSheet(periodStyle);
     ui->mainInfoLabel->setStyleSheet(objectTextStyle);
+    ui->period->setStyleSheet(headerStyle);
 
     ui->work_indicator_name->setStyleSheet(workIndicatorTextStyle);
     ui->work_indicator_example->setStyleSheet(workIndicatorStyle);
@@ -127,7 +131,7 @@ Guide::~Guide() {
 }
 
 
-void Guide::addIndex(Index* index) {
+void Guide::addIndex(Index *index) {
     indexes.append(index);
     objectOrder.append(GuideData::Index);
     index->setGeometry(30, size, 1240, index->size + 5);
@@ -135,7 +139,7 @@ void Guide::addIndex(Index* index) {
     resize(1285, size);
 }
 
-void Guide::addTest(Test* test) {
+void Guide::addTest(Test *test) {
     tests.append(test);
     objectOrder.append(GuideData::Test);
     test->setGeometry(50, size, 1260, test->size);
@@ -143,7 +147,7 @@ void Guide::addTest(Test* test) {
     resize(1285, size);
 }
 
-void Guide::addReport(Report* report) {
+void Guide::addReport(Report *report) {
     reports.append(report);
     objectOrder.append(GuideData::Report);
     report->setGeometry(30, size, 1240, report->size + 5);
@@ -151,20 +155,24 @@ void Guide::addReport(Report* report) {
     resize(1285, size);
 }
 
-void Guide::setName(const QString&nameE) {
+void Guide::setName(const QString &nameE) {
     name = nameE;
     ui->subject_name->setText(name);
 }
 
-void Guide::setInfo(const QString&info) {
+void Guide::setInfo(const QString &info) {
     ui->info->setText(info);
 }
 
-void Guide::setPeriod(const QString&period) {
+void Guide::setPeriod(const QString &period) {
+    if (period.isEmpty()) return;
+    ui->period->show();
+    ui->period_number->show();
+    ui->subject_name->setGeometry(0,0,950,68);
     ui->period_number->setText(period);
 }
 
-void Guide::setShortName(const QString&shortNameE) {
+void Guide::setShortName(const QString &shortNameE) {
     shortName = shortNameE;
 }
 
@@ -183,19 +191,19 @@ GuideData::Data Guide::getGuide() {
 
     for (GuideData::ObjectTypes type: objectOrder) {
         if (type == GuideData::Index) {
-            Index&index = *indexes.at(currentIndex);
+            Index &index = *indexes.at(currentIndex);
 
             finalGuide.objects.append(index.getGuideObject());
             currentIndex++;
         }
         if (type == GuideData::Test) {
-            Test&test = *tests.at(currentTest);
+            Test &test = *tests.at(currentTest);
 
             finalGuide.objects.append(test.getGuideobject());
             currentTest++;
         }
         if (type == GuideData::Report) {
-            Report&report = *reports.at(currentReport);
+            Report &report = *reports.at(currentReport);
 
             finalGuide.objects.append(report.getGuideobject());
             currentReport++;
