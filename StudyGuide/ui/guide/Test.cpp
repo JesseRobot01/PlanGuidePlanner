@@ -53,7 +53,7 @@ void Test::finalise() {
 
     if (!info->isEmpty()) {
         ui->testInfo->resize(1200, newLineCount * 17 + 40);
-        size = newLineCount * 17 + 40;
+        size = newLineCount * 17 + 80;
         if (newLineCount > 0)
             ui->testInfo->setAlignment(Qt::AlignHCenter);
 
