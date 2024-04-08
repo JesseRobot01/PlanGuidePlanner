@@ -52,11 +52,10 @@ void Test::finalise() {
     int newLineCount = (int) info->count("\n");
 
     if (!info->isEmpty()) {
-        ui->testInfo->resize(1200, newLineCount * 17 + 40);
-        size = newLineCount * 17 + 80;
+        ui->testInfo->resize(1200, newLineCount * 20 + 40);
+        size = newLineCount * 20 + 80;
         if (newLineCount > 0)
-            ui->testInfo->setAlignment(Qt::AlignHCenter);
-
+            ui->testInfo->setAlignment(Qt::AlignCenter);
 
         return;
     } else {
