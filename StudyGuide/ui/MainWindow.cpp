@@ -101,30 +101,23 @@ void MainWindow::on_actionOpen_File_triggered() {
     for (GuideData::Data guide: guides) {
         processGuide(guide);
         loadGuide->increaseProgress();
+        if (settings.value("AutoOpen", "1").toBool() && settings.value("AutoCopyGuide", "1").toBool()) {
+            QDir copyToDestination(APPLICATION->getAutoOpenLocation());
+
+            if (copyToDestination.mkpath(".")) {
+                QFile autoSaveFile = copyToDestination.filePath(guide.name + ".xml");
+                   XmlParser::saveXml(guide,autoSaveFile, true, false);
+                    loadGuide->increaseProgress();
+
+            } else {
+                qCritical() << "Failed to create auto open dir.";
+            }
+        }
     }
 
 
     // Copy them over to auto open dir
-    if (settings.value("AutoOpen", "1").toBool() && settings.value("AutoCopyGuide", "1").toBool()) {
-        QDir copyToDestination(APPLICATION->getAutoOpenLocation());
 
-        if (copyToDestination.mkpath(".")) {
-            for (QFile fileToCopy: files) {
-                QFileInfo fileInfo(fileToCopy);
-                if (!copyToDestination.exists(fileInfo.fileName())) {
-                    if (fileToCopy.copy(copyToDestination.filePath(fileInfo.fileName()))) {
-                        qDebug() << "Succesfully copied over file" << fileInfo.fileName() << "to auto open directory.";
-                    } else {
-                        qCritical() << "Failed to copy over file" << fileInfo.fileName();
-                    }
-                } else
-                    qWarning() << "File already copied over.";
-                loadGuide->increaseProgress();
-            }
-        } else {
-            qCritical() << "Failed to create auto open dir.";
-        }
-    }
     delete loadGuide;
 
 }
@@ -210,7 +203,7 @@ void MainWindow::addGuide(Guide *guide, const QString &name) {
     guides.append(guide);
     QScrollArea *scrollArea = new QScrollArea;
     scrollArea->setWidget(guide);
-    ui->tabWidget->addTab(scrollArea, name);
+    ui->guideSwitcher->addTab(scrollArea, name);
 }
 
 #ifdef Q_OS_WASM
@@ -233,14 +226,40 @@ void MainWindow::on_actionSave_Guide_As_triggered() {
 #else
 
 void MainWindow::on_actionSave_Guide_As_triggered() {
-    QSettings settings;
-    Guide *guideToSave = guides.at(ui->tabWidget->currentIndex());
+    Guide *guideToSave = guides.at(ui->guideSwitcher->currentIndex());
+    GuideData::Data guide = guideToSave->getGuide();
 
+    saveGuideAs(guide);
+}
+
+#endif
+
+void MainWindow::on_actionSave_triggered() {
+    Guide *guideToSave = guides.at(ui->guideSwitcher->currentIndex());
+    GuideData::Data guide = guideToSave->getGuide();
+
+}
+
+void MainWindow::saveGuide(GuideData::Data guide) {
+    QString saveFileName = guide.originalFile.filePath();
+
+    if (saveFileName.isEmpty()) {
+        saveGuideAs(guide); //Trigger the save as.
+        return;
+    }
+
+    QFile fileToSave(saveFileName);
+    XmlParser::saveXml(guide, fileToSave);
+}
+
+void MainWindow::saveGuideAs(GuideData::Data guide) {
+    QSettings settings;
     QString baseFileName;
-    if (!guideToSave->originalFile.exists())
-        baseFileName = guideToSave->originalFile.filePath();
+
+    if (!guide.originalFile.exists())
+        baseFileName = guide.originalFile.filePath();
     else
-        baseFileName = settings.value("LastOpenedDir", ".").toString() + "/" + guideToSave->name + ".xml";
+        baseFileName = settings.value("LastOpenedDir", ".").toString() + "/" + guide.name + ".xml";
 
     QString saveFileName = QFileDialog::getSaveFileName(this, tr("Open StudyGuide"),
                                                         baseFileName, tr("XML Files (*.xml);;All Files (*)"));
@@ -251,27 +270,6 @@ void MainWindow::on_actionSave_Guide_As_triggered() {
     }
 
     QFile fileToSave(saveFileName);
-    //get the guide;
-    GuideData::Data guide = guideToSave->getGuide();
-    XmlParser::saveXml(guide, fileToSave);
-}
-
-#endif
-
-void MainWindow::on_actionSave_triggered() {
-    QSettings settings;
-    Guide *guideToSave = guides.at(ui->tabWidget->currentIndex());
-
-    QString saveFileName = guideToSave->originalFile.filePath();
-
-    if (saveFileName.isEmpty()) {
-        on_actionSave_Guide_As_triggered(); //Trigger the save as.
-        return;
-    }
-
-    QFile fileToSave(saveFileName);
-    //get the guide;
-    GuideData::Data guide = guideToSave->getGuide();
     XmlParser::saveXml(guide, fileToSave);
 }
 
@@ -286,4 +284,21 @@ void MainWindow::closeEvent(QCloseEvent *event) {
         APPLICATION->autoSaveTriggered();
     }
     event->accept();
+}
+
+void MainWindow::on_guideSwitcher_tabCloseRequested(int tab) {
+    Guide *guideToClose = guides.at(tab);
+    GuideData::Data guide = guideToClose->getGuide();
+
+    // first of all, save it.
+    saveGuide(guide);
+
+    // next, delete the auto save file.
+   QFile autoSaveFile = guide.autoSaveFile.filePath();
+   autoSaveFile.remove();
+
+   // and now, delete it from the program.
+   ui->guideSwitcher->removeTab(tab);
+   guides.removeAt(tab);
+
 }

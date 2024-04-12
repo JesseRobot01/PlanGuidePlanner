@@ -42,6 +42,7 @@ private slots:
     void on_actionAbout_triggered();
 
     void on_actionSave_triggered();
+    void on_guideSwitcher_tabCloseRequested(int tab);
 
 
 private:
@@ -53,6 +54,10 @@ private:
     void addGuide(Guide *guide, const QString &name);
 
     void closeEvent(QCloseEvent *event) override;
+
+    void saveGuideAs(GuideData::Data guide);
+
+    void saveGuide(GuideData::Data guide);
 };
 
 
