@@ -48,15 +48,15 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 endif ()
 
 # Cpack stuff
-set(CPACK_PACKAGE_NAME "Study Guide")
+set(CPACK_PACKAGE_NAME "StudyGuide")
 set(CPACK_NSIS_PACKAGE_NAME ${CPACK_PACKAGE_NAME})
 set(CPACK_PACKAGE_VENDOR "JesseRobot01")
-set(CPACK_PACKAGE_INSTALL_DIRECTORY "Study Guide")
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "StudyGuide")
 set(CPACK_NSIS_MODIFY_PATH "YES")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
 
-set(CPACK_PACKAGE_EXECUTABLES "..\\\\${EXECUTABLE_NAME}" "Study Guide") #The ..\ is because CPack looks in the BIN directory, and not in the root as where the executable is.
-set(CPACK_CREATE_DESKTOP_LINKS "..\\\\${EXECUTABLE_NAME}" "Study Guide")
+set(CPACK_PACKAGE_EXECUTABLES "..\\\\${EXECUTABLE_NAME}" "StudyGuide") #The ..\ is because CPack looks in the BIN directory, and not in the root as where the executable is.
+set(CPACK_CREATE_DESKTOP_LINKS "..\\\\${EXECUTABLE_NAME}" "StudyGuide")
 
 set(CPACK_PACKAGE_VERSION ${STUDYGUIDE_VERSION})
 set(CPACK_PACKAGE_VERSION_MAJOR ${STUDYGUIDE_VERSION_MAJOR})
