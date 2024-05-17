@@ -180,26 +180,26 @@ jobs:
         if: ${{ matrix.name != 'linux' }}
         uses: actions/upload-artifact@v4
         with:
-          name: Study Guide-${{matrix.name}} 
+          name: StudyGuide-${{matrix.name}}
           path: install
 
       - name: Upload setup (Windows)
         if: ${{ matrix.name == 'Windows' }}
         uses: actions/upload-artifact@v4
         with:
-          name: Study Guide-windows-setup
+          name: StudyGuide-windows-setup
           path: build/*.exe
 
       - name: Upload binaries (Linux)
         if: ${{ matrix.name == 'linux' }}
         uses: actions/upload-artifact@v4
         with:
-          name: Study Guide-linux (tar.xz)
+          name: StudyGuide-linux (tar.xz)
           path: build/*.tar.xz
 
       - name: Upload deb (Linux)
         if: ${{ matrix.name == 'linux' }}
         uses: actions/upload-artifact@v4
         with:
-          name: Study Guide-linux (deb)
+          name: StudyGuide-linux (deb)
           path: build/*.deb

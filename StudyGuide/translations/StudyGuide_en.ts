@@ -7,13 +7,13 @@
         <location filename="../ui/About.ui" line="+14"/>
         <location/>
         <source>About</source>
-        <translation>About Study Guide</translation>
+        <translation>About StudyGuide</translation>
     </message>
     <message>
         <location line="+12"/>
         <location/>
         <source>StudyGuide</source>
-        <translation>Study Guide</translation>
+        <translation>StudyGuide</translation>
     </message>
     <message>
         <location line="+27"/>
@@ -221,7 +221,7 @@
         <location filename="../ui/MainWindow.ui" line="+25"/>
         <location/>
         <source>StudyGuide</source>
-        <translation>Study Guide</translation>
+        <translation>StudyGuide</translation>
     </message>
     <message>
         <location line="+52"/>
@@ -263,7 +263,7 @@
         <location line="+5"/>
         <location/>
         <source>About</source>
-        <translation>About Study Guide</translation>
+        <translation>About StudyGuide</translation>
     </message>
     <message>
         <location line="+5"/>

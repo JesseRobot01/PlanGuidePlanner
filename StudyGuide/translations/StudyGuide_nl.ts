@@ -7,13 +7,13 @@
         <location filename="../ui/About.ui" line="+14"/>
         <location/>
         <source>About</source>
-        <translation>Over Studie Wijzer</translation>
+        <translation>Over StudieWijzer</translation>
     </message>
     <message>
         <location line="+12"/>
         <location/>
         <source>StudyGuide</source>
-        <translation>Studie Wijzer</translation>
+        <translation>StudieWijzer</translation>
     </message>
     <message>
         <location line="+27"/>
@@ -221,7 +221,7 @@
         <location filename="../ui/MainWindow.ui" line="+25"/>
         <location/>
         <source>StudyGuide</source>
-        <translation>Studie Wijzer</translation>
+        <translation>StudieWijzer</translation>
     </message>
     <message>
         <location line="+52"/>
@@ -263,7 +263,7 @@
         <location line="+5"/>
         <location/>
         <source>About</source>
-        <translation>Over Studie Wijzer</translation>
+        <translation>Over StudieWijzer</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -274,7 +274,7 @@
         <location filename="../ui/MainWindow.cpp" line="+75"/>
         <location line="+164"/>
         <source>Open StudyGuide</source>
-        <translation>Open Studie Wijzers</translation>
+        <translation>Open StudieWijzers</translation>
     </message>
     <message>
         <location line="-176"/>
