@@ -26,10 +26,10 @@ PreferenceWindow::PreferenceWindow(QWidget* parent)
     ui->themes->addItem(tr("Fusion Dark"), "fusion_dark");
     ui->themes->addItem(tr("Fusion Light"), "fusion_light");
 
-#ifdef WIN32
-    // on linux it's already fusion.
+
+
     ui->themes->addItem(tr("System"), "system");
-#endif
+
 
     loadSettings();
 }
