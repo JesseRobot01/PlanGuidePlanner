@@ -11,4 +11,6 @@ BuildConfig::BuildConfig() {
     buildDate = "@STUDYGUIDE_BUILD_DATE@";
     gitCommit = "@GIT_COMMIT_HASH@";
     gitTag = "@GIT_TAG@";
+    gitBranch = "@GIT_BRANCH@";
+    gitCommitNumber = "@GIT_COMMIT_NUMBER@";
 }

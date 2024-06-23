@@ -32,6 +32,18 @@ AboutWindow::AboutWindow(QWidget* parent) : QWidget(parent), ui(new Ui::About) {
     else {
         ui->tag->hide();
     }
+    if (!Config.gitBranch.isEmpty()) {
+        ui->branch->setText(tr("Git Branch: %1").arg(Config.gitBranch));
+    }
+    else {
+        ui->branch->hide();
+    }
+    if (!Config.gitCommitNumber.isEmpty()) {
+        ui->branchCommit->setText(tr("Git Branch commit: %1").arg(Config.gitCommitNumber));
+    }
+    else {
+        ui->branchCommit->hide();
+    }
 
     connect(ui->aboutQT, &QPushButton::clicked, QApplication::aboutQt);
 }

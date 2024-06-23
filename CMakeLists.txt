@@ -36,15 +36,30 @@ execute_process(
         OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
-message(STATUS "Git tag: ${GIT_TAG}")
+execute_process(
+        COMMAND git rev-list --count HEAD
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        OUTPUT_VARIABLE GIT_COMMIT_NUMBER
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+)
 
+execute_process(
+        COMMAND git rev-parse --abbrev-ref HEAD
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        OUTPUT_VARIABLE GIT_BRANCH
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+message(STATUS "Git tag: ${GIT_TAG}")
 message(STATUS "Git commit hash: ${GIT_COMMIT_HASH}")
+message(STATUS "Git Branch: ${GIT_BRANCH}")
+message(STATUS "Git Branch Commit: ${GIT_COMMIT_NUMBER}")
 
 string(TIMESTAMP TODAY "%Y-%m-%d")
 set(STUDYGUIDE_BUILD_DATE "${TODAY}")
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(STUDYGUIDE_VERSION "${STUDYGUIDE_VERSION}-${GIT_COMMIT_HASH}")
+    set(STUDYGUIDE_VERSION "${STUDYGUIDE_VERSION}-r${GIT_COMMIT_NUMBER}.${GIT_COMMIT_HASH}")
 endif ()
 
 # Cpack stuff

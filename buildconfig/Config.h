@@ -15,6 +15,8 @@ public:
     QString buildDate;
     QString gitCommit;
     QString gitTag;
+    QString gitBranch;
+    QString gitCommitNumber;
 };
 extern const BuildConfig Config;
 
