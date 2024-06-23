@@ -208,7 +208,7 @@ void MainWindow::addGuide(Guide *guide, const QString &name) {
 
 #ifdef Q_OS_WASM
 void MainWindow::on_actionSave_Guide_As_triggered() {
-    Guide *guideToSave = guides.at(ui->tabWidget->currentIndex());
+    Guide *guideToSave = guides.at(ui->guideSwitcher->currentIndex());
     GuideData::Data guide = guideToSave->getGuide();
 
     QFile tmpFile("/tmp/savingGuide.xml");
