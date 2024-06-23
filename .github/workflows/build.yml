@@ -24,7 +24,7 @@ jobs:
 
           - name: "Windows"
             os: windows-latest
-            qt_version: "6.6.2"
+            qt_version: "6.7.1"
             target: "desktop"
             target_arch: "win64_msvc2019_64"
             host_arch: "win64_msvc2019_64"
@@ -40,7 +40,7 @@ jobs:
 
           - name: "WASM"
             os: ubuntu-latest
-            qt_version: "6.6.2"
+            qt_version: "6.7.1"
             target: "desktop"
             target_arch: "wasm_multithread"
             host_arch: "gcc_64"
@@ -48,7 +48,7 @@ jobs:
 
           - name: "Android arm7"
             os: ubuntu-latest
-            qt_version: "6.6.2"
+            qt_version: "6.7.1"
             target: "android"
             target_arch: "android_armv7"
             host_arch: "gcc_64"
@@ -56,7 +56,7 @@ jobs:
 
           - name: "Android arm64"
             os: ubuntu-latest
-            qt_version: "6.6.2"
+            qt_version: "6.7.1"
             target: "android"
             target_arch: "android_arm64_v8a"
             host_arch: "gcc_64"
@@ -64,7 +64,7 @@ jobs:
 
           - name: "Android x86"
             os: ubuntu-latest
-            qt_version: "6.6.2"
+            qt_version: "6.7.1"
             target: "android"
             target_arch: "android_x86"
             host_arch: "gcc_64"
@@ -72,7 +72,7 @@ jobs:
 
           - name: "Android x86_64"
             os: ubuntu-latest
-            qt_version: "6.6.2"
+            qt_version: "6.7.1"
             target: "android"
             target_arch: "android_x86_64"
             host_arch: "gcc_64"
