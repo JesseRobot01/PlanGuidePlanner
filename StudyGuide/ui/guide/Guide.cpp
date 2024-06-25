@@ -20,7 +20,7 @@ Guide::Guide(QWidget *parent) : QWidget(parent), ui(new Ui::Guide) {
     updateStyle();
     ui->period->hide();
     ui->period_number->hide();
-    ui->subject_name->setGeometry(0,0,ui->headerFrame->width() -5,68 );
+    ui->subject_name->setGeometry(0, 0, ui->headerFrame->width() - 5, 68);
 }
 
 void Guide::updateStyle() {
@@ -33,8 +33,9 @@ void Guide::updateStyle() {
     QString borderColourString = QString::fromLatin1("border-width:3px;border-style:solid;border-color: %1;")
             .arg(palette.color(QPalette::Base).name());
 
-    QString headerStyle = QString::fromLatin1("background-color: %1;").arg(
-            palette.getColor(GuidePalette::HeaderBackground).name());
+    QString headerStyle = QString::fromLatin1("background-color: %1; color: %2")
+            .arg(palette.getColor(GuidePalette::HeaderBackground).name())
+            .arg(palette.getColor(GuidePalette::HeaderText).name());
 
     QString periodStyle = QString::fromLatin1("background-color: %1; color:%2")
             .arg(palette.getColor(GuidePalette::TestBackground).name())
@@ -168,7 +169,7 @@ void Guide::setPeriod(const QString &period) {
     if (period.isEmpty()) return;
     ui->period->show();
     ui->period_number->show();
-    ui->subject_name->setGeometry(0,0,950,68);
+    ui->subject_name->setGeometry(0, 0, 950, 68);
     ui->period_number->setText(period);
 }
 
