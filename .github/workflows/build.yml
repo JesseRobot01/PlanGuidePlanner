@@ -31,7 +31,7 @@ jobs:
             host_arch: "win64_msvc2019_64"
             arch_dir: "msvc2019_64"
             
-          - name: "Linux Debian / Ubuntu"
+          - name: "Linux"
             os: ubuntu-latest
             host: "linux"
             qt_version: "6.6.2"
