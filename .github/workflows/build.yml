@@ -131,6 +131,12 @@ jobs:
         if: ${{matrix.os == 'windows-latest'}}
         uses: ilammy/msvc-dev-cmd@v1
 
+      - name: Setup Ninja (windows)
+        if: ${{matrix.os == 'windows-latest'}}
+        uses: ashutoshvarma/setup-ninja@master
+        with:
+          version: 1.10.0
+          
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
@@ -153,7 +159,7 @@ jobs:
       - name: Configure Cmake
         if: ${{ matrix.target != 'Android'}}
         run: |
-          cmake -Bbuild -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DCMAKE_TOOLCHAIN_FILE="${{ env.QT_TARGET_PATH }}/lib/cmake/Qt6/qt.toolchain.cmake"
+          cmake -Bbuild -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DCMAKE_TOOLCHAIN_FILE="${{ env.QT_TARGET_PATH }}/lib/cmake/Qt6/qt.toolchain.cmake" -G Ninja
       - name: Configure Cmake (Android)
         if: ${{ matrix.target == 'Android' }}
         run: |
@@ -167,13 +173,13 @@ jobs:
       # Pack
       - name: Install Application
         run: |
-          cmake --install build --prefix ./install --config ${{ inputs.build_type }}
+          cmake --install build --prefix ./install
 
       - name: Create installer (Windows)
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
           cd build
-          cpack -G NSIS64 --config ${{ inputs.build_type }}
+          cpack -G NSIS64
 
       - name: Create packages (Linux)
         if: ${{ matrix.name == 'linux' }}
