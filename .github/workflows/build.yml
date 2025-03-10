@@ -127,10 +127,6 @@ jobs:
         with:
           packages: 'platforms;android-33 platform-tools build-tools;33.0.0 ndk;25.1.8937393'
 
-      - name: Install Ninja (windows)
-        if: ${{matrix.os == 'windows-latest'}}
-        run: choco install ninja
-
       - name: Configure MSVC (windows)
         if: ${{matrix.os == 'windows-latest'}}
         uses: ilammy/msvc-dev-cmd@v1
@@ -157,8 +153,7 @@ jobs:
       - name: Configure Cmake
         if: ${{ matrix.target != 'Android'}}
         run: |
-          cmake -Bbuild -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DCMAKE_TOOLCHAIN_FILE="${{ env.QT_TARGET_PATH }}/lib/cmake/Qt6/qt.toolchain.cmake" -G Ninja
-
+          cmake -Bbuild -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DCMAKE_TOOLCHAIN_FILE="${{ env.QT_TARGET_PATH }}/lib/cmake/Qt6/qt.toolchain.cmake"
       - name: Configure Cmake (Android)
         if: ${{ matrix.target == 'Android' }}
         run: |
