@@ -167,7 +167,7 @@ jobs:
       # Pack
       - name: Install Application
         run: |
-          cmake --install build --prefix ./install 
+          cmake --install build --prefix ./install --config ${{ inputs.build_type }}
 
       - name: Create installer (Windows)
         if: ${{ matrix.os == 'windows-latest' }}
