@@ -142,7 +142,7 @@ jobs:
           version: ${{ matrix.qt_version }}
           target: ${{ matrix.target }}
           arch: ${{ matrix.target_arch }}
-          aqtversion: '==3.2.*'
+          aqtversion: '==3.1.*'
           extra: "--autodesktop"
           set-env: false
           
