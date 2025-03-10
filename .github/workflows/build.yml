@@ -173,7 +173,7 @@ jobs:
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
           cd build
-          cpack -G NSIS64
+          cpack -G NSIS64 --config ${{ inputs.build_type }}
 
       - name: Create packages (Linux)
         if: ${{ matrix.name == 'linux' }}
