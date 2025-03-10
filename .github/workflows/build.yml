@@ -27,8 +27,8 @@ jobs:
             host: "windows"
             qt_version: "6.8.2"
             target: "desktop"
-            target_arch: "win64_msvc2019_64"
-            host_arch: "win64_msvc2019_64"
+            target_arch: "win64_msvc2022_64"
+            host_arch: "win64_msvc2022_64"
             arch_dir: "msvc2019_64"
             
           - name: "Linux"
@@ -142,7 +142,7 @@ jobs:
           version: ${{ matrix.qt_version }}
           target: ${{ matrix.target }}
           arch: ${{ matrix.target_arch }}
-          aqtversion: '==3.1.*'
+          aqtversion: '==3.2.*'
           extra: "--autodesktop"
           set-env: false
           
