@@ -24,7 +24,7 @@ jobs:
 
           - name: "Windows"
             os: windows-latest
-            host: "linux"
+            host: "windows"
             qt_version: "6.8.2"
             target: "desktop"
             target_arch: "win64_msvc2019_64"
@@ -40,14 +40,14 @@ jobs:
             host_arch: "gcc_64"
             arch_dir: "gcc_64"
 
-          - name: "WASM"
-            os: ubuntu-latest
-            host: "all_os"
-            qt_version: "6.8.2"
-            target: "wasm"
-            target_arch: "wasm_multithread"
-            host_arch: "wasm_multithread"
-            arch_dir: "wasm_multithread"
+         ## - name: "WASM"
+         ##   os: ubuntu-latest
+         ##   host: "all_os"
+         ##   qt_version: "6.8.2"
+         ##   target: "wasm"
+         ##   target_arch: "wasm_multithread"
+         ##   host_arch: "wasm_multithread"
+         ##   arch_dir: "wasm_multithread"
 
           - name: "Android arm7"
             os: ubuntu-latest
@@ -136,7 +136,6 @@ jobs:
         uses: ilammy/msvc-dev-cmd@v1
 
       - name: Install Qt
-        if: ${{matrix.name != 'Linux Debian / Ubuntu'}}  #Deps already gets installed with apt.
         uses: jurplel/install-qt-action@v4
         with:
           host: ${{ matrix.host}}
@@ -148,7 +147,6 @@ jobs:
           set-env: false
           
       - name: Set Qt enviorment
-        if: ${{matrix.name != 'Linux Debian / Ubuntu'}}  #Should be system wide
         shell: bash
         run: |
           echo "QT_ROOT_PATH=${{ runner.workspace }}/Qt/${{ matrix.qt_version }}" >> $GITHUB_ENV
