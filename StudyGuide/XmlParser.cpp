@@ -9,8 +9,8 @@
 #include "Application.h"
 #include <QString>
 
-GuideData::Data XmlParser::readXml(QFile *xmlFileP) {
-    QFile &xmlFile = *xmlFileP;
+GuideData::Data XmlParser::readXml(QFile* xmlFileP) {
+    QFile&xmlFile = *xmlFileP;
     QFileInfo fileInfo(xmlFile);
     qDebug() << "Reading xml file" << fileInfo.fileName();
     if (!xmlFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -36,7 +36,8 @@ GuideData::Data XmlParser::readXml(QFile *xmlFileP) {
                 for (QXmlStreamAttribute attribute: xml.attributes()) {
                     if (attribute.name().toString() == "autosavefile" && attribute.value().toString() == "true") {
                         guide.autoSaveFile = fileInfo;
-                    } else if (attribute.name().toString() == "originalfile") {
+                    }
+                    else if (attribute.name().toString() == "originalfile") {
                         guide.originalFile = QFileInfo(attribute.value().toString());
                     }
                 }
@@ -207,7 +208,7 @@ GuideData::Data XmlParser::readXml(QFile *xmlFileP) {
     }
 }
 
-void XmlParser::saveXml(const GuideData::Data &guide, QFile &fileToSaveTo, bool isAutoSave, bool useAutoFormatting) {
+void XmlParser::saveXml(const GuideData::Data&guide, QFile&fileToSaveTo, bool isAutoSave, bool useAutoFormatting) {
     // QFile&fileToSaveTo = *fileToSaveToP;
     QFileInfo fileInfo(fileToSaveTo);
     if (!fileToSaveTo.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -335,9 +336,8 @@ void XmlParser::autoSaveXml(QVector<GuideData::Data> GuidesToSave) {
         }
 
         futures.append(QtConcurrent::run([guide]() {
-            QFile autoSaveFile = guide.autoSaveFile.filePath();
+            QFile autoSaveFile(guide.autoSaveFile.filePath());
             return saveXml(guide, autoSaveFile, true, false);
         }));
     }
 }
-

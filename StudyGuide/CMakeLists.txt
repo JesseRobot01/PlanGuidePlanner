@@ -39,6 +39,9 @@ set(UI
         ui/AboutWindow.cpp
         ui/AboutWindow.h
         ui/About.ui
+        ui/StartScreen.cpp
+        ui/StartScreen.h
+        ui/StartScreen.ui
 
 )
 

@@ -22,8 +22,13 @@
 #include <QCloseEvent>
 
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
+MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
+
+    // poke in start screen
+    startScreen = new StartScreen(this);
+    startScreen->show();
+    ui->guideSwitcher->addTab(startScreen, tr("Start"));
 }
 
 MainWindow::~MainWindow() {
@@ -65,7 +70,6 @@ void MainWindow::on_actionOpen_File_triggered() {
 #else
 
 void MainWindow::on_actionOpen_File_triggered() {
-
 #ifdef Q_OS_ANDROID
     // make sure to have permission to storage
     APPLICATION->requestStoragePermission();
@@ -83,9 +87,9 @@ void MainWindow::on_actionOpen_File_triggered() {
 
     settings.setValue("LastOpenedDir", lastOpenedPath.path());
 
-    LoadGuide *loadGuide = new LoadGuide(
-            nullptr,
-            files.count() * (settings.value("AutoOpen", "1").toBool() && settings.value("AutoCopyGuide", "1").toBool()
+    LoadGuide* loadGuide = new LoadGuide(
+        nullptr,
+        files.count() * (settings.value("AutoOpen", "1").toBool() && settings.value("AutoCopyGuide", "1").toBool()
                              ? 3
                              : 2));
     // the * 2 (or * 3) is for reading, Opening and copying over the guides
@@ -99,17 +103,17 @@ void MainWindow::on_actionOpen_File_triggered() {
 
 
     for (GuideData::Data guide: guides) {
-        processGuide(guide);
+        processGuide(guide, true);
         loadGuide->increaseProgress();
         if (settings.value("AutoOpen", "1").toBool() && settings.value("AutoCopyGuide", "1").toBool()) {
             QDir copyToDestination(APPLICATION->getAutoOpenLocation());
 
             if (copyToDestination.mkpath(".")) {
-                QFile autoSaveFile = copyToDestination.filePath(guide.name + ".xml");
-                   XmlParser::saveXml(guide,autoSaveFile, true, false);
-                    loadGuide->increaseProgress();
-
-            } else {
+                QFile autoSaveFile(copyToDestination.filePath(guide.name + ".xml"));
+                XmlParser::saveXml(guide, autoSaveFile, true, false);
+                loadGuide->increaseProgress();
+            }
+            else {
                 qCritical() << "Failed to create auto open dir.";
             }
         }
@@ -119,15 +123,14 @@ void MainWindow::on_actionOpen_File_triggered() {
     // Copy them over to auto open dir
 
     delete loadGuide;
-
 }
 
 #endif
 
 
-void MainWindow::processGuide(GuideData::Data guide) {
+void MainWindow::processGuide(GuideData::Data guide, bool updateStart) {
     // default things
-    Guide *finalGuide = new Guide(this);
+    Guide* finalGuide = new Guide(this);
     QString name = guide.name;
     QString shortName = guide.shortName;
     finalGuide->setName(name);
@@ -141,9 +144,9 @@ void MainWindow::processGuide(GuideData::Data guide) {
     //Processing the guide objects
     for (GuideData::GuideObject guideObject: guide.objects) {
         if (guideObject.objectType == GuideData::Index) {
-            Index *index = new Index(finalGuide);
+            Index* index = new Index(finalGuide);
             for (GuideData::GuideGoals goal: guideObject.goals) {
-                Goal *finalGoal = new Goal(index);
+                Goal* finalGoal = new Goal(index);
                 finalGoal->setName(goal.name);
                 finalGoal->setProgress(goal.progress, false);
                 finalGoal->setTime(goal.time);
@@ -178,7 +181,7 @@ void MainWindow::processGuide(GuideData::Data guide) {
             finalGuide->addIndex(index);
         }
         if (guideObject.objectType == GuideData::Test) {
-            Test *test = new Test(finalGuide);
+            Test* test = new Test(finalGuide);
             test->setName(guideObject.name);
             test->setWeek(guideObject.week);
             test->setInfo(guideObject.info);
@@ -187,7 +190,7 @@ void MainWindow::processGuide(GuideData::Data guide) {
             finalGuide->addTest(test);
         }
         if (guideObject.objectType == GuideData::Report) {
-            Report *report = new Report(finalGuide);
+            Report* report = new Report(finalGuide);
             for (GuideData::ReportTests test: guideObject.tests)
                 report->addTest(test.name, test.weight);
             report->finalise();
@@ -197,11 +200,15 @@ void MainWindow::processGuide(GuideData::Data guide) {
 
 
     addGuide(finalGuide, shortName.isEmpty() ? name : shortName);
+
+    //update start
+    if (updateStart)
+        startScreen->updateStart();
 }
 
-void MainWindow::addGuide(Guide *guide, const QString &name) {
+void MainWindow::addGuide(Guide* guide, const QString&name) {
     guides.append(guide);
-    QScrollArea *scrollArea = new QScrollArea;
+    QScrollArea* scrollArea = new QScrollArea;
     scrollArea->setWidget(guide);
     ui->guideSwitcher->addTab(scrollArea, name);
 }
@@ -226,7 +233,7 @@ void MainWindow::on_actionSave_Guide_As_triggered() {
 #else
 
 void MainWindow::on_actionSave_Guide_As_triggered() {
-    Guide *guideToSave = guides.at(ui->guideSwitcher->currentIndex());
+    Guide* guideToSave = guides.at(ui->guideSwitcher->currentIndex());
     GuideData::Data guide = guideToSave->getGuide();
 
     saveGuideAs(guide);
@@ -235,9 +242,8 @@ void MainWindow::on_actionSave_Guide_As_triggered() {
 #endif
 
 void MainWindow::on_actionSave_triggered() {
-    Guide *guideToSave = guides.at(ui->guideSwitcher->currentIndex());
+    Guide* guideToSave = guides.at(ui->guideSwitcher->currentIndex());
     GuideData::Data guide = guideToSave->getGuide();
-
 }
 
 void MainWindow::saveGuide(GuideData::Data guide) {
@@ -274,11 +280,11 @@ void MainWindow::saveGuideAs(GuideData::Data guide) {
 }
 
 void MainWindow::on_actionAbout_triggered() {
-    AboutWindow *aboutWindow = new AboutWindow();
+    AboutWindow* aboutWindow = new AboutWindow();
     aboutWindow->show();
 }
 
-void MainWindow::closeEvent(QCloseEvent *event) {
+void MainWindow::closeEvent(QCloseEvent* event) {
     if (APPLICATION->isAutoSaveTimerStarted) {
         // force auto save
         APPLICATION->autoSaveTriggered();
@@ -287,18 +293,28 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 }
 
 void MainWindow::on_guideSwitcher_tabCloseRequested(int tab) {
-    Guide *guideToClose = guides.at(tab);
+    Guide* guideToClose = guides.at(tab);
     GuideData::Data guide = guideToClose->getGuide();
 
     // first of all, save it.
     saveGuide(guide);
 
     // next, delete the auto save file.
-   QFile autoSaveFile = guide.autoSaveFile.filePath();
-   autoSaveFile.remove();
+    QFile autoSaveFile(guide.autoSaveFile.filePath());
+    autoSaveFile.remove();
 
-   // and now, delete it from the program.
-   ui->guideSwitcher->removeTab(tab);
-   guides.removeAt(tab);
+    // and now, delete it from the program.
+    ui->guideSwitcher->removeTab(tab);
+    guides.removeAt(tab);
+}
 
+void MainWindow::updateStart() {
+    startScreen->updateStart();
+}
+
+void MainWindow::on_guideSwitcher_currentChanged(int tab) {
+    if (tab == 0 && APPLICATION->isAutoSaveTimerStarted) //todo: deticated boolean for a change
+    {
+        updateStart();
+    }
 }

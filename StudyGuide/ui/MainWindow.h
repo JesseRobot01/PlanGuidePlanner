@@ -9,6 +9,7 @@
 #include "PreferenceWindow.h"
 #include "guide/GuideData.h"
 #include<QCloseEvent>
+#include "StartScreen.h"
 
 
 class Guide;
@@ -22,17 +23,20 @@ namespace Ui {
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow {
-Q_OBJECT
+    Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget* parent = nullptr);
 
     ~MainWindow() override;
 
-    void processGuide(GuideData::Data guide);
+    void processGuide(GuideData::Data guide, bool updateStart = true);
+
+    QVector<Guide *> guides;
+
+    void updateStart();
 
 private slots:
-
     void on_actionPreference_triggered();
 
     void on_actionOpen_File_triggered();
@@ -42,18 +46,20 @@ private slots:
     void on_actionAbout_triggered();
 
     void on_actionSave_triggered();
+
     void on_guideSwitcher_tabCloseRequested(int tab);
 
+    void on_guideSwitcher_currentChanged(int tab) ;
 
 private:
-    Ui::MainWindow *ui;
-    PreferenceWindow *preferenceWindow;
+    Ui::MainWindow* ui;
+    PreferenceWindow* preferenceWindow;
+    StartScreen* startScreen;
 
-    QVector<Guide *> guides;
 
-    void addGuide(Guide *guide, const QString &name);
+    void addGuide(Guide* guide, const QString&name);
 
-    void closeEvent(QCloseEvent *event) override;
+    void closeEvent(QCloseEvent* event) override;
 
     void saveGuideAs(GuideData::Data guide);
 

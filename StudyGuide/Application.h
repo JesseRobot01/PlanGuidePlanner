@@ -36,6 +36,8 @@ public:
 
     bool isAutoSaveTimerStarted = false;
 
+    QVector<GuideData::Data> getUpToDateGuides();
+
 
 #ifdef Q_OS_ANDROID
 

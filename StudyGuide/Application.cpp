@@ -24,7 +24,7 @@
 
 #endif
 
-void messageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg) {
+void messageHandler(QtMsgType type, const QMessageLogContext&context, const QString&msg) {
     static std::mutex loggerMutex;
     const std::lock_guard<std::mutex> lock(loggerMutex); // synchronized, QFile logFile is not thread-safe
 
@@ -37,7 +37,7 @@ void messageHandler(QtMsgType type, const QMessageLogContext &context, const QSt
     fflush(stderr);
 }
 
-Application::Application(int &argc, char **argv) : QApplication(argc, argv) {
+Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
 #ifdef WIN32
     AttachWindowsConsole();
 #endif
@@ -48,8 +48,8 @@ Application::Application(int &argc, char **argv) : QApplication(argc, argv) {
     QCommandLineParser commandLineParser;
 
     commandLineParser.addOptions({
-                                         {{"L", "lang"}, "Sets the language of the application", "lang"}
-                                 }
+            {{"L", "lang"}, "Sets the language of the application", "lang"}
+        }
     );
     commandLineParser.addHelpOption();
 
@@ -60,19 +60,19 @@ Application::Application(int &argc, char **argv) : QApplication(argc, argv) {
     QSettings settings;
 
     qSetMessagePattern(
-            "%{time process}"
-            " "
-            "%{pid}"
-            " "
-            "%{if-debug}DEBUG   %{endif}"
-            "%{if-info}INFO    %{endif}"
-            "%{if-warning}WARNING %{endif}"
-            "%{if-critical}CRITICAL%{endif}"
-            "%{if-fatal}FATAL   %{endif}"
-            " "
-            "|"
-            " "
-            "%{message}");
+        "%{time process}"
+        " "
+        "%{pid}"
+        " "
+        "%{if-debug}DEBUG   %{endif}"
+        "%{if-info}INFO    %{endif}"
+        "%{if-warning}WARNING %{endif}"
+        "%{if-critical}CRITICAL%{endif}"
+        "%{if-fatal}FATAL   %{endif}"
+        " "
+        "|"
+        " "
+        "%{message}");
 
     QDir logsDir(getLogsDirLocation());
     if (!logsDir.exists())
@@ -88,7 +88,7 @@ Application::Application(int &argc, char **argv) : QApplication(argc, argv) {
             highestLogNumber = fileNumber;
     }
     logFile = std::unique_ptr<QFile>(
-            new QFile(logsDir.path() + "/Log" + QString::number(highestLogNumber + 1) + ".txt"));
+        new QFile(logsDir.path() + "/Log" + QString::number(highestLogNumber + 1) + ".txt"));
     if (!logFile->open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate))
         qFatal("Can't open log file!");
 
@@ -124,8 +124,10 @@ Application::Application(int &argc, char **argv) : QApplication(argc, argv) {
 
     setLanguage(settings.value("Lang", "en").toString());
 
+    qDebug() << "Loading app window.";
     appWindow = new MainWindow;
     appWindow->show();
+    qDebug() << "App Window loaded successfully.";
 
     if (!commandLineParser.positionalArguments().isEmpty()) {
         const QStringList files = commandLineParser.positionalArguments();
@@ -141,19 +143,21 @@ Application::Application(int &argc, char **argv) : QApplication(argc, argv) {
         if (autoOpenDir.exists() && !autoOpenDir.isEmpty()) {
             QStringList guideFileNames = autoOpenDir.entryList(QDir::Files);
             QStringList guideFiles;
-            LoadGuide *loadGuide = new LoadGuide(nullptr, guideFileNames.count() * 2); // 1 for reading, 1 for opening.
+            LoadGuide* loadGuide = new LoadGuide(nullptr, guideFileNames.count() * 2); // 1 for reading, 1 for opening.
             loadGuide->show();
 
-            for (const QString &GuideFileName: guideFileNames)
+            for (const QString&GuideFileName: guideFileNames)
                 guideFiles.append(autoOpenDir.filePath(GuideFileName));
 
             QVector<GuideData::Data> guides = XmlParser::readXml(guideFiles);
             loadGuide->increaseProgress(guideFileNames.count());
 
             for (GuideData::Data guide: guides) {
-                appWindow->processGuide(guide);
+                appWindow->processGuide(guide, false);
                 loadGuide->increaseProgress();
             }
+            //manualy update start.
+            appWindow->updateStart();
             delete loadGuide; // no need anymore, so bye!
         }
     }
@@ -162,17 +166,20 @@ Application::Application(int &argc, char **argv) : QApplication(argc, argv) {
 Application::~Application() {
 }
 
-void Application::setLanguage(const QString &languageCode) {
+void Application::setLanguage(const QString&languageCode) {
+    qDebug() << "Loading translation for" << languageCode;
     if (translator->load(":/translations/StudyGuide_" + languageCode + ".qm")) {
         installTranslator(translator);
         qDebug() << "Succesfully loaded translations for" << languageCode;
-    } else {
+    }
+    else {
         qCritical() << "Failed to load translation for" << languageCode;
         qInfo() << "Falling back to default translations.";
 
         if (translator->load(":/translations/StudyGuide_en.qm")) {
             installTranslator(translator);
-        } else {
+        }
+        else {
             qCritical() << "Failed to load translations.";
         }
     }
@@ -226,7 +233,6 @@ QString Application::getLogsDirLocation() {
                           (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
                            "/logs")).toString();
 #endif
-
 }
 
 QString Application::getAutoOpenLocation() {
@@ -268,7 +274,6 @@ void Application::startAutoSaveTimer() {
         autoSaveTimer->start(autoSaveInterval);
         isAutoSaveTimerStarted = true;
     }
-
 }
 
 void Application::autoSaveTriggered() {
@@ -276,11 +281,22 @@ void Application::autoSaveTriggered() {
     QVector<GuideData::Data> guideDataToSave;
 
     //extract the guideData
-    for (Guide *guide: guidesToSave) {
+    for (Guide* guide: guidesToSave) {
         guide->isInAutoSaveList = false;
         guideDataToSave.append(guide->getGuide());
     }
     XmlParser::autoSaveXml(guideDataToSave);
 
     isAutoSaveTimerStarted = false;
+
+    appWindow->updateStart();
+}
+
+QVector<GuideData::Data> Application::getUpToDateGuides() {
+    // Extract guides
+    QVector<GuideData::Data> result;
+    for (Guide* guide: appWindow->guides) {
+        result.append(guide->getGuide());
+    }
+    return result;
 }
