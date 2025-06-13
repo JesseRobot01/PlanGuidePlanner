@@ -25,7 +25,7 @@ jobs:
           - name: "Windows"
             os: windows-latest
             host: "windows"
-            qt_version: "6.8.2"
+            qt_version: "6.8.*"
             target: "desktop"
             target_arch: "win64_msvc2022_64"
             host_arch: "win64_msvc2022_64"
@@ -40,19 +40,19 @@ jobs:
             host_arch: "gcc_64"
             arch_dir: "gcc_64"
 
-         ## - name: "WASM"
-         ##   os: ubuntu-latest
-         ##   host: "all_os"
-         ##   qt_version: "6.8.2"
-         ##   target: "wasm"
-         ##   target_arch: "wasm_multithread"
-         ##   host_arch: "wasm_multithread"
-         ##   arch_dir: "wasm_multithread"
+          - name: "WASM"
+            os: ubuntu-latest
+            host: "all_os"
+            qt_version: "6.8.*"
+            target: "wasm"
+            target_arch: "wasm_multithread"
+            host_arch: "wasm_multithread"
+            arch_dir: "wasm_multithread"
 
           - name: "Android arm7"
             os: ubuntu-latest
             host: "linux"
-            qt_version: "6.8.2"
+            qt_version: "6.8.*"
             target: "android"
             target_arch: "android_armv7"
             host_arch: "gcc_64"
@@ -61,7 +61,7 @@ jobs:
           - name: "Android arm64"
             os: ubuntu-latest
             host: "linux"
-            qt_version: "6.8.2"
+            qt_version: "6.8.*"
             target: "android"
             target_arch: "android_arm64_v8a"
             host_arch: "gcc_64"
@@ -70,7 +70,7 @@ jobs:
           - name: "Android x86"
             os: ubuntu-latest
             host: "linux"
-            qt_version: "6.8.2"
+            qt_version: "6.8.*"
             target: "android"
             target_arch: "android_x86"
             host_arch: "gcc_64"
@@ -79,7 +79,7 @@ jobs:
           - name: "Android x86_64"
             os: ubuntu-latest
             host: "linux"
-            qt_version: "6.8.2"
+            qt_version: "6.8.*"
             target: "android"
             target_arch: "android_x86_64"
             host_arch: "gcc_64"
@@ -144,16 +144,15 @@ jobs:
           version: ${{ matrix.qt_version }}
           target: ${{ matrix.target }}
           arch: ${{ matrix.target_arch }}
-          aqtversion: '==3.2.*'
           extra: "--autodesktop"
-          set-env: false
+
           
-      - name: Set Qt enviorment
-        shell: bash
-        run: |
-          echo "QT_ROOT_PATH=${{ runner.workspace }}/Qt/${{ matrix.qt_version }}" >> $GITHUB_ENV
-          echo "QT_TARGET_PATH=${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/${{ matrix.arch_dir }}" >> $GITHUB_ENV
-          echo "QT_HOST_PATH=${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/${{ matrix.host_arch }}" >> $GITHUB_ENV
+     # - name: Set Qt enviorment
+     #   shell: bash
+     #   run: |
+     #     echo "QT_ROOT_PATH=${{ runner.workspace }}/Qt/${{ matrix.qt_version }}" >> $GITHUB_ENV
+     #     echo "QT_TARGET_PATH=${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/${{ matrix.arch_dir }}" >> $GITHUB_ENV
+     #     echo "QT_HOST_PATH=${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/${{ matrix.host_arch }}" >> $GITHUB_ENV
 
       #Configure!
       - name: Configure Cmake
@@ -168,7 +167,7 @@ jobs:
 
       #Build!
       - name: Build!
-        run: cmake --build build
+        run: cmake --build build3
 
       # Pack
       - name: Install Application
