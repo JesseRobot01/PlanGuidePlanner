@@ -167,7 +167,7 @@ jobs:
 
       #Build!
       - name: Build!
-        run: cmake --build build3
+        run: cmake --build build
 
       # Pack
       - name: Install Application
