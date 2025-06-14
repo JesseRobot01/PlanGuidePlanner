@@ -25,7 +25,7 @@ jobs:
           - name: "Windows"
             os: windows-latest
             host: "windows"
-            qt_version: "6.8.*"
+            qt_version: "6.8.3"
             target: "desktop"
             target_arch: "win64_msvc2022_64"
             host_arch: "win64_msvc2022_64"
@@ -37,53 +37,46 @@ jobs:
             qt_version: "6.6.2"
             target: "desktop"
             target_arch: "gcc_64"
-            host_arch: "gcc_64"
-            arch_dir: "gcc_64"
+
 
           - name: "WASM"
             os: ubuntu-latest
             host: "all_os"
-            qt_version: "6.8.*"
+            qt_version: "6.8.3"
             target: "wasm"
             target_arch: "wasm_multithread"
-            host_arch: "wasm_multithread"
-            arch_dir: "wasm_multithread"
+
 
           - name: "Android arm7"
             os: ubuntu-latest
-            host: "linux"
-            qt_version: "6.8.*"
+            host: "all_os"
+            qt_version: "6.8.3"
             target: "android"
             target_arch: "android_armv7"
-            host_arch: "gcc_64"
-            arch_dir: "android_armv7"
 
           - name: "Android arm64"
             os: ubuntu-latest
-            host: "linux"
-            qt_version: "6.8.*"
+            host: "all_os"
+            qt_version: "6.8.3"
             target: "android"
             target_arch: "android_arm64_v8a"
-            host_arch: "gcc_64"
-            arch_dir: "android_arm64_v8a"
+
 
           - name: "Android x86"
             os: ubuntu-latest
-            host: "linux"
-            qt_version: "6.8.*"
+            host: "all_os"
+            qt_version: "6.8.3"
             target: "android"
             target_arch: "android_x86"
-            host_arch: "gcc_64"
-            arch_dir: "android_x86"
+
 
           - name: "Android x86_64"
             os: ubuntu-latest
-            host: "linux"
-            qt_version: "6.8.*"
+            host: "all_os"
+            qt_version: "6.8.3"
             target: "android"
             target_arch: "android_x86_64"
-            host_arch: "gcc_64"
-            arch_dir: "android_x86_64"
+
 
             #TODO macOS
 
