@@ -175,21 +175,41 @@ fixup_bundle(\"${APPS}\" \"${QTPLUGINS}\" \"${DIRS}\")"
 endif ()
 
 if (EMSCRIPTEN)
-    file(GLOB HTML_FILES
-            ${CMAKE_CURRENT_BINARY_DIR}/*.html
+    #The glob aint globbing when cmake does not rerun after first build.
+    #file(GLOB HTML_FILES
+    #        ${CMAKE_CURRENT_BINARY_DIR}/*.html
+    #)
+    #file(GLOB JS_FILES
+    #        ${CMAKE_CURRENT_BINARY_DIR}/*.js
+    #)
+    #file(GLOB WASM_FILES
+    #        ${CMAKE_CURRENT_BINARY_DIR}/*.wasm
+    #)
+    #file(GLOB SVG_FILES
+    #        ${CMAKE_CURRENT_BINARY_DIR}/*.svg
+    #)
+#
+
+    install(
+            FILES ${CMAKE_CURRENT_BINARY_DIR}/qtloader.js ${CMAKE_CURRENT_BINARY_DIR}/StudyGuide.js ${CMAKE_CURRENT_BINARY_DIR}/StudyGuide.worker.js
+            DESTINATION .
+            COMPONENT Runtime
     )
-    file(GLOB JS_FILES
-            ${CMAKE_CURRENT_BINARY_DIR}/*.js
+
+    install(
+            FILES ${CMAKE_CURRENT_BINARY_DIR}/StudyGuide.wasm
+            DESTINATION .
+            COMPONENT Runtime
     )
-    file(GLOB WASM_FILES
-            ${CMAKE_CURRENT_BINARY_DIR}/*.wasm
-    )
-    file(GLOB SVG_FILES
-            ${CMAKE_CURRENT_BINARY_DIR}/*.svg
+
+    install(
+            FILES ${CMAKE_CURRENT_BINARY_DIR}/qtlogo.svg
+            DESTINATION .
+            COMPONENT Runtime
     )
 
     #Exclude the main HTML
-    list(REMOVE_ITEM HTML_FILES "${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE_NAME}.html")
+  #  list(REMOVE_ITEM HTML_FILES "${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE_NAME}.html")
 
     install(
             FILES "${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE_NAME}.html"
@@ -197,11 +217,11 @@ if (EMSCRIPTEN)
             DESTINATION .
             COMPONENT Runtime
     )
-    install(
-            FILES ${HTML_FILES} ${JS_FILES} ${WASM_FILES} ${SVG_FILES}
-            DESTINATION .
-            COMPONENT Runtime
-    )
+  #  install(
+  #          FILES ${HTML_FILES} ${JS_FILES} ${WASM_FILES} ${SVG_FILES}
+  #          DESTINATION .
+  #          COMPONENT Runtime
+  #  )
 endif ()
 
 if(ANDROID)
