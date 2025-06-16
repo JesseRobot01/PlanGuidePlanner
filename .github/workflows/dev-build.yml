@@ -12,21 +12,28 @@ jobs:
     with:
       build_type: Debug
 
-  #deploy-to-page:
-  #  name: Deploy to github pages
-  #  needs: build-dev
-  #  runs-on: ubuntu-latest
-  #  permissions:
-  #    contents: write
-  #    pages: write
-  #    id-token: write
-  #  environment:
-  #    name: StudyGuide
-  #    url: ${{ steps.deployment.outputs.page_url }}
-#
-  #  steps:
-  #      - name: Deploy to GitHub Pages
-  #        id: deployment
-  #        uses: actions/deploy-pages@v4
-  #        with:
-  #          artifact_name: StudyGuide-WASM
+deploy-to-page:
+  name: Deploy WASM
+  needs: build-dev
+  runs-on: ubuntu-latest
+  permissions:
+    contents: write
+    pages: write
+    id-token: write
+  environment:
+    name: StudyGuide
+    url: ${{ steps.deployment.outputs.page_url }}
+
+  steps:
+    - name: Download Artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: StudyGuide-WASM
+        path: WASM-Release
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages
+        folder: WASM-Release
