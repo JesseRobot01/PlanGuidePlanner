@@ -25,13 +25,18 @@ jobs:
       url: https://studyguide.pages.dev/
 
     steps:
-      - name: Download Artifact
+      - name: checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          
+      - name: Download WASM Artifact
         uses: actions/download-artifact@v4
         with:
           name: StudyGuide-WASM
           path: WASM-Release
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy to Cloudflare Pages
         id: deployment
         uses: JamesIves/github-pages-deploy-action@v4
         with:
