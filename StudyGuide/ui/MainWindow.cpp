@@ -293,7 +293,17 @@ void MainWindow::closeEvent(QCloseEvent* event) {
 }
 
 void MainWindow::on_guideSwitcher_tabCloseRequested(int tab) {
-    Guide* guideToClose = guides.at(tab);
+    qDebug() << "Closing guide...";
+    if (tab == 0) {
+        qWarning() << "Can't close start screen, returning.";
+        return;
+    }
+    closeGuide(tab - 1);
+}
+
+void MainWindow::closeGuide(int guideIndex) {
+    Guide* guideToClose = guides.at(guideIndex);
+    qDebug() << "Closing Guide " << guideToClose->name;
     GuideData::Data guide = guideToClose->getGuide();
 
     // first of all, save it.
@@ -304,8 +314,12 @@ void MainWindow::on_guideSwitcher_tabCloseRequested(int tab) {
     autoSaveFile.remove();
 
     // and now, delete it from the program.
-    ui->guideSwitcher->removeTab(tab);
-    guides.removeAt(tab);
+    ui->guideSwitcher->removeTab(guideIndex + 1);
+    guides.removeAt(guideIndex);
+    qDebug() << "Guide closed.";
+
+    //update start
+    updateStart();
 }
 
 void MainWindow::updateStart() {
@@ -313,8 +327,36 @@ void MainWindow::updateStart() {
 }
 
 void MainWindow::on_guideSwitcher_currentChanged(int tab) {
-    if (tab == 0 && APPLICATION->isAutoSaveTimerStarted) //todo: deticated boolean for a change
+    if (tab != 0) {
+        ui->actionClose_guide->setEnabled(true);
+        return;
+    }
+
+    if (tab == 0) {
+        ui->actionClose_guide->setEnabled(false);
+    }
+    if (APPLICATION->isAutoSaveTimerStarted) //todo: deticated boolean for a change
     {
         updateStart();
+    }
+}
+
+void MainWindow::on_actionClose_guide_triggered() {
+    int currentTab = ui->guideSwitcher->currentIndex();
+
+    if (currentTab == 0) {
+        qWarning() << "Can't close start screen, returning.";
+        return;
+    }
+
+    closeGuide(currentTab - 1);
+}
+
+void MainWindow::on_actionClose_all_guides_triggered() {
+    // get guide count
+    int guideCount = guides.size();
+    for (int i = 0; i < guideCount; i++) {
+        // each time the index shifts, so always close 0
+        closeGuide(0);
     }
 }

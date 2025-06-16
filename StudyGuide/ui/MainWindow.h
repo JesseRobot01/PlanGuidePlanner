@@ -36,6 +36,8 @@ public:
 
     void updateStart();
 
+    void closeGuide(int guideIndex);
+
 private slots:
     void on_actionPreference_triggered();
 
@@ -50,6 +52,10 @@ private slots:
     void on_guideSwitcher_tabCloseRequested(int tab);
 
     void on_guideSwitcher_currentChanged(int tab) ;
+
+    void on_actionClose_guide_triggered();
+
+    void on_actionClose_all_guides_triggered();
 
 private:
     Ui::MainWindow* ui;
