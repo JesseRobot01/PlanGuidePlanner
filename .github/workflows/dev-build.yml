@@ -12,21 +12,21 @@ jobs:
     with:
       build_type: Debug
 
-  deploy-to-page:
-    name: Deploy to github pages
-    needs: build-dev
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
-    environment:
-      name: StudyGuide
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-        - name: Deploy to GitHub Pages
-          id: deployment
-          uses: actions/deploy-pages@v4
-          with:
-            artifact_name: StudyGuide-WASM
+  #deploy-to-page:
+  #  name: Deploy to github pages
+  #  needs: build-dev
+  #  runs-on: ubuntu-latest
+  #  permissions:
+  #    contents: write
+  #    pages: write
+  #    id-token: write
+  #  environment:
+  #    name: StudyGuide
+  #    url: ${{ steps.deployment.outputs.page_url }}
+#
+  #  steps:
+  #      - name: Deploy to GitHub Pages
+  #        id: deployment
+  #        uses: actions/deploy-pages@v4
+  #        with:
+  #          artifact_name: StudyGuide-WASM
