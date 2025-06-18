@@ -76,7 +76,7 @@
    <item>
     <widget class="QLabel" name="label_4">
      <property name="text">
-      <string notr="true">© 2023-2024 JesseRobot01</string>
+      <string notr="true">© 2023-2025 JesseRobot01</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
