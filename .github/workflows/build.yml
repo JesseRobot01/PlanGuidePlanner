@@ -38,7 +38,6 @@ jobs:
             target: "desktop"
             target_arch: "gcc_64"
 
-
           - name: "WASM"
             os: ubuntu-latest
             host: "all_os"
@@ -46,6 +45,12 @@ jobs:
             target: "wasm"
             target_arch: "wasm_multithread"
 
+          - name: "Pages" #Pages does not support files bigger than 20 Mb, so this uses a release build, no matter what.
+            os: ubuntu-latest
+            host: "all_os"
+            qt_version: "6.8.3"
+            target: "wasm"
+            target_arch: "wasm_multithread"
 
           - name: "Android arm7"
             os: ubuntu-latest
@@ -61,14 +66,12 @@ jobs:
             target: "android"
             target_arch: "android_arm64_v8a"
 
-
           - name: "Android x86"
             os: ubuntu-latest
             host: "all_os"
             qt_version: "6.8.3"
             target: "android"
             target_arch: "android_x86"
-
 
           - name: "Android x86_64"
             os: ubuntu-latest
@@ -97,7 +100,7 @@ jobs:
           sudo apt-get -y install ninja-build qt6-base-dev qtchooser qt6-base-dev-tools libqt6core6 qt6-tools-dev
 
       - name: Install Dependencies (WASM)
-        if: ${{ matrix.name == 'WASM' }}
+        if: ${{ matrix.target == 'wasm' }}
         run: |
           git clone https://github.com/emscripten-core/emsdk.git
           cd emsdk
@@ -152,11 +155,17 @@ jobs:
         if: ${{ matrix.target != 'Android'}}
         run: |
           cmake -Bbuild -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DCMAKE_TOOLCHAIN_FILE="${{ env.QT_ROOT_DIR }}/lib/cmake/Qt6/qt.toolchain.cmake" -G Ninja
+
       - name: Configure Cmake (Android)
         if: ${{ matrix.target == 'Android' }}
         run: |
           #Release builds not avable yet. Going with debug.
           cmake -Bbuild -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="${{ env.QT_ROOT_DIR }}/lib/cmake/Qt6/qt.toolchain.cmake" -DANDROID_SDK_ROOT=$ANDROID_SDK_ROOT -DANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/25.1.8937393 -G Ninja
+
+      - name: Configure Cmake (Pages)
+        if: ${{ matrix.name == 'Pages'}}
+        run: |
+          cmake -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="${{ env.QT_ROOT_DIR }}/lib/cmake/Qt6/qt.toolchain.cmake" -G Ninja
 
       #Build!
       - name: Build!
@@ -185,26 +194,26 @@ jobs:
         if: ${{ matrix.name != 'linux' }}
         uses: actions/upload-artifact@v4
         with:
-          name: StudyGuide-${{matrix.name}}
+          name: StudyGuide-${{matrix.name}}-${{inputs.build_type}}
           path: install
 
       - name: Upload setup (Windows)
         if: ${{ matrix.name == 'Windows' }}
         uses: actions/upload-artifact@v4
         with:
-          name: StudyGuide-windows-setup
+          name: StudyGuide-windows-setup-${{inputs.build_type}}
           path: build/*.exe
 
       - name: Upload binaries (Linux)
         if: ${{ matrix.name == 'linux' }}
         uses: actions/upload-artifact@v4
         with:
-          name: StudyGuide-linux (tar.xz)
+          name: StudyGuide-linux-${{inputs.build_type}}
           path: build/*.tar.xz
 
       - name: Upload deb (Linux)
         if: ${{ matrix.name == 'linux' }}
         uses: actions/upload-artifact@v4
         with:
-          name: StudyGuide-linux (deb)
+          name: StudyGuide-linux-deb-${{inputs.build_type}}
           path: build/*.deb

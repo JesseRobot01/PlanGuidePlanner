@@ -33,7 +33,7 @@ jobs:
       - name: Download WASM Artifact
         uses: actions/download-artifact@v4
         with:
-          name: StudyGuide-WASM
+          name: StudyGuide-Pages-Debug
           path: WASM-Release
 
       - name: Deploy to Cloudflare Pages
