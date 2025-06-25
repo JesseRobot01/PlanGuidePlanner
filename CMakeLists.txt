@@ -75,7 +75,7 @@ message(STATUS "Git Branch Commit: ${GIT_COMMIT_NUMBER}")
 if(FORCE_BUNDLED_ZLIB)
     message(STATUS "Using bundled zlib")
 
-    add_subdirectory(libraries/zlib EXCLUDE_FROM_ALL)
+    add_subdirectory(libraries/zlib)
 
     set(ZLIB_LIBRARY ZLIB::ZLIB CACHE STRING "zlib library name")
 
