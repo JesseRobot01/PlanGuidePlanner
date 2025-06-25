@@ -12,6 +12,13 @@ set(STUDYGUIDE_VERSION ${STUDYGUIDE_VERSION_MAJOR}.${STUDYGUIDE_VERSION_MINOR}.$
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets LinguistTools Core5Compat)
 
+if(NOT StudyGuide_FORCE_BUNDLED_LIBS AND NOT FORCE_BUNDLED_ZLIB)
+    find_package(ZLIB QUIET)
+endif()
+if(NOT ZLIB_FOUND)
+    set(FORCE_BUNDLED_ZLIB TRUE CACHE BOOL "")
+    mark_as_advanced(FORCE_BUNDLED_ZLIB)
+endif()
 
 if(NOT StudyGuide_FORCE_BUNDLED_LIBS)
     find_package(QuaZip-Qt6 1.3 QUIET)
@@ -19,7 +26,6 @@ endif()
 if (NOT QuaZip-Qt6_FOUND)
     set(QUAZIP_QT_MAJOR_VERSION 6)
     set(FORCE_BUNDLED_QUAZIP 1)
-    set(QUAZIP_USE_QT_ZLIB 1)
 endif()
 
 
@@ -66,6 +72,32 @@ message(STATUS "Git commit hash: ${GIT_COMMIT_HASH}")
 message(STATUS "Git Branch: ${GIT_BRANCH}")
 message(STATUS "Git Branch Commit: ${GIT_COMMIT_NUMBER}")
 
+if(FORCE_BUNDLED_ZLIB)
+    message(STATUS "Using bundled zlib")
+
+    set(CMAKE_POLICY_DEFAULT_CMP0069 NEW) # Suppress cmake warnings and allow INTERPROCEDURAL_OPTIMIZATION for zlib
+    set(SKIP_INSTALL_ALL ON)
+    add_subdirectory(libraries/zlib EXCLUDE_FROM_ALL)
+
+    # On OS where unistd.h exists, zlib's generated header defines `Z_HAVE_UNISTD_H`, while the included header does not.
+    # We cannot safely undo the rename on those systems, and they generally have packages for zlib anyway.
+    check_include_file(unistd.h NEED_GENERATED_ZCONF)
+    if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/libraries/zlib/zconf.h.included" AND NOT NEED_GENERATED_ZCONF)
+        # zlib's cmake script renames a file, dirtying the submodule, see https://github.com/madler/zlib/issues/162
+        message(STATUS "Undoing Rename")
+        message(STATUS "    ${CMAKE_CURRENT_SOURCE_DIR}/libraries/zlib/zconf.h")
+        file(RENAME "${CMAKE_CURRENT_SOURCE_DIR}/libraries/zlib/zconf.h.included" "${CMAKE_CURRENT_SOURCE_DIR}/libraries/zlib/zconf.h")
+    endif()
+
+    set(ZLIB_INCLUDE_DIR "${CMAKE_CURRENT_BINARY_DIR}/libraries/zlib" "${CMAKE_CURRENT_SOURCE_DIR}/libraries/zlib" CACHE STRING "" FORCE)
+    set_target_properties(zlibstatic PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${ZLIB_INCLUDE_DIR}")
+    add_library(ZLIB::ZLIB ALIAS zlibstatic)
+    set(ZLIB_LIBRARY ZLIB::ZLIB CACHE STRING "zlib library name")
+
+    find_package(ZLIB REQUIRED)
+else()
+    message(STATUS "Using system zlib")
+endif()
 if (FORCE_BUNDLED_QUAZIP)
     message(STATUS "Using bundled QuaZip")
     set(BUILD_SHARED_LIBS 0)  # link statically to avoid conflicts.

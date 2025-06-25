@@ -90,8 +90,7 @@ qt_add_resources(${EXECUTABLE_NAME} translations
 )
 
 
-target_link_libraries(${EXECUTABLE_NAME} PUBLIC Qt::Core Qt::Gui Qt::Widgets BuildConfig QuaZip::QuaZip Qt6::Core5Compat)
-
+target_link_libraries(${EXECUTABLE_NAME} PUBLIC Qt::Core Qt::Gui Qt::Widgets BuildConfig QuaZip::QuaZip Qt6::Core5Compat ${ZLIB_LIBRARIES})
 if(ANDROID)
 target_link_libraries(${EXECUTABLE_NAME} PUBLIC Qt::CorePrivate)
 endif()
