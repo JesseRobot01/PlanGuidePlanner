@@ -91,6 +91,7 @@ jobs:
         with:
           fetch-depth: 'all'
           fetch-tags: 'true'
+          submodules: 'true'
 
 
       - name: Install Dependencies (Linux)
