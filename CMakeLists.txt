@@ -11,13 +11,12 @@ set(STUDYGUIDE_VERSION_PATCH 0)
 set(STUDYGUIDE_VERSION ${STUDYGUIDE_VERSION_MAJOR}.${STUDYGUIDE_VERSION_MINOR}.${STUDYGUIDE_VERSION_PATCH})
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets LinguistTools Core5Compat)
-
+set(StudyGuide_FORCE_BUNDLED_LIBS 1)
 if(NOT StudyGuide_FORCE_BUNDLED_LIBS AND NOT FORCE_BUNDLED_ZLIB)
     find_package(ZLIB QUIET)
 endif()
 if(NOT ZLIB_FOUND)
     set(FORCE_BUNDLED_ZLIB TRUE CACHE BOOL "")
-    set(ZLIB_BUILD_STATIC ON)
     mark_as_advanced(FORCE_BUNDLED_ZLIB)
 endif()
 
@@ -79,8 +78,6 @@ if(FORCE_BUNDLED_ZLIB)
     add_subdirectory(libraries/zlib)
 
     set(ZLIB_LIBRARY ZLIB::ZLIB CACHE STRING "zlib library name")
-
-    find_package(ZLIB REQUIRED)
 else()
     message(STATUS "Using system zlib")
 endif()
