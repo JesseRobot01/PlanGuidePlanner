@@ -75,9 +75,13 @@ message(STATUS "Git Branch Commit: ${GIT_COMMIT_NUMBER}")
 if(FORCE_BUNDLED_ZLIB)
     message(STATUS "Using bundled zlib")
 
+    set(ZLIB_BUILD_TESTING 0)
+    set(ZLIB_INSTALL 0)
     add_subdirectory(libraries/zlib)
 
-    set(ZLIB_LIBRARY ZLIB::ZLIB CACHE STRING "zlib library name")
+    set(ZLIB_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/libraries/zlib)
+
+    set(ZLIB_LIBRARY ZLIB::ZLIBSTATIC CACHE STRING "zlib library name")
 else()
     message(STATUS "Using system zlib")
 endif()
