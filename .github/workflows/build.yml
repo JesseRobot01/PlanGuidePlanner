@@ -140,6 +140,7 @@ jobs:
           version: ${{ matrix.qt_version }}
           target: ${{ matrix.target }}
           arch: ${{ matrix.target_arch }}
+          modules: qt5compat
           extra: "--autodesktop"
 
           

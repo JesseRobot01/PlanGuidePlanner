@@ -232,30 +232,71 @@
         <translation>Open file</translation>
     </message>
     <message>
-        <location line="+5"/>
-        <source>Save Guide As</source>
-        <translation>Save Guide As</translation>
+        <location line="+10"/>
+        <source>Save And Close Guide</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+18"/>
+        <source>Save And Close All Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save Guide As</source>
+        <translation type="vanished">Save Guide As</translation>
+    </message>
+    <message>
+        <location line="-23"/>
         <source>About</source>
         <translation>About StudyGuide</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Save Guide</source>
-        <translation>Save Guide</translation>
+        <translation type="vanished">Save Guide</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="+75"/>
-        <location line="+189"/>
+        <location line="+13"/>
+        <source>Close guide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Close all guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/MainWindow.cpp" line="+32"/>
+        <source>Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+48"/>
         <source>Open StudyGuide</source>
         <translation>Open StudyGuides</translation>
     </message>
     <message>
-        <location line="-201"/>
+        <location line="+2"/>
+        <source>All Supported Files (*.xml *.zip);;*.Xml Files (*.xml);;Zip Files (*.zip);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+218"/>
+        <source>Save StudyGuide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+14"/>
-        <location line="+188"/>
+        <source>Save All Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>ZIP Files (*.zip);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-247"/>
+        <location line="+232"/>
         <source>XML Files (*.xml);;All Files (*)</source>
         <translation>XML FIles (*.xml);;All files (*)</translation>
     </message>
@@ -288,9 +329,8 @@
         <translation>Logs directory</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Use Auto Save</source>
-        <translation>Use auto save</translation>
+        <translation type="vanished">Use auto save</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -298,22 +338,19 @@
         <translation>Auto Save directory</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>Use Auto Open</source>
-        <translation>Use auto open</translation>
+        <translation type="vanished">Use auto open</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>Auto open directory</source>
-        <translation>Auto Open directory</translation>
+        <translation type="vanished">Auto Open directory</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>Automaticly copy new opened files to auto open directory</source>
-        <translation>Automaticly copy over new opened files to Auto Open Dir</translation>
+        <translation type="vanished">Automaticly copy over new opened files to Auto Open Dir</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+31"/>
         <source>Language</source>
         <translation>language</translation>
     </message>
@@ -388,7 +425,7 @@
         <translation>Fusion Light</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+3"/>
         <source>System</source>
         <translation>System</translation>
     </message>
@@ -423,6 +460,14 @@
         <location line="+13"/>
         <source>No</source>
         <translation>No</translation>
+    </message>
+</context>
+<context>
+    <name>StartScreen</name>
+    <message>
+        <location filename="../ui/StartScreen.ui" line="+14"/>
+        <source>StartScreen</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

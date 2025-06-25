@@ -138,8 +138,8 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
     }
 
     // auto open all files.
-    if (settings.value("AutoOpen", "1").toBool()) {
-        QDir autoOpenDir = getAutoOpenLocation();
+
+        QDir autoOpenDir = getAutoSaveLocation();
         if (autoOpenDir.exists() && !autoOpenDir.isEmpty()) {
             QStringList guideFileNames = autoOpenDir.entryList(QDir::Files);
             QStringList guideFiles;
@@ -160,7 +160,7 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
             appWindow->updateStart();
             delete loadGuide; // no need anymore, so bye!
         }
-    }
+
 }
 
 Application::~Application() {
@@ -232,20 +232,6 @@ QString Application::getLogsDirLocation() {
     return settings.value("LogsDir",
                           (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
                            "/logs")).toString();
-#endif
-}
-
-QString Application::getAutoOpenLocation() {
-    QSettings settings;
-
-#ifdef Q_OS_ANDROID
-    return settings.value("AutoOpenDir",
-                          (QStandardPaths::writableLocation(QStandardPaths::HomeLocation) +
-                           "/open guides")).toString();
-#else
-    return settings.value("AutoOpenDir",
-                          (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
-                           "/open guides")).toString();
 #endif
 }
 

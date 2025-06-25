@@ -41,7 +41,7 @@
       <enum>QTabWidget::TabShape::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -141,19 +141,6 @@
             <widget class="QLineEdit" name="logsDirectory"/>
            </item>
            <item>
-            <widget class="QCheckBox" name="useAutoSaveCheck">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="text">
-              <string>Use Auto Save</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QLabel" name="label_12">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -168,39 +155,6 @@
            </item>
            <item>
             <widget class="QLineEdit" name="autoSaveDir"/>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="useAutoOpenCheck">
-             <property name="text">
-              <string>Use Auto Open</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_13">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Auto open directory</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="autoOpenDir"/>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="copyNewFilesCheckBox">
-             <property name="text">
-              <string>Automaticly copy new opened files to auto open directory</string>
-             </property>
-            </widget>
            </item>
            <item>
             <spacer name="verticalSpacer_2">
@@ -294,7 +248,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>404</width>
+            <width>400</width>
             <height>216</height>
            </rect>
           </property>

@@ -36,7 +36,7 @@ public:
 
     void updateStart();
 
-    void closeGuide(int guideIndex);
+    void closeGuide(int guideIndex, bool updateStart = true);
 
 private slots:
     void on_actionPreference_triggered();
@@ -47,15 +47,11 @@ private slots:
 
     void on_actionAbout_triggered();
 
-    void on_actionSave_triggered();
-
     void on_guideSwitcher_tabCloseRequested(int tab);
 
-    void on_guideSwitcher_currentChanged(int tab) ;
+    void on_guideSwitcher_currentChanged(int tab);
 
-    void on_actionClose_guide_triggered();
-
-    void on_actionClose_all_guides_triggered();
+    void on_actionSave_All_Guides_triggered();
 
 private:
     Ui::MainWindow* ui;
@@ -68,8 +64,6 @@ private:
     void closeEvent(QCloseEvent* event) override;
 
     void saveGuideAs(GuideData::Data guide);
-
-    void saveGuide(GuideData::Data guide);
 };
 
 

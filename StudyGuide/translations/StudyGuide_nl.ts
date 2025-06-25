@@ -232,30 +232,71 @@
         <translation>Bestand Openen</translation>
     </message>
     <message>
-        <location line="+5"/>
-        <source>Save Guide As</source>
-        <translation>Wijzer opslaan als</translation>
+        <location line="+10"/>
+        <source>Save And Close Guide</source>
+        <translation>Wijzer Opslaan en Sluiten</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+18"/>
+        <source>Save And Close All Guides</source>
+        <translation>Alles Opslaan en Sluiten</translation>
+    </message>
+    <message>
+        <source>Save Guide As</source>
+        <translation type="vanished">Wijzer opslaan als</translation>
+    </message>
+    <message>
+        <location line="-23"/>
         <source>About</source>
         <translation>Over StudieWijzer</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Save Guide</source>
-        <translation>Wijzer opslaan</translation>
+        <translation type="vanished">Wijzer opslaan</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="+75"/>
-        <location line="+189"/>
+        <location line="+13"/>
+        <source>Close guide</source>
+        <translation>Sluit Wijzer</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Close all guides</source>
+        <translation>Sluit alle wijzers</translation>
+    </message>
+    <message>
+        <location filename="../ui/MainWindow.cpp" line="+32"/>
+        <source>Start</source>
+        <translation>Start</translation>
+    </message>
+    <message>
+        <location line="+48"/>
         <source>Open StudyGuide</source>
         <translation>Open StudieWijzers</translation>
     </message>
     <message>
-        <location line="-201"/>
+        <location line="+2"/>
+        <source>All Supported Files (*.xml *.zip);;*.Xml Files (*.xml);;Zip Files (*.zip);;All Files (*)</source>
+        <translation>Alle ondersteunende bestanden (*.xml *.zip);;xml-Bestanden (*.xml);;Zip Bestanden (*.zip);;Alle Bestanden (*)</translation>
+    </message>
+    <message>
+        <location line="+218"/>
+        <source>Save StudyGuide</source>
+        <translation>Opslaan</translation>
+    </message>
+    <message>
         <location line="+14"/>
-        <location line="+188"/>
+        <source>Save All Guides</source>
+        <translation>Alles Opslaan</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>ZIP Files (*.zip);;All Files (*)</source>
+        <translation>Zip Bestanden (*.zip);;Alle Bestanden (*)</translation>
+    </message>
+    <message>
+        <location line="-247"/>
+        <location line="+232"/>
         <source>XML Files (*.xml);;All Files (*)</source>
         <translation>Xml bestanden (*.xml);;Alle Bestanden (*)</translation>
     </message>
@@ -288,10 +329,9 @@
         <translation>Log map</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Use Auto Save</source>
         <translatorcomment>Gebruik automatische opslag</translatorcomment>
-        <translation></translation>
+        <translation type="vanished">Gebruik automatische opslag</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -299,22 +339,19 @@
         <translation>Map voor automatische opslag</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>Use Auto Open</source>
-        <translation>Gebruik automatische opening</translation>
+        <translation type="vanished">Gebruik automatische opening</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>Auto open directory</source>
-        <translation>Map voor automatische opening van wijzers</translation>
+        <translation type="vanished">Map voor automatische opening van wijzers</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>Automaticly copy new opened files to auto open directory</source>
-        <translation>Kopieër automatisch nieuwe geopende bestanden</translation>
+        <translation type="vanished">Kopieër automatisch nieuwe geopende bestanden</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+31"/>
         <source>Language</source>
         <translation>Taal</translation>
     </message>
@@ -390,7 +427,7 @@
         <translation>Fusion licht</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+3"/>
         <source>System</source>
         <translation>Systeem</translation>
     </message>
@@ -425,6 +462,14 @@
         <location line="+13"/>
         <source>No</source>
         <translation>Nee</translation>
+    </message>
+</context>
+<context>
+    <name>StartScreen</name>
+    <message>
+        <location filename="../ui/StartScreen.ui" line="+14"/>
+        <source>StartScreen</source>
+        <translation>Startscherm</translation>
     </message>
 </context>
 <context>

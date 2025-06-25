@@ -10,7 +10,18 @@ set(STUDYGUIDE_VERSION_MINOR 1)
 set(STUDYGUIDE_VERSION_PATCH 0)
 set(STUDYGUIDE_VERSION ${STUDYGUIDE_VERSION_MAJOR}.${STUDYGUIDE_VERSION_MINOR}.${STUDYGUIDE_VERSION_PATCH})
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets LinguistTools)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets LinguistTools Core5Compat)
+
+
+if(NOT StudyGuide_FORCE_BUNDLED_LIBS)
+    find_package(QuaZip-Qt6 1.3 QUIET)
+endif()
+if (NOT QuaZip-Qt6_FOUND)
+    set(QUAZIP_QT_MAJOR_VERSION 6)
+    set(FORCE_BUNDLED_QUAZIP 1)
+    set(QUAZIP_USE_QT_ZLIB 1)
+endif()
+
 
 set(EXECUTABLE_NAME "StudyGuide")
 
@@ -54,6 +65,15 @@ message(STATUS "Git tag: ${GIT_TAG}")
 message(STATUS "Git commit hash: ${GIT_COMMIT_HASH}")
 message(STATUS "Git Branch: ${GIT_BRANCH}")
 message(STATUS "Git Branch Commit: ${GIT_COMMIT_NUMBER}")
+
+if (FORCE_BUNDLED_QUAZIP)
+    message(STATUS "Using bundled QuaZip")
+    set(BUILD_SHARED_LIBS 0)  # link statically to avoid conflicts.
+    set(QUAZIP_INSTALL 0)
+    add_subdirectory(libraries/quazip) # zip manipulation library
+else()
+    message(STATUS "Using system QuaZip")
+endif()
 
 string(TIMESTAMP TODAY "%Y-%m-%d")
 set(STUDYGUIDE_BUILD_DATE "${TODAY}")

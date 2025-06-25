@@ -32,10 +32,6 @@ private slots:
 
     void on_fullResetButton_pressed();
 
-    void on_useAutoSaveCheck_clicked(bool isChecked);
-
-    void on_useAutoOpenCheck_clicked(bool isChecked);
-
 private:
     Ui::PreferenceWindow* ui;
 

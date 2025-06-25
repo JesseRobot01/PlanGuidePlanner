@@ -26,8 +26,6 @@ public:
 
     QString getLogsDirLocation();
 
-    QString getAutoOpenLocation();
-
     QString getAutoSaveLocation();
 
     QVector<Guide *> guidesToSave;
@@ -38,6 +36,7 @@ public:
 
     QVector<GuideData::Data> getUpToDateGuides();
 
+    bool isFileChanged = false;
 
 #ifdef Q_OS_ANDROID
 

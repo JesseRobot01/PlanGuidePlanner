@@ -23,4 +23,8 @@ void LoadGuide::increaseProgress(int amount) {
     QCoreApplication::processEvents(); // force update
 }
 
+void LoadGuide::setMaxProgress(int maxProgress) {
+    ui->progressBar->setRange(0, maxProgress);
+}
+
 

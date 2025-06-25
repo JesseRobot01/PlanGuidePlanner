@@ -7,11 +7,11 @@
 #include "themes/GuidePalette.h"
 #include "Application.h"
 
-Goal::Goal(QWidget *parent) : QWidget(parent), ui(new Ui::Goal) {
+Goal::Goal(QWidget* parent) : QWidget(parent), ui(new Ui::Goal) {
     ui->setupUi(this);
     GuidePalette palette;
     QString defaultSlider = QString::fromLatin1("background-color:%1;").arg(
-            palette.getColor(GuidePalette::Progress_NotStarted).name());
+        palette.getColor(GuidePalette::Progress_NotStarted).name());
 
     ui->progressSlider->setStyleSheet(defaultSlider);
     ui->progressBackground->setStyleSheet(defaultSlider);
@@ -27,10 +27,10 @@ void Goal::updateStyle() {
     GuidePalette palette;
     QString headerStyle =
             QString::fromLatin1(
-                    "background-color: %1; border-width: 3px; border-style: solid; border-color:%2;color:%3")
-                    .arg(palette.getColor(GuidePalette::HeaderBackground).name())
-                    .arg(palette.color(QPalette::Base).name())
-                    .arg(palette.getColor(GuidePalette::HeaderText).name());
+                "background-color: %1; border-width: 3px; border-style: solid; border-color:%2;color:%3")
+            .arg(palette.getColor(GuidePalette::HeaderBackground).name())
+            .arg(palette.color(QPalette::Base).name())
+            .arg(palette.getColor(GuidePalette::HeaderText).name());
 
     ui->goalName->setStyleSheet(headerStyle);
     ui->goalTime->setStyleSheet(headerStyle);
@@ -39,7 +39,7 @@ void Goal::updateStyle() {
 }
 
 // disable scrolling on scrollwheel
-bool Goal::eventFilter(QObject *obj, QEvent *event) {
+bool Goal::eventFilter(QObject* obj, QEvent* event) {
     if (obj == ui->progressSlider && event->type() == QEvent::Wheel) {
         event->ignore();
         return true;
@@ -61,19 +61,19 @@ Goal::~Goal() {
     delete ui;
 }
 
-void Goal::setName(const QString &name) {
+void Goal::setName(const QString&name) {
     ui->goalName->setText(name);
 }
 
-void Goal::setGoalNumber(const QString &goalNumber) {
+void Goal::setGoalNumber(const QString&goalNumber) {
     ui->leraningGoal->setText(goalNumber);
 }
 
-void Goal::setTime(const QString &time) {
+void Goal::setTime(const QString&time) {
     ui->goalTime->setText(time);
 }
 
-void Goal::addWork(const QString &workName, const QString &link) {
+void Goal::addWork(const QString&workName, const QString&link) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
     GuidePalette palette;
@@ -83,13 +83,13 @@ void Goal::addWork(const QString &workName, const QString &link) {
     prefixes.append(prefix);
 
     QString indicatorStyle = QString::fromLatin1(
-            "background-color:%1; border-width:3px; border-style:solid; border-color:%2;color:%3")
+                "background-color:%1; border-width:3px; border-style:solid; border-color:%2;color:%3")
             .arg(palette.getColor(GuidePalette::WorkIndicatorBackground).name())
             .arg(palette.color(QPalette::Base).name())
             .arg(palette.getColor(GuidePalette::WorkIndicatorText).name());
 
     // work indicator generation
-    QLabel *workIndicator = new QLabel(this);
+    QLabel* workIndicator = new QLabel(this);
     workIndicator->setGeometry(0, size, 90, 40);
     QFont indicatorFont;
     indicatorFont.setPointSize(22);
@@ -102,7 +102,7 @@ void Goal::addWork(const QString &workName, const QString &link) {
     workIndicator->setText(tr("UI_WORKINDICATOR"));
 
     // and now the text
-    QLabel *work = new QLabel(this);
+    QLabel* work = new QLabel(this);
     work->setGeometry(QRect(90, size, 890, 40));
     QFont workFont;
     workFont.setPointSize(12);
@@ -118,19 +118,20 @@ void Goal::addWork(const QString &workName, const QString &link) {
                 .arg(link);
         work->setOpenExternalLinks(true);
         work->setText(workText);
-    } else
+    }
+    else
         work->setText(workName);
 
     size += 40;
 }
 
-void Goal::addWatch(const QString &watchName, const QString &link) {
+void Goal::addWatch(const QString&watchName, const QString&link) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
     GuidePalette palette;
 
     QString indicatorStyle = QString::fromLatin1(
-            "background-color:%1; border-width:3px; border-style:solid; border-color:%2;color:%3")
+                "background-color:%1; border-width:3px; border-style:solid; border-color:%2;color:%3")
             .arg(palette.getColor(GuidePalette::WatchIndicatorBackground).name())
             .arg(palette.color(QPalette::Base).name())
             .arg(palette.getColor(GuidePalette::WatchIndicatorText).name());
@@ -141,7 +142,7 @@ void Goal::addWatch(const QString &watchName, const QString &link) {
     prefixes.append(prefix);
 
     // watch indicator generation
-    QLabel *watchIndicator = new QLabel(this);
+    QLabel* watchIndicator = new QLabel(this);
     watchIndicator->setGeometry(0, size, 90, 40);
     QFont indicatorFont;
     indicatorFont.setPointSize(22);
@@ -154,7 +155,7 @@ void Goal::addWatch(const QString &watchName, const QString &link) {
     watchIndicator->setText(tr("UI_WATCHINDICATOR"));
 
     // and now the text
-    QLabel *watch = new QLabel(this);
+    QLabel* watch = new QLabel(this);
     watch->setGeometry(QRect(90, size, 890, 40));
     QFont workFont;
     workFont.setPointSize(12);
@@ -171,13 +172,14 @@ void Goal::addWatch(const QString &watchName, const QString &link) {
 
         watch->setOpenExternalLinks(true);
         watch->setText(watchText);
-    } else
+    }
+    else
         watch->setText(watchName);
 
     size += 40;
 }
 
-void Goal::addRead(const QString &readName, const QString &link) {
+void Goal::addRead(const QString&readName, const QString&link) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
     GuidePalette palette;
@@ -187,14 +189,14 @@ void Goal::addRead(const QString &readName, const QString &link) {
     prefixes.append(prefix);
 
     QString indicatorStyle = QString::fromLatin1(
-            "background-color:%1; border-width:3px; border-style:solid; border-color:%2; color:%3;")
+                "background-color:%1; border-width:3px; border-style:solid; border-color:%2; color:%3;")
             .arg(palette.getColor(GuidePalette::ReadIndicatorBackground).name())
             .arg(palette.color(QPalette::Base).name())
             .arg(palette.getColor(GuidePalette::ReadIndicatorText).name());
 
 
     // Read indicator generation
-    QLabel *readIndicator = new QLabel(this);
+    QLabel* readIndicator = new QLabel(this);
     readIndicator->setGeometry(0, size, 90, 40);
     QFont indicatorFont;
     indicatorFont.setPointSize(22);
@@ -207,7 +209,7 @@ void Goal::addRead(const QString &readName, const QString &link) {
     readIndicator->setText(tr("UI_READINDICATOR"));
 
     // and now the text
-    QLabel *read = new QLabel(this);
+    QLabel* read = new QLabel(this);
     read->setGeometry(QRect(90, size, 890, 40));
     QFont workFont;
     workFont.setPointSize(12);
@@ -224,13 +226,14 @@ void Goal::addRead(const QString &readName, const QString &link) {
 
         read->setOpenExternalLinks(true);
         read->setText(readText);
-    } else
+    }
+    else
         read->setText(readName);
 
     size += 40;
 }
 
-void Goal::addProcess(const QString &processName, const QString &link) {
+void Goal::addProcess(const QString&processName, const QString&link) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
     GuidePalette palette;
@@ -240,13 +243,13 @@ void Goal::addProcess(const QString &processName, const QString &link) {
     prefixes.append(prefix);
 
     QString indicatorStyle = QString::fromLatin1(
-            "background-color:%1; border-width:3px; border-style:solid; border-color:%2;color:%3")
+                "background-color:%1; border-width:3px; border-style:solid; border-color:%2;color:%3")
             .arg(palette.getColor(GuidePalette::ProcessIndicatorBackground).name())
             .arg(palette.color(QPalette::Base).name())
             .arg(palette.getColor(GuidePalette::ProcessIndicatorText).name());
 
     // Process indicator generation
-    QLabel *processIndicator = new QLabel(this);
+    QLabel* processIndicator = new QLabel(this);
     processIndicator->setGeometry(0, size, 90, 40);
     QFont indicatorFont;
     indicatorFont.setPointSize(22);
@@ -257,7 +260,7 @@ void Goal::addProcess(const QString &processName, const QString &link) {
     processIndicator->setText(tr("UI_PROCESSINDICATOR"));
 
     // and now the text
-    QLabel *process = new QLabel(this);
+    QLabel* process = new QLabel(this);
     process->setGeometry(QRect(90, size, 890, 40));
     QFont workFont;
     workFont.setPointSize(12);
@@ -274,13 +277,14 @@ void Goal::addProcess(const QString &processName, const QString &link) {
 
         process->setOpenExternalLinks(true);
         process->setText(processText);
-    } else
+    }
+    else
         process->setText(processName);
 
     size += 40;
 }
 
-void Goal::addInfo(const QString &infoText, const QString &link) {
+void Goal::addInfo(const QString&infoText, const QString&link) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
     GuidePalette palette;
@@ -290,13 +294,13 @@ void Goal::addInfo(const QString &infoText, const QString &link) {
     prefixes.append(prefix);
 
     QString indicatorStyle = QString::fromLatin1(
-            "background-color:%1; border-width:3px; border-style:solid; border-color:%2;color:%3")
+                "background-color:%1; border-width:3px; border-style:solid; border-color:%2;color:%3")
             .arg(palette.getColor(GuidePalette::InfoIndicatorBackground).name())
             .arg(palette.color(QPalette::Base).name())
             .arg(palette.getColor(GuidePalette::InfoIndicatorText).name());
 
     // Info indicator generation
-    QLabel *InfoIndicator = new QLabel(this);
+    QLabel* InfoIndicator = new QLabel(this);
     InfoIndicator->setGeometry(0, size, 90, 40);
     QFont indicatorFont;
     indicatorFont.setPointSize(22);
@@ -307,7 +311,7 @@ void Goal::addInfo(const QString &infoText, const QString &link) {
     InfoIndicator->setText(tr("UI_INFOINDICATOR"));
 
     // and now the text
-    QLabel *info = new QLabel(this);
+    QLabel* info = new QLabel(this);
     info->setGeometry(QRect(90, size, 890, 40));
     QFont workFont;
     workFont.setPointSize(12);
@@ -324,13 +328,14 @@ void Goal::addInfo(const QString &infoText, const QString &link) {
 
         info->setOpenExternalLinks(true);
         info->setText(infoTextLink);
-    } else
+    }
+    else
         info->setText(infoText);
 
     size += 40;
 }
 
-void Goal::setWeek(const QString &week) {
+void Goal::setWeek(const QString&week) {
     ui->week->setText(week);
 }
 
@@ -347,39 +352,41 @@ void Goal::setProgress(int progress, bool changedFile) {
     switch (progress) {
         case 2:
             colour = QString::fromLatin1("background-color:%1;").arg(
-                    palette.getColor(GuidePalette::Progress_Finished).name());
+                palette.getColor(GuidePalette::Progress_Finished).name());
 
             ui->progressSlider->setStyleSheet(colour);
             ui->progressBackground->setStyleSheet(colour);
             break;
         case 1:
             colour = QString::fromLatin1("background-color:%1;").arg(
-                    palette.getColor(GuidePalette::Progress_Working).name());
+                palette.getColor(GuidePalette::Progress_Working).name());
 
             ui->progressSlider->setStyleSheet(colour);
             ui->progressBackground->setStyleSheet(colour);
             break;
         case 0:
             colour = QString::fromLatin1("background-color:%1;").arg(
-                    palette.getColor(GuidePalette::Progress_NotStarted).name());
+                palette.getColor(GuidePalette::Progress_NotStarted).name());
 
             ui->progressSlider->setStyleSheet(colour);
             ui->progressBackground->setStyleSheet(colour);
             break;
         default:
             colour = QString::fromLatin1("background-color:%1;").arg(
-                    palette.getColor(GuidePalette::HeaderBackground).name());
+                palette.getColor(GuidePalette::HeaderBackground).name());
 
             ui->progressSlider->setStyleSheet(colour);
             ui->progressBackground->setStyleSheet(colour);
             break;
     }
     QSettings settings;
-    if (changedFile && !parentGuide->isInAutoSaveList && settings.value("AutoSave", "1").toBool()) {
+    if (changedFile && !parentGuide->isInAutoSaveList) {
         parentGuide->isInAutoSaveList = true;
         APPLICATION->guidesToSave.append(parentGuide);
         APPLICATION->startAutoSaveTimer();
     }
+    APPLICATION->isFileChanged = true;
+
     ui->progressSlider->setValue(progress);
 }
 

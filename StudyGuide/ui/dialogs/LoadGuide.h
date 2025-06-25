@@ -24,6 +24,8 @@ public:
 
     ~LoadGuide() override;
 
+    void setMaxProgress(int maxProgress);
+
 public slots:
     void increaseProgress(int amount = 1);
 

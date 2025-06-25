@@ -27,7 +27,6 @@ PreferenceWindow::PreferenceWindow(QWidget* parent)
     ui->themes->addItem(tr("Fusion Light"), "fusion_light");
 
 
-
     ui->themes->addItem(tr("System"), "system");
 
 
@@ -46,19 +45,8 @@ void PreferenceWindow::loadSettings() {
     ui->themes->setCurrentIndex(ui->themes->findData(settings.value("Theme", "fusion_dark")));
 
     ui->autoSaveDir->setText(APPLICATION->getAutoSaveLocation());
-    ui->autoOpenDir->setText(APPLICATION->getAutoOpenLocation());
 
 
-    ui->copyNewFilesCheckBox->setChecked(settings.value("AutoCopyGuide", "1").toBool());
-    if (!settings.value("AutoSave", "1").toBool()) {
-        ui->useAutoSaveCheck->setChecked(false);
-        ui->autoSaveDir->setEnabled(false);
-    }
-    if (!settings.value("AutoOpen", "1").toBool()) {
-        ui->useAutoOpenCheck->setChecked(false);
-        ui->autoOpenDir->setEnabled(false);
-        ui->copyNewFilesCheckBox->setEnabled(false);
-    }
     ui->logsDirectory->setText(APPLICATION->getLogsDirLocation());
 }
 
@@ -68,13 +56,8 @@ void PreferenceWindow::saveSettings() {
     settings.setValue("Lang", ui->languageSelector->currentData());
     settings.setValue("Theme", ui->themes->currentData());
 
-    settings.setValue("AutoSave", ui->useAutoSaveCheck->isChecked());
-    settings.setValue("AutoOpen", ui->useAutoOpenCheck->isChecked());
     settings.setValue("AutoSaveDir", ui->autoSaveDir->text());
-    settings.setValue("AutoOpenDir", ui->autoOpenDir->text());
     settings.setValue("LogsDir", ui->logsDirectory->text());
-
-    settings.setValue("AutoCopyGuide", ui->copyNewFilesCheckBox->isChecked());
 }
 
 void PreferenceWindow::accept() {
@@ -102,9 +85,6 @@ void PreferenceWindow::on_clearDirButton_pressed() {
     QDir autoSaveDir(settings.value("AutoSaveDir",
                                     (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
                                      "/open guides")).toString());
-    QDir autoOpenDir(settings.value("AutoOpenDir",
-                                    (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
-                                     "/open guides")).toString());
     QDir logsDir(settings.value("LogsDir",
                                 (QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
                                  "/logs")).toString());
@@ -113,19 +93,13 @@ void PreferenceWindow::on_clearDirButton_pressed() {
         if (autoSaveDir.removeRecursively())
             qDebug() << "Successfully cleared the auto save dir.";
         else
-            qWarning() << "Failed to clear the auto save dir.";
-    }
-    if (autoSaveDir.exists()) {
-        if (autoOpenDir.removeRecursively())
-            qDebug() << "Successfully cleared the auto open dir.";
-        else
-            qWarning() << "Failed to clear the auto open dir.";
+            qCritical() << "Failed to clear the auto save dir.";
     }
     if (logsDir.exists()) {
         if (logsDir.removeRecursively())
             qDebug() << "Successfully cleared the logs dir";
         else
-            qWarning() << "Failed to clear the logs dir.";
+            qCritical() << "Failed to clear the logs dir.";
     }
 }
 
@@ -141,13 +115,4 @@ void PreferenceWindow::on_fullResetButton_pressed() {
     // this does the same as clear dirs and clear settings, so just call them.
     on_clearDirButton_pressed();
     on_clearSettingsButton_pressed();
-}
-
-void PreferenceWindow::on_useAutoSaveCheck_clicked(bool isChecked) {
-    ui->autoSaveDir->setEnabled(isChecked);
-}
-
-void PreferenceWindow::on_useAutoOpenCheck_clicked(bool isChecked) {
-    ui->autoOpenDir->setEnabled(isChecked);
-    ui->copyNewFilesCheckBox->setEnabled(isChecked);
 }

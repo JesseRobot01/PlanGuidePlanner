@@ -20,6 +20,7 @@
 #include "Application.h"
 #include "ui/guide/Goal.h"
 #include <QCloseEvent>
+#include <JlCompress.h>
 
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
@@ -78,7 +79,8 @@ void MainWindow::on_actionOpen_File_triggered() {
 
     QStringList files = QFileDialog::getOpenFileNames(this, tr("Open StudyGuide"),
                                                       settings.value("LastOpenedDir", ".").toString(),
-                                                      tr("XML Files (*.xml);;All Files (*)"));
+                                                      tr(
+                                                          "All Supported Files (*.xml *.zip);;*.Xml Files (*.xml);;Zip Files (*.zip);;All Files (*)"));
 
     if (files.empty()) return;
 
@@ -87,41 +89,82 @@ void MainWindow::on_actionOpen_File_triggered() {
 
     settings.setValue("LastOpenedDir", lastOpenedPath.path());
 
+    QStringList guideFiles;
+    QDir tempDir(QStandardPaths::writableLocation(QStandardPaths::TempLocation));
+
+    // Determine if there are any zip files
+    for (auto file: files) {
+        if (file.endsWith("zip")) {
+            qDebug() << "Found zip file:" << file << ". Extracting...";
+
+            QStringList extractedFiles = JlCompress::extractDir(file, tempDir.absolutePath());
+
+            for (const QString&extractedFile: extractedFiles) {
+                qDebug() << "Extracted:" << file;
+                if (extractedFile.endsWith("xml"))
+                    guideFiles.append(extractedFile);
+            }
+        }
+        else if (file.endsWith("xml"))
+            guideFiles.append(file);
+    }
+
     LoadGuide* loadGuide = new LoadGuide(
         nullptr,
-        files.count() * (settings.value("AutoOpen", "1").toBool() && settings.value("AutoCopyGuide", "1").toBool()
-                             ? 3
-                             : 2));
-    // the * 2 (or * 3) is for reading, Opening and copying over the guides
+        guideFiles.count() * 3);
+    // the * 3 is for reading, Opening and copying over the guides
 
     loadGuide->show();
 
     QVector<GuideData::Data> guides;
 
-    guides = XmlParser::readXml(files);
-    loadGuide->increaseProgress(files.count());
+    guides = XmlParser::readXml(guideFiles);
+    loadGuide->increaseProgress(guideFiles.count());
 
 
     for (GuideData::Data guide: guides) {
-        processGuide(guide, true);
-        loadGuide->increaseProgress();
-        if (settings.value("AutoOpen", "1").toBool() && settings.value("AutoCopyGuide", "1").toBool()) {
-            QDir copyToDestination(APPLICATION->getAutoOpenLocation());
+        QDir copyToDestination(APPLICATION->getAutoSaveLocation());
 
-            if (copyToDestination.mkpath(".")) {
-                QFile autoSaveFile(copyToDestination.filePath(guide.name + ".xml"));
-                XmlParser::saveXml(guide, autoSaveFile, true, false);
-                loadGuide->increaseProgress();
+        if (copyToDestination.mkpath(".")) {
+            QFileInfo autoSaveFile(copyToDestination.filePath(guide.shortName + "_0.xml"));
+
+
+            QString baseName = guide.shortName;
+            QString candidateName = baseName + "_0.xml";
+            QString fullPath = copyToDestination.absoluteFilePath(candidateName);
+
+            int number = 1; // Incase there are duplicates
+
+            // Check if the file already exists and increment the counter
+            while (QFile::exists(fullPath)) {
+                candidateName = baseName + "_" + QString::number(number++) + ".xml";
+                fullPath = copyToDestination.absoluteFilePath(candidateName); // Recalculate path with new number
             }
-            else {
-                qCritical() << "Failed to create auto open dir.";
-            }
+
+            autoSaveFile = QFileInfo(fullPath);
+
+            QFile fileToSave(autoSaveFile.absoluteFilePath());
+
+            XmlParser::saveXml(guide, fileToSave, true, false);
+
+            loadGuide->increaseProgress();
+
+            guide.autoSaveFile = autoSaveFile;
+            processGuide(guide, false);
+            loadGuide->increaseProgress();
+        }
+        else {
+            qCritical() << "Failed to create auto open dir.";
         }
     }
 
+    // Empty tmp dir
+    if (tempDir.exists()) {
+        tempDir.removeRecursively();
+    }
 
-    // Copy them over to auto open dir
-
+    //update start screen
+    updateStart();
     delete loadGuide;
 }
 
@@ -233,30 +276,17 @@ void MainWindow::on_actionSave_Guide_As_triggered() {
 #else
 
 void MainWindow::on_actionSave_Guide_As_triggered() {
-    Guide* guideToSave = guides.at(ui->guideSwitcher->currentIndex());
+    int currentTab(ui->guideSwitcher->currentIndex() - 1);
+    Guide* guideToSave = guides.at(currentTab);
     GuideData::Data guide = guideToSave->getGuide();
 
     saveGuideAs(guide);
+
+    //close it!
+    closeGuide(currentTab);
 }
 
 #endif
-
-void MainWindow::on_actionSave_triggered() {
-    Guide* guideToSave = guides.at(ui->guideSwitcher->currentIndex());
-    GuideData::Data guide = guideToSave->getGuide();
-}
-
-void MainWindow::saveGuide(GuideData::Data guide) {
-    QString saveFileName = guide.originalFile.filePath();
-
-    if (saveFileName.isEmpty()) {
-        saveGuideAs(guide); //Trigger the save as.
-        return;
-    }
-
-    QFile fileToSave(saveFileName);
-    XmlParser::saveXml(guide, fileToSave);
-}
 
 void MainWindow::saveGuideAs(GuideData::Data guide) {
     QSettings settings;
@@ -267,7 +297,7 @@ void MainWindow::saveGuideAs(GuideData::Data guide) {
     else
         baseFileName = settings.value("LastOpenedDir", ".").toString() + "/" + guide.name + ".xml";
 
-    QString saveFileName = QFileDialog::getSaveFileName(this, tr("Open StudyGuide"),
+    QString saveFileName = QFileDialog::getSaveFileName(this, tr("Save StudyGuide"),
                                                         baseFileName, tr("XML Files (*.xml);;All Files (*)"));
 
     if (saveFileName.isEmpty()) {
@@ -277,6 +307,75 @@ void MainWindow::saveGuideAs(GuideData::Data guide) {
 
     QFile fileToSave(saveFileName);
     XmlParser::saveXml(guide, fileToSave);
+}
+
+void MainWindow::on_actionSave_All_Guides_triggered() {
+    QSettings settings;
+    QDateTime time;
+    QString saveFileName = QFileDialog::getSaveFileName(this, tr("Save All Guides"),
+                                                        time.currentDateTime().toString() + ".zip",
+                                                        tr("ZIP Files (*.zip);;All Files (*)"));
+
+    if (saveFileName.isEmpty()) {
+        qWarning() << "No save file given. Can't save";
+        return;
+    }
+
+    QStringList GuidesToSave;
+
+    QDir tempLocation = (QStandardPaths::writableLocation(QStandardPaths::TempLocation));
+
+    for (auto* guide: guides) {
+        GuideData::Data guideDat = guide->getGuide();
+
+        // saving
+        QFileInfo fileInfoToSave(tempLocation.absoluteFilePath(guideDat.shortName + "_0.xml"));
+
+        QString baseName = guideDat.shortName;
+        QString candidateName = baseName + ".xml";
+        QString fullPath = tempLocation.absoluteFilePath(candidateName);
+
+        int number = 1; // Incase there are duplicates
+
+        // Check if the file already exists and increment the counter
+        while (QFile::exists(fullPath)) {
+            candidateName = baseName + "_" + QString::number(number++) + ".xml";
+            fullPath = tempLocation.absoluteFilePath(candidateName); // Recalculate path with new number
+        }
+
+        fileInfoToSave = QFileInfo(fullPath);
+
+        QFile fileToSave(fileInfoToSave.absoluteFilePath());
+        XmlParser::saveXml(guideDat, fileToSave);
+
+        GuidesToSave.append(fileToSave.fileName());
+    }
+
+    // Zip them!
+    bool success = JlCompress::compressFiles(saveFileName, GuidesToSave);
+    if (success) {
+        qDebug() << "Files zipped successfully!";
+    }
+    else {
+        qCritical() << "Failed to zop files!";
+    }
+
+
+    // Cleanup!
+    if (tempLocation.exists()) {
+        tempLocation.removeRecursively();
+    }
+
+    // Now close them!
+    // get guide count
+    int guideCount = guides.size();
+    for (int i = 0; i < guideCount; i++) {
+        // each time the index shifts, so always close 0
+        closeGuide(0, false);
+    }
+
+    //update start
+    updateStart();
 }
 
 void MainWindow::on_actionAbout_triggered() {
@@ -301,13 +400,10 @@ void MainWindow::on_guideSwitcher_tabCloseRequested(int tab) {
     closeGuide(tab - 1);
 }
 
-void MainWindow::closeGuide(int guideIndex) {
+void MainWindow::closeGuide(int guideIndex, bool updateStartBool) {
     Guide* guideToClose = guides.at(guideIndex);
     qDebug() << "Closing Guide " << guideToClose->name;
     GuideData::Data guide = guideToClose->getGuide();
-
-    // first of all, save it.
-    saveGuide(guide);
 
     // next, delete the auto save file.
     QFile autoSaveFile(guide.autoSaveFile.filePath());
@@ -319,7 +415,8 @@ void MainWindow::closeGuide(int guideIndex) {
     qDebug() << "Guide closed.";
 
     //update start
-    updateStart();
+    if (updateStartBool)
+        updateStart();
 }
 
 void MainWindow::updateStart() {
@@ -328,35 +425,15 @@ void MainWindow::updateStart() {
 
 void MainWindow::on_guideSwitcher_currentChanged(int tab) {
     if (tab != 0) {
-        ui->actionClose_guide->setEnabled(true);
+        ui->actionSave_Guide_As->setEnabled(true);
         return;
     }
 
     if (tab == 0) {
-        ui->actionClose_guide->setEnabled(false);
-    }
-    if (APPLICATION->isAutoSaveTimerStarted) //todo: deticated boolean for a change
-    {
-        updateStart();
-    }
-}
-
-void MainWindow::on_actionClose_guide_triggered() {
-    int currentTab = ui->guideSwitcher->currentIndex();
-
-    if (currentTab == 0) {
-        qWarning() << "Can't close start screen, returning.";
-        return;
-    }
-
-    closeGuide(currentTab - 1);
-}
-
-void MainWindow::on_actionClose_all_guides_triggered() {
-    // get guide count
-    int guideCount = guides.size();
-    for (int i = 0; i < guideCount; i++) {
-        // each time the index shifts, so always close 0
-        closeGuide(0);
+        ui->actionSave_Guide_As->setEnabled(false);
+        if (APPLICATION->isFileChanged)
+        {
+            updateStart();
+        }
     }
 }
