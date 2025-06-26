@@ -12,6 +12,10 @@ set(STUDYGUIDE_VERSION ${STUDYGUIDE_VERSION_MAJOR}.${STUDYGUIDE_VERSION_MINOR}.$
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets LinguistTools Core5Compat)
 
+if(WIN32 OR EMSCRIPTEN)
+  set(StudyGuide_FORCE_BUNDLED_LIBS 1) # Hacky fix for windows and emsdk
+endif ()
+
 if (NOT StudyGuide_FORCE_BUNDLED_LIBS AND NOT FORCE_BUNDLED_ZLIB)
     find_package(ZLIB QUIET)
 endif ()
@@ -81,10 +85,6 @@ if (FORCE_BUNDLED_ZLIB)
     set(ZLIB_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/libraries/zlib)
     set(ZLIB_INCLUDE ${ZLIB_INCLUDE_DIR}/libz.a)
     set(ZCONF_INCLUDE ${ZLIB_INCLUDE_DIR}/zconf.h)
-
-    if (NOT EMSCRIPTEN)
-        set(ZLIB_BUILD_SHARED 0)
-    endif ()
 
     add_subdirectory(libraries/zlib)
 
