@@ -11,22 +11,22 @@ set(STUDYGUIDE_VERSION_PATCH 0)
 set(STUDYGUIDE_VERSION ${STUDYGUIDE_VERSION_MAJOR}.${STUDYGUIDE_VERSION_MINOR}.${STUDYGUIDE_VERSION_PATCH})
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets LinguistTools Core5Compat)
-set(StudyGuide_FORCE_BUNDLED_LIBS 1)
-if(NOT StudyGuide_FORCE_BUNDLED_LIBS AND NOT FORCE_BUNDLED_ZLIB)
+
+if (NOT StudyGuide_FORCE_BUNDLED_LIBS AND NOT FORCE_BUNDLED_ZLIB)
     find_package(ZLIB QUIET)
-endif()
-if(NOT ZLIB_FOUND)
+endif ()
+if (NOT ZLIB_FOUND)
     set(FORCE_BUNDLED_ZLIB TRUE CACHE BOOL "")
     mark_as_advanced(FORCE_BUNDLED_ZLIB)
-endif()
+endif ()
 
-if(NOT StudyGuide_FORCE_BUNDLED_LIBS)
+if (NOT StudyGuide_FORCE_BUNDLED_LIBS)
     find_package(QuaZip-Qt6 1.3 QUIET)
-endif()
+endif ()
 if (NOT QuaZip-Qt6_FOUND)
     set(QUAZIP_QT_MAJOR_VERSION 6)
     set(FORCE_BUNDLED_QUAZIP 1)
-endif()
+endif ()
 
 
 set(EXECUTABLE_NAME "StudyGuide")
@@ -72,27 +72,35 @@ message(STATUS "Git commit hash: ${GIT_COMMIT_HASH}")
 message(STATUS "Git Branch: ${GIT_BRANCH}")
 message(STATUS "Git Branch Commit: ${GIT_COMMIT_NUMBER}")
 
-if(FORCE_BUNDLED_ZLIB)
+if (FORCE_BUNDLED_ZLIB)
     message(STATUS "Using bundled zlib")
 
     set(ZLIB_BUILD_TESTING 0)
     set(ZLIB_INSTALL 0)
-    add_subdirectory(libraries/zlib)
 
     set(ZLIB_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/libraries/zlib)
+    set(ZLIB_INCLUDE ${ZLIB_INCLUDE_DIR}/libz.a)
+    set(ZCONF_INCLUDE ${ZLIB_INCLUDE_DIR}/zconf.h)
+
+    if (NOT EMSCRIPTEN)
+        set(ZLIB_BUILD_SHARED 0)
+    endif ()
+
+    add_subdirectory(libraries/zlib)
+
 
     set(ZLIB_LIBRARY ZLIB::ZLIBSTATIC CACHE STRING "zlib library name")
-else()
+else ()
     message(STATUS "Using system zlib")
-endif()
+endif ()
 if (FORCE_BUNDLED_QUAZIP)
     message(STATUS "Using bundled QuaZip")
     set(BUILD_SHARED_LIBS 0)  # link statically to avoid conflicts.
     set(QUAZIP_INSTALL 0)
     add_subdirectory(libraries/quazip) # zip manipulation library
-else()
+else ()
     message(STATUS "Using system QuaZip")
-endif()
+endif ()
 
 string(TIMESTAMP TODAY "%Y-%m-%d")
 set(STUDYGUIDE_BUILD_DATE "${TODAY}")
