@@ -34,11 +34,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: StudyGuide-Pages-Debug
-          path: WASM-Release
+          path: .
 
       - name: Deploy to Cloudflare Pages
         id: deployment
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: WASM-Release
+          folder: .
