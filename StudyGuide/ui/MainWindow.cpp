@@ -42,31 +42,47 @@ void MainWindow::on_actionPreference_triggered() {
 }
 
 #ifdef Q_OS_WASM
-
 // for web, not as fancy as the original
 void MainWindow::on_actionOpen_File_triggered() {
-    auto uploadedGuide = [this](const QString &fileName, const QByteArray &fileContent) {
+    auto uploadedGuide = [this](const QString&fileName, const QByteArray&fileContent) {
         if (fileName.isEmpty()) {
             qWarning() << "No file was given, returning";
             return;
-        } else {
-            QFile file("/tmp/guide.xml");
+        }
+        else {
+            QDir tempDir(QStandardPaths::writableLocation(QStandardPaths::TempLocation));
+            QFile file("/tmp/guide");
 
-            if (file.open(QIODevice::WriteOnly)) {
+            if (file.open(QIODevice::ReadWrite)) {
                 file.write(fileContent);
+
+                if (fileName.endsWith("zip")) {
+                    QDir tempDir(QStandardPaths::writableLocation(QStandardPaths::TempLocation));
+                    tempDir.mkpath(".");
+
+                    QStringList extractedFiles = JlCompress::extractDir(file.fileName(), tempDir.absolutePath());
+
+                    for (const QString&extractedFile: extractedFiles) {
+                        qDebug() << "Extracted:" << extractedFile;
+                        if (extractedFile.endsWith("xml")) {
+                            GuideData::Data guide = XmlParser::readXml(extractedFile);
+                            processGuide(guide);
+                        }
+                    }
+                }
+                else if (fileName.endsWith(".xml")) {
+                    file.close(); // Parser does not like open files.
+                    GuideData::Data guide = XmlParser::readXml(&file);
+                    processGuide(guide);
+                }
                 file.close();
-                GuideData::Data guide = XmlParser::readXml(&file);
-                processGuide(guide);
-
-            } else {
-                qFatal() << "Cannot open file!";
-                return;
             }
-
         }
     };
 
-    QFileDialog::getOpenFileContent(tr("XML Files (*.xml);;All Files (*)"), uploadedGuide);
+    QFileDialog::getOpenFileContent(
+        tr("All Supported Files (*.xml *.zip);;*.Xml Files (*.xml);;Zip Files (*.zip);;All Files (*)"),
+        uploadedGuide);
 }
 #else
 
@@ -258,7 +274,8 @@ void MainWindow::addGuide(Guide* guide, const QString&name) {
 
 #ifdef Q_OS_WASM
 void MainWindow::on_actionSave_Guide_As_triggered() {
-    Guide *guideToSave = guides.at(ui->guideSwitcher->currentIndex());
+    int currentTab = (ui->guideSwitcher->currentIndex() - 1);
+    Guide* guideToSave = guides.at(currentTab);
     GuideData::Data guide = guideToSave->getGuide();
 
     QFile tmpFile("/tmp/savingGuide.xml");
@@ -268,7 +285,10 @@ void MainWindow::on_actionSave_Guide_As_triggered() {
         QByteArray fileContent(tmpFile.readAll());
 
         QFileDialog::saveFileContent(fileContent, QString("%1.xml").arg(guide.name));
-    } else {
+
+        closeGuide(currentTab);
+    }
+    else {
         qFatal() << "Error while saving. Can't open file.";
     }
 }
@@ -309,6 +329,66 @@ void MainWindow::saveGuideAs(GuideData::Data guide) {
     XmlParser::saveXml(guide, fileToSave);
 }
 
+#ifdef Q_OS_WASM
+void MainWindow::on_actionSave_All_Guides_triggered() {
+    //Saving everything to a temp location
+    QDir tempLocation = (QStandardPaths::writableLocation(QStandardPaths::TempLocation));
+    QStringList GuidesToSave;
+
+    for (auto* guide: guides) {
+        GuideData::Data guideDat = guide->getGuide();
+
+        QFileInfo fileInfoToSave(tempLocation.absoluteFilePath(guideDat.shortName + "_0.xml"));
+
+        QString baseName = guideDat.shortName;
+        QString candidateName = baseName + ".xml";
+        QString fullPath = tempLocation.absoluteFilePath(candidateName);
+
+        int number = 1; // Incase there are duplicates
+
+        // Check if the file already exists and increment the counter
+        while (QFile::exists(fullPath)) {
+            candidateName = baseName + "_" + QString::number(number++) + ".xml";
+            fullPath = tempLocation.absoluteFilePath(candidateName); // Recalculate path with new number
+        }
+
+        fileInfoToSave = QFileInfo(fullPath);
+
+        QFile fileToSave(fileInfoToSave.absoluteFilePath());
+        XmlParser::saveXml(guideDat, fileToSave);
+
+        GuidesToSave.append(fileToSave.fileName());
+    }
+
+    // Zip them!
+    QFileInfo exportFileInfo(tempLocation.filePath("export.zip"));
+    bool success = JlCompress::compressFiles(exportFileInfo.absoluteFilePath(), GuidesToSave);
+    if (success) {
+        qDebug() << "Files zipped successfully!";
+    }
+    else {
+        qCritical() << "Failed to zop files!";
+    }
+
+    // Download
+    QFile exportFile(exportFileInfo.absoluteFilePath());
+    exportFile.open(QIODevice::ReadOnly);
+    QByteArray fileContent(exportFile.readAll());
+    exportFile.close();
+    QDateTime time;
+    QFileDialog::saveFileContent(fileContent, QString("%1.zip").arg(time.currentDateTime().toString()));
+
+    //close all
+    int guideCount = guides.size();
+    for (int i = 0; i < guideCount; i++) {
+        // each time the index shifts, so always close 0
+        closeGuide(0, false);
+    }
+
+    //update start
+    updateStart();
+}
+#else
 void MainWindow::on_actionSave_All_Guides_triggered() {
     QSettings settings;
     QDateTime time;
@@ -377,7 +457,7 @@ void MainWindow::on_actionSave_All_Guides_triggered() {
     //update start
     updateStart();
 }
-
+#endif
 void MainWindow::on_actionAbout_triggered() {
     AboutWindow* aboutWindow = new AboutWindow();
     aboutWindow->show();
@@ -431,8 +511,7 @@ void MainWindow::on_guideSwitcher_currentChanged(int tab) {
 
     if (tab == 0) {
         ui->actionSave_Guide_As->setEnabled(false);
-        if (APPLICATION->isFileChanged)
-        {
+        if (APPLICATION->isFileChanged) {
             updateStart();
         }
     }
