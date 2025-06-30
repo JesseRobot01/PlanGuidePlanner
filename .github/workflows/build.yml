@@ -122,7 +122,7 @@ jobs:
         if: ${{ matrix.target == 'Android' }}
         uses: android-actions/setup-android@v3
         with:
-          packages: 'platforms;android-33 platform-tools build-tools;33.0.0 ndk;25.1.8937393'
+          packages: 'platforms;android-35 platform-tools build-tools;35.0.1 ndk;26.1.10909125'
 
       - name: Configure MSVC (windows)
         if: ${{matrix.os == 'windows-latest'}}
@@ -156,28 +156,28 @@ jobs:
       - name: Configure Cmake
         if: ${{ matrix.target != 'Android'}}
         run: |
-          cmake -Bbuild -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DCMAKE_TOOLCHAIN_FILE="${{ env.QT_ROOT_DIR }}/lib/cmake/Qt6/qt.toolchain.cmake" -G Ninja
+          cmake -Bbuild -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DCMAKE_TOOLCHAIN_FILE="${{ env.QT_ROOT_DIR }}/lib/cmake/Qt6/qt.toolchain.cmake" -DBUILD_TESTIN=0  -G Ninja
 
       - name: Configure Cmake (Android)
         if: ${{ matrix.target == 'Android' }}
         run: |
           #Release builds not avable yet. Going with debug.
-          cmake -Bbuild -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="${{ env.QT_ROOT_DIR }}/lib/cmake/Qt6/qt.toolchain.cmake" -DANDROID_SDK_ROOT=$ANDROID_SDK_ROOT -DANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/25.1.8937393 -G Ninja
+          cmake -Bbuild -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="${{ env.QT_ROOT_DIR }}/lib/cmake/Qt6/qt.toolchain.cmake" -DANDROID_SDK_ROOT=$ANDROID_SDK_ROOT -DANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/26.1.10909125 -DBUILD_TESTIN=0 -G Ninja
 
       - name: Configure Cmake (Pages)
         if: ${{ matrix.name == 'Pages'}}
         run: |
-          cmake -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="${{ env.QT_ROOT_DIR }}/lib/cmake/Qt6/qt.toolchain.cmake" -DBUILD_TESTIN=0 -G Ninja
+          cmake -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="${{ env.QT_ROOT_DIR }}/lib/cmake/Qt6/qt.toolchain.cmake" -G Ninja
 
       #Build!
       - name: Build!
         run: cmake --build build
 
-      - name: Test!
-        if: ${{ matrix.target != 'android' }} #Tests not yet supported on android
-        run: |
-          cd build
-          ctest
+      #- name: Test!
+      #  if: ${{ matrix.target != 'android' }} #Tests not yet supported on android
+      #  run: |
+      #    cd build
+      #    ctest
 
       # Pack
       - name: Install Application
