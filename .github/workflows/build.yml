@@ -167,7 +167,7 @@ jobs:
       - name: Configure Cmake (Pages)
         if: ${{ matrix.name == 'Pages'}}
         run: |
-          cmake -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="${{ env.QT_ROOT_DIR }}/lib/cmake/Qt6/qt.toolchain.cmake" -G Ninja
+          cmake -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="${{ env.QT_ROOT_DIR }}/lib/cmake/Qt6/qt.toolchain.cmake" -DBUILD_TESTIN=0 -G Ninja
 
       #Build!
       - name: Build!
