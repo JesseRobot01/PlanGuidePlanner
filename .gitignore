@@ -8,3 +8,6 @@
 
 #.idea directory
 .idea
+
+# test tmp folder
+/tests/testdata/tmp/

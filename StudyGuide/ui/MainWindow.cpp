@@ -21,6 +21,7 @@
 #include "ui/guide/Goal.h"
 #include <QCloseEvent>
 #include <JlCompress.h>
+#include <QScrollArea>
 
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {

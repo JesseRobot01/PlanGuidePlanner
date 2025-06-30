@@ -10,7 +10,7 @@ set(STUDYGUIDE_VERSION_MINOR 1)
 set(STUDYGUIDE_VERSION_PATCH 0)
 set(STUDYGUIDE_VERSION ${STUDYGUIDE_VERSION_MAJOR}.${STUDYGUIDE_VERSION_MINOR}.${STUDYGUIDE_VERSION_PATCH})
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets LinguistTools Core5Compat)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets LinguistTools Core5Compat Test)
 
 if(WIN32 OR EMSCRIPTEN)
   set(StudyGuide_FORCE_BUNDLED_LIBS 1) # Hacky fix for windows and emsdk
@@ -32,6 +32,12 @@ if (NOT QuaZip-Qt6_FOUND)
     set(FORCE_BUNDLED_QUAZIP 1)
 endif ()
 
+option(BUILD_TESTING "Build the testing tree." ON)
+
+include(CTest)
+if(BUILD_TESTING)
+    enable_testing()
+endif()
 
 set(EXECUTABLE_NAME "StudyGuide")
 
@@ -41,6 +47,7 @@ endif ()
 
 set(CMAKE_WIN32_EXECUTABLE ON)
 
+set(QT_ANDROID_BUILD_ALL_ABIS 1)
 
 #Get Git commit and tag
 execute_process(
@@ -140,5 +147,10 @@ if (UNIX)
 endif ()
 
 add_subdirectory(buildconfig)
+
+if(BUILD_TESTING)
+    add_subdirectory(tests)
+endif()
+
 add_subdirectory(StudyGuide)
 

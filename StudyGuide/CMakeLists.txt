@@ -1,4 +1,4 @@
-set(SOURCES main.cpp
+set(SOURCES
         Application.cpp
         Application.h
         XmlParser.cpp
@@ -53,10 +53,22 @@ set(TRANSLATIONS
 if (DEFINED WIN32)
     set(WIN_SOURCES
             WindowConsole.cpp
-            WindowConsole.h)
+            WindowConsole.h
+            ../tests/XmlParserTest.cpp)
 endif ()
 
-qt_add_executable(${EXECUTABLE_NAME} ${SOURCES} ${UI} ${WIN_SOURCES})
+qt_add_library(StudyGuide_Logic STATIC ${SOURCES} ${UI} ${WIN_SOURCES})
+target_link_libraries(StudyGuide_Logic Qt::Core Qt::Gui Qt::Widgets BuildConfig QuaZip::QuaZip Qt6::Core5Compat ${ZLIB_LIBRARY})
+if(ANDROID)
+    target_link_libraries(StudyGuide_Logic Qt::CorePrivate)
+endif()
+
+
+qt_add_executable(${EXECUTABLE_NAME} main.cpp)
+target_link_libraries(${EXECUTABLE_NAME} PRIVATE StudyGuide_Logic)
+
+target_include_directories(StudyGuide_Logic PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
 
 if(ANDROID)
     set(android_source_dir ${CMAKE_SOURCE_DIR}/buildconfig/Android)
@@ -66,8 +78,6 @@ endif()
 
 qt_add_translations(${EXECUTABLE_NAME} TS_FILES ${TRANSLATIONS}
         QM_FILES_OUTPUT_VARIABLE qm_files)
-
-target_include_directories(${EXECUTABLE_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Iterate over each translation file and set QT_RESOURCE_ALIAS
 foreach (translation ${qm_files})
@@ -88,12 +98,6 @@ qt_add_resources(${EXECUTABLE_NAME} translations
         FILES ${qm_files}
         FILES Example.xml
 )
-
-
-target_link_libraries(${EXECUTABLE_NAME} PUBLIC Qt::Core Qt::Gui Qt::Widgets BuildConfig QuaZip::QuaZip Qt6::Core5Compat ${ZLIB_LIBRARY} )
-if(ANDROID)
-target_link_libraries(${EXECUTABLE_NAME} PUBLIC Qt::CorePrivate)
-endif()
 
 #The bundle mess!!!
 

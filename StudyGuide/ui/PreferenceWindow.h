@@ -7,7 +7,16 @@
 
 #include <QWidget>
 #include <QSettings>
-#include "ui_PreferenceWindow.h"
+#include <QDialog>
+
+QT_BEGIN_NAMESPACE
+
+namespace Ui {
+    class PreferenceWindow;
+}
+
+QT_END_NAMESPACE
+
 
 class PreferenceWindow : public QDialog {
     Q_OBJECT

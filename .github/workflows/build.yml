@@ -173,6 +173,12 @@ jobs:
       - name: Build!
         run: cmake --build build
 
+      - name: Test!
+        if: ${{ matrix.target != 'android' }} #Tests not yet supported on android
+        run: |
+          cd build
+          ctest
+
       # Pack
       - name: Install Application
         run: |

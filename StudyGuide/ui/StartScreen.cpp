@@ -9,7 +9,8 @@
 #include "Application.h"
 #include "ui_StartScreen.h"
 #include "themes/GuidePalette.h"
-
+#include <QLabel>
+#include <QHBoxLayout>
 
 StartScreen::StartScreen(QWidget* parent) : QWidget(parent), ui(new Ui::StartScreen) {
     ui->setupUi(this);

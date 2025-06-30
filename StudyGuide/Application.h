@@ -7,7 +7,7 @@
 #include <QTimer>
 #include "guide/GuideData.h"
 #include "ui/MainWindow.h"
-
+#include <QApplication>
 
 #if defined(APPLICATION)
 #undef APPLICATION
