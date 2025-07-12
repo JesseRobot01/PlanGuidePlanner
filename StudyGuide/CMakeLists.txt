@@ -53,8 +53,7 @@ set(TRANSLATIONS
 if (DEFINED WIN32)
     set(WIN_SOURCES
             WindowConsole.cpp
-            WindowConsole.h
-            ../tests/XmlParserTest.cpp)
+            WindowConsole.h)
 endif ()
 
 qt_add_library(StudyGuide_Logic STATIC ${SOURCES} ${UI} ${WIN_SOURCES})
