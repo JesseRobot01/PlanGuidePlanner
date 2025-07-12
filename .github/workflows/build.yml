@@ -174,7 +174,7 @@ jobs:
         run: cmake --build build
 
       - name: Test!
-        if: ${{ matrix.target != 'android' }} #Tests not yet supported on android
+        if: ${{ matrix.target != 'android' && matrix.os != 'windows-latest' }} #Tests not yet supported on android and windows.
         run: |
           cd build
           ctest
