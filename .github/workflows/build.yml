@@ -156,7 +156,7 @@ jobs:
       - name: Configure Cmake
         if: ${{ matrix.target != 'Android'}}
         run: |
-          cmake -Bbuild -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DCMAKE_TOOLCHAIN_FILE="${{ env.QT_ROOT_DIR }}/lib/cmake/Qt6/qt.toolchain.cmake" -DBUILD_TESTING=0  -G Ninja
+          cmake -Bbuild -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} -DCMAKE_TOOLCHAIN_FILE="${{ env.QT_ROOT_DIR }}/lib/cmake/Qt6/qt.toolchain.cmake" -G Ninja
 
       - name: Configure Cmake (Android)
         if: ${{ matrix.target == 'Android' }}
@@ -173,11 +173,11 @@ jobs:
       - name: Build!
         run: cmake --build build
 
-      #- name: Test!
-      #  if: ${{ matrix.target != 'android' }} #Tests not yet supported on android
-      #  run: |
-      #    cd build
-      #    ctest
+      - name: Test!
+        if: ${{ matrix.target != 'android' }} #Tests not yet supported on android
+        run: |
+          cd build
+          ctest
 
       # Pack
       - name: Install Application
