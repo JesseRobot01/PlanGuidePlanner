@@ -38,6 +38,8 @@ public:
 
     void closeGuide(int guideIndex, bool updateStart = true);
 
+    void setTabName(int tab, QString name);
+
 private slots:
     void on_actionPreference_triggered();
 
@@ -52,6 +54,10 @@ private slots:
     void on_guideSwitcher_currentChanged(int tab);
 
     void on_actionSave_All_Guides_triggered();
+
+    void on_actionOpen_Creator_triggered();
+
+    void on_actionOpen_In_Creator_triggered();
 
 private:
     Ui::MainWindow* ui;

@@ -16,7 +16,7 @@
 
 class Application : public QApplication {
 public:
-    Application(int &argc, char **argv);
+    Application(int&argc, char** argv);
 
     virtual ~Application();
 
@@ -36,6 +36,8 @@ public:
 
     QVector<GuideData::Data> getUpToDateGuides();
 
+    void updateGuide(int guideIndex, GuideData::Data updatedGuide);
+
     bool isFileChanged = false;
 
 #ifdef Q_OS_ANDROID
@@ -45,14 +47,12 @@ public:
 #endif
 
 public slots:
-
     void autoSaveTriggered();
 
 private:
-    void setLanguage(const QString &languageCode);
+    void setLanguage(const QString&languageCode);
 
-    MainWindow *appWindow;
-    QTranslator *translator;
-    QTimer *autoSaveTimer = new QTimer(this);
-
+    MainWindow* appWindow;
+    QTranslator* translator;
+    QTimer* autoSaveTimer = new QTimer(this);
 };

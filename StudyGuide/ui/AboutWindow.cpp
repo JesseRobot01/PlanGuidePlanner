@@ -9,7 +9,7 @@
 #include "Config.h"
 
 
-AboutWindow::AboutWindow(QWidget* parent) : QWidget(parent), ui(new Ui::About) {
+AboutWindow::AboutWindow(QWidget* parent) : QDialog(parent), ui(new Ui::About) {
     ui->setupUi(this);
 
     ui->version->setText(Config.version);

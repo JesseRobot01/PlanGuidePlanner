@@ -139,28 +139,27 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
 
     // auto open all files.
 
-        QDir autoOpenDir = getAutoSaveLocation();
-        if (autoOpenDir.exists() && !autoOpenDir.isEmpty()) {
-            QStringList guideFileNames = autoOpenDir.entryList(QDir::Files);
-            QStringList guideFiles;
-            LoadGuide* loadGuide = new LoadGuide(nullptr, guideFileNames.count() * 2); // 1 for reading, 1 for opening.
-            loadGuide->show();
+    QDir autoOpenDir = getAutoSaveLocation();
+    if (autoOpenDir.exists() && !autoOpenDir.isEmpty()) {
+        QStringList guideFileNames = autoOpenDir.entryList(QDir::Files);
+        QStringList guideFiles;
+        LoadGuide* loadGuide = new LoadGuide(appWindow, guideFileNames.count() * 2); // 1 for reading, 1 for opening.
+        loadGuide->show();
 
-            for (const QString&GuideFileName: guideFileNames)
-                guideFiles.append(autoOpenDir.filePath(GuideFileName));
+        for (const QString&GuideFileName: guideFileNames)
+            guideFiles.append(autoOpenDir.filePath(GuideFileName));
 
-            QVector<GuideData::Data> guides = XmlParser::readXml(guideFiles);
-            loadGuide->increaseProgress(guideFileNames.count());
+        QVector<GuideData::Data> guides = XmlParser::readXml(guideFiles);
+        loadGuide->increaseProgress(guideFileNames.count());
 
-            for (GuideData::Data guide: guides) {
-                appWindow->processGuide(guide, false);
-                loadGuide->increaseProgress();
-            }
-            //manualy update start.
-            appWindow->updateStart();
-            delete loadGuide; // no need anymore, so bye!
+        for (GuideData::Data guide: guides) {
+            appWindow->processGuide(guide, false);
+            loadGuide->increaseProgress();
         }
-
+        //manualy update start.
+        appWindow->updateStart();
+        delete loadGuide; // no need anymore, so bye!
+    }
 }
 
 Application::~Application() {
@@ -285,4 +284,12 @@ QVector<GuideData::Data> Application::getUpToDateGuides() {
         result.append(guide->getGuide());
     }
     return result;
+}
+
+void Application::updateGuide(int guideIndex, GuideData::Data updatedGuide) {
+    Guide* guide = appWindow->guides.at(guideIndex);
+    guide->emptyGuide();
+    guide->setGuide(updatedGuide);
+    appWindow->setTabName(guideIndex + 1, updatedGuide.shortName);
+    appWindow->updateStart();
 }

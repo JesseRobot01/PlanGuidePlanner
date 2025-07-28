@@ -23,6 +23,8 @@
 #include <JlCompress.h>
 #include <QScrollArea>
 
+#include "creator/Creator.h"
+
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
@@ -38,7 +40,7 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::on_actionPreference_triggered() {
-    preferenceWindow = new PreferenceWindow();
+    preferenceWindow = new PreferenceWindow(this);
     preferenceWindow->show();
 }
 
@@ -127,7 +129,7 @@ void MainWindow::on_actionOpen_File_triggered() {
     }
 
     LoadGuide* loadGuide = new LoadGuide(
-        nullptr,
+        this,
         guideFiles.count() * 3);
     // the * 3 is for reading, Opening and copying over the guides
 
@@ -189,77 +191,10 @@ void MainWindow::on_actionOpen_File_triggered() {
 
 
 void MainWindow::processGuide(GuideData::Data guide, bool updateStart) {
-    // default things
     Guide* finalGuide = new Guide(this);
-    QString name = guide.name;
-    QString shortName = guide.shortName;
-    finalGuide->setName(name);
-    finalGuide->setShortName(shortName);
-    finalGuide->setInfo(guide.info);
-    finalGuide->setPeriod(guide.period);
-    finalGuide->originalFile = guide.originalFile;
-    finalGuide->autoSaveFile = guide.autoSaveFile;
 
-
-    //Processing the guide objects
-    for (GuideData::GuideObject guideObject: guide.objects) {
-        if (guideObject.objectType == GuideData::Index) {
-            Index* index = new Index(finalGuide);
-            for (GuideData::GuideGoals goal: guideObject.goals) {
-                Goal* finalGoal = new Goal(index);
-                finalGoal->setName(goal.name);
-                finalGoal->setProgress(goal.progress, false);
-                finalGoal->setTime(goal.time);
-                finalGoal->setWeek(goal.week);
-                finalGoal->setGoalNumber(goal.goalNumber);
-                finalGoal->parentGuide = finalGuide;
-
-                for (GuideData::GuideGoalPrefixes goalPrefix: goal.prefixes) {
-                    switch (goalPrefix.prefix) {
-                        case GuideData::Work:
-                            finalGoal->addWork(goalPrefix.prefixText, goalPrefix.link);
-                            break;
-                        case GuideData::Read:
-                            finalGoal->addRead(goalPrefix.prefixText, goalPrefix.link);
-                            break;
-                        case GuideData::Watch:
-                            finalGoal->addWatch(goalPrefix.prefixText, goalPrefix.link);
-                            break;
-                        case GuideData::Process:
-                            finalGoal->addProcess(goalPrefix.prefixText, goalPrefix.link);
-                            break;
-
-                        case GuideData::Info:
-                            finalGoal->addInfo(goalPrefix.prefixText, goalPrefix.link);
-                            break;
-                    }
-                }
-                finalGoal->finalise();
-                index->addGoal(finalGoal);
-            }
-            index->finalise();
-            finalGuide->addIndex(index);
-        }
-        if (guideObject.objectType == GuideData::Test) {
-            Test* test = new Test(finalGuide);
-            test->setName(guideObject.name);
-            test->setWeek(guideObject.week);
-            test->setInfo(guideObject.info);
-            test->setShortName(guideObject.shortName);
-            test->finalise();
-            finalGuide->addTest(test);
-        }
-        if (guideObject.objectType == GuideData::Report) {
-            Report* report = new Report(finalGuide);
-            for (GuideData::ReportTests test: guideObject.tests)
-                report->addTest(test.name, test.weight);
-            report->finalise();
-            finalGuide->addReport(report);
-        }
-    }
-
-
-    addGuide(finalGuide, shortName.isEmpty() ? name : shortName);
+    finalGuide->setGuide(guide);
+    addGuide(finalGuide, guide.shortName.isEmpty() ? guide.name : guide.shortName);
 
     //update start
     if (updateStart)
@@ -313,8 +248,8 @@ void MainWindow::saveGuideAs(GuideData::Data guide) {
     QSettings settings;
     QString baseFileName;
 
-    if (!guide.originalFile.exists())
-        baseFileName = guide.originalFile.filePath();
+    if (guide.originalFile.exists())
+        baseFileName = guide.originalFile.baseName();
     else
         baseFileName = settings.value("LastOpenedDir", ".").toString() + "/" + guide.name + ".xml";
 
@@ -460,7 +395,7 @@ void MainWindow::on_actionSave_All_Guides_triggered() {
 }
 #endif
 void MainWindow::on_actionAbout_triggered() {
-    AboutWindow* aboutWindow = new AboutWindow();
+    AboutWindow* aboutWindow = new AboutWindow(this);
     aboutWindow->show();
 }
 
@@ -500,6 +435,10 @@ void MainWindow::closeGuide(int guideIndex, bool updateStartBool) {
         updateStart();
 }
 
+void MainWindow::setTabName(int tab, QString name) {
+    ui->guideSwitcher->setTabText(tab, name);
+}
+
 void MainWindow::updateStart() {
     startScreen->updateStart();
 }
@@ -507,13 +446,39 @@ void MainWindow::updateStart() {
 void MainWindow::on_guideSwitcher_currentChanged(int tab) {
     if (tab != 0) {
         ui->actionSave_Guide_As->setEnabled(true);
+        ui->actionOpen_In_Creator->setEnabled(true);
         return;
     }
 
     if (tab == 0) {
         ui->actionSave_Guide_As->setEnabled(false);
+        ui->actionOpen_In_Creator->setEnabled(false);
         if (APPLICATION->isFileChanged) {
             updateStart();
         }
     }
+}
+
+void MainWindow::on_actionOpen_Creator_triggered() {
+    Creator* creator = new Creator();
+    creator
+            ->show();
+                     // dafoque
+}
+
+void MainWindow::on_actionOpen_In_Creator_triggered() {
+    // First of all, save everything
+    APPLICATION->autoSaveTriggered();
+
+    // Now get the guide to open.
+    int currentGuideIndex(ui->guideSwitcher->currentIndex() - 1);
+    GuideData::Data currentGuide = guides.at(currentGuideIndex)->getGuide();
+
+    // Open in creator
+    Creator* creator = new Creator();
+    creator->open(currentGuide);
+    creator->currentGuide = currentGuide.originalFile;
+    creator->appAutoSaveLocation = currentGuide.autoSaveFile;
+    creator->applicationGuideIndex = currentGuideIndex;
+    creator->show();
 }

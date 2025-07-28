@@ -80,6 +80,9 @@
     <addaction name="actionSave_Guide_As"/>
     <addaction name="actionSave_All_Guides"/>
     <addaction name="separator"/>
+    <addaction name="actionOpen_In_Creator"/>
+    <addaction name="actionOpen_Creator"/>
+    <addaction name="separator"/>
     <addaction name="actionPreference"/>
     <addaction name="actionExit"/>
    </widget>
@@ -134,9 +137,19 @@
     <string>Close all guides</string>
    </property>
   </action>
+  <action name="actionOpen_Creator">
+   <property name="text">
+    <string>Open Creator</string>
+   </property>
+  </action>
   <action name="actionSave_All_Guides">
    <property name="text">
     <string>Save And Close All Guides</string>
+   </property>
+  </action>
+  <action name="actionOpen_In_Creator">
+   <property name="text">
+    <string>Open In Creator</string>
    </property>
   </action>
  </widget>

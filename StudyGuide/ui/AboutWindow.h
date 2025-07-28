@@ -5,6 +5,7 @@
 #ifndef ABOUT_H
 #define ABOUT_H
 
+#include <QDialog>
 #include <QWidget>
 
 
@@ -16,7 +17,7 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-class AboutWindow : public QWidget {
+class AboutWindow : public QDialog {
     Q_OBJECT
 
 public:

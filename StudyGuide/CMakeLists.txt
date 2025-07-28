@@ -45,6 +45,11 @@ set(UI
 
 )
 
+set(CREATOR_SOURCES
+        creator/Creator.h
+        creator/Creator.cpp
+        creator/Creator.ui)
+
 set(TRANSLATIONS
         translations/StudyGuide_nl.ts
         translations/StudyGuide_en.ts
@@ -56,11 +61,11 @@ if (DEFINED WIN32)
             WindowConsole.h)
 endif ()
 
-qt_add_library(StudyGuide_Logic STATIC ${SOURCES} ${UI} ${WIN_SOURCES})
+qt_add_library(StudyGuide_Logic STATIC ${SOURCES} ${UI} ${WIN_SOURCES} ${CREATOR_SOURCES})
 target_link_libraries(StudyGuide_Logic Qt::Core Qt::Gui Qt::Widgets BuildConfig QuaZip::QuaZip Qt6::Core5Compat ${ZLIB_LIBRARY})
-if(ANDROID)
+if (ANDROID)
     target_link_libraries(StudyGuide_Logic Qt::CorePrivate)
-endif()
+endif ()
 
 
 qt_add_executable(${EXECUTABLE_NAME} main.cpp)
@@ -69,11 +74,11 @@ target_link_libraries(${EXECUTABLE_NAME} PRIVATE StudyGuide_Logic)
 target_include_directories(StudyGuide_Logic PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 
-if(ANDROID)
+if (ANDROID)
     set(android_source_dir ${CMAKE_SOURCE_DIR}/buildconfig/Android)
     message(${android_source_dir})
     set_target_properties(${EXECUTABLE_NAME} PROPERTIES QT_ANDROID_PACKAGE_SOURCE_DIR ${android_source_dir})
-endif()
+endif ()
 
 qt_add_translations(${EXECUTABLE_NAME} TS_FILES ${TRANSLATIONS}
         QM_FILES_OUTPUT_VARIABLE qm_files)
@@ -115,13 +120,13 @@ if (WIN32 OR EMSCRIPTEN)
     set(RESOURCES_DEST_DIR ".")
 endif ()
 
-if(NOT ANDROID)
-install(TARGETS ${EXECUTABLE_NAME}
-        BUNDLE DESTINATION "." COMPONENT Runtime
-        LIBRARY DESTINATION ${LIBRARY_DEST_DIR} COMPONENT Runtime
-        RUNTIME DESTINATION ${BINARY_DEST_DIR} COMPONENT Runtime
-)
-endif()
+if (NOT ANDROID)
+    install(TARGETS ${EXECUTABLE_NAME}
+            BUNDLE DESTINATION "." COMPONENT Runtime
+            LIBRARY DESTINATION ${LIBRARY_DEST_DIR} COMPONENT Runtime
+            RUNTIME DESTINATION ${BINARY_DEST_DIR} COMPONENT Runtime
+    )
+endif ()
 
 if (WIN32)
     #Example.xml
@@ -190,7 +195,7 @@ if (EMSCRIPTEN)
     #file(GLOB SVG_FILES
     #        ${CMAKE_CURRENT_BINARY_DIR}/*.svg
     #)
-#
+    #
 
     install(
             FILES ${CMAKE_CURRENT_BINARY_DIR}/qtloader.js ${CMAKE_CURRENT_BINARY_DIR}/StudyGuide.js ${CMAKE_CURRENT_BINARY_DIR}/StudyGuide.worker.js
@@ -211,7 +216,7 @@ if (EMSCRIPTEN)
     )
 
     #Exclude the main HTML
-  #  list(REMOVE_ITEM HTML_FILES "${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE_NAME}.html")
+    #  list(REMOVE_ITEM HTML_FILES "${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE_NAME}.html")
 
     install(
             FILES "${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE_NAME}.html"
@@ -219,14 +224,14 @@ if (EMSCRIPTEN)
             DESTINATION .
             COMPONENT Runtime
     )
-  #  install(
-  #          FILES ${HTML_FILES} ${JS_FILES} ${WASM_FILES} ${SVG_FILES}
-  #          DESTINATION .
-  #          COMPONENT Runtime
-  #  )
+    #  install(
+    #          FILES ${HTML_FILES} ${JS_FILES} ${WASM_FILES} ${SVG_FILES}
+    #          DESTINATION .
+    #          COMPONENT Runtime
+    #  )
 endif ()
 
-if(ANDROID)
+if (ANDROID)
     file(GLOB APK_FILES
             "${CMAKE_CURRENT_BINARY_DIR}/android-build/*.apk"
     )
@@ -234,4 +239,4 @@ if(ANDROID)
             FILES ${CMAKE_CURRENT_BINARY_DIR}/android-build/${EXECUTABLE_NAME}.apk
             DESTINATION .
     )
-endif()
+endif ()
