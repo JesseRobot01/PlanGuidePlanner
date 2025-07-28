@@ -23,7 +23,7 @@
       </font>
      </property>
      <property name="text">
-      <string>StudyGuide</string>
+      <string notr="true">StudyGuide</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
