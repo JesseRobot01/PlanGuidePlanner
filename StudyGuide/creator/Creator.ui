@@ -219,27 +219,28 @@
     </layout>
    </widget>
   </widget>
-  <action name="actionTest">
-   <property name="text">
-    <string>Test</string>
-   </property>
-   <property name="menuRole">
-    <enum>QAction::MenuRole::NoRole</enum>
-   </property>
-  </action>
   <action name="actionOpen_Guide">
    <property name="text">
     <string>Open Guide</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="actionSave_Guide">
    <property name="text">
     <string>Save Guide</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
   <action name="actionSave_Guide_As">
    <property name="text">
     <string>Save Guide As</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
    </property>
   </action>
  </widget>
