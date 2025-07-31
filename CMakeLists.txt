@@ -40,10 +40,7 @@ if(BUILD_TESTING)
 endif()
 
 set(EXECUTABLE_NAME "StudyGuide")
-
-if (LINUX)
-    set(EXECUTABLE_NAME "studyguide") #Linux is case-sensitive, so this should make it possible to call from command line like every regular app. (Without using shift)
-endif ()
+set(APP_BINARY_NAME "studyguide" CACHE STRING "Name of the binary")
 
 set(CMAKE_WIN32_EXECUTABLE ON)
 

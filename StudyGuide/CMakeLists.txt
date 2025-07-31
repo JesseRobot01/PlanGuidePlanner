@@ -73,6 +73,9 @@ target_link_libraries(${EXECUTABLE_NAME} PRIVATE StudyGuide_Logic)
 
 target_include_directories(StudyGuide_Logic PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
+if(DEFINED APP_BINARY_NAME)
+    set_target_properties(${EXECUTABLE_NAME} PROPERTIES OUTPUT_NAME "${APP_BINARY_NAME}")
+endif()
 
 if (ANDROID)
     set(android_source_dir ${CMAKE_SOURCE_DIR}/buildconfig/Android)
