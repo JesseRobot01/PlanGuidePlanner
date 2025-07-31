@@ -201,13 +201,13 @@ if (EMSCRIPTEN)
     #
 
     install(
-            FILES ${CMAKE_CURRENT_BINARY_DIR}/qtloader.js ${CMAKE_CURRENT_BINARY_DIR}/StudyGuide.js ${CMAKE_CURRENT_BINARY_DIR}/StudyGuide.worker.js
+            FILES ${CMAKE_CURRENT_BINARY_DIR}/qtloader.js ${CMAKE_CURRENT_BINARY_DIR}/studyguide.js ${CMAKE_CURRENT_BINARY_DIR}/studyguide.worker.js
             DESTINATION .
             COMPONENT Runtime
     )
 
     install(
-            FILES ${CMAKE_CURRENT_BINARY_DIR}/StudyGuide.wasm
+            FILES ${CMAKE_CURRENT_BINARY_DIR}/studyguide.wasm
             DESTINATION .
             COMPONENT Runtime
     )
@@ -222,7 +222,7 @@ if (EMSCRIPTEN)
     #  list(REMOVE_ITEM HTML_FILES "${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE_NAME}.html")
 
     install(
-            FILES "${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE_NAME}.html"
+            FILES "${CMAKE_CURRENT_BINARY_DIR}/${APP_BINARY_NAME}.html"
             RENAME "index.html"
             DESTINATION .
             COMPONENT Runtime
