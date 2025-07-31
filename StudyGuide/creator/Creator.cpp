@@ -482,7 +482,7 @@ void Creator::on_actionOpen_Guide_triggered() {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open StudyGuide"),
                                                     settings.value("LastOpenedDir", ".").toString(),
                                                     tr(
-                                                        "All Supported Files (*.xml);;*.Xml Files (*.xml);;All Files (*)"));
+                                                        "All Supported Files (*.sgd *.sga *.xml);;StudyGuide Document (*.sgd);;StudyGuide Auto Save File (*.sga);;*.Xml Files (*.xml);;All Files (*)"));
 
     if (fileName.isEmpty()) return;
     QFileInfo file(fileName);
@@ -532,7 +532,7 @@ void Creator::on_actionSave_Guide_As_triggered() {
         baseFileName = settings.value("LastOpenedDir", ".").toString() + "/" + guide.name + ".xml";
 
     QString saveFileName = QFileDialog::getSaveFileName(this, tr("Save StudyGuide"),
-                                                        baseFileName, tr("XML Files (*.xml);;All Files (*)"));
+                                                        baseFileName, tr("StudyGuide Document (*.sgd);;XML Files (*.xml);;All Files (*)"));
 
     if (saveFileName.isEmpty()) {
         qWarning() << "No save file given. Can't save";
@@ -544,7 +544,8 @@ void Creator::on_actionSave_Guide_As_triggered() {
 
 void Creator::save(GuideData::Data guide) {
     QFile currentGuideFile(currentGuide.absoluteFilePath());
-    XmlParser::saveXml(guide, currentGuideFile);
+    if (currentGuideFile.fileName().endsWith("sgd"))
+    XmlParser::saveXml(guide, currentGuideFile, false, false);
 }
 
 void Creator::open(GuideData::Data guide) {
