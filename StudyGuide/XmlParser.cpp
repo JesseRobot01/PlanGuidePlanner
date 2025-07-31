@@ -220,6 +220,7 @@ void XmlParser::saveXml(const GuideData::Data&guide, QFile&fileToSaveTo, bool is
 
         xml.writeStartDocument();
         xml.writeStartElement("studyguide");
+        xml.writeAttribute("format-version", "1.0");
         if (isAutoSave) {
             xml.writeAttribute("autosavefile", "true");
             xml.writeAttribute("originalfile", guide.originalFile.filePath());
