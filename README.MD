@@ -6,7 +6,7 @@ A tool for tracking your progress with your study.
 
 * Open Guides
 * Save Guides
-* **TODO:** Easily create Guides
+* Easily create Guides
 
 ### Installation
 
