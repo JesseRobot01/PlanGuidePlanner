@@ -27,10 +27,17 @@ jobs:
             host: "windows"
             qt_version: "6.8.3"
             target: "desktop"
+            toolchain: "msvc2022-x64"
             target_arch: "win64_msvc2022_64"
-            host_arch: "win64_msvc2022_64"
-            arch_dir: "msvc2022_64"
-            
+
+          - name: "Windows-arm64"
+            os: windows-latest
+            host: "windows"
+            qt_version: "6.8.3"
+            target: "desktop"
+            toolchain: "msvc2022-arm64"
+            target_arch: "win64_msvc2022_arm64_cross_compiled"
+
           - name: "Linux"
             os: ubuntu-latest
             host: "linux"
@@ -52,34 +59,33 @@ jobs:
             target: "wasm"
             target_arch: "wasm_multithread"
 
-          - name: "Android arm7"
+          - name: "Android-arm7"
             os: ubuntu-latest
             host: "all_os"
             qt_version: "6.8.3"
             target: "android"
             target_arch: "android_armv7"
 
-          - name: "Android arm64"
+          - name: "Android-arm64"
             os: ubuntu-latest
             host: "all_os"
             qt_version: "6.8.3"
             target: "android"
             target_arch: "android_arm64_v8a"
 
-          - name: "Android x86"
+          - name: "Android-x86"
             os: ubuntu-latest
             host: "all_os"
             qt_version: "6.8.3"
             target: "android"
             target_arch: "android_x86"
 
-          - name: "Android x86_64"
+          - name: "Android-x86_64"
             os: ubuntu-latest
             host: "all_os"
             qt_version: "6.8.3"
             target: "android"
             target_arch: "android_x86_64"
-
 
             #TODO macOS
 
@@ -114,10 +120,10 @@ jobs:
       - name: Install Java (Android)
         if: ${{ matrix.target == 'Android' }}
         uses: actions/setup-java@v4.7.0
-        with: 
+        with:
           java-version: 17 #Java I used on my machine and it worked
           distribution: temurin
-          
+
       - name: Install Android SDK (Android)
         if: ${{ matrix.target == 'Android' }}
         uses: android-actions/setup-android@v3
@@ -125,15 +131,21 @@ jobs:
           packages: 'platforms;android-35 platform-tools build-tools;35.0.1 ndk;26.1.10909125'
 
       - name: Configure MSVC (windows)
-        if: ${{matrix.os == 'windows-latest'}}
+        if: ${{matrix.toolchain == 'msvc2022-x64'}}
         uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Configure MSVC (windows arm64)
+        if: ${{matrix.toolchain == 'msvc2022-arm64'}}
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: amd64_arm64
 
       - name: Setup Ninja (windows)
         if: ${{matrix.os == 'windows-latest'}}
         uses: ashutoshvarma/setup-ninja@master
         with:
           version: 1.10.0
-          
+
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
@@ -143,14 +155,6 @@ jobs:
           arch: ${{ matrix.target_arch }}
           modules: qt5compat
           extra: "--autodesktop"
-
-          
-     # - name: Set Qt enviorment
-     #   shell: bash
-     #   run: |
-     #     echo "QT_ROOT_PATH=${{ runner.workspace }}/Qt/${{ matrix.qt_version }}" >> $GITHUB_ENV
-     #     echo "QT_TARGET_PATH=${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/${{ matrix.arch_dir }}" >> $GITHUB_ENV
-     #     echo "QT_HOST_PATH=${{ runner.workspace }}/Qt/${{ matrix.qt_version }}/${{ matrix.host_arch }}" >> $GITHUB_ENV
 
       #Configure!
       - name: Configure Cmake
@@ -194,34 +198,39 @@ jobs:
         if: ${{ matrix.name == 'linux' }}
         run: |
           cd build
-          cpack -G TXZ
+          cpack -G TGZ
           cpack -G DEB
 
         # Upload
+      - name: Get short version
+        shell: bash
+        run: |
+          echo "SHORT_VERSION=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
+
       - name: Upload install directory
         if: ${{ matrix.name != 'linux' }}
         uses: actions/upload-artifact@v4
         with:
-          name: StudyGuide-${{matrix.name}}-${{inputs.build_type}}
+          name: StudyGuide-${{matrix.name}}-${{env.SHORT_VERSION}}-${{inputs.build_type}}
           path: install
 
       - name: Upload setup (Windows)
-        if: ${{ matrix.name == 'Windows' }}
+        if: ${{ matrix.os == 'windows-latest' }}
         uses: actions/upload-artifact@v4
         with:
-          name: StudyGuide-windows-setup-${{inputs.build_type}}
+          name: StudyGuide-${{matrix.name}}-Setup-${{env.SHORT_VERSION}}-${{inputs.build_type}}
           path: build/*.exe
 
       - name: Upload binaries (Linux)
         if: ${{ matrix.name == 'linux' }}
         uses: actions/upload-artifact@v4
         with:
-          name: StudyGuide-linux-${{inputs.build_type}}
-          path: build/*.tar.xz
+          name: StudyGuide-Linux-${{env.SHORT_VERSION}}-${{inputs.build_type}}
+          path: build/*.tar.gz
 
       - name: Upload deb (Linux)
         if: ${{ matrix.name == 'linux' }}
         uses: actions/upload-artifact@v4
         with:
-          name: StudyGuide-linux-deb-${{inputs.build_type}}
+          name: StudyGuide-Linux-Deb-${{env.SHORT_VERSION}}-${{inputs.build_type}}
           path: build/*.deb
