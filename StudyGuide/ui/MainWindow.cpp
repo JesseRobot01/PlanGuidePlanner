@@ -59,7 +59,7 @@ void MainWindow::on_actionOpen_File_triggered() {
             if (file.open(QIODevice::ReadWrite)) {
                 file.write(fileContent);
 
-                if (fileName.endsWith("zip")) {
+                if (fileName.endsWith("zip") || filename.endsWith("sdc") {
                     QDir tempDir(QStandardPaths::writableLocation(QStandardPaths::TempLocation));
                     tempDir.mkpath(".");
 
@@ -67,13 +67,13 @@ void MainWindow::on_actionOpen_File_triggered() {
 
                     for (const QString&extractedFile: extractedFiles) {
                         qDebug() << "Extracted:" << extractedFile;
-                        if (extractedFile.endsWith("xml")) {
+                        if (extractedFile.endsWith("xml") || extractedFile.endsWith("sgd")) {
                             GuideData::Data guide = XmlParser::readXml(extractedFile);
                             processGuide(guide);
                         }
                     }
                 }
-                else if (fileName.endsWith(".xml")) {
+                else if (fileName.endsWith(".xml") || filename.endsWith(".sgd") || filename.endsWith(".sga")) {
                     file.close(); // Parser does not like open files.
                     GuideData::Data guide = XmlParser::readXml(&file);
                     processGuide(guide);
@@ -214,13 +214,13 @@ void MainWindow::on_actionSave_Guide_As_triggered() {
     Guide* guideToSave = guides.at(currentTab);
     GuideData::Data guide = guideToSave->getGuide();
 
-    QFile tmpFile("/tmp/savingGuide.xml");
+    QFile tmpFile("/tmp/savingGuide.sgd");
 
-    XmlParser::saveXml(guide, tmpFile);
+    XmlParser::saveXml(guide, tmpFile, false, false);
     if (tmpFile.open(QIODevice::ReadOnly)) {
         QByteArray fileContent(tmpFile.readAll());
 
-        QFileDialog::saveFileContent(fileContent, QString("%1.xml").arg(guide.name));
+        QFileDialog::saveFileContent(fileContent, QString("%1.sgd").arg(guide.name));
 
         closeGuide(currentTab);
     }

@@ -27,7 +27,6 @@ Creator::Creator(QWidget* parent) : QMainWindow(parent), ui(new Ui::Creator) {
 
     listSpacer = new QListWidgetItem(ui->addList);
 
-
     addGoal = new QListWidgetItem(ui->addList);
     addGoal->setText("Add Goal");
 
