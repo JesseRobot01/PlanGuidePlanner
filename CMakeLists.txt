@@ -12,8 +12,8 @@ set(STUDYGUIDE_VERSION ${STUDYGUIDE_VERSION_MAJOR}.${STUDYGUIDE_VERSION_MINOR}.$
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets LinguistTools Core5Compat Test)
 
-if(WIN32 OR EMSCRIPTEN)
-  set(StudyGuide_FORCE_BUNDLED_LIBS 1) # Hacky fix for windows and emsdk
+if (WIN32 OR EMSCRIPTEN)
+    set(StudyGuide_FORCE_BUNDLED_LIBS 1) # Hacky fix for windows and emsdk
 endif ()
 
 if (NOT StudyGuide_FORCE_BUNDLED_LIBS AND NOT FORCE_BUNDLED_ZLIB)
@@ -35,9 +35,9 @@ endif ()
 option(BUILD_TESTING "Build the testing tree." ON)
 
 include(CTest)
-if(BUILD_TESTING)
+if (BUILD_TESTING)
     enable_testing()
-endif()
+endif ()
 
 set(EXECUTABLE_NAME "StudyGuide")
 set(APP_BINARY_NAME "studyguide" CACHE STRING "Name of the binary")
@@ -138,16 +138,25 @@ endif ()
 include(InstallRequiredSystemLibraries)
 include(CPack)
 
-if (UNIX)
+if (LINUX)
     set(BINARY_DEST_DIR "bin")
     set(LIBRARY_DEST_DIR "lib")
+
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/studyguide.desktop" DESTINATION "share/applications")
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/SG-AppIcon.svg" RENAME "studyguide.svg" DESTINATION "share/icons/hicolor/scalable/apps")
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/studyguide-mime.xml" DESTINATION "share/mime/packages")
+
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/SG-AppIcon.svg" RENAME "application-x-studyguide-sgd.svg" DESTINATION "share/icons/hicolor/scalable/mimetypes")
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/SG-AppIcon.svg" RENAME "application-x-studyguide-sgc.svg" DESTINATION "share/icons/hicolor/scalable/mimetypes")
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/SG-AppIcon.svg" RENAME "application-x-studyguide-sga.svg" DESTINATION "share/icons/hicolor/scalable/mimetypes")
+
 endif ()
 
 add_subdirectory(buildconfig)
 
-if(BUILD_TESTING)
+if (BUILD_TESTING)
     add_subdirectory(tests)
-endif()
+endif ()
 
 add_subdirectory(StudyGuide)
 

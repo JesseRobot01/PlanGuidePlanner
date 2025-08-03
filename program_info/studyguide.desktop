@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=StudyGuide
+Comment=A Tool for tracking your progress with your study.
+Type=Application
+Terminal=false
+Exec=studyguide %F
+StartupNotify=true
+Icon=studyguide
+Categories=Education
+MimeType=text/xml;application/zip;application/x-studyguide-sgd;application/x-studyguide-sgc;application/x-studyguide-sga;
