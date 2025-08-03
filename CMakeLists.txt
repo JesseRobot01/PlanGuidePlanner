@@ -123,6 +123,7 @@ set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
 
 set(CPACK_PACKAGE_EXECUTABLES "..\\\\${EXECUTABLE_NAME}" "StudyGuide") #The ..\ is because CPack looks in the BIN directory, and not in the root as where the executable is.
 set(CPACK_CREATE_DESKTOP_LINKS "..\\\\${EXECUTABLE_NAME}" "StudyGuide")
+set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/program_info/StudyGuide.ico")
 
 set(CPACK_PACKAGE_VERSION ${STUDYGUIDE_VERSION})
 set(CPACK_PACKAGE_VERSION_MAJOR ${STUDYGUIDE_VERSION_MAJOR})
@@ -131,6 +132,36 @@ set(CPACK_PACKAGE_VERSION_PATCH ${STUDYGUIDE_VERSION_PATCH})
 
 set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6core6 (>= 6.4.2)")
 set(CPACK_PACKAGE_CONTACT "JesseRobot01")
+
+set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
+    WriteRegStr HKLM \\\"Software\\\\Classes\\\\.sgd\\\" \\\"\\\" \\\"StudyGuide.sgd\\\"
+    WriteRegStr HKLM \\\"Software\\\\Classes\\\\StudyGuide.sgd\\\\shell\\\\open\\\\command\\\" \\\"\\\" \\\"\\$INSTDIR\\\\${EXECUTABLE_NAME}.exe \\\"%1\\\"\\\"
+    WriteRegStr HKLM \\\"Software\\\\Classes\\\\StudyGuide.sgd\\\\DefaultIcon\\\" \\\"\\\" \\\"\\$INSTDIR\\\\${EXECUTABLE_NAME}.exe,0\\\"
+
+    WriteRegStr HKLM \\\"Software\\\\Classes\\\\.sgc\\\" \\\"\\\" \\\"StudyGuide.sgc\\\"
+    WriteRegStr HKLM \\\"Software\\\\Classes\\\\StudyGuide.sgc\\\\shell\\\\open\\\\command\\\" \\\"\\\" \\\"\\$INSTDIR\\\\${EXECUTABLE_NAME}.exe \\\"%1\\\"\\\"
+    WriteRegStr HKLM \\\"Software\\\\Classes\\\\StudyGuide.sgc\\\\DefaultIcon\\\" \\\"\\\" \\\"\\$INSTDIR\\\\${EXECUTABLE_NAME}.exe,0\\\"
+
+    WriteRegStr HKLM \\\"Software\\\\Classes\\\\.sga\\\" \\\"\\\" \\\"StudyGuide.sga\\\"
+    WriteRegStr HKLM \\\"Software\\\\Classes\\\\StudyGuide.sga\\\\shell\\\\open\\\\command\\\" \\\"\\\" \\\"\\$INSTDIR\\\\${EXECUTABLE_NAME}.exe \\\"%1\\\"\\\"
+    WriteRegStr HKLM \\\"Software\\\\Classes\\\\StudyGuide.sga\\\\DefaultIcon\\\" \\\"\\\" \\\"\\$INSTDIR\\\\${EXECUTABLE_NAME}.exe,0\\\"
+
+    System::Call \\\"shell32::SHChangeNotify(i 0x08000000, i 0, i 0, i 0)\\\"
+")
+
+set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
+    DeleteRegKey HKLM \\\"Software\\\\Classes\\\\.sgd\\\"
+    DeleteRegKey HKLM \\\"Software\\\\Classes\\\\StudyGuide.sgd\\\"
+
+    DeleteRegKey HKLM \\\"Software\\\\Classes\\\\.sgc\\\"
+    DeleteRegKey HKLM \\\"Software\\\\Classes\\\\StudyGuide.sgc\\\"
+
+    DeleteRegKey HKLM \\\"Software\\\\Classes\\\\.sga\\\"
+    DeleteRegKey HKLM \\\"Software\\\\Classes\\\\StudyGuide.sga\\\"
+
+    System::Call \\\"shell32::SHChangeNotify(i 0x08000000, i 0, i 0, i 0)\\\"
+")
+
 
 if (UNIX)
     set(CPACK_PACKAGE_NAME "StudyGuide")
