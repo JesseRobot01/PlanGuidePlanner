@@ -133,33 +133,43 @@ set(CPACK_PACKAGE_VERSION_PATCH ${STUDYGUIDE_VERSION_PATCH})
 set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6core6 (>= 6.4.2)")
 set(CPACK_PACKAGE_CONTACT "JesseRobot01")
 
+
 set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
-    WriteRegStr HKLM \\\"Software\\\\Classes\\\\.sgd\\\" \\\"\\\" \\\"StudyGuide.sgd\\\"
-    WriteRegStr HKLM \\\"Software\\\\Classes\\\\StudyGuide.sgd\\\\shell\\\\open\\\\command\\\" \\\"\\\" \\\"\\$INSTDIR\\\\${EXECUTABLE_NAME}.exe \\\"%1\\\"\\\"
-    WriteRegStr HKLM \\\"Software\\\\Classes\\\\StudyGuide.sgd\\\\DefaultIcon\\\" \\\"\\\" \\\"\\$INSTDIR\\\\${EXECUTABLE_NAME}.exe,0\\\"
+  ; Associate .sgd files
+  WriteRegStr HKLM  'Software\\\\Classes\\\\.sgd' '' 'studyguide.sgd'
+  WriteRegStr HKLM   'Software\\\\Classes\\\\studyguide.sgd' '' 'StudyGuide Document'
+  WriteRegStr HKLM  'Software\\\\Classes\\\\studyguide.sgd\\\\DefaultIcon' '' '\$INSTDIR\\\\studyguide.exe,0'
+  WriteRegStr HKLM  'Software\\\\Classes\\\\studyguide.sgd\\\\Shell\\\\Open\\\\Command' '' '\\\"$INSTDIR\\\\studyguide.exe\\\" \\\"%1\\\"'
 
-    WriteRegStr HKLM \\\"Software\\\\Classes\\\\.sgc\\\" \\\"\\\" \\\"StudyGuide.sgc\\\"
-    WriteRegStr HKLM \\\"Software\\\\Classes\\\\StudyGuide.sgc\\\\shell\\\\open\\\\command\\\" \\\"\\\" \\\"\\$INSTDIR\\\\${EXECUTABLE_NAME}.exe \\\"%1\\\"\\\"
-    WriteRegStr HKLM \\\"Software\\\\Classes\\\\StudyGuide.sgc\\\\DefaultIcon\\\" \\\"\\\" \\\"\\$INSTDIR\\\\${EXECUTABLE_NAME}.exe,0\\\"
+  ; Associate .sgc files
+  WriteRegStr HKLM  'Software\\\\Classes\\\\.sgc' '' 'studyguide.sgc'
+  WriteRegStr HKLM  'Software\\\\Classes\\\\studyguide.sgc' '' 'StudyGuide Collection'
+  WriteRegStr HKLM  'Software\\\\Classes\\\\studyguide.sgc\\\\DefaultIcon' '' '\$INSTDIR\\\\studyguide.exe,0'
+  WriteRegStr HKLM  'Software\\\\Classes\\\\studyguide.sgc\\\\Shell\\\\Open\\\\Command' '' '\\\"$INSTDIR\\\\studyguide.exe\\\" \\\"%1\\\"'
 
-    WriteRegStr HKLM \\\"Software\\\\Classes\\\\.sga\\\" \\\"\\\" \\\"StudyGuide.sga\\\"
-    WriteRegStr HKLM \\\"Software\\\\Classes\\\\StudyGuide.sga\\\\shell\\\\open\\\\command\\\" \\\"\\\" \\\"\\$INSTDIR\\\\${EXECUTABLE_NAME}.exe \\\"%1\\\"\\\"
-    WriteRegStr HKLM \\\"Software\\\\Classes\\\\StudyGuide.sga\\\\DefaultIcon\\\" \\\"\\\" \\\"\\$INSTDIR\\\\${EXECUTABLE_NAME}.exe,0\\\"
+  ; Associate .sga files
+  WriteRegStr HKLM  'Software\\\\Classes\\\\.sga' '' 'studyguide.sga'
+  WriteRegStr HKLM  'Software\\\\Classes\\\\studyguide.sga' '' 'StudyGuide Autosave File'
+  WriteRegStr HKLM  'Software\\\\Classes\\\\studyguide.sga\\\\DefaultIcon' '' '\$INSTDIR\\\\studyguide.exe,0'
+  WriteRegStr HKLM  'Software\\\\Classes\\\\studyguide.sga\\\\Shell\\\\Open\\\\Command' '' '\\\"$INSTDIR\\\\studyguide.exe\\\" \\\"%1\\\"'
 
-    System::Call \\\"shell32::SHChangeNotify(i 0x08000000, i 0, i 0, i 0)\\\"
+
+  System::Call 'shell32::SHChangeNotify(i 0x08000000, i 0, i 0, i 0)'
 ")
 
+
 set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
-    DeleteRegKey HKLM \\\"Software\\\\Classes\\\\.sgd\\\"
-    DeleteRegKey HKLM \\\"Software\\\\Classes\\\\StudyGuide.sgd\\\"
+  DeleteRegKey HKLM  'Software\\\\Classes\\\\studyguide.sgd'
+  DeleteRegKey HKLM  'Software\\\\Classes\\\\.sgd'
 
-    DeleteRegKey HKLM \\\"Software\\\\Classes\\\\.sgc\\\"
-    DeleteRegKey HKLM \\\"Software\\\\Classes\\\\StudyGuide.sgc\\\"
+  DeleteRegKey HKLM  'Software\\\\Classes\\\\studyguide.sgc'
+  DeleteRegKey HKLM  'Software\\\\Classes\\\\.sgc'
 
-    DeleteRegKey HKLM \\\"Software\\\\Classes\\\\.sga\\\"
-    DeleteRegKey HKLM \\\"Software\\\\Classes\\\\StudyGuide.sga\\\"
+  DeleteRegKey HKLM  'Software\\\\Classes\\\\studyguide.sga'
+  DeleteRegKey HKLM  'Software\\\\Classes\\\\.sga'
 
-    System::Call \\\"shell32::SHChangeNotify(i 0x08000000, i 0, i 0, i 0)\\\"
+
+  System::Call 'shell32::SHChangeNotify(i 0x08000000, i 0, i 0, i 0)'
 ")
 
 
