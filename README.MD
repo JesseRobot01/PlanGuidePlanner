@@ -1,4 +1,10 @@
-# **StudyGuide**
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="/program_info/SG-DarkMode.svg">
+  <source media="(prefers-color-scheme: light)" srcset="/program_info/SG-LightMode.svg">
+  <img alt="StudyGuide" src="/program_info/SG-LightMode.svg" width="40%">
+</picture>
+</p>
 
 A tool for tracking your progress with your study.
 
