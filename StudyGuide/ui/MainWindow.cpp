@@ -59,7 +59,7 @@ void MainWindow::on_actionOpen_File_triggered() {
             if (file.open(QIODevice::ReadWrite)) {
                 file.write(fileContent);
 
-                if (fileName.endsWith("zip") || filename.endsWith("sdc") {
+                if (fileName.endsWith("zip") || fileName.endsWith("sdc") {
                     QDir tempDir(QStandardPaths::writableLocation(QStandardPaths::TempLocation));
                     tempDir.mkpath(".");
 
@@ -73,7 +73,7 @@ void MainWindow::on_actionOpen_File_triggered() {
                         }
                     }
                 }
-                else if (fileName.endsWith(".xml") || filename.endsWith(".sgd") || filename.endsWith(".sga")) {
+                else if (fileName.endsWith(".xml") || fileName.endsWith(".sgd") || fileName.endsWith(".sga")) {
                     file.close(); // Parser does not like open files.
                     GuideData::Data guide = XmlParser::readXml(&file);
                     processGuide(guide);
