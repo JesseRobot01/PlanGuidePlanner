@@ -10,7 +10,7 @@ set(STUDYGUIDE_VERSION_MINOR 1)
 set(STUDYGUIDE_VERSION_PATCH 0)
 set(STUDYGUIDE_VERSION ${STUDYGUIDE_VERSION_MAJOR}.${STUDYGUIDE_VERSION_MINOR}.${STUDYGUIDE_VERSION_PATCH})
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets LinguistTools Core5Compat Test)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets LinguistTools Core5Compat Test Svg)
 
 if (WIN32 OR EMSCRIPTEN)
     set(StudyGuide_FORCE_BUNDLED_LIBS 1) # Hacky fix for windows and emsdk

@@ -6,11 +6,16 @@
 #include "Application.h"
 
 QColor GuidePalette::getColor(GuideElements element) {
-    if (window().color().value() > windowText().color().value()) {
+    if (isLightMode()) {
         return getLightModeColor(element);
-    } else {
+    }
+    else {
         return getDarkModeColor(element);
     }
+}
+
+bool GuidePalette::isLightMode() {
+    return window().color().value() > windowText().color().value();
 }
 
 QColor GuidePalette::getLightModeColor(GuidePalette::GuideElements element) {
@@ -76,10 +81,10 @@ QColor GuidePalette::getLightModeColor(GuidePalette::GuideElements element) {
             return {182, 182, 182};
             break;
         case InfoIndicatorText:
-            return {255,255,255};
+            return {255, 255, 255};
             break;
         case InfoIndicatorExample:
-            return  {124, 124, 124};
+            return {124, 124, 124};
             break;
         default:
             return {0, 0, 0};
@@ -88,7 +93,6 @@ QColor GuidePalette::getLightModeColor(GuidePalette::GuideElements element) {
 
 QColor GuidePalette::getDarkModeColor(GuidePalette::GuideElements element) {
     switch (element) {
-
         case HeaderBackground:
             return {3, 56, 118};
             break;
@@ -147,13 +151,13 @@ QColor GuidePalette::getDarkModeColor(GuidePalette::GuideElements element) {
             return {203, 86, 13};
             break;
         case InfoIndicatorBackground:
-            return  {124, 124, 124};
+            return {124, 124, 124};
             break;
         case InfoIndicatorText:
-            return {255,255,255};
+            return {255, 255, 255};
             break;
         case InfoIndicatorExample:
-            return  {73, 73, 73};
+            return {73, 73, 73};
             break;
         default:
             return {0, 0, 0};

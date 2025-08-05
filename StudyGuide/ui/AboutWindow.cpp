@@ -7,10 +7,30 @@
 #include "AboutWindow.h"
 #include "ui_About.h"
 #include "Config.h"
+#include "themes/GuidePalette.h"
+#include <QSvgRenderer>
+#include <QPainter>
 
 
 AboutWindow::AboutWindow(QWidget* parent) : QDialog(parent), ui(new Ui::About) {
     ui->setupUi(this);
+
+    QSvgRenderer renderer(QStringLiteral(":/logos/SG-LightMode.svg"));
+    QPixmap pixmap(600, 200); // or use QSize dynamically
+    pixmap.fill(Qt::transparent);
+
+    QPainter painter(&pixmap);
+    renderer.render(&painter);
+
+    ui->label->setPixmap(pixmap.scaledToWidth(100));
+
+
+    //Set Logo
+    GuidePalette palette;
+    if (palette.isLightMode())
+        ui->label->setPixmap(QPixmap(":/logos/SG-LightMode.svg").scaledToWidth(320));
+    else ui->label->setPixmap(QPixmap(":/logos/SG-DarkMode.svg").scaledToWidth(320));
+
 
     ui->version->setText(Config.version);
 

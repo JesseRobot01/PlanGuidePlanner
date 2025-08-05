@@ -55,6 +55,12 @@ set(TRANSLATIONS
         translations/StudyGuide_en.ts
 )
 
+set(LOGO_FILES
+../program_info/SG-AppIcon.svg
+../program_info/SG-DarkMode.svg
+../program_info/SG-LightMode.svg
+../program_info/SG-Logo.svg)
+
 if (DEFINED WIN32)
     set(WIN_SOURCES
             WindowConsole.cpp
@@ -62,7 +68,7 @@ if (DEFINED WIN32)
 endif ()
 
 qt_add_library(StudyGuide_Logic STATIC ${SOURCES} ${UI} ${WIN_SOURCES} ${CREATOR_SOURCES})
-target_link_libraries(StudyGuide_Logic Qt::Core Qt::Gui Qt::Widgets BuildConfig QuaZip::QuaZip Qt6::Core5Compat ${ZLIB_LIBRARY})
+target_link_libraries(StudyGuide_Logic Qt::Core Qt::Gui Qt::Widgets BuildConfig QuaZip::QuaZip Qt::Svg Qt6::Core5Compat ${ZLIB_LIBRARY})
 if (ANDROID)
     target_link_libraries(StudyGuide_Logic Qt::CorePrivate)
 endif ()
@@ -103,7 +109,22 @@ endforeach ()
 qt_add_resources(${EXECUTABLE_NAME} translations
         PREFIX "/translations"
         FILES ${qm_files}
-        FILES Example.xml
+)
+
+foreach (logo ${LOGO_FILES})
+    string(REPLACE "../program_info/" "" logo_name ${logo})
+
+    # Set QT_RESOURCE_ALIAS for the qm file
+    set_source_files_properties(
+            ${logo}
+            PROPERTIES
+            QT_RESOURCE_ALIAS "${logo_name}"
+    )
+endforeach ()
+
+qt_add_resources(${EXECUTABLE_NAME} logos
+        PREFIX "/logos"
+        FILES ${LOGO_FILES}
 )
 
 #The bundle mess!!!
