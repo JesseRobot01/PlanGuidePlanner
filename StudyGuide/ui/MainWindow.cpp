@@ -59,7 +59,7 @@ void MainWindow::on_actionOpen_File_triggered() {
             if (file.open(QIODevice::ReadWrite)) {
                 file.write(fileContent);
 
-                if (fileName.endsWith("zip") || fileName.endsWith("sdc") {
+                if (fileName.endsWith("zip") || fileName.endsWith("sdc")) {
                     QDir tempDir(QStandardPaths::writableLocation(QStandardPaths::TempLocation));
                     tempDir.mkpath(".");
 
