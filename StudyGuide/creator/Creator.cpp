@@ -20,21 +20,21 @@ Creator::Creator(QWidget* parent) : QMainWindow(parent), ui(new Ui::Creator) {
     ui->setupUi(this);
 
     addTask = new QListWidgetItem(ui->addList);
-    addTask->setText("Add Goal Task");
+    addTask->setText(tr("Add Goal Task"));
 
     addReportTest = new QListWidgetItem(ui->addList);
-    addReportTest->setText("Add Test To Report");
+    addReportTest->setText(tr("Add Test To Report"));
 
     listSpacer = new QListWidgetItem(ui->addList);
 
     addGoal = new QListWidgetItem(ui->addList);
-    addGoal->setText("Add Goal");
+    addGoal->setText(tr("Add Goal"));
 
     addTest = new QListWidgetItem(ui->addList);
-    addTest->setText("Add Test");
+    addTest->setText(tr("Add Test"));
 
     addReport = new QListWidgetItem(ui->addList);
-    addReport->setText("Add Report");
+    addReport->setText(tr("Add Report"));
 
 
     //Restore to initial configuration
