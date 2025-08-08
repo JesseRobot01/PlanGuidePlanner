@@ -348,37 +348,28 @@ void Goal::finalise() {
 void Goal::setProgress(int progress, bool changedFile) {
     QString colour;
     GuidePalette palette;
+    GuidePalette::GuideElements element;
 
     switch (progress) {
         case 2:
-            colour = QString::fromLatin1("background-color:%1;").arg(
-                palette.getColor(GuidePalette::Progress_Finished).name());
-
-            ui->progressSlider->setStyleSheet(colour);
-            ui->progressBackground->setStyleSheet(colour);
+            element = GuidePalette::Progress_Finished;
             break;
         case 1:
-            colour = QString::fromLatin1("background-color:%1;").arg(
-                palette.getColor(GuidePalette::Progress_Working).name());
-
-            ui->progressSlider->setStyleSheet(colour);
-            ui->progressBackground->setStyleSheet(colour);
+            element = GuidePalette::Progress_Working;
             break;
         case 0:
-            colour = QString::fromLatin1("background-color:%1;").arg(
-                palette.getColor(GuidePalette::Progress_NotStarted).name());
-
-            ui->progressSlider->setStyleSheet(colour);
-            ui->progressBackground->setStyleSheet(colour);
+            element = GuidePalette::Progress_NotStarted;
             break;
         default:
-            colour = QString::fromLatin1("background-color:%1;").arg(
-                palette.getColor(GuidePalette::HeaderBackground).name());
-
-            ui->progressSlider->setStyleSheet(colour);
-            ui->progressBackground->setStyleSheet(colour);
+            element = GuidePalette::HeaderBackground;
             break;
     }
+    colour = QString::fromLatin1("background-color:%1;")
+            .arg(palette.getColor(element).name());
+
+    ui->progressSlider->setStyleSheet(colour);
+    ui->progressBackground->setStyleSheet(colour);
+
     QSettings settings;
     if (changedFile && !parentGuide->isInAutoSaveList) {
         parentGuide->isInAutoSaveList = true;
