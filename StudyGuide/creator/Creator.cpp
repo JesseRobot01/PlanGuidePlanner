@@ -14,6 +14,7 @@
 
 #include "Application.h"
 #include "XmlParser.h"
+#include "themes/GuidePalette.h"
 
 
 Creator::Creator(QWidget* parent) : QMainWindow(parent), ui(new Ui::Creator) {
@@ -135,53 +136,75 @@ void Creator::showLongEdit(QString text) {
     ui->longEditLabel->show();
 }
 
+void Creator::hideProgressSlider() {
+    ui->progressSlider->setEnabled(false);
+    ui->progressSlider->hide();
+    ui->progressLabel->hide();
+}
+
+void Creator::showProgressSlider(int value) {
+    ui->progressSlider->setValue(value);
+    ui->progressSlider->setEnabled(true);
+    setProgressSliderColour(value);
+    ui->progressSlider->show();
+    ui->progressLabel->show();
+}
+
 void Creator::on_mainDisplay_itemClicked(QTreeWidgetItem* item, int column) {
+    const QString type = item->text(0);
+    const QString mainText = item->text(1);
+    const QString extraText = item->text(2);
+    
     //goals
-    if (item->text(0) == tr("Goal")) {
+    if (type == tr("Goal")) {
         hideAddReportTest();
         hideTypeSelector();
         hideLongEdit();
+        hideProgressSlider();
 
         //goal
-        showShortEdit(item->text(1));
-        showExtraEdit(item->text(2));
+        showShortEdit(mainText);
+        showExtraEdit(extraText);
         showAddTask();
     }
     // For the goal prefixes
-    else if (item->text(0) == tr("Work") ||
-             item->text(0) == tr("Watch/ Listen") ||
-             item->text(0) == tr("Read") ||
-             item->text(0) == tr("Process") ||
-             item->text(0) == tr("Information") &&
+    else if (type == tr("Work") ||
+             type == tr("Watch/ Listen") ||
+             type == tr("Read") ||
+             type == tr("Process") ||
+             type == tr("Information") &&
              item->parent()->text(0) == tr("Goal")) // big if :)
 
     {
         hideAddReportTest();
         hideLongEdit();
+        hideProgressSlider();
 
-        showTypeSelector(item->text(0));
-        showShortEdit(item->text(1));
-        showExtraEdit(item->text(2));
+        showTypeSelector(type);
+        showShortEdit(mainText);
+        showExtraEdit(extraText);
         showAddTask();
     }
-    else if (item->text(0) == tr("Time")) {
+    else if (type == tr("Time")) {
         //goal time
         hideAddReportTest();
         hideTypeSelector();
         hideExtraEdit();
         hideLongEdit();
+        hideProgressSlider();
 
-        showShortEdit(item->text(1));
+        showShortEdit(mainText);
         showAddTask();
     }
-    else if (item->text(0) == tr("Week")) {
+    else if (type == tr("Week")) {
         //goal week (also works with test)
         hideAddReportTest();
         hideTypeSelector();
         hideExtraEdit();
         hideLongEdit();
+        hideProgressSlider();
 
-        showShortEdit(item->text(1));
+        showShortEdit(mainText);
 
         if (item->parent()->text(0) == tr("Goal")) {
             showAddTask();
@@ -190,24 +213,26 @@ void Creator::on_mainDisplay_itemClicked(QTreeWidgetItem* item, int column) {
             hideAddTask();
         }
     }
-    else if (item->text(0) == tr("Progress")) {
+    else if (type == tr("Progress")) {
         //goal progress
         hideAddReportTest();
         hideTypeSelector();
         hideExtraEdit();
         hideLongEdit();
+        hideShortEdit();
 
-        showShortEdit(item->text(1));
         showAddTask();
+        showProgressSlider(mainText.toInt());
     } // Test
-    else if (item->text(0) == tr("Test")) {
+    else if (type == tr("Test")) {
         //Main Test (also works with report test)
         hideAddTask();
         hideTypeSelector();
         hideLongEdit();
+        hideProgressSlider();
 
-        showShortEdit(item->text(1));
-        showExtraEdit(item->text(2));
+        showShortEdit(mainText);
+        showExtraEdit(extraText);
 
         if (item->parent() != nullptr) {
             showAddReportTest();
@@ -217,43 +242,47 @@ void Creator::on_mainDisplay_itemClicked(QTreeWidgetItem* item, int column) {
         }
     }
     // report
-    else if (item->text(0) == tr("Report")) {
+    else if (type == tr("Report")) {
         hideAddTask();
         hideTypeSelector();
         hideShortEdit();
         hideExtraEdit();
         hideLongEdit();
+        hideProgressSlider();
 
         showAddReportTest();
     }
-    else if (item->text(0) == tr("Information") && item->parent()->text(0) != tr("Goal")) {
+    else if (type == tr("Information") && item->parent()->text(0) != tr("Goal")) {
         // Also used for the main info
         hideAddTask();
         hideAddReportTest();
         hideTypeSelector();
         hideShortEdit();
         hideExtraEdit();
+        hideProgressSlider();
 
-        showLongEdit(item->text(1));
+        showLongEdit(mainText);
     }
     //Main Guide
-    else if (item->text(0) == tr("Guide")) {
+    else if (type == tr("Guide")) {
         hideAddTask();
         hideAddReportTest();
         hideTypeSelector();
         hideLongEdit();
+        hideProgressSlider();
 
-        showShortEdit(item->text(1));
-        showExtraEdit(item->text(2));
+        showShortEdit(mainText);
+        showExtraEdit(extraText);
     }
-    else if (item->text(0) == tr("Period")) {
+    else if (type == tr("Period")) {
         hideAddReportTest();
         hideTypeSelector();
         hideAddTask();
         hideExtraEdit();
         hideLongEdit();
+        hideProgressSlider();
 
-        showShortEdit(item->text(1));
+        showShortEdit(mainText);
     }
 }
 
@@ -408,6 +437,8 @@ void Creator::on_addList_itemDoubleClicked(QListWidgetItem* item) {
         progressItem->setText(0, tr("Progress"));
         progressItem->setText(1, "0");
 
+        ui->mainDisplay->setCurrentItem(topItem);
+        on_mainDisplay_itemClicked(topItem, 0);
         return;
     }
 
@@ -421,6 +452,8 @@ void Creator::on_addList_itemDoubleClicked(QListWidgetItem* item) {
         QTreeWidgetItem* information = new QTreeWidgetItem(topItem);
         information->setText(0, tr("Information"));
 
+        ui->mainDisplay->setCurrentItem(topItem);
+        on_mainDisplay_itemClicked(topItem, 0);
         return;
     }
 
@@ -431,11 +464,14 @@ void Creator::on_addList_itemDoubleClicked(QListWidgetItem* item) {
         QTreeWidgetItem* testItem = new QTreeWidgetItem(topItem);
         testItem->setText(0, tr("Test"));
 
+        ui->mainDisplay->setCurrentItem(topItem);
+        on_mainDisplay_itemClicked(topItem, 0);
         return;
     }
 
     if (item->text() == tr("Add Goal Task")) {
         QTreeWidgetItem* topItem;
+
         //search for parent goal
         if (ui->mainDisplay->currentItem()->text(0) == tr("Goal")) {
             topItem = ui->mainDisplay->currentItem();
@@ -446,6 +482,8 @@ void Creator::on_addList_itemDoubleClicked(QListWidgetItem* item) {
         QTreeWidgetItem* goalTask = new QTreeWidgetItem(topItem);
         goalTask->setText(0, tr("Work"));
 
+        ui->mainDisplay->setCurrentItem(goalTask);
+        on_mainDisplay_itemClicked(goalTask, 0);
         return;
     }
 
@@ -461,6 +499,8 @@ void Creator::on_addList_itemDoubleClicked(QListWidgetItem* item) {
         QTreeWidgetItem* reportTest = new QTreeWidgetItem(topItem);
         reportTest->setText(0, tr("Test"));
 
+        ui->mainDisplay->setCurrentItem(reportTest);
+        on_mainDisplay_itemClicked(reportTest, 0);
         return;
     }
 }
@@ -531,7 +571,9 @@ void Creator::on_actionSave_Guide_As_triggered() {
         baseFileName = settings.value("LastOpenedDir", ".").toString() + "/" + guide.name + ".xml";
 
     QString saveFileName = QFileDialog::getSaveFileName(this, tr("Save StudyGuide"),
-                                                        baseFileName, tr("StudyGuide Document (*.sgd);;XML Files (*.xml);;All Files (*)"));
+                                                        baseFileName,
+                                                        tr(
+                                                            "StudyGuide Document (*.sgd);;XML Files (*.xml);;All Files (*)"));
 
     if (saveFileName.isEmpty()) {
         qWarning() << "No save file given. Can't save";
@@ -544,7 +586,7 @@ void Creator::on_actionSave_Guide_As_triggered() {
 void Creator::save(GuideData::Data guide) {
     QFile currentGuideFile(currentGuide.absoluteFilePath());
     if (currentGuideFile.fileName().endsWith("sgd"))
-    XmlParser::saveXml(guide, currentGuideFile, false, false);
+        XmlParser::saveXml(guide, currentGuideFile, false, false);
 }
 
 void Creator::open(GuideData::Data guide) {
@@ -643,4 +685,133 @@ void Creator::open(GuideData::Data guide) {
             }
         }
     }
+}
+
+void Creator::on_upButton_clicked() {
+    QTreeWidgetItem* current = ui->mainDisplay->currentItem();
+    if (!current || !canBeManipulated(current))
+        return;
+
+    QTreeWidgetItem* parent = current->parent();
+
+    if (parent) {
+        // It's a child item
+        int index = parent->indexOfChild(current);
+        if (index > 0) {
+            QTreeWidgetItem* above = parent->child(index - 1);
+            if (canBeManipulated(above)) {
+                parent->takeChild(index);
+                parent->insertChild(index - 1, current);
+                ui->mainDisplay->setCurrentItem(current);
+            }
+        }
+    }
+    else {
+        // It's a top-level item
+        int index = ui->mainDisplay->indexOfTopLevelItem(current);
+        if (index > 0) {
+            QTreeWidgetItem* above = ui->mainDisplay->topLevelItem(index - 1);
+            if (canBeManipulated(above)) {
+                ui->mainDisplay->takeTopLevelItem(index);
+                ui->mainDisplay->insertTopLevelItem(index - 1, current);
+                ui->mainDisplay->setCurrentItem(current);
+            }
+        }
+    }
+}
+
+void Creator::on_downButton_clicked() {
+    QTreeWidgetItem* current = ui->mainDisplay->currentItem();
+    if (!current || !canBeManipulated(current))
+        return;
+
+    QTreeWidgetItem* parent = current->parent();
+
+    if (parent) {
+        // It's a child item
+        int index = parent->indexOfChild(current);
+        if (index > 0) {
+            QTreeWidgetItem* below = parent->child(index + 1);
+            if (canBeManipulated(below)) {
+                parent->takeChild(index);
+                parent->insertChild(index + 1, current);
+                ui->mainDisplay->setCurrentItem(current);
+            }
+        }
+    }
+    else {
+        // It's a top-level item
+        int index = ui->mainDisplay->indexOfTopLevelItem(current);
+        if (index > 0) {
+            QTreeWidgetItem* below = ui->mainDisplay->topLevelItem(index + 1);
+            if (canBeManipulated(below)) {
+                ui->mainDisplay->takeTopLevelItem(index);
+                ui->mainDisplay->insertTopLevelItem(index + 1, current);
+                ui->mainDisplay->setCurrentItem(current);
+            }
+        }
+    }
+}
+
+
+bool Creator::canBeManipulated(QTreeWidgetItem* item) {
+    QString name = item->text(0);
+    return name == tr("Goal") ||
+           name == tr("Work") ||
+           name == tr("Watch/ Listen") ||
+           name == tr("Read") ||
+           name == tr("Process") ||
+           // There are multiple instances of information, but only 1 can be manipulated.
+           (name == tr("Information") && item->parent()->text(0) == tr("Goal")) ||
+           name == tr("Test") || // Also for report tests
+           name == tr("Report");
+}
+
+bool Creator::isDefaultObject(QTreeWidgetItem* item) {
+    QString name = item->text(0);
+    return name == tr("Guide") ||
+           name == tr("Period") ||
+           (name == tr("Information") && item->parent()->text(0) == tr("Guide"));
+}
+
+void Creator::on_deleteButton_clicked() {
+    QTreeWidgetItem* currentItem = ui->mainDisplay->currentItem();
+    if (!currentItem)
+        return;
+
+    if (canBeManipulated(currentItem))
+        delete currentItem; // Aju!
+    else if (!isDefaultObject(currentItem))
+        delete currentItem->parent(); // Aju parent!
+}
+
+void Creator::on_progressSlider_sliderMoved(int newValue) {
+    // Set value to element
+    ui->mainDisplay->currentItem()->setText(1, QString::number(newValue));
+    setProgressSliderColour(newValue);
+}
+
+void Creator::setProgressSliderColour(int progress) {
+    QString colour;
+    GuidePalette palette;
+    GuidePalette::GuideElements element;
+
+    switch (progress) {
+        case 2:
+            element = GuidePalette::Progress_Finished;
+            break;
+        case 1:
+            element = GuidePalette::Progress_Working;
+            break;
+        case 0:
+            element = GuidePalette::Progress_NotStarted;
+            break;
+        default:
+            element = GuidePalette::HeaderBackground;
+            break;
+    }
+    colour = QString::fromLatin1("background-color:%1;")
+            .arg(palette.getColor(element).name());
+
+    ui->progressSlider->setStyleSheet(colour);
 }

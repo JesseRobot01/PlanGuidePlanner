@@ -50,6 +50,14 @@ private slots:
 
     void on_displayButton_clicked();
 
+    void on_upButton_clicked();
+
+    void on_downButton_clicked();
+
+    void on_deleteButton_clicked();
+
+    void on_progressSlider_sliderMoved(int newValue);
+
     void on_addList_itemDoubleClicked(QListWidgetItem* item);
 
     void on_actionOpen_Guide_triggered();
@@ -62,7 +70,6 @@ private:
     Ui::Creator* ui;
 
     //Manually adding the addlist items, for easyer configuration
-
     QListWidgetItem* addTask;
     QListWidgetItem* addReportTest;
     QListWidgetItem* listSpacer;
@@ -97,6 +104,16 @@ private:
     void hideLongEdit();
 
     void showLongEdit(QString text);
+
+    void hideProgressSlider();
+
+    void showProgressSlider(int value);
+
+    bool canBeManipulated(QTreeWidgetItem* item);
+
+    bool isDefaultObject(QTreeWidgetItem* item);
+
+    void setProgressSliderColour(int colour);
 };
 
 
