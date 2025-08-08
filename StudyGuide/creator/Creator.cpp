@@ -7,6 +7,7 @@
 #include "Creator.h"
 
 #include <QFileDialog>
+#include <QScrollArea>
 
 #include "ui_Creator.h"
 #include "guide/GuideData.h"
@@ -298,10 +299,17 @@ void Creator::on_typeSelector_currentTextChanged(QString string) {
 }
 
 void Creator::on_displayButton_clicked() {
+    QWidget* widget = new QWidget();
+    QVBoxLayout* layout = new QVBoxLayout(widget);
+    QScrollArea *scrollArea = new QScrollArea(widget);
     Guide* guide = new Guide();
 
     guide->setGuide(getCurrentGuide());
-    guide->show();
+
+    scrollArea->setWidget(guide);
+    layout->addWidget(scrollArea);
+    widget->setLayout(layout);
+    widget->show();
 }
 
 GuideData::Data Creator::getCurrentGuide() {
