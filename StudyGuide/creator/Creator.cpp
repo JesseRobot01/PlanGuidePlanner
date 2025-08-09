@@ -41,8 +41,8 @@ Creator::Creator(QWidget* parent) : QMainWindow(parent), ui(new Ui::Creator) {
 
     //Restore to initial configuration
     hideTypeSelector();
-    hideShortEdit();
-    hideExtraEdit();
+    showShortEdit("", tr("Subject Name"));
+    showExtraEdit("", tr("Short Name"));
     hideLongEdit();
     hideProgressSlider();
     hideAddTask();
@@ -93,9 +93,10 @@ void Creator::hideShortEdit() {
     ui->shortEditLabel->hide();
 }
 
-void Creator::showShortEdit(QString text) {
+void Creator::showShortEdit(QString text, QString labelName) {
     ui->shortEdit->setText(text);
     ui->shortEdit->setEnabled(true);
+    ui->shortEditLabel->setText(labelName);
     ui->shortEdit->show();
     ui->shortEditLabel->show();
 }
@@ -106,9 +107,10 @@ void Creator::hideExtraEdit() {
     ui->extraEditLabel->hide();
 }
 
-void Creator::showExtraEdit(QString text) {
+void Creator::showExtraEdit(QString text, QString labelName) {
     ui->extraEdit->setText(text);
     ui->extraEdit->setEnabled(true);
+    ui->extraEditLabel->setText(labelName);
     ui->extraEdit->show();
     ui->extraEditLabel->show();
 }
@@ -119,9 +121,10 @@ void Creator::hideLongEdit() {
     ui->longEditLabel->hide();
 }
 
-void Creator::showLongEdit(QString text) {
+void Creator::showLongEdit(QString text, QString labelName) {
     ui->longEdit->setPlainText(text);
     ui->longEdit->setEnabled(true);
+    ui->longEditLabel->setText(labelName);
     ui->longEdit->show();
     ui->longEditLabel->show();
 }
@@ -144,7 +147,7 @@ void Creator::on_mainDisplay_itemClicked(QTreeWidgetItem* item, int column) {
     const QString type = item->text(0);
     const QString mainText = item->text(1);
     const QString extraText = item->text(2);
-    
+
     //goals
     if (type == tr("Goal")) {
         hideAddReportTest();
@@ -153,8 +156,8 @@ void Creator::on_mainDisplay_itemClicked(QTreeWidgetItem* item, int column) {
         hideProgressSlider();
 
         //goal
-        showShortEdit(mainText);
-        showExtraEdit(extraText);
+        showShortEdit(mainText, tr("Name"));
+        showExtraEdit(extraText, tr("Number"));
         showAddTask();
     }
     // For the goal prefixes
@@ -171,8 +174,8 @@ void Creator::on_mainDisplay_itemClicked(QTreeWidgetItem* item, int column) {
         hideProgressSlider();
 
         showTypeSelector(type);
-        showShortEdit(mainText);
-        showExtraEdit(extraText);
+        showShortEdit(mainText, tr("Goal"));
+        showExtraEdit(extraText, tr("Link"));
         showAddTask();
     }
     else if (type == tr("Time")) {
@@ -183,7 +186,7 @@ void Creator::on_mainDisplay_itemClicked(QTreeWidgetItem* item, int column) {
         hideLongEdit();
         hideProgressSlider();
 
-        showShortEdit(mainText);
+        showShortEdit(mainText, tr("Time"));
         showAddTask();
     }
     else if (type == tr("Week")) {
@@ -194,7 +197,7 @@ void Creator::on_mainDisplay_itemClicked(QTreeWidgetItem* item, int column) {
         hideLongEdit();
         hideProgressSlider();
 
-        showShortEdit(mainText);
+        showShortEdit(mainText, tr("Week"));
 
         if (item->parent()->text(0) == tr("Goal")) {
             showAddTask();
@@ -221,8 +224,8 @@ void Creator::on_mainDisplay_itemClicked(QTreeWidgetItem* item, int column) {
         hideLongEdit();
         hideProgressSlider();
 
-        showShortEdit(mainText);
-        showExtraEdit(extraText);
+        showShortEdit(mainText, "Name");
+        showExtraEdit(extraText, tr("Number"));
 
         if (item->parent() != nullptr) {
             showAddReportTest();
@@ -251,7 +254,7 @@ void Creator::on_mainDisplay_itemClicked(QTreeWidgetItem* item, int column) {
         hideExtraEdit();
         hideProgressSlider();
 
-        showLongEdit(mainText);
+        showLongEdit(mainText, "Info");
     }
     //Main Guide
     else if (type == tr("Guide")) {
@@ -261,8 +264,8 @@ void Creator::on_mainDisplay_itemClicked(QTreeWidgetItem* item, int column) {
         hideLongEdit();
         hideProgressSlider();
 
-        showShortEdit(mainText);
-        showExtraEdit(extraText);
+        showShortEdit(mainText, tr("Subject Name"));
+        showExtraEdit(extraText, tr("Short Name"));
     }
     else if (type == tr("Period")) {
         hideAddReportTest();
@@ -272,7 +275,7 @@ void Creator::on_mainDisplay_itemClicked(QTreeWidgetItem* item, int column) {
         hideLongEdit();
         hideProgressSlider();
 
-        showShortEdit(mainText);
+        showShortEdit(mainText, tr("Period"));
     }
 }
 
@@ -290,7 +293,7 @@ void Creator::on_typeSelector_currentTextChanged(QString string) {
 void Creator::on_displayButton_clicked() {
     QWidget* widget = new QWidget();
     QVBoxLayout* layout = new QVBoxLayout(widget);
-    QScrollArea *scrollArea = new QScrollArea(widget);
+    QScrollArea* scrollArea = new QScrollArea(widget);
     Guide* guide = new Guide();
 
     guide->setGuide(getCurrentGuide());
@@ -682,6 +685,9 @@ void Creator::open(GuideData::Data guide) {
             }
         }
     }
+
+    showShortEdit(guide.name, tr("Subject Name"));
+    showExtraEdit(guide.shortName, tr("Short Name"));
 }
 
 void Creator::on_upButton_clicked() {

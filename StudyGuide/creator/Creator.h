@@ -95,15 +95,15 @@ private:
 
     void hideShortEdit();
 
-    void showShortEdit(QString text);
+    void showShortEdit(QString text, QString labelName);
 
     void hideExtraEdit();
 
-    void showExtraEdit(QString text);
+    void showExtraEdit(QString text, QString labelName);
 
     void hideLongEdit();
 
-    void showLongEdit(QString text);
+    void showLongEdit(QString text, QString labelName);
 
     void hideProgressSlider();
 
