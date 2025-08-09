@@ -40,24 +40,13 @@ Creator::Creator(QWidget* parent) : QMainWindow(parent), ui(new Ui::Creator) {
 
 
     //Restore to initial configuration
-    ui->typeSelector->setEnabled(false);
-    ui->shortEdit->setEnabled(false);
-    ui->extraEdit->setEnabled(false);
-    ui->longEdit->setEnabled(false);
-
-    ui->typeSelector->hide();
-    ui->shortEdit->hide();
-    ui->extraEdit->hide();
-    ui->longEdit->hide();
-
-    ui->typeSelectorLabel->hide();
-    ui->shortEditLabel->hide();
-    ui->extraEditLabel->hide();
-    ui->longEditLabel->hide();
-
-    addTask->setHidden(true);
-    addReportTest->setHidden(true);
-    listSpacer->setHidden(true);
+    hideTypeSelector();
+    hideShortEdit();
+    hideExtraEdit();
+    hideLongEdit();
+    hideProgressSlider();
+    hideAddTask();
+    hideAddReportTest();
 }
 
 Creator::~Creator() {
