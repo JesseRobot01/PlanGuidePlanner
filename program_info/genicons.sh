@@ -35,3 +35,20 @@ else
     echo "ERROR: Windows icons were NOT generated!" >&2
     echo "ERROR: requires inkscape, icotool and oxipng in PATH"
 fi
+
+if command -v "inkscape"; then
+    # Android res
+   
+    svg2png "SG-AppIcon.svg" "Android/res/drawable-ldpi/studyguide.png" 36 36
+    svg2png "SG-AppIcon.svg" "Android/res/drawable-mdpi/studyguide.png" 48 48
+    svg2png "SG-AppIcon.svg" "Android/res/drawable-hdpi/studyguide.png" 72 72
+    svg2png "SG-AppIcon.svg" "Android/res/drawable-xhdpi/studyguide.png" 96 96
+    svg2png "SG-AppIcon.svg" "Android/res/drawable-xxhdpi/studyguide.png" 144 144
+    svg2png "SG-AppIcon.svg" "Android/res/drawable-xxxhdpi/studyguide.png" 192 192
+
+else
+    echo "ERROR: Android icons were NOT generated!" >&2
+    echo "ERROR: requires inkscape in PATH"
+fi
+
+

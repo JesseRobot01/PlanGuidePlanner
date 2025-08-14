@@ -194,6 +194,7 @@ if (LINUX)
 endif ()
 
 add_subdirectory(buildconfig)
+add_subdirectory(program_info)
 
 if (BUILD_TESTING)
     add_subdirectory(tests)

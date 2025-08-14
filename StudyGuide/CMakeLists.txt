@@ -84,7 +84,7 @@ if (DEFINED APP_BINARY_NAME)
 endif ()
 
 if (ANDROID)
-    set(android_source_dir ${CMAKE_SOURCE_DIR}/buildconfig/Android)
+    set(android_source_dir ${CMAKE_BINARY_DIR}/Android)
     message(${android_source_dir})
     set_target_properties(${EXECUTABLE_NAME} PROPERTIES QT_ANDROID_PACKAGE_SOURCE_DIR ${android_source_dir})
 endif ()
