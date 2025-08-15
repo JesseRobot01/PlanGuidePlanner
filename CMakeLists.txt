@@ -33,6 +33,7 @@ if (NOT QuaZip-Qt6_FOUND)
 endif ()
 
 option(BUILD_TESTING "Build the testing tree." ON)
+option(DEV_BUILD "Development Build" ON)
 
 include(CTest)
 if (BUILD_TESTING)
@@ -109,7 +110,7 @@ endif ()
 string(TIMESTAMP TODAY "%Y-%m-%d")
 set(STUDYGUIDE_BUILD_DATE "${TODAY}")
 
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+if (DEV_BUILD)
     set(STUDYGUIDE_VERSION "${STUDYGUIDE_VERSION}-r${GIT_COMMIT_NUMBER}.${GIT_COMMIT_HASH}")
 endif ()
 

@@ -10,7 +10,8 @@ jobs:
     name: Build Dev Release
     uses: ./.github/workflows/build.yml
     with:
-      build_type: Debug
+      BUILD_TYPE: Debug
+      DEV_BUILD: true
 
   deploy-to-page:
     name: Deploy WASM
