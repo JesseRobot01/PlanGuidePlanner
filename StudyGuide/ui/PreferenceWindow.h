@@ -41,6 +41,10 @@ private slots:
 
     void on_fullResetButton_pressed();
 
+    void on_logsDirectoryPicker_pressed();
+
+    void on_autoSaveDirPicker_pressed();
+
 private:
     Ui::PreferenceWindow* ui;
 

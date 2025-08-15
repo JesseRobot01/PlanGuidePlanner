@@ -9,6 +9,7 @@
 #include "../Application.h"
 #include <QComboBox>
 #include <qdir.h>
+#include <QFileDialog>
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <qstandardpaths.h>
@@ -115,4 +116,24 @@ void PreferenceWindow::on_fullResetButton_pressed() {
     // this does the same as clear dirs and clear settings, so just call them.
     on_clearDirButton_pressed();
     on_clearSettingsButton_pressed();
+}
+
+void PreferenceWindow::on_logsDirectoryPicker_pressed() {
+    auto* logsDir = ui->logsDirectory;
+    QString newDir;
+
+    newDir = QFileDialog::getExistingDirectory(this, tr("log directory"), logsDir->text());
+
+    if (!newDir.isEmpty())
+        logsDir->setText(newDir);
+}
+
+void PreferenceWindow::on_autoSaveDirPicker_pressed() {
+    auto* autoSaveDir = ui->autoSaveDir;
+    QString newDir;
+
+    newDir = QFileDialog::getExistingDirectory(this, tr("Auto Save directory"), autoSaveDir->text());
+
+    if (!newDir.isEmpty())
+        autoSaveDir->setText(newDir);
 }
