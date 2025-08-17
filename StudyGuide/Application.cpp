@@ -49,7 +49,8 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
     QCommandLineParser commandLineParser;
 
     commandLineParser.addOptions({
-            {{"L", "lang"}, "Sets the language of the application", "lang"}
+            {{"l", "lang"}, "Sets the language of the application", "lang"},
+            {{"c", "creator"}, "Open creator"},
         }
     );
     commandLineParser.addHelpOption();
@@ -125,87 +126,109 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
 
     setLanguage(settings.value("Lang", "en").toString());
 
-    qDebug() << "Loading app window.";
-    appWindow = new MainWindow;
-    appWindow->show();
-    qDebug() << "App Window loaded successfully.";
-
-    // auto open all files.
-    QDir autoOpenDir = getAutoSaveLocation();
-    if (autoOpenDir.exists() && !autoOpenDir.isEmpty()) {
-        QStringList guideFileNames = autoOpenDir.entryList(QDir::Files);
-        QStringList guideFiles;
-        LoadGuide* loadGuide = new LoadGuide(appWindow, guideFileNames.count() * 2); // 1 for reading, 1 for opening.
-        loadGuide->show();
-
-        for (const QString&GuideFileName: guideFileNames)
-            guideFiles.append(autoOpenDir.filePath(GuideFileName));
-
-        QVector<GuideData::Data> guides = XmlParser::readXml(guideFiles);
-        loadGuide->increaseProgress(guideFileNames.count());
-
-        for (GuideData::Data guide: guides) {
-            appWindow->processGuide(guide, false);
-            loadGuide->increaseProgress();
-        }
-        //manualy update start.
-        appWindow->updateStart();
-        delete loadGuide; // no need anymore, so bye!
-    }
-
-    if (!commandLineParser.positionalArguments().isEmpty()) {
-        const QStringList files = commandLineParser.positionalArguments();
-        const QDir tempDir(QStandardPaths::writableLocation(QStandardPaths::TempLocation));
-        QStringList guideFiles;
-
-        for (auto file: files) {
-            if (file.endsWith("zip") || file.endsWith("sgc")) {
-                qDebug() << "Found zip file:" << file << ". Extracting...";
-
-                QStringList extractedFiles = JlCompress::extractDir(file, tempDir.absolutePath());
-
-                for (const QString&extractedFile: extractedFiles) {
-                    qDebug() << "Extracted:" << file;
-                    if (extractedFile.endsWith("xml")|| (extractedFile.endsWith("sgd")))
-                        guideFiles.append(extractedFile);
-                }
-            }
-            else if (file.endsWith("xml") || file.endsWith("sgd") || file.endsWith("sga"))
-                guideFiles.append(file);
-        }
-        QVector<GuideData::Data> guides = XmlParser::readXml(files);
-        for (GuideData::Data guide: guides) {
-            QDir copyToDestination(getAutoSaveLocation());
-
-            if (copyToDestination.mkpath(".")) {
-                QFileInfo autoSaveFile(copyToDestination.filePath(guide.shortName + "_0.sga"));
+    if (!commandLineParser.isSet("creator")) {
+        // Show main app
+        qDebug() << "Loading app window.";
+        appWindow = new MainWindow;
+        appWindow->show();
+        qDebug() << "App Window loaded successfully.";
 
 
-                QString baseName = guide.shortName;
-                QString candidateName = baseName + "_0.sga";
-                QString fullPath = copyToDestination.absoluteFilePath(candidateName);
+        // auto open all files.
+        QDir autoOpenDir = getAutoSaveLocation();
+        if (autoOpenDir.exists() && !autoOpenDir.isEmpty()) {
+            QStringList guideFileNames = autoOpenDir.entryList(QDir::Files);
+            QStringList guideFiles;
+            LoadGuide* loadGuide = new LoadGuide(appWindow, guideFileNames.count() * 2);
+            // 1 for reading, 1 for opening.
+            loadGuide->show();
 
-                int number = 1; // Incase there are duplicates
+            for (const QString&GuideFileName: guideFileNames)
+                guideFiles.append(autoOpenDir.filePath(GuideFileName));
 
-                // Check if the file already exists and increment the counter
-                while (QFile::exists(fullPath)) {
-                    candidateName = baseName + "_" + QString::number(number++) + ".sga";
-                    fullPath = copyToDestination.absoluteFilePath(candidateName); // Recalculate path with new number
-                }
+            QVector<GuideData::Data> guides = XmlParser::readXml(guideFiles);
+            loadGuide->increaseProgress(guideFileNames.count());
 
-                autoSaveFile = QFileInfo(fullPath);
-
-                QFile fileToSave(autoSaveFile.absoluteFilePath());
-
-                XmlParser::saveXml(guide, fileToSave, true, false);
-
-                guide.autoSaveFile = autoSaveFile;
+            for (GuideData::Data guide: guides) {
                 appWindow->processGuide(guide, false);
+                loadGuide->increaseProgress();
             }
-            else {
-                qCritical() << "Failed to create autosave dir.";
+            //manualy update start.
+            appWindow->updateStart();
+            delete loadGuide; // no need anymore, so bye!
+        }
+
+        if (!commandLineParser.positionalArguments().isEmpty()) {
+            const QStringList files = commandLineParser.positionalArguments();
+            const QDir tempDir(QStandardPaths::writableLocation(QStandardPaths::TempLocation));
+            QStringList guideFiles;
+
+            for (auto file: files) {
+                if (file.endsWith("zip") || file.endsWith("sgc")) {
+                    qDebug() << "Found zip file:" << file << ". Extracting...";
+
+                    QStringList extractedFiles = JlCompress::extractDir(file, tempDir.absolutePath());
+
+                    for (const QString&extractedFile: extractedFiles) {
+                        qDebug() << "Extracted:" << file;
+                        if (extractedFile.endsWith("xml") || (extractedFile.endsWith("sgd")))
+                            guideFiles.append(extractedFile);
+                    }
+                }
+                else if (file.endsWith("xml") || file.endsWith("sgd") || file.endsWith("sga"))
+                    guideFiles.append(file);
+            }
+            QVector<GuideData::Data> guides = XmlParser::readXml(files);
+            for (GuideData::Data guide: guides) {
+                QDir copyToDestination(getAutoSaveLocation());
+
+                if (copyToDestination.mkpath(".")) {
+                    QFileInfo autoSaveFile(copyToDestination.filePath(guide.shortName + "_0.sga"));
+
+
+                    QString baseName = guide.shortName;
+                    QString candidateName = baseName + "_0.sga";
+                    QString fullPath = copyToDestination.absoluteFilePath(candidateName);
+
+                    int number = 1; // Incase there are duplicates
+
+                    // Check if the file already exists and increment the counter
+                    while (QFile::exists(fullPath)) {
+                        candidateName = baseName + "_" + QString::number(number++) + ".sga";
+                        fullPath = copyToDestination.absoluteFilePath(candidateName);
+                        // Recalculate path with new number
+                    }
+
+                    autoSaveFile = QFileInfo(fullPath);
+
+                    QFile fileToSave(autoSaveFile.absoluteFilePath());
+
+                    XmlParser::saveXml(guide, fileToSave, true, false);
+
+                    guide.autoSaveFile = autoSaveFile;
+                    appWindow->processGuide(guide, false);
+                }
+                else {
+                    qCritical() << "Failed to create autosave dir.";
+                }
             }
         }
+    }
+    else {
+        // Open a creator window
+        qDebug() << "Opening Creator...";
+         creator = new Creator();
+        if (!commandLineParser.positionalArguments().isEmpty()) {
+            // Open the first file in creator
+            const QStringList files = commandLineParser.positionalArguments();
+            QFile file(files.at(0));
+            if (file.exists() && (file.fileName().endsWith("xml") || file.fileName().endsWith("sgd") || file.
+                                  fileName().endsWith("sga"))) {
+                creator->currentGuide = QFileInfo(file.fileName());
+                creator->open(XmlParser::readXml(&file));
+            }
+        }
+        creator->show();
     }
 }
 
@@ -246,18 +269,18 @@ void Application::restart() {
 
 void Application::requestStoragePermission() {
     bool value = QJniObject::callStaticMethod<jboolean>(
-            "android/os/Environment",
-            "isExternalStorageManager");
+        "android/os/Environment",
+        "isExternalStorageManager");
     if (value == false) {
         QJniObject filepermit = QJniObject::getStaticObjectField(
-                "android/provider/Settings",
-                "ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION",
-                "Ljava/lang/String;");
+            "android/provider/Settings",
+            "ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION",
+            "Ljava/lang/String;");
         QJniObject pkgName = QJniObject::fromString("package:io.jesserobot.studyguide");
         QJniObject parsedUri = QJniObject::callStaticObjectMethod(
-                "android/net/Uri",
-                "parse", "(Ljava/lang/String;)Landroid/net/Uri;",
-                pkgName.object<jstring>());
+            "android/net/Uri",
+            "parse", "(Ljava/lang/String;)Landroid/net/Uri;",
+            pkgName.object<jstring>());
         QJniObject intent("android/content/Intent",
                           "(Ljava/lang/String;Landroid/net/Uri;)V",
                           filepermit.object<jstring>(), parsedUri.object());

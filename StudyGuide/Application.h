@@ -3,11 +3,11 @@
 //
 
 
-#include <QFile>
 #include <QTimer>
 #include "guide/GuideData.h"
 #include "ui/MainWindow.h"
 #include <QApplication>
+#include "creator/Creator.h"
 
 #if defined(APPLICATION)
 #undef APPLICATION
@@ -55,4 +55,5 @@ private:
     MainWindow* appWindow;
     QTranslator* translator;
     QTimer* autoSaveTimer = new QTimer(this);
+    Creator* creator;
 };
