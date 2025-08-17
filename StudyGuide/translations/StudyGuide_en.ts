@@ -13,7 +13,7 @@
         <translation type="vanished">StudyGuide</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+43"/>
         <source>A tool for tracking your progress.</source>
         <translation>A tool for tracking your progress with your study.</translation>
     </message>
@@ -31,7 +31,7 @@
 <context>
     <name>AboutWindow</name>
     <message>
-        <location filename="../ui/AboutWindow.cpp" line="+18"/>
+        <location filename="../ui/AboutWindow.cpp" line="+38"/>
         <source>Build Date: %1</source>
         <translation>Build Date: %1</translation>
     </message>
@@ -70,48 +70,55 @@
     </message>
     <message>
         <location line="+5"/>
-        <location line="+155"/>
+        <location line="+100"/>
+        <location filename="../creator/Creator.cpp" line="+159"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location line="-150"/>
+        <location line="-95"/>
         <source>Extra Value</source>
         <translation>Extra Value</translation>
     </message>
     <message>
         <location line="+5"/>
-        <location filename="../creator/Creator.cpp" line="+241"/>
-        <location line="+131"/>
-        <location line="+189"/>
+        <location filename="../creator/Creator.cpp" line="+101"/>
+        <location line="+140"/>
+        <location line="+203"/>
+        <location line="+172"/>
+        <location line="+2"/>
         <source>Guide</source>
         <translation>Guide</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location filename="../creator/Creator.cpp" line="-311"/>
+        <location filename="../creator/Creator.cpp" line="-507"/>
+        <location line="+8"/>
         <location line="+129"/>
-        <location line="+183"/>
+        <location line="+197"/>
+        <location line="+172"/>
         <source>Period</source>
         <translation>Period</translation>
     </message>
     <message>
         <location line="+5"/>
-        <location line="+105"/>
-        <location filename="../creator/Creator.cpp" line="-406"/>
-        <location line="+74"/>
-        <location line="+81"/>
+        <location line="+139"/>
+        <location filename="../creator/Creator.cpp" line="-608"/>
+        <location line="+80"/>
+        <location line="+91"/>
         <location line="+35"/>
         <location line="+36"/>
-        <location line="+41"/>
-        <location line="+140"/>
+        <location line="+43"/>
+        <location line="+152"/>
         <location line="+47"/>
         <location line="+20"/>
+        <location line="+96"/>
+        <location line="+9"/>
         <source>Information</source>
         <translation>Information</translation>
     </message>
     <message>
-        <location line="-96"/>
+        <location line="-130"/>
         <source>Display stuff!!!</source>
         <translation>Display Guide</translation>
     </message>
@@ -121,7 +128,7 @@
         <translation>File</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+19"/>
         <source>Add Stuff</source>
         <translation>Add Objects</translation>
     </message>
@@ -131,70 +138,92 @@
         <translation>Edit Objects</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+42"/>
         <source>Type</source>
         <translation>Type</translation>
     </message>
     <message>
         <location line="+8"/>
-        <location filename="../creator/Creator.cpp" line="-478"/>
-        <location line="+147"/>
-        <location line="+149"/>
-        <location line="+150"/>
+        <location filename="../creator/Creator.cpp" line="-613"/>
+        <location line="+163"/>
+        <location line="+156"/>
+        <location line="+157"/>
+        <location line="+123"/>
         <source>Work</source>
         <translation>Work</translation>
     </message>
     <message>
         <location line="+5"/>
-        <location filename="../creator/Creator.cpp" line="-445"/>
-        <location line="+152"/>
-        <location line="+299"/>
+        <location filename="../creator/Creator.cpp" line="-598"/>
+        <location line="+168"/>
+        <location line="+313"/>
+        <location line="+118"/>
         <source>Watch/ Listen</source>
         <translation>Watch/ Listen</translation>
     </message>
     <message>
         <location line="+5"/>
-        <location filename="../creator/Creator.cpp" line="-450"/>
-        <location line="+148"/>
-        <location line="+299"/>
+        <location filename="../creator/Creator.cpp" line="-598"/>
+        <location line="+164"/>
+        <location line="+313"/>
+        <location line="+122"/>
         <source>Read</source>
         <translation>Read</translation>
     </message>
     <message>
         <location line="+5"/>
-        <location filename="../creator/Creator.cpp" line="-446"/>
-        <location line="+153"/>
-        <location line="+299"/>
+        <location filename="../creator/Creator.cpp" line="-598"/>
+        <location line="+169"/>
+        <location line="+313"/>
+        <location line="+117"/>
         <source>Process</source>
         <translation>Process</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+156"/>
+        <source>Ctrl+Shift+S</source>
+        <translatorcomment>Why do I have to translate this?!</translatorcomment>
+        <translation>Ctrl+Shift+S</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Quit</source>
+        <translation>Quit</translation>
+    </message>
+    <message>
+        <location line="-194"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="-10"/>
+        <location filename="../creator/Creator.cpp" line="-606"/>
+        <location line="+68"/>
         <source>Number</source>
         <translation>Number</translation>
     </message>
     <message>
-        <location line="+12"/>
-        <location filename="../creator/Creator.cpp" line="-403"/>
-        <location line="+130"/>
+        <location filename="../creator/Creator.cpp" line="-8"/>
+        <location line="+142"/>
         <location line="+26"/>
-        <location line="+57"/>
-        <location line="+16"/>
-        <location line="+30"/>
-        <location line="+158"/>
+        <location line="+59"/>
+        <location line="+18"/>
+        <location line="+35"/>
+        <location line="+163"/>
         <location line="+19"/>
+        <location line="+87"/>
         <source>Test</source>
         <translation>Test</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location filename="../creator/Creator.ui" line="+180"/>
         <source>Open Guide</source>
         <translation>Open File</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Ctrl+O</source>
+        <translation>Ctrl+O</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -202,102 +231,146 @@
         <translation>Save file</translation>
     </message>
     <message>
+        <location line="+3"/>
+        <source>Ctrl+S</source>
+        <translation>Ctrl+S</translation>
+    </message>
+    <message>
         <location line="+5"/>
         <source>Save Guide As</source>
         <translation>Save File As</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="-499"/>
-        <location line="+16"/>
-        <location line="+30"/>
-        <location line="+43"/>
-        <location line="+56"/>
+        <location filename="../creator/Creator.cpp" line="-617"/>
+        <location line="+17"/>
+        <location line="+8"/>
+        <location line="+25"/>
+        <location line="+46"/>
+        <location line="+66"/>
         <location line="+114"/>
-        <location line="+41"/>
-        <location line="+133"/>
+        <location line="+48"/>
+        <location line="+140"/>
+        <location line="+146"/>
+        <location line="+6"/>
         <source>Goal</source>
         <translation>Goal</translation>
     </message>
     <message>
-        <location line="-406"/>
-        <location line="+152"/>
+        <location line="-587"/>
+        <location line="+8"/>
+        <location line="+159"/>
         <location line="+83"/>
-        <location line="+177"/>
+        <location line="+191"/>
         <source>Time</source>
         <translation>Time</translation>
     </message>
     <message>
-        <location line="-402"/>
-        <location line="+136"/>
+        <location line="-430"/>
+        <location line="+8"/>
+        <location line="+142"/>
         <location line="+29"/>
         <location line="+63"/>
-        <location line="+14"/>
-        <location line="+165"/>
+        <location line="+16"/>
+        <location line="+177"/>
         <location line="+41"/>
         <source>Week</source>
         <translation>Week</translation>
     </message>
     <message>
-        <location line="-432"/>
-        <location line="+123"/>
+        <location filename="../creator/Creator.ui" line="-140"/>
+        <location filename="../creator/Creator.cpp" line="-459"/>
+        <location line="+136"/>
         <location line="+92"/>
-        <location line="+181"/>
+        <location line="+195"/>
         <source>Progress</source>
         <translation>Progress</translation>
     </message>
     <message>
-        <location line="-369"/>
-        <location line="+133"/>
-        <location line="+76"/>
-        <location line="+26"/>
-        <location line="+181"/>
+        <location filename="../creator/Creator.cpp" line="-394"/>
+        <location line="+144"/>
+        <location line="+80"/>
+        <location line="+31"/>
+        <location line="+186"/>
+        <location line="+91"/>
         <source>Report</source>
         <translation>Report</translation>
     </message>
     <message>
-        <location line="-239"/>
+        <location line="-737"/>
+        <location line="+393"/>
         <source>Add Goal</source>
         <translation>Add Goal</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="-390"/>
+        <location line="+409"/>
         <source>Add Test</source>
         <translation>Add Test</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="-406"/>
+        <location line="+421"/>
         <source>Add Report</source>
         <translation>Add Report</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-435"/>
+        <location line="+447"/>
         <source>Add Goal Task</source>
         <translation>Add task to goal</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="-444"/>
+        <location line="+462"/>
         <source>Add Test To Report</source>
         <translation>Add test to report</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="-446"/>
+        <location line="+223"/>
+        <location line="+422"/>
+        <source>Subject Name</source>
+        <translation>Subject Name</translation>
+    </message>
+    <message>
+        <location line="-644"/>
+        <location line="+223"/>
+        <location line="+422"/>
+        <source>Short Name</source>
+        <translation>Short Name</translation>
+    </message>
+    <message>
+        <location line="-512"/>
+        <source>Link</source>
+        <translation>Link</translation>
+    </message>
+    <message>
+        <location line="+343"/>
         <source>Open StudyGuide</source>
         <translation>Open File</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>All Supported Files (*.xml);;*.Xml Files (*.xml);;All Files (*)</source>
-        <translation>All Supported Files (*.xml);;*.Xml Files (*.xml);;All Files (*)</translation>
+        <source>All Supported Files (*.sgd *.sga *.xml);;StudyGuide Document (*.sgd);;StudyGuide Auto Save File (*.sga);;*.Xml Files (*.xml);;All Files (*)</source>
+        <translation>All Supported Files (*.sgd *.sga *.xml);;StudyGuide Document (*.sgd);;StudyGuide Auto Save File (*.sga);;*.Xml Files (*.xml);;All Files (*)</translation>
     </message>
     <message>
-        <location line="+50"/>
+        <location line="+52"/>
+        <source>StudyGuide Document (*.sgd);;XML Files (*.xml);;All Files (*)</source>
+        <translation>StudyGuide Document (*.sgd);;XML Files (*.xml);;All Files (*)</translation>
+    </message>
+    <message>
+        <source>All Supported Files (*.xml);;*.Xml Files (*.xml);;All Files (*)</source>
+        <translation type="vanished">All Supported Files (*.xml);;*.Xml Files (*.xml);;All Files (*)</translation>
+    </message>
+    <message>
+        <location line="-2"/>
         <source>Save StudyGuide</source>
         <translation>Save File</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>XML Files (*.xml);;All Files (*)</source>
-        <translation>XML FIles (*.xml);;All files (*)</translation>
+        <translation type="vanished">XML FIles (*.xml);;All files (*)</translation>
     </message>
 </context>
 <context>
@@ -464,6 +537,11 @@
         <translation>Exit</translation>
     </message>
     <message>
+        <location line="+3"/>
+        <source>Ctrl+Q</source>
+        <translation>Ctrl+Q</translation>
+    </message>
+    <message>
         <location line="+5"/>
         <source>Preferences</source>
         <translation>Preferences</translation>
@@ -474,9 +552,19 @@
         <translation>Open file</translation>
     </message>
     <message>
+        <location line="+3"/>
+        <source>Ctrl+O</source>
+        <translation>Ctrl+O</translation>
+    </message>
+    <message>
         <location line="+10"/>
         <source>Save And Close Guide</source>
         <translation>Save And Close File</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Ctrl+S</source>
+        <translation>Ctrl+S</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -489,16 +577,26 @@
         <translation>Save and Close all files</translation>
     </message>
     <message>
+        <location line="+3"/>
+        <source>Ctrl+Alt+S</source>
+        <translation>Ctrl+Alt+S</translation>
+    </message>
+    <message>
         <location line="+5"/>
         <source>Open In Creator</source>
         <translation>Open in Creator</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Ctrl+E</source>
+        <translation>Ctrl+E</translation>
     </message>
     <message>
         <source>Save Guide As</source>
         <translation type="vanished">Save Guide As</translation>
     </message>
     <message>
-        <location line="-33"/>
+        <location line="-42"/>
         <source>About</source>
         <translation>About StudyGuide</translation>
     </message>
@@ -507,7 +605,7 @@
         <translation type="vanished">Save Guide</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+16"/>
         <source>Close guide</source>
         <translation>Close File</translation>
     </message>
@@ -528,9 +626,13 @@
     </message>
     <message>
         <location line="-12"/>
-        <location line="+14"/>
         <source>All Supported Files (*.xml *.zip);;*.Xml Files (*.xml);;Zip Files (*.zip);;All Files (*)</source>
         <translation>All Supported Files (*.xml *.zip);;*.Xml Files (*.xml);;Zip Files (*.zip);;All Files (*)</translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>All Supported Files (*.sgd *.sgc *.sga *.xml *.zip);;*.Xml Files (*.sgd *.sga *.xml);;Zip Files (*.sgc *.zip);;All Files (*)</source>
+        <translation>All Supported Files (*.sgd *.sgc *.sga *.xml *.zip);;*.Xml Files (*.sgd *.sga *.xml);;Zip Files (*.sgc *.zip);;All Files (*)</translation>
     </message>
     <message>
         <location line="+155"/>
@@ -538,19 +640,27 @@
         <translation>Save File</translation>
     </message>
     <message>
-        <location line="+75"/>
+        <location line="+2"/>
+        <source>StudyGuide Document (*.sgd);;XML File (*.xml);;All Files (*)</source>
+        <translation>StudyGuide Document (*.sgd);;XML File (*.xml);;All Files (*)</translation>
+    </message>
+    <message>
+        <location line="+79"/>
         <source>Save All Guides</source>
         <translation>Save All Files</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>ZIP Files (*.zip);;All Files (*)</source>
-        <translation>Zip Files (*.zip);;All Files (*)</translation>
+        <source>StudyGuide Collection (*.sgc);;ZIP Files (*.zip);;All Files (*)</source>
+        <translation>StudyGuide Collection (*.sgc);;ZIP Files (*.zip);;All Files (*)</translation>
     </message>
     <message>
-        <location line="-76"/>
+        <source>ZIP Files (*.zip);;All Files (*)</source>
+        <translation type="vanished">Zip Files (*.zip);;All Files (*)</translation>
+    </message>
+    <message>
         <source>XML Files (*.xml);;All Files (*)</source>
-        <translation>XML FIles (*.xml);;All files (*)</translation>
+        <translation type="vanished">XML FIles (*.xml);;All files (*)</translation>
     </message>
 </context>
 <context>
@@ -585,7 +695,7 @@
         <translation type="vanished">Use auto save</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+30"/>
         <source>Auto save directory</source>
         <translation>Auto Save directory</translation>
     </message>
@@ -602,7 +712,7 @@
         <translation type="vanished">Automaticly copy over new opened files to Auto Open Dir</translation>
     </message>
     <message>
-        <location line="+31"/>
+        <location line="+45"/>
         <source>Language</source>
         <translation>language</translation>
     </message>
@@ -657,7 +767,7 @@
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../ui/PreferenceWindow.cpp" line="+23"/>
+        <location filename="../ui/PreferenceWindow.cpp" line="+24"/>
         <source>English</source>
         <translation>English (English)</translation>
     </message>
@@ -680,6 +790,16 @@
         <location line="+3"/>
         <source>System</source>
         <translation>System</translation>
+    </message>
+    <message>
+        <location line="+94"/>
+        <source>log directory</source>
+        <translation>Log Directory</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Auto Save directory</source>
+        <translation>Auto Save Directory</translation>
     </message>
 </context>
 <context>
