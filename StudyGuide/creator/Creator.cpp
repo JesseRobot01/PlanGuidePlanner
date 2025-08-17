@@ -224,7 +224,7 @@ void Creator::on_mainDisplay_itemClicked(QTreeWidgetItem* item, int column) {
         hideLongEdit();
         hideProgressSlider();
 
-        showShortEdit(mainText, "Name");
+        showShortEdit(mainText, tr("Name"));
         showExtraEdit(extraText, tr("Number"));
 
         if (item->parent() != nullptr) {
@@ -254,7 +254,7 @@ void Creator::on_mainDisplay_itemClicked(QTreeWidgetItem* item, int column) {
         hideExtraEdit();
         hideProgressSlider();
 
-        showLongEdit(mainText, "Info");
+        showLongEdit(mainText, tr("Info"));
     }
     //Main Guide
     else if (type == tr("Guide")) {

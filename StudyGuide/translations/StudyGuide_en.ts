@@ -72,6 +72,7 @@
         <location line="+5"/>
         <location line="+100"/>
         <location filename="../creator/Creator.cpp" line="+159"/>
+        <location line="+68"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
@@ -82,7 +83,7 @@
     </message>
     <message>
         <location line="+5"/>
-        <location filename="../creator/Creator.cpp" line="+101"/>
+        <location filename="../creator/Creator.cpp" line="+33"/>
         <location line="+140"/>
         <location line="+203"/>
         <location line="+172"/>
@@ -192,12 +193,13 @@
     </message>
     <message>
         <location line="-194"/>
+        <location filename="../creator/Creator.cpp" line="-509"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
     <message>
         <location line="-10"/>
-        <location filename="../creator/Creator.cpp" line="-606"/>
+        <location filename="../creator/Creator.cpp" line="-97"/>
         <location line="+68"/>
         <source>Number</source>
         <translation>Number</translation>
