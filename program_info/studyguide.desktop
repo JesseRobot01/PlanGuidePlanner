@@ -7,4 +7,4 @@ Exec=studyguide %F
 StartupNotify=true
 Icon=studyguide
 Categories=Education
-MimeType=text/xml;application/zip;application/x-studyguide-sgd;application/x-studyguide-sgc;application/x-studyguide-sga;
+MimeType=application/x-studyguide-sgd;application/x-studyguide-sgc;application/x-studyguide-sga;
