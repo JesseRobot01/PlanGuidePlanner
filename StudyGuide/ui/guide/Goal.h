@@ -47,6 +47,7 @@ public:
 
     void addInfo(const QString &info, const QString&link = "");
 
+    void addTask(const GuideData::GuideGoalPrefixes task);
 
     void setProgress(int progress, bool changedFile = true);
 

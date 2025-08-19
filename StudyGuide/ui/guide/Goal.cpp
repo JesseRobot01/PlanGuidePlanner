@@ -73,266 +73,153 @@ void Goal::setTime(const QString&time) {
     ui->goalTime->setText(time);
 }
 
+void Goal::addTask(const GuideData::GuideGoalPrefixes task) {
+    GuidePalette palette;
+
+    QString indicatorText;
+    QString indicatorBackgroundColour;
+    QString indicatorTextColour;
+
+    QString link = task.link;
+    QString name = task.prefixText;
+
+    switch (task.prefix) {
+        case GuideData::Work:
+            indicatorText = tr("UI_WORKINDICATOR");
+
+            indicatorBackgroundColour = palette.getColor(GuidePalette::WorkIndicatorBackground).name();
+            indicatorTextColour = palette.getColor(GuidePalette::WorkIndicatorText).name();
+            break;
+
+        case GuideData::Watch:
+            indicatorText = tr("UI_WATCHINDICATOR");
+
+            indicatorBackgroundColour = palette.getColor(GuidePalette::WatchIndicatorBackground).name();
+            indicatorTextColour = palette.getColor(GuidePalette::WatchIndicatorText).name();
+            break;
+
+        case GuideData::Read:
+            indicatorText = tr("UI_READINDICATOR");
+
+            indicatorBackgroundColour = palette.getColor(GuidePalette::ReadIndicatorBackground).name();
+            indicatorTextColour = palette.getColor(GuidePalette::InfoIndicatorText).name();
+            break;
+
+
+        case GuideData::Process:
+            indicatorText = tr("UI_PROCESSINDICATOR");
+
+            indicatorBackgroundColour = palette.getColor(GuidePalette::ProcessIndicatorBackground).name();
+            indicatorTextColour = palette.getColor(GuidePalette::InfoIndicatorText).name();
+            break;
+
+        case GuideData::Info:
+            indicatorText = tr("UI_INFOINDICATOR");
+
+            indicatorBackgroundColour = palette.getColor(GuidePalette::InfoIndicatorBackground).name();
+            indicatorTextColour = palette.getColor(GuidePalette::InfoIndicatorText).name();
+            break;
+    }
+
+
+    QString indicatorStyle = QString::fromLatin1(
+                "background-color:%1; border-width:3px; border-style:solid; border-color:%2;color:%3")
+            .arg(indicatorBackgroundColour)
+            .arg(palette.color(QPalette::Base).name())
+            .arg(indicatorTextColour);
+
+    // work indicator generation
+    QLabel* indicator = new QLabel(this);
+    indicator->setGeometry(0, size, 90, 40);
+    QFont indicatorFont;
+    indicatorFont.setPointSize(22);
+    indicatorFont.setBold(true);
+    indicator->setFont(indicatorFont);
+    indicator->setStyleSheet(indicatorStyle);
+    indicator->setFrameShape(QFrame::Box);
+    indicator->setLineWidth(3);
+    indicator->setAlignment(Qt::AlignCenter);
+    indicator->setText(indicatorText);
+
+    // and now the text
+    QLabel* textLabel = new QLabel(this);
+    textLabel->setGeometry(QRect(90, size, 890, 40));
+    QFont workFont;
+    workFont.setPointSize(12);
+    workFont.setBold(false);
+    textLabel->setFont(workFont);
+    textLabel->setFrameShape(QFrame::NoFrame);
+    textLabel->setLineWidth(3);
+    textLabel->setAlignment(Qt::AlignCenter);
+
+    if (!link.isEmpty()) {
+        QString text = QString("<a href=\"%2\">%1</a>")
+                .arg(name)
+                .arg(link);
+        textLabel->setOpenExternalLinks(true);
+        textLabel->setText(text);
+    }
+    else
+        textLabel->setText(name);
+
+    size += 40;
+}
+
 void Goal::addWork(const QString&workName, const QString&link) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
-    GuidePalette palette;
+
     prefix.prefix = GuideData::Work;
     prefix.prefixText = workName;
     prefix.link = link;
     prefixes.append(prefix);
 
-    QString indicatorStyle = QString::fromLatin1(
-                "background-color:%1; border-width:3px; border-style:solid; border-color:%2;color:%3")
-            .arg(palette.getColor(GuidePalette::WorkIndicatorBackground).name())
-            .arg(palette.color(QPalette::Base).name())
-            .arg(palette.getColor(GuidePalette::WorkIndicatorText).name());
-
-    // work indicator generation
-    QLabel* workIndicator = new QLabel(this);
-    workIndicator->setGeometry(0, size, 90, 40);
-    QFont indicatorFont;
-    indicatorFont.setPointSize(22);
-    indicatorFont.setBold(true);
-    workIndicator->setFont(indicatorFont);
-    workIndicator->setStyleSheet(indicatorStyle);
-    workIndicator->setFrameShape(QFrame::Box);
-    workIndicator->setLineWidth(3);
-    workIndicator->setAlignment(Qt::AlignCenter);
-    workIndicator->setText(tr("UI_WORKINDICATOR"));
-
-    // and now the text
-    QLabel* work = new QLabel(this);
-    work->setGeometry(QRect(90, size, 890, 40));
-    QFont workFont;
-    workFont.setPointSize(12);
-    workFont.setBold(false);
-    work->setFont(workFont);
-    work->setFrameShape(QFrame::NoFrame);
-    work->setLineWidth(3);
-    work->setAlignment(Qt::AlignCenter);
-
-    if (!link.isEmpty()) {
-        QString workText = QString("<a href=\"%2\">%1</a>")
-                .arg(workName)
-                .arg(link);
-        work->setOpenExternalLinks(true);
-        work->setText(workText);
-    }
-    else
-        work->setText(workName);
-
-    size += 40;
+    addTask(prefix);
 }
 
 void Goal::addWatch(const QString&watchName, const QString&link) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
-    GuidePalette palette;
-
-    QString indicatorStyle = QString::fromLatin1(
-                "background-color:%1; border-width:3px; border-style:solid; border-color:%2;color:%3")
-            .arg(palette.getColor(GuidePalette::WatchIndicatorBackground).name())
-            .arg(palette.color(QPalette::Base).name())
-            .arg(palette.getColor(GuidePalette::WatchIndicatorText).name());
 
     prefix.prefix = GuideData::Watch;
     prefix.prefixText = watchName;
     prefix.link = link;
     prefixes.append(prefix);
 
-    // watch indicator generation
-    QLabel* watchIndicator = new QLabel(this);
-    watchIndicator->setGeometry(0, size, 90, 40);
-    QFont indicatorFont;
-    indicatorFont.setPointSize(22);
-    indicatorFont.setBold(true);
-    watchIndicator->setFont(indicatorFont);
-    watchIndicator->setStyleSheet(indicatorStyle);
-    watchIndicator->setFrameShape(QFrame::Box);
-    watchIndicator->setLineWidth(3);
-    watchIndicator->setAlignment(Qt::AlignCenter);
-    watchIndicator->setText(tr("UI_WATCHINDICATOR"));
-
-    // and now the text
-    QLabel* watch = new QLabel(this);
-    watch->setGeometry(QRect(90, size, 890, 40));
-    QFont workFont;
-    workFont.setPointSize(12);
-    workFont.setBold(false);
-    watch->setFont(workFont);
-    watch->setFrameShape(QFrame::NoFrame);
-    watch->setLineWidth(3);
-    watch->setAlignment(Qt::AlignCenter);
-
-    if (!link.isEmpty()) {
-        QString watchText = QString("<a href=\"%2\">%1</a>")
-                .arg(watchName)
-                .arg(link);
-
-        watch->setOpenExternalLinks(true);
-        watch->setText(watchText);
-    }
-    else
-        watch->setText(watchName);
-
-    size += 40;
+    addTask(prefix);
 }
 
 void Goal::addRead(const QString&readName, const QString&link) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
-    GuidePalette palette;
     prefix.prefix = GuideData::Read;
     prefix.prefixText = readName;
     prefix.link = link;
     prefixes.append(prefix);
 
-    QString indicatorStyle = QString::fromLatin1(
-                "background-color:%1; border-width:3px; border-style:solid; border-color:%2; color:%3;")
-            .arg(palette.getColor(GuidePalette::ReadIndicatorBackground).name())
-            .arg(palette.color(QPalette::Base).name())
-            .arg(palette.getColor(GuidePalette::ReadIndicatorText).name());
-
-
-    // Read indicator generation
-    QLabel* readIndicator = new QLabel(this);
-    readIndicator->setGeometry(0, size, 90, 40);
-    QFont indicatorFont;
-    indicatorFont.setPointSize(22);
-    indicatorFont.setBold(true);
-    readIndicator->setFont(indicatorFont);
-    readIndicator->setStyleSheet(indicatorStyle);
-    readIndicator->setFrameShape(QFrame::Box);
-    readIndicator->setLineWidth(3);
-    readIndicator->setAlignment(Qt::AlignCenter);
-    readIndicator->setText(tr("UI_READINDICATOR"));
-
-    // and now the text
-    QLabel* read = new QLabel(this);
-    read->setGeometry(QRect(90, size, 890, 40));
-    QFont workFont;
-    workFont.setPointSize(12);
-    workFont.setBold(false);
-    read->setFont(workFont);
-    read->setFrameShape(QFrame::NoFrame);
-    read->setLineWidth(3);
-    read->setAlignment(Qt::AlignCenter);
-
-    if (!link.isEmpty()) {
-        QString readText = QString("<a href=\"%2\">%1</a>")
-                .arg(readName)
-                .arg(link);
-
-        read->setOpenExternalLinks(true);
-        read->setText(readText);
-    }
-    else
-        read->setText(readName);
-
-    size += 40;
+    addTask(prefix);
 }
 
 void Goal::addProcess(const QString&processName, const QString&link) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
-    GuidePalette palette;
     prefix.prefix = GuideData::Process;
     prefix.prefixText = processName;
     prefix.link = link;
     prefixes.append(prefix);
 
-    QString indicatorStyle = QString::fromLatin1(
-                "background-color:%1; border-width:3px; border-style:solid; border-color:%2;color:%3")
-            .arg(palette.getColor(GuidePalette::ProcessIndicatorBackground).name())
-            .arg(palette.color(QPalette::Base).name())
-            .arg(palette.getColor(GuidePalette::ProcessIndicatorText).name());
-
-    // Process indicator generation
-    QLabel* processIndicator = new QLabel(this);
-    processIndicator->setGeometry(0, size, 90, 40);
-    QFont indicatorFont;
-    indicatorFont.setPointSize(22);
-    indicatorFont.setBold(true);
-    processIndicator->setFont(indicatorFont);
-    processIndicator->setStyleSheet(indicatorStyle);
-    processIndicator->setAlignment(Qt::AlignCenter);
-    processIndicator->setText(tr("UI_PROCESSINDICATOR"));
-
-    // and now the text
-    QLabel* process = new QLabel(this);
-    process->setGeometry(QRect(90, size, 890, 40));
-    QFont workFont;
-    workFont.setPointSize(12);
-    workFont.setBold(false);
-    process->setFont(workFont);
-    process->setFrameShape(QFrame::NoFrame);
-    process->setLineWidth(3);
-    process->setAlignment(Qt::AlignCenter);
-
-    if (!link.isEmpty()) {
-        QString processText = QString("<a href=\"%2\">%1</a>")
-                .arg(processName)
-                .arg(link);
-
-        process->setOpenExternalLinks(true);
-        process->setText(processText);
-    }
-    else
-        process->setText(processName);
-
-    size += 40;
+    addTask(prefix);
 }
 
 void Goal::addInfo(const QString&infoText, const QString&link) {
     // First save them in the Vector for resaving
     GuideData::GuideGoalPrefixes prefix;
-    GuidePalette palette;
     prefix.prefix = GuideData::Info;
     prefix.prefixText = infoText;
     prefix.link = link;
     prefixes.append(prefix);
 
-    QString indicatorStyle = QString::fromLatin1(
-                "background-color:%1; border-width:3px; border-style:solid; border-color:%2;color:%3")
-            .arg(palette.getColor(GuidePalette::InfoIndicatorBackground).name())
-            .arg(palette.color(QPalette::Base).name())
-            .arg(palette.getColor(GuidePalette::InfoIndicatorText).name());
-
-    // Info indicator generation
-    QLabel* InfoIndicator = new QLabel(this);
-    InfoIndicator->setGeometry(0, size, 90, 40);
-    QFont indicatorFont;
-    indicatorFont.setPointSize(22);
-    indicatorFont.setBold(true);
-    InfoIndicator->setFont(indicatorFont);
-    InfoIndicator->setStyleSheet(indicatorStyle);
-    InfoIndicator->setAlignment(Qt::AlignCenter);
-    InfoIndicator->setText(tr("UI_INFOINDICATOR"));
-
-    // and now the text
-    QLabel* info = new QLabel(this);
-    info->setGeometry(QRect(90, size, 890, 40));
-    QFont workFont;
-    workFont.setPointSize(12);
-    workFont.setBold(false);
-    info->setFont(workFont);
-    info->setFrameShape(QFrame::NoFrame);
-    info->setLineWidth(3);
-    info->setAlignment(Qt::AlignCenter);
-
-    if (!link.isEmpty()) {
-        QString infoTextLink = QString("<a href=\"%2\">%1</a>")
-                .arg(infoText)
-                .arg(link);
-
-        info->setOpenExternalLinks(true);
-        info->setText(infoTextLink);
-    }
-    else
-        info->setText(infoText);
-
-    size += 40;
+    addTask(prefix);
 }
 
 void Goal::setWeek(const QString&week) {
