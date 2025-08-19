@@ -47,7 +47,7 @@ public:
 
     void addInfo(const QString &info, const QString&link = "");
 
-    void addTask(const GuideData::GuideGoalPrefixes task);
+    void addTask(const GuideData::GuideGoalTasks task);
 
     void setProgress(int progress, bool changedFile = true);
 
@@ -72,7 +72,7 @@ private slots:
 
 private:
     Ui::Goal *ui;
-    QVector<GuideData::GuideGoalPrefixes> prefixes;
+    QVector<GuideData::GuideGoalTasks> tasks;
 
     void updateStyle();
 };

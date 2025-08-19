@@ -243,22 +243,22 @@ void Guide::setGuide(GuideData::Data guide) {
                 finalGoal->setGoalNumber(goal.goalNumber);
                 finalGoal->parentGuide = this;
 
-                for (GuideData::GuideGoalPrefixes goalPrefix: goal.prefixes) {
-                    switch (goalPrefix.prefix) {
+                for (GuideData::GuideGoalTasks goalTask: goal.tasks) {
+                    switch (goalTask.task) {
                         case GuideData::Work:
-                            finalGoal->addWork(goalPrefix.prefixText, goalPrefix.link);
+                            finalGoal->addWork(goalTask.text, goalTask.link);
                             break;
                         case GuideData::Read:
-                            finalGoal->addRead(goalPrefix.prefixText, goalPrefix.link);
+                            finalGoal->addRead(goalTask.text, goalTask.link);
                             break;
                         case GuideData::Watch:
-                            finalGoal->addWatch(goalPrefix.prefixText, goalPrefix.link);
+                            finalGoal->addWatch(goalTask.text, goalTask.link);
                             break;
                         case GuideData::Process:
-                            finalGoal->addProcess(goalPrefix.prefixText, goalPrefix.link);
+                            finalGoal->addProcess(goalTask.text, goalTask.link);
                             break;
                         case GuideData::Info:
-                            finalGoal->addInfo(goalPrefix.prefixText, goalPrefix.link);
+                            finalGoal->addInfo(goalTask.text, goalTask.link);
                             break;
                     }
                 }

@@ -73,7 +73,7 @@ void Goal::setTime(const QString&time) {
     ui->goalTime->setText(time);
 }
 
-void Goal::addTask(const GuideData::GuideGoalPrefixes task) {
+void Goal::addTask(const GuideData::GuideGoalTasks task) {
     GuidePalette palette;
 
     QString indicatorText;
@@ -81,9 +81,9 @@ void Goal::addTask(const GuideData::GuideGoalPrefixes task) {
     QString indicatorTextColour;
 
     QString link = task.link;
-    QString name = task.prefixText;
+    QString name = task.text;
 
-    switch (task.prefix) {
+    switch (task.task) {
         case GuideData::Work:
             indicatorText = tr("UI_WORKINDICATOR");
 
@@ -167,59 +167,59 @@ void Goal::addTask(const GuideData::GuideGoalPrefixes task) {
 
 void Goal::addWork(const QString&workName, const QString&link) {
     // First save them in the Vector for resaving
-    GuideData::GuideGoalPrefixes prefix;
+    GuideData::GuideGoalTasks task;
 
-    prefix.prefix = GuideData::Work;
-    prefix.prefixText = workName;
-    prefix.link = link;
-    prefixes.append(prefix);
+    task.task = GuideData::Work;
+    task.text = workName;
+    task.link = link;
+    tasks.append(task);
 
-    addTask(prefix);
+    addTask(task);
 }
 
 void Goal::addWatch(const QString&watchName, const QString&link) {
     // First save them in the Vector for resaving
-    GuideData::GuideGoalPrefixes prefix;
+    GuideData::GuideGoalTasks task;
 
-    prefix.prefix = GuideData::Watch;
-    prefix.prefixText = watchName;
-    prefix.link = link;
-    prefixes.append(prefix);
+    task.task = GuideData::Watch;
+    task.text = watchName;
+    task.link = link;
+    tasks.append(task);
 
-    addTask(prefix);
+    addTask(task);
 }
 
 void Goal::addRead(const QString&readName, const QString&link) {
     // First save them in the Vector for resaving
-    GuideData::GuideGoalPrefixes prefix;
-    prefix.prefix = GuideData::Read;
-    prefix.prefixText = readName;
-    prefix.link = link;
-    prefixes.append(prefix);
+    GuideData::GuideGoalTasks task;
+    task.task = GuideData::Read;
+    task.text = readName;
+    task.link = link;
+    tasks.append(task);
 
-    addTask(prefix);
+    addTask(task);
 }
 
 void Goal::addProcess(const QString&processName, const QString&link) {
     // First save them in the Vector for resaving
-    GuideData::GuideGoalPrefixes prefix;
-    prefix.prefix = GuideData::Process;
-    prefix.prefixText = processName;
-    prefix.link = link;
-    prefixes.append(prefix);
+    GuideData::GuideGoalTasks task;
+    task.task = GuideData::Process;
+    task.text = processName;
+    task.link = link;
+    tasks.append(task);
 
-    addTask(prefix);
+    addTask(task);
 }
 
 void Goal::addInfo(const QString&infoText, const QString&link) {
     // First save them in the Vector for resaving
-    GuideData::GuideGoalPrefixes prefix;
-    prefix.prefix = GuideData::Info;
-    prefix.prefixText = infoText;
-    prefix.link = link;
-    prefixes.append(prefix);
+    GuideData::GuideGoalTasks task;
+    task.task = GuideData::Info;
+    task.text = infoText;
+    task.link = link;
+    tasks.append(task);
 
-    addTask(prefix);
+    addTask(task);
 }
 
 void Goal::setWeek(const QString&week) {
@@ -280,7 +280,7 @@ GuideData::GuideGoals Goal::getGoal() {
     finalGoal.time = ui->goalTime->text();
     finalGoal.week = ui->week->text();
     finalGoal.progress = QString::number(ui->progressSlider->value());
-    finalGoal.prefixes = prefixes;
+    finalGoal.tasks = tasks;
 
     return finalGoal;
 }

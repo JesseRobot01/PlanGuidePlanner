@@ -14,8 +14,8 @@
  * \brief This class is used for saving Guides
  * @code GuideData::Data @endcode is the actual Data.
  * @code ObjectTypes @endcode are all the differend possible sections. (Index, Test, Report)
- * @code PrefixType @endcode are all the differend labels
- * @code GuideGoalPrefixes @endcode stores the text and the label for each goal part.
+ * @code TaskTypes @endcode are all the differend labels
+ * @code GuideGoalTasks @endcode stores the text and the label for each goal task.
  * @code ReportTests @endcode stores the text and the weight for each test on the report
  * @code GuideGoals @endcode  stores the data for each goal
  * @code GuideObject @endcode stores all the data for the differend sections. (Index, test, Report)
@@ -29,7 +29,7 @@ public:
         Report
     };
 
-    enum PrefixTypes {
+    enum TaskTypes {
         Work,
         Read,
         Watch,
@@ -37,9 +37,9 @@ public:
         Info
     };
 
-    struct GuideGoalPrefixes {
-        PrefixTypes prefix;
-        QString prefixText;
+    struct GuideGoalTasks {
+        TaskTypes task;
+        QString text;
         QString link;
     };
 
@@ -50,7 +50,7 @@ public:
 
     class GuideGoals {
     public:
-        QVector<GuideGoalPrefixes> prefixes;
+        QVector<GuideGoalTasks> tasks;
         QString name;
         QString goalNumber;
         QString time;
@@ -58,42 +58,42 @@ public:
         QString progress;
 
         void addWork(const QString&name, const QString&link = "") {
-            GuideGoalPrefixes work;
-            work.prefix = Work;
-            work.prefixText = name;
+            GuideGoalTasks work;
+            work.task = Work;
+            work.text = name;
             work.link = link;
-            prefixes.append(work);
+            tasks.append(work);
         }
 
         void addRead(const QString&name, const QString&link = "") {
-            GuideGoalPrefixes read;
-            read.prefix = Read;
-            read.prefixText = name;
+            GuideGoalTasks read;
+            read.task = Read;
+            read.text = name;
             read.link = link;
-            prefixes.append(read);
+            tasks.append(read);
         }
 
         void addWatch(const QString&name, const QString&link = "") {
-            GuideGoalPrefixes watch;
-            watch.prefix = Watch;
-            watch.prefixText = name;
+            GuideGoalTasks watch;
+            watch.task = Watch;
+            watch.text = name;
             watch.link = link;
-            prefixes.append(watch);
+            tasks.append(watch);
         }
 
         void addProcess(const QString&name, const QString&link = "") {
-            GuideGoalPrefixes process;
-            process.prefix = Process;
-            process.prefixText = name;
+            GuideGoalTasks process;
+            process.task = Process;
+            process.text = name;
             process.link = link;
-            prefixes.append(process);
+            tasks.append(process);
         }
         void addInfo(const QString&name, const QString&link = "") {
-            GuideGoalPrefixes info;
-            info.prefix = Info;
-            info.prefixText = name;
+            GuideGoalTasks info;
+            info.task = Info;
+            info.text = name;
             info.link = link;
-            prefixes.append(info);
+            tasks.append(info);
         }
     };
 

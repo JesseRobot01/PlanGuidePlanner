@@ -244,51 +244,51 @@ void XmlParser::saveXml(const GuideData::Data&guide, QFile&fileToSaveTo, bool is
                         xml.writeTextElement("week", goal.week);
                         xml.writeTextElement("progress", goal.progress);
 
-                        for (GuideData::GuideGoalPrefixes prefix: goal.prefixes) {
-                            switch (prefix.prefix) {
+                        for (GuideData::GuideGoalTasks task: goal.tasks) {
+                            switch (task.task) {
                                 case GuideData::Work:
                                     xml.writeStartElement("work");
 
-                                    if (!prefix.link.isEmpty())
-                                        xml.writeAttribute("href", prefix.link);
+                                    if (!task.link.isEmpty())
+                                        xml.writeAttribute("href", task.link);
 
-                                    xml.writeCharacters(prefix.prefixText);
+                                    xml.writeCharacters(task.text);
                                     xml.writeEndElement(); // Work
                                     break;
                                 case GuideData::Read:
                                     xml.writeStartElement("read");
 
-                                    if (!prefix.link.isEmpty())
-                                        xml.writeAttribute("href", prefix.link);
+                                    if (!task.link.isEmpty())
+                                        xml.writeAttribute("href", task.link);
 
-                                    xml.writeCharacters(prefix.prefixText);
+                                    xml.writeCharacters(task.text);
                                     xml.writeEndElement(); // Read
                                     break;
                                 case GuideData::Watch:
                                     xml.writeStartElement("watch");
 
-                                    if (!prefix.link.isEmpty())
-                                        xml.writeAttribute("href", prefix.link);
+                                    if (!task.link.isEmpty())
+                                        xml.writeAttribute("href", task.link);
 
-                                    xml.writeCharacters(prefix.prefixText);
+                                    xml.writeCharacters(task.text);
                                     xml.writeEndElement(); // Watch
                                     break;
                                 case GuideData::Process:
                                     xml.writeStartElement("process");
 
-                                    if (!prefix.link.isEmpty())
-                                        xml.writeAttribute("href", prefix.link);
+                                    if (!task.link.isEmpty())
+                                        xml.writeAttribute("href", task.link);
 
-                                    xml.writeCharacters(prefix.prefixText);
+                                    xml.writeCharacters(task.text);
                                     xml.writeEndElement(); // process
                                     break;
                                 case GuideData::Info:
                                     xml.writeStartElement("info");
 
-                                    if (!prefix.link.isEmpty())
-                                        xml.writeAttribute("href", prefix.link);
+                                    if (!task.link.isEmpty())
+                                        xml.writeAttribute("href", task.link);
 
-                                    xml.writeCharacters(prefix.prefixText);
+                                    xml.writeCharacters(task.text);
                                     xml.writeEndElement(); // info
                                     break;
                             }

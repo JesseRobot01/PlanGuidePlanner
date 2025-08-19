@@ -633,10 +633,10 @@ void Creator::open(GuideData::Data guide) {
                 progressItem->setText(0, tr("Progress"));
                 progressItem->setText(1, goal.progress);
 
-                for (auto task: goal.prefixes) {
+                for (auto task: goal.tasks) {
                     QTreeWidgetItem* taskItem = new QTreeWidgetItem(goalItem);
 
-                    switch (task.prefix) {
+                    switch (task.task) {
                         case GuideData::Work:
                             taskItem->setText(0, tr("Work"));
                             break;
@@ -653,7 +653,7 @@ void Creator::open(GuideData::Data guide) {
                             taskItem->setText(0, tr("Information"));
                             break;
                     }
-                    taskItem->setText(1, task.prefixText);
+                    taskItem->setText(1, task.text);
                     taskItem->setText(2, task.link);
                 }
             }
