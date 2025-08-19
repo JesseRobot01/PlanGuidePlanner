@@ -587,6 +587,7 @@ void Creator::save(GuideData::Data guide) {
     QFile currentGuideFile(currentGuide.absoluteFilePath());
     if (currentGuideFile.fileName().endsWith("sgd"))
         XmlParser::saveXml(guide, currentGuideFile, false, false);
+    else  XmlParser::saveXml(guide, currentGuideFile);
 }
 
 void Creator::open(GuideData::Data guide) {
