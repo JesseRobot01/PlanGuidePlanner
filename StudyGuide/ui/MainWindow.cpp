@@ -59,7 +59,7 @@ void MainWindow::on_actionOpen_File_triggered() {
             if (file.open(QIODevice::ReadWrite)) {
                 file.write(fileContent);
 
-                if (fileName.endsWith("zip") || fileName.endsWith("sdc")) {
+                if (APPLICATION->isZipFile(fileName)) {
                     QDir tempDir(QStandardPaths::writableLocation(QStandardPaths::TempLocation));
                     tempDir.mkpath(".");
 
@@ -67,13 +67,13 @@ void MainWindow::on_actionOpen_File_triggered() {
 
                     for (const QString&extractedFile: extractedFiles) {
                         qDebug() << "Extracted:" << extractedFile;
-                        if (extractedFile.endsWith("xml") || extractedFile.endsWith("sgd")) {
+                        if (APPLICATION->isXmlFile(extractedFile)) {
                             GuideData::Data guide = XmlParser::readXml(extractedFile);
                             processGuide(guide);
                         }
                     }
                 }
-                else if (fileName.endsWith(".xml") || fileName.endsWith(".sgd") || fileName.endsWith(".sga")) {
+                else if (APPLICATION->isXmlFile(fileName)) {
                     file.close(); // Parser does not like open files.
                     GuideData::Data guide = XmlParser::readXml(&file);
                     processGuide(guide);
@@ -113,18 +113,18 @@ void MainWindow::on_actionOpen_File_triggered() {
 
     // Determine if there are any zip files
     for (auto file: files) {
-        if (file.endsWith("zip") || file.endsWith("sgc")) {
+        if (APPLICATION->isZipFile(file)) {
             qDebug() << "Found zip file:" << file << ". Extracting...";
 
             QStringList extractedFiles = JlCompress::extractDir(file, tempDir.absolutePath());
 
             for (const QString&extractedFile: extractedFiles) {
                 qDebug() << "Extracted:" << file;
-                if (extractedFile.endsWith("xml") || (extractedFile.endsWith("sgd")))
+                if (APPLICATION->isXmlFile(extractedFile))
                     guideFiles.append(extractedFile);
             }
         }
-        else if (file.endsWith("xml") || file.endsWith("sgd") || file.endsWith("sga"))
+        else if (APPLICATION->isXmlFile(file))
             guideFiles.append(file);
     }
 

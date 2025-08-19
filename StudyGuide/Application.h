@@ -40,6 +40,10 @@ public:
 
     bool isFileChanged = false;
 
+    bool isXmlFile(const QString&file);
+
+    bool isZipFile(const QString&file);
+
 #ifdef Q_OS_ANDROID
 
     void requestStoragePermission();

@@ -47,53 +47,52 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
     setApplicationName("StudyGuide");
 
     QCommandLineParser commandLineParser;
-
     commandLineParser.addOptions({
             {{"l", "lang"}, "Sets the language of the application", "lang"},
             {{"c", "creator"}, "Open creator"},
         }
     );
     commandLineParser.addHelpOption();
-
     commandLineParser.addPositionalArgument("files", "List of files to open", "[file1, file2, ...]");
-
     commandLineParser.process(arguments());
 
     QSettings settings;
 
-    qSetMessagePattern(
-        "%{time process}"
-        " "
-        "%{pid}"
-        " "
-        "%{if-debug}DEBUG   %{endif}"
-        "%{if-info}INFO    %{endif}"
-        "%{if-warning}WARNING %{endif}"
-        "%{if-critical}CRITICAL%{endif}"
-        "%{if-fatal}FATAL   %{endif}"
-        " "
-        "|"
-        " "
-        "%{message}");
+    // Message Handler
+    {
+        qSetMessagePattern(
+            "%{time process}"
+            " "
+            "%{pid}"
+            " "
+            "%{if-debug}DEBUG   %{endif}"
+            "%{if-info}INFO    %{endif}"
+            "%{if-warning}WARNING %{endif}"
+            "%{if-critical}CRITICAL%{endif}"
+            "%{if-fatal}FATAL   %{endif}"
+            " "
+            "|"
+            " "
+            "%{message}");
 
-    QDir logsDir(getLogsDirLocation());
-    if (!logsDir.exists())
-        logsDir.mkpath(".");
+        QDir logsDir(getLogsDirLocation());
+        if (!logsDir.exists())
+            logsDir.mkpath(".");
 
-    // get highest number.
-    int highestLogNumber = 0;
-    for (QFileInfo file: logsDir.entryInfoList(QDir::Files)) {
-        QString fileName = file.baseName();
-        fileName.replace("Log", "");
-        int fileNumber = fileName.toInt();
-        if (fileNumber > highestLogNumber)
-            highestLogNumber = fileNumber;
+        // get highest number.
+        int highestLogNumber = 0;
+        for (QFileInfo file: logsDir.entryInfoList(QDir::Files)) {
+            QString fileName = file.baseName();
+            fileName.replace("Log", "");
+            int fileNumber = fileName.toInt();
+            if (fileNumber > highestLogNumber)
+                highestLogNumber = fileNumber;
+        }
+        logFile = std::unique_ptr<QFile>(
+            new QFile(logsDir.path() + "/Log" + QString::number(highestLogNumber + 1) + ".txt"));
+        if (!logFile->open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate))
+            qFatal("Can't open log file!");
     }
-    logFile = std::unique_ptr<QFile>(
-        new QFile(logsDir.path() + "/Log" + QString::number(highestLogNumber + 1) + ".txt"));
-    if (!logFile->open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate))
-        qFatal("Can't open log file!");
-
     qInstallMessageHandler(messageHandler);
     // Logger is installed, so let's put the version in it!
     qDebug() << "Version:" << Config.version;
@@ -164,18 +163,18 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
             QStringList guideFiles;
 
             for (auto file: files) {
-                if (file.endsWith("zip") || file.endsWith("sgc")) {
+                if (isZipFile(file)) {
                     qDebug() << "Found zip file:" << file << ". Extracting...";
 
                     QStringList extractedFiles = JlCompress::extractDir(file, tempDir.absolutePath());
 
                     for (const QString&extractedFile: extractedFiles) {
                         qDebug() << "Extracted:" << file;
-                        if (extractedFile.endsWith("xml") || (extractedFile.endsWith("sgd")))
+                        if (isXmlFile(extractedFile))
                             guideFiles.append(extractedFile);
                     }
                 }
-                else if (file.endsWith("xml") || file.endsWith("sgd") || file.endsWith("sga"))
+                else if (isXmlFile(file))
                     guideFiles.append(file);
             }
             QVector<GuideData::Data> guides = XmlParser::readXml(files);
@@ -217,14 +216,14 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
     else {
         // Open a creator window
         qDebug() << "Opening Creator...";
-         creator = new Creator();
+        creator = new Creator();
         if (!commandLineParser.positionalArguments().isEmpty()) {
             // Open the first file in creator
             const QStringList files = commandLineParser.positionalArguments();
             QFile file(files.at(0));
-            if (file.exists() && (file.fileName().endsWith("xml") || file.fileName().endsWith("sgd") || file.
-                                  fileName().endsWith("sga"))) {
-                creator->currentGuide = QFileInfo(file.fileName());
+            QFileInfo fileInfo(file.fileName());
+            if (file.exists() && isXmlFile(fileInfo.fileName())) {
+                creator->currentGuide = fileInfo;
                 creator->open(XmlParser::readXml(&file));
             }
         }
@@ -362,4 +361,15 @@ void Application::updateGuide(int guideIndex, GuideData::Data updatedGuide) {
     guide->setGuide(updatedGuide);
     appWindow->setTabName(guideIndex + 1, updatedGuide.shortName);
     appWindow->updateStart();
+}
+
+bool Application::isXmlFile(const QString&file) {
+    return file.endsWith("xml")
+           || file.endsWith("sgd")
+           || file.endsWith("sga");
+}
+
+bool Application::isZipFile(const QString&file) {
+    return file.endsWith("zip")
+           || file.endsWith("sgc");
 }
