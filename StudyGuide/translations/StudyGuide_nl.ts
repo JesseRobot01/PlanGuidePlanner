@@ -85,7 +85,7 @@
         <location line="+5"/>
         <location filename="../creator/Creator.cpp" line="+33"/>
         <location line="+140"/>
-        <location line="+203"/>
+        <location line="+204"/>
         <location line="+172"/>
         <location line="+2"/>
         <source>Guide</source>
@@ -93,10 +93,10 @@
     </message>
     <message>
         <location line="+4"/>
-        <location filename="../creator/Creator.cpp" line="-507"/>
+        <location filename="../creator/Creator.cpp" line="-508"/>
         <location line="+8"/>
         <location line="+129"/>
-        <location line="+197"/>
+        <location line="+198"/>
         <location line="+172"/>
         <source>Period</source>
         <translation>Periode</translation>
@@ -104,13 +104,13 @@
     <message>
         <location line="+5"/>
         <location line="+139"/>
-        <location filename="../creator/Creator.cpp" line="-608"/>
+        <location filename="../creator/Creator.cpp" line="-609"/>
         <location line="+80"/>
         <location line="+91"/>
         <location line="+35"/>
         <location line="+36"/>
         <location line="+43"/>
-        <location line="+152"/>
+        <location line="+153"/>
         <location line="+47"/>
         <location line="+20"/>
         <location line="+96"/>
@@ -145,37 +145,37 @@
     </message>
     <message>
         <location line="+8"/>
-        <location filename="../creator/Creator.cpp" line="-613"/>
+        <location filename="../creator/Creator.cpp" line="-614"/>
         <location line="+163"/>
         <location line="+156"/>
-        <location line="+157"/>
+        <location line="+158"/>
         <location line="+123"/>
         <source>Work</source>
         <translation>Maken</translation>
     </message>
     <message>
         <location line="+5"/>
-        <location filename="../creator/Creator.cpp" line="-598"/>
+        <location filename="../creator/Creator.cpp" line="-599"/>
         <location line="+168"/>
-        <location line="+313"/>
+        <location line="+314"/>
         <location line="+118"/>
         <source>Watch/ Listen</source>
         <translation>Kijken/ Luisteren</translation>
     </message>
     <message>
         <location line="+5"/>
-        <location filename="../creator/Creator.cpp" line="-598"/>
+        <location filename="../creator/Creator.cpp" line="-599"/>
         <location line="+164"/>
-        <location line="+313"/>
+        <location line="+314"/>
         <location line="+122"/>
         <source>Read</source>
         <translation>Lezen</translation>
     </message>
     <message>
         <location line="+5"/>
-        <location filename="../creator/Creator.cpp" line="-598"/>
+        <location filename="../creator/Creator.cpp" line="-599"/>
         <location line="+169"/>
-        <location line="+313"/>
+        <location line="+314"/>
         <location line="+117"/>
         <source>Process</source>
         <translation>Verwerken</translation>
@@ -192,7 +192,7 @@
     </message>
     <message>
         <location line="-194"/>
-        <location filename="../creator/Creator.cpp" line="-509"/>
+        <location filename="../creator/Creator.cpp" line="-510"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
@@ -210,7 +210,7 @@
         <location line="+59"/>
         <location line="+18"/>
         <location line="+35"/>
-        <location line="+163"/>
+        <location line="+164"/>
         <location line="+19"/>
         <location line="+87"/>
         <source>Test</source>
@@ -242,7 +242,7 @@
         <translation>Bestand opslaan als</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="-617"/>
+        <location filename="../creator/Creator.cpp" line="-618"/>
         <location line="+17"/>
         <location line="+8"/>
         <location line="+25"/>
@@ -250,54 +250,54 @@
         <location line="+66"/>
         <location line="+114"/>
         <location line="+48"/>
-        <location line="+140"/>
+        <location line="+141"/>
         <location line="+146"/>
         <location line="+6"/>
         <source>Goal</source>
         <translation>Doel</translation>
     </message>
     <message>
-        <location line="-587"/>
+        <location line="-588"/>
         <location line="+8"/>
         <location line="+159"/>
         <location line="+83"/>
-        <location line="+191"/>
+        <location line="+192"/>
         <source>Time</source>
         <translation>Tijd</translation>
     </message>
     <message>
-        <location line="-430"/>
+        <location line="-431"/>
         <location line="+8"/>
         <location line="+142"/>
         <location line="+29"/>
         <location line="+63"/>
         <location line="+16"/>
-        <location line="+177"/>
+        <location line="+178"/>
         <location line="+41"/>
         <source>Week</source>
         <translation>Week</translation>
     </message>
     <message>
         <location filename="../creator/Creator.ui" line="-140"/>
-        <location filename="../creator/Creator.cpp" line="-459"/>
+        <location filename="../creator/Creator.cpp" line="-460"/>
         <location line="+136"/>
         <location line="+92"/>
-        <location line="+195"/>
+        <location line="+196"/>
         <source>Progress</source>
         <translation>Voortgang</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="-394"/>
+        <location filename="../creator/Creator.cpp" line="-395"/>
         <location line="+144"/>
         <location line="+80"/>
         <location line="+31"/>
-        <location line="+186"/>
+        <location line="+187"/>
         <location line="+91"/>
         <source>Report</source>
         <translation>Rapport</translation>
     </message>
     <message>
-        <location line="-737"/>
+        <location line="-738"/>
         <location line="+393"/>
         <source>Add Goal</source>
         <translation>Doel Toevoegen</translation>
@@ -329,19 +329,19 @@
     <message>
         <location line="-446"/>
         <location line="+223"/>
-        <location line="+422"/>
+        <location line="+423"/>
         <source>Subject Name</source>
         <translation>Vaknaam</translation>
     </message>
     <message>
-        <location line="-644"/>
+        <location line="-645"/>
         <location line="+223"/>
-        <location line="+422"/>
+        <location line="+423"/>
         <source>Short Name</source>
         <translation>Afkorting</translation>
     </message>
     <message>
-        <location line="-512"/>
+        <location line="-513"/>
         <source>Link</source>
         <translation>Link</translation>
     </message>
@@ -377,27 +377,27 @@
 <context>
     <name>Goal</name>
     <message>
-        <location filename="../ui/guide/Goal.cpp" line="+102"/>
+        <location filename="../ui/guide/Goal.cpp" line="+88"/>
         <source>UI_WORKINDICATOR</source>
         <translation>M</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+7"/>
         <source>UI_WATCHINDICATOR</source>
         <translation>K/L</translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+7"/>
         <source>UI_READINDICATOR</source>
         <translation>L</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+8"/>
         <source>UI_PROCESSINDICATOR</source>
         <translation>V</translation>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+7"/>
         <source>UI_INFOINDICATOR</source>
         <translation>I</translation>
     </message>
