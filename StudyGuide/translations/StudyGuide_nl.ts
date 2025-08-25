@@ -6,7 +6,7 @@
     <message>
         <location filename="../ui/About.ui" line="+14"/>
         <source>About</source>
-        <translation>Over StudieWijzer</translation>
+        <translation>Over StudyGuide</translation>
     </message>
     <message>
         <source>StudyGuide</source>
@@ -476,6 +476,76 @@
     </message>
 </context>
 <context>
+    <name>GuideData</name>
+    <message>
+        <location filename="../guide/GuideData.cpp" line="+12"/>
+        <source>Error</source>
+        <translation>Error</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Err</source>
+        <translation>Err</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Uh oh, something went wrong. 
+Error Description: </source>
+        <translation>Oeps, er is iets misgegaan.
+Foutbeschrijving: </translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Try this:</source>
+        <translation>Probeer dit:</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Check if the file is supported.</source>
+        <translation>Controleer of het bestand word ondersteund.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Open the mentioned file in a text editor,</source>
+        <translation>Open het genoemde bestand in een tekstbewerker,</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Search for &apos;&lt;StudyGuide&apos; near the start of the document.</source>
+        <translation>Zoek naar &apos;&lt;StudyGuide&apos; aan het begin van het document.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Try this too:</source>
+        <translation>Probeer dit ook:</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Check if the file is not open in another program.</source>
+        <translation>Controleer of het bestand niet in een andere porgramma geopend is.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Try making a copy!</source>
+        <translation>Probeer een kopie van het bestand te maken!</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>This is also an option:</source>
+        <translation>Dit is ook een optie:</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Report an issue here.</source>
+        <translation>Meld hier een probleem.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Make sure to attach the document and the logs!</source>
+        <translation>Zorg ervoor om het juiste document en de huidige logbestand mee te sturen!</translation>
+    </message>
+</context>
+<context>
     <name>Index</name>
     <message>
         <location filename="../ui/guide/Index.ui" line="+14"/>
@@ -533,7 +603,7 @@
         <translation>Help</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+11"/>
         <source>Exit</source>
         <translation>Afsluiten</translation>
     </message>
@@ -593,13 +663,18 @@
         <translation>Ctrl+E</translation>
     </message>
     <message>
+        <location line="+5"/>
+        <source>Report an issue</source>
+        <translation>Meld een probleem</translation>
+    </message>
+    <message>
         <source>Save Guide As</source>
         <translation type="vanished">Wijzer opslaan als</translation>
     </message>
     <message>
-        <location line="-42"/>
+        <location line="-47"/>
         <source>About</source>
-        <translation>Over StudieWijzer</translation>
+        <translation>Over StudyGuide</translation>
     </message>
     <message>
         <source>Save Guide</source>
@@ -616,14 +691,14 @@
         <translation>Alle Bestanden Sluiten</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="+35"/>
+        <location filename="../ui/MainWindow.cpp" line="+36"/>
         <source>Start</source>
         <translation>Start</translation>
     </message>
     <message>
         <location line="+64"/>
         <source>Open StudyGuide</source>
-        <translation>Open StudieWijzers</translation>
+        <translation>Bestanden Openen</translation>
     </message>
     <message>
         <location line="-12"/>

@@ -477,6 +477,76 @@
     </message>
 </context>
 <context>
+    <name>GuideData</name>
+    <message>
+        <location filename="../guide/GuideData.cpp" line="+12"/>
+        <source>Error</source>
+        <translation>Error</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Err</source>
+        <translation>Err</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Uh oh, something went wrong. 
+Error Description: </source>
+        <translation>Uh oh, something went wrong. 
+Error Description: </translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Try this:</source>
+        <translation>Try this:</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Check if the file is supported.</source>
+        <translation>Check if the file is supported.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Open the mentioned file in a text editor,</source>
+        <translation>Open the mentioned file in a text editor,</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Search for &apos;&lt;StudyGuide&apos; near the start of the document.</source>
+        <translation>Search for &apos;&lt;StudyGuide&apos; near the start of the document.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Try this too:</source>
+        <translation>Try this too:</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Check if the file is not open in another program.</source>
+        <translation>Check if the file is not open in another program.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Try making a copy!</source>
+        <translation>Try making a copy!</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>This is also an option:</source>
+        <translation>This is also an option:</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Report an issue here.</source>
+        <translation>Report an issue here.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Make sure to attach the document and the logs!</source>
+        <translation>Make sure to attach the document and the logs!</translation>
+    </message>
+</context>
+<context>
     <name>Index</name>
     <message>
         <location filename="../ui/guide/Index.ui" line="+14"/>
@@ -534,7 +604,7 @@
         <translation>Help</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+11"/>
         <source>Exit</source>
         <translation>Exit</translation>
     </message>
@@ -594,11 +664,16 @@
         <translation>Ctrl+E</translation>
     </message>
     <message>
+        <location line="+5"/>
+        <source>Report an issue</source>
+        <translation>Report an issue</translation>
+    </message>
+    <message>
         <source>Save Guide As</source>
         <translation type="vanished">Save Guide As</translation>
     </message>
     <message>
-        <location line="-42"/>
+        <location line="-47"/>
         <source>About</source>
         <translation>About StudyGuide</translation>
     </message>
@@ -617,14 +692,14 @@
         <translation>Close All Files</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="+35"/>
+        <location filename="../ui/MainWindow.cpp" line="+36"/>
         <source>Start</source>
         <translation>Start</translation>
     </message>
     <message>
         <location line="+64"/>
         <source>Open StudyGuide</source>
-        <translation>Open StudyGuides</translation>
+        <translation>Open Files</translation>
     </message>
     <message>
         <location line="-12"/>
