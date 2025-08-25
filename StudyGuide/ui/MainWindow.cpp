@@ -22,6 +22,7 @@
 #include <QCloseEvent>
 #include <JlCompress.h>
 #include <QScrollArea>
+#include <QDesktopServices>
 
 #include "creator/Creator.h"
 
@@ -494,4 +495,8 @@ void MainWindow::on_actionOpen_In_Creator_triggered() {
     creator->appAutoSaveLocation = currentGuide.autoSaveFile;
     creator->applicationGuideIndex = currentGuideIndex;
     creator->show();
+}
+
+void MainWindow::on_actionReport_an_issue_triggered() {
+    QDesktopServices::openUrl(QUrl("https://github.com/JesseRobot01/StudyGuide/issues"));
 }

@@ -59,6 +59,8 @@ private slots:
 
     void on_actionOpen_In_Creator_triggered();
 
+    void on_actionReport_an_issue_triggered();
+
 private:
     Ui::MainWindow* ui;
     PreferenceWindow* preferenceWindow;

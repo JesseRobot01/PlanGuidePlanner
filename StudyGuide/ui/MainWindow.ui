@@ -90,6 +90,7 @@
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="actionReport_an_issue"/>
     <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuFile"/>
@@ -165,6 +166,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="actionReport_an_issue">
+   <property name="text">
+    <string>Report an issue</string>
    </property>
   </action>
  </widget>
