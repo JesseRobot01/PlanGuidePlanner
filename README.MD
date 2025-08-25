@@ -19,6 +19,7 @@ A tool for tracking your progress with your study.
 <!--Download the latest version from GitHub Releases. -->
 
 Download the development builds form [GitHub actions](https://github.com/JesseRobot01/StudyGuide/actions).
+Or use [Nightly.link](https://nightly.link/JesseRobot01/StudyGuide/workflows/dev-build/master) for the newest development builds.
 
 ### Building
 
