@@ -22,6 +22,7 @@ set(SOURCES
         guide/GuideData.h
         themes/GuidePalette.cpp
         themes/GuidePalette.h
+        guide/GuideData.cpp
 )
 
 set(UI

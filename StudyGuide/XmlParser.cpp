@@ -15,9 +15,7 @@ GuideData::Data XmlParser::readXml(QFile* xmlFileP) {
     qDebug() << "Reading xml file" << fileInfo.fileName();
     if (!xmlFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qWarning() << "Failed to open file" << fileInfo.fileName();
-        // He really wants something...
-        GuideData::Data hello;
-        return hello;
+        return GuideData::errorGuide("Failed to open file " + fileInfo.fileName());
     }
 
     try {
@@ -205,7 +203,10 @@ GuideData::Data XmlParser::readXml(QFile* xmlFileP) {
     catch (...) {
         qCritical() << "Error while reading XML file" << fileInfo.fileName();
         xmlFile.close();
+
+        return GuideData::errorGuide("Error while reading XML file " + fileInfo.fileName());
     }
+    return GuideData::errorGuide("Xml Parser returned nothing on file " + fileInfo.fileName());
 }
 
 void XmlParser::saveXml(const GuideData::Data&guide, QFile&fileToSaveTo, bool isAutoSave, bool useAutoFormatting) {

@@ -21,7 +21,7 @@
  * @code GuideObject @endcode stores all the data for the differend sections. (Index, test, Report)
  */
 
-class GuideData {
+class GuideData : public QObject{
 public:
     enum ObjectTypes {
         Index,
@@ -157,6 +157,8 @@ public:
         QFileInfo originalFile;
         QFileInfo autoSaveFile;
     };
+
+  static  Data errorGuide(const QString&error);
 };
 
 
