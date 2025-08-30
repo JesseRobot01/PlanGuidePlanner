@@ -220,26 +220,26 @@ jobs:
         if: ${{ matrix.name != 'linux' }}
         uses: actions/upload-artifact@v4
         with:
-          name: StudyGuide-${{matrix.name}}-${{env.SHORT_VERSION}}-${{inputs.build_type}}
+          name: PlanGuidePlanner-${{matrix.name}}-${{env.SHORT_VERSION}}-${{inputs.build_type}}
           path: install
 
       - name: Upload setup (Windows)
         if: ${{ matrix.os == 'windows-latest' }}
         uses: actions/upload-artifact@v4
         with:
-          name: StudyGuide-${{matrix.name}}-Setup-${{env.SHORT_VERSION}}-${{inputs.build_type}}
+          name: PlanGuidePlanner-${{matrix.name}}-Setup-${{env.SHORT_VERSION}}-${{inputs.build_type}}
           path: build/*.exe
 
       - name: Upload binaries (Linux)
         if: ${{ matrix.name == 'linux' }}
         uses: actions/upload-artifact@v4
         with:
-          name: StudyGuide-Linux-${{env.SHORT_VERSION}}-${{inputs.build_type}}
+          name: PlanGuidePlanner-Linux-${{env.SHORT_VERSION}}-${{inputs.build_type}}
           path: build/*.tar.gz
 
       - name: Upload deb (Linux)
         if: ${{ matrix.name == 'linux' }}
         uses: actions/upload-artifact@v4
         with:
-          name: StudyGuide-Linux-Deb-${{env.SHORT_VERSION}}-${{inputs.build_type}}
+          name: PlanGuidePlanner-Linux-Deb-${{env.SHORT_VERSION}}-${{inputs.build_type}}
           path: build/*.deb

@@ -22,8 +22,8 @@ jobs:
       pages: write
       id-token: write
     environment:
-      name: StudyGuide
-      url: https://studyguide.pages.dev/
+      name: PlanGuidePlanner
+      url: https://planguideplanner.pages.dev/
 
     steps:
       - name: checkout gh-pages

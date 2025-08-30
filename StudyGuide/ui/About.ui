@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>About</string>
+   <string>About Plan Guide Planner</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -54,7 +54,7 @@
    <item>
     <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>A tool for tracking your progress.</string>
+      <string>A planner to plan your guides!</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -64,7 +64,7 @@
    <item>
     <widget class="QLabel" name="label_2">
      <property name="text">
-      <string notr="true">&lt;a href=&quot;https://github.com/JesseRobot01/StudyGuide&quot;&gt;https://github.com/JesseRobot01/StudyGuide&lt;/a&gt;</string>
+      <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/JesseRobot01/StudyGuide&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#f6bdc2;&quot;&gt;https://github.com/JesseRobot01/PlanGuidePlanner&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>

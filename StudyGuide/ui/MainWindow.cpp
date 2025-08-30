@@ -85,7 +85,7 @@ void MainWindow::on_actionOpen_File_triggered() {
     };
 
     QFileDialog::getOpenFileContent(
-        tr("All Supported Files (*.xml *.zip);;*.Xml Files (*.xml);;Zip Files (*.zip);;All Files (*)"),
+        tr("All Supported Files (*.pgd *.pgm *.pgx *.xml *.zip);;Zip Files (*.pgd *.pgm *.zip);;*.Xml Files (*.pgx *.xml);;All Files (*)"),
         uploadedGuide);
 }
 #else
@@ -100,7 +100,7 @@ void MainWindow::on_actionOpen_File_triggered() {
     QStringList files = QFileDialog::getOpenFileNames(this, tr("Open StudyGuide"),
                                                       settings.value("LastOpenedDir", ".").toString(),
                                                       tr(
-                                                          "All Supported Files (*.sgd *.sgc *.sga *.xml *.zip);;*.Xml Files (*.sgd *.sga *.xml);;Zip Files (*.sgc *.zip);;All Files (*)"));
+                                                          "All Supported Files (*.pgd *.pgm *.pgx *.xml *.zip);;Zip Files (*.pgd *.pgm *.zip);;*.Xml Files (*.pgx *.xml);;All Files (*)"));
 
     if (files.empty()) return;
 
@@ -115,7 +115,7 @@ void MainWindow::on_actionOpen_File_triggered() {
     // Determine if there are any zip files
     for (auto file: files) {
         if (APPLICATION->isZipFile(file)) {
-            qDebug() << "Found zip file:" << file << ". Extracting...";
+            qDebug() << "Found zip-based file:" << file << ". Extracting...";
 
             QStringList extractedFiles = JlCompress::extractDir(file, tempDir.absolutePath());
 
@@ -146,18 +146,18 @@ void MainWindow::on_actionOpen_File_triggered() {
         QDir copyToDestination(APPLICATION->getAutoSaveLocation());
 
         if (copyToDestination.mkpath(".")) {
-            QFileInfo autoSaveFile(copyToDestination.filePath(guide.shortName + "_0.sga"));
+            QFileInfo autoSaveFile(copyToDestination.filePath(guide.shortName + "_0.pgx"));
 
 
             QString baseName = guide.shortName;
-            QString candidateName = baseName + "_0.sga";
+            QString candidateName = baseName + "_0.pgx";
             QString fullPath = copyToDestination.absoluteFilePath(candidateName);
 
             int number = 1; // Incase there are duplicates
 
             // Check if the file already exists and increment the counter
             while (QFile::exists(fullPath)) {
-                candidateName = baseName + "_" + QString::number(number++) + ".sga";
+                candidateName = baseName + "_" + QString::number(number++) + ".pgx";
                 fullPath = copyToDestination.absoluteFilePath(candidateName); // Recalculate path with new number
             }
 
@@ -215,13 +215,13 @@ void MainWindow::on_actionSave_Guide_As_triggered() {
     Guide* guideToSave = guides.at(currentTab);
     GuideData::Data guide = guideToSave->getGuide();
 
-    QFile tmpFile("/tmp/savingGuide.sgd");
+    QFile tmpFile("/tmp/savingGuide.pgx");
 
     XmlParser::saveXml(guide, tmpFile, false, false);
     if (tmpFile.open(QIODevice::ReadOnly)) {
         QByteArray fileContent(tmpFile.readAll());
 
-        QFileDialog::saveFileContent(fileContent, QString("%1.sgd").arg(guide.name));
+        QFileDialog::saveFileContent(fileContent, QString("%1.pgx").arg(guide.name));
 
         closeGuide(currentTab);
     }
@@ -252,24 +252,52 @@ void MainWindow::saveGuideAs(GuideData::Data guide) {
     if (guide.originalFile.exists())
         baseFileName = guide.originalFile.baseName();
     else
-        baseFileName = settings.value("LastOpenedDir", ".").toString() + "/" + guide.name + ".xml";
+        baseFileName = settings.value("LastOpenedDir", ".").toString() + "/" + guide.name + ".pgd";
 
     QString saveFileName = QFileDialog::getSaveFileName(this, tr("Save StudyGuide"),
                                                         baseFileName,
                                                         tr(
-                                                            "StudyGuide Document (*.sgd);;XML File (*.xml);;All Files (*)"));
+                                                            "Plan Guide Planner Document File (*.pgd);;Plan Guide Planner XML-based file (*.pgx);;XML File (*.xml);;All Files (*)"));
 
     if (saveFileName.isEmpty()) {
         qWarning() << "No save file given. Can't save";
         return;
     }
-
     QFile fileToSave(saveFileName);
-    if (saveFileName.endsWith("sgd")) {
+
+    if (saveFileName.endsWith("pgd")) {
+        QDir tempLocation = (QStandardPaths::writableLocation(QStandardPaths::TempLocation));
+
+        // saving
+        QFileInfo fileInfoToSave(tempLocation.absoluteFilePath(guide.shortName + "_0" + ".pgx"));
+
+        QString baseName = guide.shortName;
+        QString candidateName = baseName + ".pgx";
+        QString fullPath = tempLocation.absoluteFilePath(candidateName);
+        fileInfoToSave = QFileInfo(fullPath);
+
+        QFile fileToSave(fileInfoToSave.absoluteFilePath());
         XmlParser::saveXml(guide, fileToSave, false, false);
-        //Studyguide documents are not meant for reading manually, for that, XML files should be used.
+
+
+        // Zip them!
+        if (JlCompress::compressFiles(saveFileName, QStringList(fileToSave.fileName()))) {
+            qDebug() << "File zipped successfully!";
+        }
+        else {
+            qCritical() << "Failed to zop files!";
+        }
+
+        // Cleanup!
+        if (tempLocation.exists()) {
+            tempLocation.removeRecursively();
+        }
+        return;
     }
-    else XmlParser::saveXml(guide, fileToSave);
+    else if (saveFileName.endsWith("pgx"))
+        XmlParser::saveXml(guide, fileToSave, false, false);
+    else
+        XmlParser::saveXml(guide, fileToSave);
 }
 
 #ifdef Q_OS_WASM
@@ -336,9 +364,9 @@ void MainWindow::on_actionSave_All_Guides_triggered() {
     QSettings settings;
     QDateTime time;
     QString saveFileName = QFileDialog::getSaveFileName(this, tr("Save All Guides"),
-                                                        time.currentDateTime().toString() + ".zip",
+                                                        time.currentDateTime().toString() + ".pgm",
                                                         tr(
-                                                            "StudyGuide Collection (*.sgc);;ZIP Files (*.zip);;All Files (*)"));
+                                                            "Plan Guide Planner Multi File (*.pgm);;ZIP Files (*.zip);;All Files (*)"));
 
     if (saveFileName.isEmpty()) {
         qWarning() << "No save file given. Can't save";
@@ -349,8 +377,8 @@ void MainWindow::on_actionSave_All_Guides_triggered() {
 
     QDir tempLocation = (QStandardPaths::writableLocation(QStandardPaths::TempLocation));
     QString extention;
-    if (saveFileName.endsWith("sgc"))
-        extention = ".sgd";
+    if (saveFileName.endsWith("pgm"))
+        extention = ".pgx";
     else
         extention = ".xml";
 
@@ -375,7 +403,7 @@ void MainWindow::on_actionSave_All_Guides_triggered() {
         fileInfoToSave = QFileInfo(fullPath);
 
         QFile fileToSave(fileInfoToSave.absoluteFilePath());
-        if (extention == ".sgd") XmlParser::saveXml(guideDat, fileToSave, false, false);
+        if (extention == ".pgx") XmlParser::saveXml(guideDat, fileToSave, false, false);
         else XmlParser::saveXml(guideDat, fileToSave);
 
         GuidesToSave.append(fileToSave.fileName());
@@ -498,5 +526,5 @@ void MainWindow::on_actionOpen_In_Creator_triggered() {
 }
 
 void MainWindow::on_actionReport_an_issue_triggered() {
-    QDesktopServices::openUrl(QUrl("https://github.com/JesseRobot01/StudyGuide/issues"));
+    QDesktopServices::openUrl(QUrl("https://github.com/JesseRobot01/PlanGuidePlanner/issues"));
 }

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Plan Guide Planner
+Comment=A planner to plan your guides!
+Type=Application
+Terminal=false
+Exec=planguideplanner %F
+StartupNotify=true
+Icon=planguideplanner
+Categories=Education
+MimeType=application/x-planguideplanner-pgd;application/x-planguideplanner-pgm;application/x-planguideplanner-pgx;

@@ -22,7 +22,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string notr="true">StudyGuide</string>
+   <string notr="true">Plan Guide Planner</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">

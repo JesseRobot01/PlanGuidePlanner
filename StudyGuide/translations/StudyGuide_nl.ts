@@ -4,18 +4,26 @@
 <context>
     <name>About</name>
     <message>
-        <location filename="../ui/About.ui" line="+14"/>
         <source>About</source>
-        <translation>Over StudyGuide</translation>
+        <translation type="vanished">Over StudyGuide</translation>
     </message>
     <message>
         <source>StudyGuide</source>
         <translation type="vanished">StudieWijzer</translation>
     </message>
     <message>
-        <location line="+43"/>
         <source>A tool for tracking your progress.</source>
-        <translation>Een tool voor het volgen van je voortgang met je studie.</translation>
+        <translation type="vanished">Een tool voor het volgen van je voortgang met je studie.</translation>
+    </message>
+    <message>
+        <location filename="../ui/About.ui" line="+14"/>
+        <source>About Plan Guide Planner</source>
+        <translation>Over Plan Guide Planner</translation>
+    </message>
+    <message>
+        <location line="+43"/>
+        <source>A planner to plan your guides!</source>
+        <translation>Een planner om je plannen mee te plannen!</translation>
     </message>
     <message>
         <location line="+114"/>
@@ -61,7 +69,7 @@
     <message>
         <location filename="../creator/Creator.ui" line="+20"/>
         <source>Creator</source>
-        <translation>StudyGuide Creator</translation>
+        <translation>Plan Guide Planner Creator</translation>
     </message>
     <message>
         <location line="+22"/>
@@ -71,7 +79,7 @@
     <message>
         <location line="+5"/>
         <location line="+100"/>
-        <location filename="../creator/Creator.cpp" line="+159"/>
+        <location filename="../creator/Creator.cpp" line="+160"/>
         <location line="+68"/>
         <source>Name</source>
         <translation>Naam</translation>
@@ -85,7 +93,7 @@
         <location line="+5"/>
         <location filename="../creator/Creator.cpp" line="+33"/>
         <location line="+140"/>
-        <location line="+204"/>
+        <location line="+250"/>
         <location line="+172"/>
         <location line="+2"/>
         <source>Guide</source>
@@ -93,10 +101,10 @@
     </message>
     <message>
         <location line="+4"/>
-        <location filename="../creator/Creator.cpp" line="-508"/>
+        <location filename="../creator/Creator.cpp" line="-554"/>
         <location line="+8"/>
         <location line="+129"/>
-        <location line="+198"/>
+        <location line="+244"/>
         <location line="+172"/>
         <source>Period</source>
         <translation>Periode</translation>
@@ -104,13 +112,13 @@
     <message>
         <location line="+5"/>
         <location line="+139"/>
-        <location filename="../creator/Creator.cpp" line="-609"/>
+        <location filename="../creator/Creator.cpp" line="-655"/>
         <location line="+80"/>
         <location line="+91"/>
         <location line="+35"/>
         <location line="+36"/>
         <location line="+43"/>
-        <location line="+153"/>
+        <location line="+199"/>
         <location line="+47"/>
         <location line="+20"/>
         <location line="+96"/>
@@ -145,37 +153,37 @@
     </message>
     <message>
         <location line="+8"/>
-        <location filename="../creator/Creator.cpp" line="-614"/>
+        <location filename="../creator/Creator.cpp" line="-660"/>
         <location line="+163"/>
         <location line="+156"/>
-        <location line="+158"/>
+        <location line="+204"/>
         <location line="+123"/>
         <source>Work</source>
         <translation>Maken</translation>
     </message>
     <message>
         <location line="+5"/>
-        <location filename="../creator/Creator.cpp" line="-599"/>
+        <location filename="../creator/Creator.cpp" line="-645"/>
         <location line="+168"/>
-        <location line="+314"/>
+        <location line="+360"/>
         <location line="+118"/>
         <source>Watch/ Listen</source>
         <translation>Kijken/ Luisteren</translation>
     </message>
     <message>
         <location line="+5"/>
-        <location filename="../creator/Creator.cpp" line="-599"/>
+        <location filename="../creator/Creator.cpp" line="-645"/>
         <location line="+164"/>
-        <location line="+314"/>
+        <location line="+360"/>
         <location line="+122"/>
         <source>Read</source>
         <translation>Lezen</translation>
     </message>
     <message>
         <location line="+5"/>
-        <location filename="../creator/Creator.cpp" line="-599"/>
+        <location filename="../creator/Creator.cpp" line="-645"/>
         <location line="+169"/>
-        <location line="+314"/>
+        <location line="+360"/>
         <location line="+117"/>
         <source>Process</source>
         <translation>Verwerken</translation>
@@ -192,7 +200,7 @@
     </message>
     <message>
         <location line="-194"/>
-        <location filename="../creator/Creator.cpp" line="-510"/>
+        <location filename="../creator/Creator.cpp" line="-556"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
@@ -210,7 +218,7 @@
         <location line="+59"/>
         <location line="+18"/>
         <location line="+35"/>
-        <location line="+164"/>
+        <location line="+210"/>
         <location line="+19"/>
         <location line="+87"/>
         <source>Test</source>
@@ -242,7 +250,7 @@
         <translation>Bestand opslaan als</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="-618"/>
+        <location filename="../creator/Creator.cpp" line="-664"/>
         <location line="+17"/>
         <location line="+8"/>
         <location line="+25"/>
@@ -250,54 +258,54 @@
         <location line="+66"/>
         <location line="+114"/>
         <location line="+48"/>
-        <location line="+141"/>
+        <location line="+187"/>
         <location line="+146"/>
         <location line="+6"/>
         <source>Goal</source>
         <translation>Doel</translation>
     </message>
     <message>
-        <location line="-588"/>
+        <location line="-634"/>
         <location line="+8"/>
         <location line="+159"/>
         <location line="+83"/>
-        <location line="+192"/>
+        <location line="+238"/>
         <source>Time</source>
         <translation>Tijd</translation>
     </message>
     <message>
-        <location line="-431"/>
+        <location line="-477"/>
         <location line="+8"/>
         <location line="+142"/>
         <location line="+29"/>
         <location line="+63"/>
         <location line="+16"/>
-        <location line="+178"/>
+        <location line="+224"/>
         <location line="+41"/>
         <source>Week</source>
         <translation>Week</translation>
     </message>
     <message>
         <location filename="../creator/Creator.ui" line="-140"/>
-        <location filename="../creator/Creator.cpp" line="-460"/>
+        <location filename="../creator/Creator.cpp" line="-506"/>
         <location line="+136"/>
         <location line="+92"/>
-        <location line="+196"/>
+        <location line="+242"/>
         <source>Progress</source>
         <translation>Voortgang</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="-395"/>
+        <location filename="../creator/Creator.cpp" line="-441"/>
         <location line="+144"/>
         <location line="+80"/>
         <location line="+31"/>
-        <location line="+187"/>
+        <location line="+233"/>
         <location line="+91"/>
         <source>Report</source>
         <translation>Rapport</translation>
     </message>
     <message>
-        <location line="-738"/>
+        <location line="-784"/>
         <location line="+393"/>
         <source>Add Goal</source>
         <translation>Doel Toevoegen</translation>
@@ -329,19 +337,19 @@
     <message>
         <location line="-446"/>
         <location line="+223"/>
-        <location line="+423"/>
+        <location line="+469"/>
         <source>Subject Name</source>
         <translation>Vaknaam</translation>
     </message>
     <message>
-        <location line="-645"/>
+        <location line="-691"/>
         <location line="+223"/>
-        <location line="+423"/>
+        <location line="+469"/>
         <source>Short Name</source>
         <translation>Afkorting</translation>
     </message>
     <message>
-        <location line="-513"/>
+        <location line="-559"/>
         <source>Link</source>
         <translation>Link</translation>
     </message>
@@ -352,13 +360,21 @@
     </message>
     <message>
         <location line="+2"/>
-        <source>All Supported Files (*.sgd *.sga *.xml);;StudyGuide Document (*.sgd);;StudyGuide Auto Save File (*.sga);;*.Xml Files (*.xml);;All Files (*)</source>
-        <translation>Alle ondersteunende bestanden (*.sgd *.sga *.xml);;StudyGuide-Bestanden (*.sgd);;StudyGuide Autosave-Bestand (*.sga);;*.Xml Bestand(*.xml);;Alle Bestanden(*)</translation>
+        <source>All Supported Files (*.pgd *.pgx *.xml);;Plan Guide Planner Document (*.pgd);;Plan Guide Planner XML-based file (*.pgx);;*.Xml Files (*.xml);;All Files (*)</source>
+        <translation>Alle Ondersteunende bestanden (*.pgd *.pgx *.xml);;Plan Guide Planner Document (*.pgd);;Plan Guide Planner XML-gebaseerde bestand (*.pgx);;*.Xml Bestanden (*.xml);;Alle Bestanden (*)</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+67"/>
+        <source>Plan Guide Planner Document (*.pgd);;Plan Guide Planner XML-based file (*.pgx);;*.Xml Files (*.xml);;All Files (*)</source>
+        <translation>Plan Guide Planner Document (*.pgd);;Plan Guide Planner XML-gebaseerde bestand (*.pgx);;*.Xml Bestanden (*.xml);;Alle Bestanden(*)</translation>
+    </message>
+    <message>
+        <source>All Supported Files (*.sgd *.sga *.xml);;StudyGuide Document (*.sgd);;StudyGuide Auto Save File (*.sga);;*.Xml Files (*.xml);;All Files (*)</source>
+        <translation type="vanished">Alle ondersteunende bestanden (*.sgd *.sga *.xml);;StudyGuide-Bestanden (*.sgd);;StudyGuide Autosave-Bestand (*.sga);;*.Xml Bestand(*.xml);;Alle Bestanden(*)</translation>
+    </message>
+    <message>
         <source>StudyGuide Document (*.sgd);;XML Files (*.xml);;All Files (*)</source>
-        <translation>StudyGuide-Document (*.sgd);;XML Bestand (*.xml);;Alle Bestanden (*)</translation>
+        <translation type="vanished">StudyGuide-Document (*.sgd);;XML Bestand (*.xml);;Alle Bestanden (*)</translation>
     </message>
     <message>
         <source>All Supported Files (*.xml);;*.Xml Files (*.xml);;All Files (*)</source>
@@ -512,7 +528,7 @@ Foutbeschrijving: </translation>
     <message>
         <location line="+1"/>
         <source>Search for &apos;&lt;StudyGuide&apos; near the start of the document.</source>
-        <translation>Zoek naar &apos;&lt;StudyGuide&apos; aan het begin van het document.</translation>
+        <translation>Zoek naar &apos;&lt;pgp&apos; aan het begin van het document.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -674,7 +690,7 @@ Foutbeschrijving: </translation>
     <message>
         <location line="-47"/>
         <source>About</source>
-        <translation>Over StudyGuide</translation>
+        <translation>Over Plan Guide Planner</translation>
     </message>
     <message>
         <source>Save Guide</source>
@@ -696,39 +712,51 @@ Foutbeschrijving: </translation>
         <translation>Start</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+52"/>
+        <location line="+14"/>
+        <source>All Supported Files (*.pgd *.pgm *.pgx *.xml *.zip);;Zip Files (*.pgd *.pgm *.zip);;*.Xml Files (*.pgx *.xml);;All Files (*)</source>
+        <translation>Alle Ondersteunende Bestanden (*.pgd *.pgm *.pgx *.xml *.zip);;Zip Bestanden (*.pgd *.pgm *.zip);;*.Xml bestanden (*.pgx *.xml);;Alle Bestanden (*)</translation>
+    </message>
+    <message>
+        <location line="-2"/>
         <source>Open StudyGuide</source>
         <translation>Bestanden Openen</translation>
     </message>
     <message>
-        <location line="-12"/>
+        <location line="+159"/>
+        <source>Plan Guide Planner Document File (*.pgd);;Plan Guide Planner XML-based file (*.pgx);;XML File (*.xml);;All Files (*)</source>
+        <translation>Plan Guide Planner Document bestand (*.pgd);;Plan Guide Planner XML-gebaseerde bestand(*.pgx);;XML Bestand (*.xml);;Alle bestanden (*)</translation>
+    </message>
+    <message>
+        <location line="+109"/>
+        <source>Plan Guide Planner Multi File (*.pgm);;ZIP Files (*.zip);;All Files (*)</source>
+        <translation>Plan Guide Planner Multi Bestand (*.pgm);;ZIP Bestand (*.zip);;Alle Bestanden (*)</translation>
+    </message>
+    <message>
         <source>All Supported Files (*.xml *.zip);;*.Xml Files (*.xml);;Zip Files (*.zip);;All Files (*)</source>
-        <translation>Alle ondersteunende bestanden (*.xml *.zip);;xml-Bestanden (*.xml);;Zip Bestanden (*.zip);;Alle Bestanden (*)</translation>
+        <translation type="vanished">Alle ondersteunende bestanden (*.xml *.zip);;xml-Bestanden (*.xml);;Zip Bestanden (*.zip);;Alle Bestanden (*)</translation>
     </message>
     <message>
-        <location line="+14"/>
         <source>All Supported Files (*.sgd *.sgc *.sga *.xml *.zip);;*.Xml Files (*.sgd *.sga *.xml);;Zip Files (*.sgc *.zip);;All Files (*)</source>
-        <translation>Alle ondersteunende Bestanden (*.sgd *.sgc *.sga *.xml *.zip);;*.Xml-Bestanden (*.sgd *.sga *.xml);;Zip-Bestanden (*.sgc *.zip);;Alle Bestanden (*)</translation>
+        <translation type="vanished">Alle ondersteunende Bestanden (*.sgd *.sgc *.sga *.xml *.zip);;*.Xml-Bestanden (*.sgd *.sga *.xml);;Zip-Bestanden (*.sgc *.zip);;Alle Bestanden (*)</translation>
     </message>
     <message>
-        <location line="+155"/>
+        <location line="-111"/>
         <source>Save StudyGuide</source>
         <translation>Bestand Opslaan</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>StudyGuide Document (*.sgd);;XML File (*.xml);;All Files (*)</source>
-        <translation>StudyGuide-Document (*.sgd);;XML-Bestand (*.xml);;Alle Bestanden (*)</translation>
+        <translation type="vanished">StudyGuide-Document (*.sgd);;XML-Bestand (*.xml);;Alle Bestanden (*)</translation>
     </message>
     <message>
-        <location line="+79"/>
+        <location line="+109"/>
         <source>Save All Guides</source>
         <translation>Alles Bestanden Opslaan</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>StudyGuide Collection (*.sgc);;ZIP Files (*.zip);;All Files (*)</source>
-        <translation>StudyGuide-Collectie (*.sgc);;ZIP-Bestand (*.zip);;Alle Bestanden (*)</translation>
+        <translation type="vanished">StudyGuide-Collectie (*.sgc);;ZIP-Bestand (*.zip);;Alle Bestanden (*)</translation>
     </message>
     <message>
         <source>ZIP Files (*.zip);;All Files (*)</source>

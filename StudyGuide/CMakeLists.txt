@@ -23,6 +23,8 @@ set(SOURCES
         themes/GuidePalette.cpp
         themes/GuidePalette.h
         guide/GuideData.cpp
+        LegacyXmlParsers.cpp
+        LegacyXmlParsers.h
 )
 
 set(UI
@@ -223,13 +225,13 @@ if (EMSCRIPTEN)
     #
 
     install(
-            FILES ${CMAKE_CURRENT_BINARY_DIR}/qtloader.js ${CMAKE_CURRENT_BINARY_DIR}/studyguide.js ${CMAKE_CURRENT_BINARY_DIR}/studyguide.worker.js
+            FILES ${CMAKE_CURRENT_BINARY_DIR}/qtloader.js ${CMAKE_CURRENT_BINARY_DIR}/planguideplanner.js ${CMAKE_CURRENT_BINARY_DIR}/planguideplanner.worker.js
             DESTINATION .
             COMPONENT Runtime
     )
 
     install(
-            FILES ${CMAKE_CURRENT_BINARY_DIR}/studyguide.wasm
+            FILES ${CMAKE_CURRENT_BINARY_DIR}/planguideplanner.wasm
             DESTINATION .
             COMPONENT Runtime
     )

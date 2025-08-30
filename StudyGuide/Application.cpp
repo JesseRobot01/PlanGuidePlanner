@@ -182,18 +182,18 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
                 QDir copyToDestination(getAutoSaveLocation());
 
                 if (copyToDestination.mkpath(".")) {
-                    QFileInfo autoSaveFile(copyToDestination.filePath(guide.shortName + "_0.sga"));
+                    QFileInfo autoSaveFile(copyToDestination.filePath(guide.shortName + "_0.pgx"));
 
 
                     QString baseName = guide.shortName;
-                    QString candidateName = baseName + "_0.sga";
+                    QString candidateName = baseName + "_0.pgx";
                     QString fullPath = copyToDestination.absoluteFilePath(candidateName);
 
                     int number = 1; // Incase there are duplicates
 
                     // Check if the file already exists and increment the counter
                     while (QFile::exists(fullPath)) {
-                        candidateName = baseName + "_" + QString::number(number++) + ".sga";
+                        candidateName = baseName + "_" + QString::number(number++) + ".pgx";
                         fullPath = copyToDestination.absoluteFilePath(candidateName);
                         // Recalculate path with new number
                     }
@@ -365,11 +365,11 @@ void Application::updateGuide(int guideIndex, GuideData::Data updatedGuide) {
 
 bool Application::isXmlFile(const QString&file) {
     return file.endsWith("xml")
-           || file.endsWith("sgd")
-           || file.endsWith("sga");
+           || file.endsWith("pgx");
 }
 
 bool Application::isZipFile(const QString&file) {
     return file.endsWith("zip")
-           || file.endsWith("sgc");
+           || file.endsWith("pgd")
+       || file.endsWith("pgm");
 }

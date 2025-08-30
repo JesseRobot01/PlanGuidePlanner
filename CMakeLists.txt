@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.23)
-project(StudyGuide)
+project(PlanGuidePlanner)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOUIC ON)
@@ -40,8 +40,8 @@ if (BUILD_TESTING)
     enable_testing()
 endif ()
 
-set(EXECUTABLE_NAME "StudyGuide")
-set(APP_BINARY_NAME "studyguide" CACHE STRING "Name of the binary")
+set(EXECUTABLE_NAME "PlanGuidePlanner")
+set(APP_BINARY_NAME "planguideplanner" CACHE STRING "Name of the binary")
 
 set(CMAKE_WIN32_EXECUTABLE ON)
 
@@ -115,15 +115,15 @@ if (DEV_BUILD)
 endif ()
 
 # Cpack stuff
-set(CPACK_PACKAGE_NAME "StudyGuide")
+set(CPACK_PACKAGE_NAME "PlanGuidePlanner")
 set(CPACK_NSIS_PACKAGE_NAME ${CPACK_PACKAGE_NAME})
 set(CPACK_PACKAGE_VENDOR "JesseRobot01")
-set(CPACK_PACKAGE_INSTALL_DIRECTORY "StudyGuide")
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "PlanGuidePlanner")
 set(CPACK_NSIS_MODIFY_PATH "YES")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
 
-set(CPACK_PACKAGE_EXECUTABLES "..\\\\${EXECUTABLE_NAME}" "StudyGuide") #The ..\ is because CPack looks in the BIN directory, and not in the root as where the executable is.
-set(CPACK_CREATE_DESKTOP_LINKS "..\\\\${EXECUTABLE_NAME}" "StudyGuide")
+set(CPACK_PACKAGE_EXECUTABLES "..\\\\${EXECUTABLE_NAME}" "PlanGuidePlanner") #The ..\ is because CPack looks in the BIN directory, and not in the root as where the executable is.
+set(CPACK_CREATE_DESKTOP_LINKS "..\\\\${EXECUTABLE_NAME}" "PlanGuidePlanner")
 set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/program_info/StudyGuide.ico")
 
 set(CPACK_PACKAGE_VERSION ${STUDYGUIDE_VERSION})
@@ -136,23 +136,23 @@ set(CPACK_PACKAGE_CONTACT "JesseRobot01")
 
 
 set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
-  ; Associate .sgd files
-  WriteRegStr HKLM  'Software\\\\Classes\\\\.sgd' '' 'studyguide.sgd'
-  WriteRegStr HKLM   'Software\\\\Classes\\\\studyguide.sgd' '' 'StudyGuide Document'
-  WriteRegStr HKLM  'Software\\\\Classes\\\\studyguide.sgd\\\\DefaultIcon' '' '\$INSTDIR\\\\studyguide.exe,0'
-  WriteRegStr HKLM  'Software\\\\Classes\\\\studyguide.sgd\\\\Shell\\\\Open\\\\Command' '' '\\\"$INSTDIR\\\\studyguide.exe\\\" \\\"%1\\\"'
+  ; Associate .pgd files
+  WriteRegStr HKLM  'Software\\\\Classes\\\\.pgd' '' 'planguideplanner.pgd'
+  WriteRegStr HKLM  'Software\\\\Classes\\\\planguideplanner.pgd' '' 'Plan Guide Planner File'
+  WriteRegStr HKLM  'Software\\\\Classes\\\\planguideplanner.pgd\\\\DefaultIcon' '' '\$INSTDIR\\\\planguideplanner.exe,0'
+  WriteRegStr HKLM  'Software\\\\Classes\\\\planguideplanner.pgd\\\\Shell\\\\Open\\\\Command' '' '\\\"$INSTDIR\\\\planguideplanner.exe\\\" \\\"%1\\\"'
 
-  ; Associate .sgc files
-  WriteRegStr HKLM  'Software\\\\Classes\\\\.sgc' '' 'studyguide.sgc'
-  WriteRegStr HKLM  'Software\\\\Classes\\\\studyguide.sgc' '' 'StudyGuide Collection'
-  WriteRegStr HKLM  'Software\\\\Classes\\\\studyguide.sgc\\\\DefaultIcon' '' '\$INSTDIR\\\\studyguide.exe,0'
-  WriteRegStr HKLM  'Software\\\\Classes\\\\studyguide.sgc\\\\Shell\\\\Open\\\\Command' '' '\\\"$INSTDIR\\\\studyguide.exe\\\" \\\"%1\\\"'
+  ; Associate .pgm files
+  WriteRegStr HKLM  'Software\\\\Classes\\\\.pgm' '' 'planguideplanner.pgm'
+  WriteRegStr HKLM  'Software\\\\Classes\\\\planguideplanner.pgm' '' 'Plan Guide Planner Multi File'
+  WriteRegStr HKLM  'Software\\\\Classes\\\\planguideplanner.pgm\\\\DefaultIcon' '' '\$INSTDIR\\\\planguideplanner.exe,0'
+  WriteRegStr HKLM  'Software\\\\Classes\\\\planguideplanner.pgm\\\\Shell\\\\Open\\\\Command' '' '\\\"$INSTDIR\\\\planguideplanner.exe\\\" \\\"%1\\\"'
 
-  ; Associate .sga files
-  WriteRegStr HKLM  'Software\\\\Classes\\\\.sga' '' 'studyguide.sga'
-  WriteRegStr HKLM  'Software\\\\Classes\\\\studyguide.sga' '' 'StudyGuide Autosave File'
-  WriteRegStr HKLM  'Software\\\\Classes\\\\studyguide.sga\\\\DefaultIcon' '' '\$INSTDIR\\\\studyguide.exe,0'
-  WriteRegStr HKLM  'Software\\\\Classes\\\\studyguide.sga\\\\Shell\\\\Open\\\\Command' '' '\\\"$INSTDIR\\\\studyguide.exe\\\" \\\"%1\\\"'
+  ; Associate .pgx files
+  WriteRegStr HKLM  'Software\\\\Classes\\\\.pgx' '' 'planguideplanner.pgx'
+  WriteRegStr HKLM  'Software\\\\Classes\\\\planguideplanner.pgx' '' 'Plan Guide Planner XML based File'
+  WriteRegStr HKLM  'Software\\\\Classes\\\\planguideplanner.pgx\\\\DefaultIcon' '' '\$INSTDIR\\\\planguideplanner.exe,0'
+  WriteRegStr HKLM  'Software\\\\Classes\\\\planguideplanner.pgx\\\\Shell\\\\Open\\\\Command' '' '\\\"$INSTDIR\\\\planguideplanner.exe\\\" \\\"%1\\\"'
 
 
   System::Call 'shell32::SHChangeNotify(i 0x08000000, i 0, i 0, i 0)'
@@ -160,14 +160,14 @@ set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
 
 
 set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
-  DeleteRegKey HKLM  'Software\\\\Classes\\\\studyguide.sgd'
-  DeleteRegKey HKLM  'Software\\\\Classes\\\\.sgd'
+  DeleteRegKey HKLM  'Software\\\\Classes\\\\planguideplanner.pgd'
+  DeleteRegKey HKLM  'Software\\\\Classes\\\\.pgd'
 
-  DeleteRegKey HKLM  'Software\\\\Classes\\\\studyguide.sgc'
-  DeleteRegKey HKLM  'Software\\\\Classes\\\\.sgc'
+  DeleteRegKey HKLM  'Software\\\\Classes\\\\planguideplanner.pgm'
+  DeleteRegKey HKLM  'Software\\\\Classes\\\\.pgm'
 
-  DeleteRegKey HKLM  'Software\\\\Classes\\\\studyguide.sga'
-  DeleteRegKey HKLM  'Software\\\\Classes\\\\.sga'
+  DeleteRegKey HKLM  'Software\\\\Classes\\\\planguideplanner.pgx'
+  DeleteRegKey HKLM  'Software\\\\Classes\\\\.pgx'
 
 
   System::Call 'shell32::SHChangeNotify(i 0x08000000, i 0, i 0, i 0)'
@@ -175,7 +175,7 @@ set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
 
 
 if (UNIX)
-    set(CPACK_PACKAGE_NAME "StudyGuide")
+    set(CPACK_PACKAGE_NAME "PlanGuidePlanner")
 endif ()
 include(InstallRequiredSystemLibraries)
 include(CPack)
@@ -184,13 +184,13 @@ if (LINUX)
     set(BINARY_DEST_DIR "bin")
     set(LIBRARY_DEST_DIR "lib")
 
-    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/studyguide.desktop" DESTINATION "share/applications")
-    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/SG-AppIcon.svg" RENAME "studyguide.svg" DESTINATION "share/icons/hicolor/scalable/apps")
-    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/studyguide-mime.xml" DESTINATION "share/mime/packages")
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/planguideplanner.desktop" DESTINATION "share/applications")
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/SG-AppIcon.svg" RENAME "planguideplanner.svg" DESTINATION "share/icons/hicolor/scalable/apps")
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/planguideplanner-mime.xml" DESTINATION "share/mime/packages")
 
-    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/SG-AppIcon.svg" RENAME "application-x-studyguide-sgd.svg" DESTINATION "share/icons/hicolor/scalable/mimetypes")
-    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/SG-AppIcon.svg" RENAME "application-x-studyguide-sgc.svg" DESTINATION "share/icons/hicolor/scalable/mimetypes")
-    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/SG-AppIcon.svg" RENAME "application-x-studyguide-sga.svg" DESTINATION "share/icons/hicolor/scalable/mimetypes")
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/SG-AppIcon.svg" RENAME "application-x-planguideplanner-pgd.svg" DESTINATION "share/icons/hicolor/scalable/mimetypes")
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/SG-AppIcon.svg" RENAME "application-x-planguideplanner-pgm.svg" DESTINATION "share/icons/hicolor/scalable/mimetypes")
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/SG-AppIcon.svg" RENAME "application-x-planguideplanner-pgx.svg" DESTINATION "share/icons/hicolor/scalable/mimetypes")
 
 endif ()
 

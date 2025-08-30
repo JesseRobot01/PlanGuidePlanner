@@ -8,6 +8,7 @@
 
 #include <QFileDialog>
 #include <QScrollArea>
+#include <JlCompress.h>
 
 #include "ui_Creator.h"
 #include "guide/GuideData.h"
@@ -521,18 +522,33 @@ void Creator::on_actionOpen_Guide_triggered() {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open StudyGuide"),
                                                     settings.value("LastOpenedDir", ".").toString(),
                                                     tr(
-                                                        "All Supported Files (*.sgd *.sga *.xml);;StudyGuide Document (*.sgd);;StudyGuide Auto Save File (*.sga);;*.Xml Files (*.xml);;All Files (*)"));
+                                                        "All Supported Files (*.pgd *.pgx *.xml);;Plan Guide Planner Document (*.pgd);;Plan Guide Planner XML-based file (*.pgx);;*.Xml Files (*.xml);;All Files (*)"));
 
     if (fileName.isEmpty()) return;
     QFileInfo file(fileName);
     settings.setValue("LastOpenedDir", file.path());
 
-    // read guide
-    QFile actualFile(file.absoluteFilePath());
-    GuideData::Data guide = XmlParser::readXml(&actualFile);
-    currentGuide = file;
 
-    open(guide);
+    if (APPLICATION->isZipFile(file.fileName())) {
+        qDebug() << "Found zip-based file:" << file << ". Extracting...";
+        QDir tempDir(QStandardPaths::writableLocation(QStandardPaths::TempLocation) + "/planguideplanner");
+
+        QStringList extractedFiles = JlCompress::extractDir(file.filePath(), tempDir.absolutePath());
+
+        for (const QString&extractedFile: extractedFiles) {
+            qDebug() << "Extracted:" << file;
+            if (APPLICATION->isXmlFile(extractedFile)) {
+                open(XmlParser::readXml(extractedFile));
+                // We're done!
+                if (tempDir.exists()) {
+                    tempDir.removeRecursively();
+                }
+                return;
+            }
+        }
+    }
+    else if (APPLICATION->isXmlFile(file.fileName()))
+        open(XmlParser::readXml(fileName));
 }
 
 void Creator::on_actionSave_Guide_triggered() {
@@ -573,7 +589,7 @@ void Creator::on_actionSave_Guide_As_triggered() {
     QString saveFileName = QFileDialog::getSaveFileName(this, tr("Save StudyGuide"),
                                                         baseFileName,
                                                         tr(
-                                                            "StudyGuide Document (*.sgd);;XML Files (*.xml);;All Files (*)"));
+                                                            "Plan Guide Planner Document (*.pgd);;Plan Guide Planner XML-based file (*.pgx);;*.Xml Files (*.xml);;All Files (*)"));
 
     if (saveFileName.isEmpty()) {
         qWarning() << "No save file given. Can't save";
@@ -584,10 +600,41 @@ void Creator::on_actionSave_Guide_As_triggered() {
 }
 
 void Creator::save(GuideData::Data guide) {
-    QFile currentGuideFile(currentGuide.absoluteFilePath());
-    if (currentGuideFile.fileName().endsWith("sgd"))
-        XmlParser::saveXml(guide, currentGuideFile, false, false);
-    else  XmlParser::saveXml(guide, currentGuideFile);
+    QFile fileToSave(currentGuide.absoluteFilePath());
+
+    if (fileToSave.fileName().endsWith("pgd")) {
+        QDir tempLocation = (QStandardPaths::writableLocation(QStandardPaths::TempLocation) );
+
+        // saving
+        QFileInfo fileInfoToSave(tempLocation.absoluteFilePath(guide.shortName + "_0" + ".pgx"));
+
+        QString baseName = guide.shortName;
+        QString candidateName = baseName + ".pgx";
+        QString fullPath = tempLocation.absoluteFilePath(candidateName);
+        fileInfoToSave = QFileInfo(fullPath);
+
+        QFile fileToSave(fileInfoToSave.absoluteFilePath());
+        XmlParser::saveXml(guide, fileToSave, false, false);
+
+
+        // Zip them!
+        if (JlCompress::compressFiles(fileToSave.fileName(), QStringList(fileToSave.fileName()))) {
+            qDebug() << "File zipped successfully!";
+        }
+        else {
+            qCritical() << "Failed to zop files!";
+        }
+
+        // Cleanup!
+        if (tempLocation.exists()) {
+            tempLocation.removeRecursively();
+        }
+        return;
+    }
+    else if (fileToSave.fileName().endsWith("pgx"))
+        XmlParser::saveXml(guide, fileToSave, false, false);
+    else
+        XmlParser::saveXml(guide, fileToSave);
 }
 
 void Creator::open(GuideData::Data guide) {

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.jesserobot.studyguide"
+    package="io.jesserobot.planguideplanner"
     android:installLocation="auto"
     android:versionCode="1"
     android:versionName="@STUDYGUIDE_VERSION@">
@@ -18,15 +18,15 @@
     <application
         android:name="org.qtproject.qt.android.bindings.QtApplication"
         android:hardwareAccelerated="true"
-        android:label="StudyGuide"
-        android:icon="@drawable/studyguide"
+        android:label="Plan Guide Planner"
+        android:icon="@drawable/planguideplanner"
         android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
         android:fullBackupOnly="false">
         <activity
             android:name="org.qtproject.qt.android.bindings.QtActivity"
             android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density"
-            android:label="StudyGuide"
+            android:label="Plan Guide Planner"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified"
             android:exported="true">
@@ -37,7 +37,7 @@
 
           <meta-data
                 android:name="android.app.lib_name"
-                android:value="studyguide" />
+                android:value="planguideplanner" />
 
           <meta-data
                 android:name="android.app.arguments"

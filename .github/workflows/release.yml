@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: "true"
-          path: "StudyGuide-source"
+          path: "PlanGuidePlanner-source"
       - name: Download artifacts
         uses: actions/download-artifact@v4
       - name: Grab and store version
@@ -34,36 +34,36 @@ jobs:
           echo "VERSION=$tag_name" >> $GITHUB_ENV
       - name: Package artifacts properly
         run: |
-          mv ${{ github.workspace }}/StudyGuide-source StudyGuide-${{ env.VERSION }}
-          mv StudyGuide-Linux-Deb*/StudyGuide-*.deb StudyGuide-Linux-${{ env.VERSION }}.deb
-          mv StudyGuide-Linux-*/StudyGuide-*.tar.gz StudyGuide-Linux-${{ env.VERSION }}.tar.gz
+          mv ${{ github.workspace }}/PlanGuidePlanner-source PlanGuidePlanner-${{ env.VERSION }}
+          mv PlanGuidePlanner-Linux-Deb*/PlanGuidePlanner-*.deb PlanGuidePlanner-Linux-${{ env.VERSION }}.deb
+          mv PlanGuidePlanner-Linux-*/PlanGuidePlanner-*.tar.gz PlanGuidePlanner-Linux-${{ env.VERSION }}.tar.gz
           
-          tar --exclude='.git' -czf StudyGuide-WASM-${{ env.VERSION }}.tar.gz StudyGuide-WASM-*
-          tar --exclude='.git' -czf StudyGuide-${{ env.VERSION }}.tar.gz StudyGuide-${{ env.VERSION }}
+          tar --exclude='.git' -czf PlanGuidePlanner-WASM-${{ env.VERSION }}.tar.gz PlanGuidePlanner-WASM-*
+          tar --exclude='.git' -czf PlanGuidePlanner-${{ env.VERSION }}.tar.gz PlanGuidePlanner-${{ env.VERSION }}
 
-          for d in StudyGuide-Windows*; do
+          for d in PlanGuidePlanner-Windows*; do
             cd "${d}" || continue
             ARM64="$(echo -n ${d} | grep -o arm64 || true)"
             SETUP="$(echo -n ${d} | grep -o Setup || true)"
-            NAME="StudyGuide-Windows"
+            NAME="PlanGuidePlanner-Windows"
             test -z "${ARM64}" || NAME="${NAME}-arm64"
-            test -z "${SETUP}" || mv StudyGuide-*.exe ../${NAME}-Setup-${{env.VERSION}}.exe
+            test -z "${SETUP}" || mv PlanGuidePlanner-*.exe ../${NAME}-Setup-${{env.VERSION}}.exe
             test -n "${SETUP}" || zip -r -9 "../${NAME}-${{env.VERSION}}.zip" *
             cd ..
           done
           
-          for d in StudyGuide-Android*; do
+          for d in PlanGuidePlanner-Android*; do
             cd "${d}" || continue
             ARM7="$(echo -n ${d} | grep -o arm7 || true)"
             X64="$(echo -n ${d} | grep -o x86_64 || true)"
             X86="$(echo -n ${d} | grep -o x86 || true)"
             ARM64="$(echo -n ${d} | grep -o arm64 || true)"
-            NAME="StudyGuide-Android"
+            NAME="PlanGuidePlanner-Android"
             test -z "${ARM7}" || NAME="${NAME}-arm7"
             test -z "${X86}" || NAME="${NAME}-x86"
             test -z "${X64}" || NAME="${NAME}_64"
             test -z "${ARM64}" || NAME="${NAME}-arm64"
-            mv StudyGuide.apk ../${NAME}-${{env.VERSION}}.apk
+            mv PlanGuidePlanner.apk ../${NAME}-${{env.VERSION}}.apk
             cd ..
           done
 
@@ -73,29 +73,29 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           tag_name: ${{ github.ref }}
-          name: StudyGuide ${{ env.VERSION }}
+          name: PlanGuidePlanner ${{ env.VERSION }}
           draft: true
           prerelease: false
           files: |
-            StudyGuide-Linux-${{ env.VERSION }}.tar.gz
-            StudyGuide-Linux-${{ env.VERSION }}.deb
-            StudyGuide-Windows-${{ env.VERSION }}.zip
-            StudyGuide-Windows-Setup-${{ env.VERSION }}.exe
-            StudyGuide-Windows-arm64-${{ env.VERSION }}.zip
-            StudyGuide-Windows-arm64-Setup-${{ env.VERSION }}.exe
-            StudyGuide-WASM-${{ env.VERSION }}.tar.gz
-            StudyGuide-Android-arm7-${{ env.VERSION }}.apk
-            StudyGuide-Android-arm64-${{ env.VERSION }}.apk
-            StudyGuide-Android-x86-${{ env.VERSION }}.apk
-            StudyGuide-Android-x86_64-${{ env.VERSION }}.apk
-            StudyGuide-${{ env.VERSION }}.tar.gz
+            PlanGuidePlanner-Linux-${{ env.VERSION }}.tar.gz
+            PlanGuidePlanner-Linux-${{ env.VERSION }}.deb
+            PlanGuidePlanner-Windows-${{ env.VERSION }}.zip
+            PlanGuidePlanner-Windows-Setup-${{ env.VERSION }}.exe
+            PlanGuidePlanner-Windows-arm64-${{ env.VERSION }}.zip
+            PlanGuidePlanner-Windows-arm64-Setup-${{ env.VERSION }}.exe
+            PlanGuidePlanner-WASM-${{ env.VERSION }}.tar.gz
+            PlanGuidePlanner-Android-arm7-${{ env.VERSION }}.apk
+            PlanGuidePlanner-Android-arm64-${{ env.VERSION }}.apk
+            PlanGuidePlanner-Android-x86-${{ env.VERSION }}.apk
+            PlanGuidePlanner-Android-x86_64-${{ env.VERSION }}.apk
+            PlanGuidePlanner-${{ env.VERSION }}.tar.gz
 
   deploy_release:
     needs: build_release
     runs-on: ubuntu-latest
     environment:
-      name: StudyGuide
-      url: https://studyguide.pages.dev/
+      name: PlanGuidePlanner
+      url: https://planguideplanner.pages.dev/
     permissions:
       contents: write
       pages: write
@@ -109,7 +109,7 @@ jobs:
       - name: Download WASM Artifact
         uses: actions/download-artifact@v4
         with:
-          pattern: StudyGuide-Pages-*
+          pattern: PlanGuidePlanner-Pages-*
           merge-multiple: true
           path: .
 
