@@ -365,11 +365,14 @@ void Application::updateGuide(int guideIndex, GuideData::Data updatedGuide) {
 
 bool Application::isXmlFile(const QString&file) {
     return file.endsWith("xml")
-           || file.endsWith("pgx");
+           || file.endsWith("pgx")
+           || file.endsWith("sgd")
+           || file.endsWith("sga");
 }
 
 bool Application::isZipFile(const QString&file) {
     return file.endsWith("zip")
            || file.endsWith("pgd")
-       || file.endsWith("pgm");
+           || file.endsWith("pgm")
+           || file.endsWith("sgc");
 }
