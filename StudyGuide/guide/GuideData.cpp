@@ -43,7 +43,7 @@ GuideData::Data GuideData::errorGuide(const QString&error) {
     goal3.goalNumber = "3";
     goal3.time = "5";
     goal3.week = QString::number(QDate::currentDate().weekNumber());
-    goal3.addWork(tr("Report an issue here."), "https://github.com/JesseRobot01/StudyGuide/issues");
+    goal3.addWork(tr("Report an issue here."), "https://github.com/JesseRobot01/PlanGuidePlanner/issues");
     goal3.addInfo(tr("Make sure to attach the document and the logs!"));
     object.goals.append(goal3);
 

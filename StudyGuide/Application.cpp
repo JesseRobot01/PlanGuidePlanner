@@ -44,7 +44,7 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
 #endif
 
     setOrganizationName("JesseRobot01");
-    setApplicationName("StudyGuide");
+    setApplicationName("PlanGuidePlanner");
 
     QCommandLineParser commandLineParser;
     commandLineParser.addOptions({
@@ -275,7 +275,7 @@ void Application::requestStoragePermission() {
             "android/provider/Settings",
             "ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION",
             "Ljava/lang/String;");
-        QJniObject pkgName = QJniObject::fromString("package:io.jesserobot.studyguide");
+        QJniObject pkgName = QJniObject::fromString("package:io.jesserobot.planguideplanner");
         QJniObject parsedUri = QJniObject::callStaticObjectMethod(
             "android/net/Uri",
             "parse", "(Ljava/lang/String;)Landroid/net/Uri;",
