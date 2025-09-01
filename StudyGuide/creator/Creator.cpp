@@ -613,12 +613,12 @@ void Creator::save(GuideData::Data guide) {
         QString fullPath = tempLocation.absoluteFilePath(candidateName);
         fileInfoToSave = QFileInfo(fullPath);
 
-        QFile fileToSave(fileInfoToSave.absoluteFilePath());
-        XmlParser::saveXml(guide, fileToSave, false, false);
+        QFile xmlFileToSave(fileInfoToSave.absoluteFilePath());
+        XmlParser::saveXml(guide, xmlFileToSave, false, false);
 
 
         // Zip them!
-        if (JlCompress::compressFiles(fileToSave.fileName(), QStringList(fileToSave.fileName()))) {
+        if (JlCompress::compressFiles(fileToSave.fileName(), QStringList(xmlFileToSave.fileName()))) {
             qDebug() << "File zipped successfully!";
         }
         else {
