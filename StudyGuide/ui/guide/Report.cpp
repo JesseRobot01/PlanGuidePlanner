@@ -44,6 +44,7 @@ void Report::addTest(const QString &name, const QString &weight) {
     testName->setFrameShape(QFrame::NoFrame);
     testName->setLineWidth(3);
     testName->setAlignment(Qt::AlignCenter);
+    testName->setTextFormat(Qt::MarkdownText);
     testName->setText(name);
 
     // and now the weight

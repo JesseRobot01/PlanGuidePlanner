@@ -3,7 +3,7 @@
  <class>Test</class>
  <widget class="QWidget" name="Test">
   <property name="windowModality">
-   <enum>Qt::NonModal</enum>
+   <enum>Qt::WindowModality::NonModal</enum>
   </property>
   <property name="geometry">
    <rect>
@@ -37,7 +37,7 @@ color : white;
 border-color : white;</string>
    </property>
    <property name="frameShape">
-    <enum>QFrame::Box</enum>
+    <enum>QFrame::Shape::Box</enum>
    </property>
    <property name="lineWidth">
     <number>3</number>
@@ -45,11 +45,14 @@ border-color : white;</string>
    <property name="text">
     <string/>
    </property>
+   <property name="textFormat">
+    <enum>Qt::TextFormat::MarkdownText</enum>
+   </property>
    <property name="alignment">
-    <set>Qt::AlignCenter</set>
+    <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
    <property name="textInteractionFlags">
-    <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+    <set>Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByMouse</set>
    </property>
   </widget>
   <widget class="QLabel" name="testName">
@@ -73,7 +76,7 @@ color : white;
 border-color : white;</string>
    </property>
    <property name="frameShape">
-    <enum>QFrame::Box</enum>
+    <enum>QFrame::Shape::Box</enum>
    </property>
    <property name="lineWidth">
     <number>3</number>
@@ -81,11 +84,14 @@ border-color : white;</string>
    <property name="text">
     <string/>
    </property>
+   <property name="textFormat">
+    <enum>Qt::TextFormat::MarkdownText</enum>
+   </property>
    <property name="alignment">
-    <set>Qt::AlignCenter</set>
+    <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
    <property name="textInteractionFlags">
-    <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+    <set>Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByMouse</set>
    </property>
   </widget>
   <widget class="QLabel" name="shortTestName">
@@ -109,7 +115,7 @@ color : white;
 border-color : white;</string>
    </property>
    <property name="frameShape">
-    <enum>QFrame::Box</enum>
+    <enum>QFrame::Shape::Box</enum>
    </property>
    <property name="lineWidth">
     <number>3</number>
@@ -117,11 +123,14 @@ border-color : white;</string>
    <property name="text">
     <string/>
    </property>
+   <property name="textFormat">
+    <enum>Qt::TextFormat::MarkdownText</enum>
+   </property>
    <property name="alignment">
-    <set>Qt::AlignCenter</set>
+    <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
    <property name="textInteractionFlags">
-    <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+    <set>Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByMouse</set>
    </property>
   </widget>
   <widget class="QLabel" name="testInfo">
@@ -145,7 +154,7 @@ color : white;
 border-color : white;</string>
    </property>
    <property name="frameShape">
-    <enum>QFrame::Box</enum>
+    <enum>QFrame::Shape::Box</enum>
    </property>
    <property name="lineWidth">
     <number>3</number>
@@ -153,11 +162,17 @@ border-color : white;</string>
    <property name="text">
     <string/>
    </property>
+   <property name="textFormat">
+    <enum>Qt::TextFormat::MarkdownText</enum>
+   </property>
    <property name="alignment">
-    <set>Qt::AlignCenter</set>
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+   <property name="openExternalLinks">
+    <bool>true</bool>
    </property>
    <property name="textInteractionFlags">
-    <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+    <set>Qt::TextInteractionFlag::LinksAccessibleByMouse|Qt::TextInteractionFlag::TextSelectableByMouse</set>
    </property>
   </widget>
  </widget>

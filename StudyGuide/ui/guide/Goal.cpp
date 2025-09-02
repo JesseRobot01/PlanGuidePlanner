@@ -151,12 +151,13 @@ void Goal::addTask(const GuideData::GuideGoalTasks task) {
     textLabel->setFrameShape(QFrame::NoFrame);
     textLabel->setLineWidth(3);
     textLabel->setAlignment(Qt::AlignCenter);
+    textLabel->setTextFormat(Qt::MarkdownText);
+    textLabel->setOpenExternalLinks(true);
 
     if (!link.isEmpty()) {
         QString text = QString("<a href=\"%2\">%1</a>")
                 .arg(name)
                 .arg(link);
-        textLabel->setOpenExternalLinks(true);
         textLabel->setText(text);
     }
     else
