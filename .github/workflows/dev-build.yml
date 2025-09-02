@@ -36,7 +36,7 @@ jobs:
         with:
           pattern: StudyGuide-Pages-*
           merge-multiple: true
-          path: .
+          path: ./nightly
 
       - name: Deploy to Cloudflare Pages
         id: deployment
