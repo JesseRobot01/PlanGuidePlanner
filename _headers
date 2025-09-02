@@ -1,3 +1,7 @@
 https://studyguide.pages.dev/*
     cross-origin-embedder-policy: require-corp
     cross-origin-opener-policy: same-origin
+
+https://planguideplanner.pages.dev/*
+    cross-origin-embedder-policy: require-corp
+    cross-origin-opener-policy: same-origin
