@@ -131,9 +131,10 @@ set(CPACK_PACKAGE_VERSION_MAJOR ${STUDYGUIDE_VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${STUDYGUIDE_VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${STUDYGUIDE_VERSION_PATCH})
 
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6core6 (>= 6.4.2)")
-set(CPACK_PACKAGE_CONTACT "JesseRobot01")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6core6 (>= ${Qt6Widgets_VERSION}")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6svg6 (>= ${Qt6Widgets_VERSION}")
 
+set(CPACK_PACKAGE_CONTACT "JesseRobot01")
 
 set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
   ; Associate .pgd files
@@ -201,5 +202,5 @@ if (BUILD_TESTING)
     add_subdirectory(tests)
 endif ()
 
-add_subdirectory(StudyGuide)
+add_subdirectory(PlanGuidePlanner)
 
