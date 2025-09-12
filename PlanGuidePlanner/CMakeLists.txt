@@ -97,7 +97,7 @@ qt_add_translations(${EXECUTABLE_NAME} TS_FILES ${TRANSLATIONS}
 
 # Iterate over each translation file and set QT_RESOURCE_ALIAS
 foreach (translation ${qm_files})
-    string(REPLACE "${CMAKE_BINARY_DIR}/StudyGuide/" "" translation_name ${translation})
+    string(REPLACE "${CMAKE_BINARY_DIR}/PlanGuidePlanner/" "" translation_name ${translation})
     string(REPLACE ".qm" \; translation_name ${translation_name})
 
     # Set QT_RESOURCE_ALIAS for the qm file
