@@ -54,15 +54,15 @@ set(CREATOR_SOURCES
         creator/Creator.ui)
 
 set(TRANSLATIONS
-        translations/StudyGuide_nl.ts
-        translations/StudyGuide_en.ts
+        translations/PlanGuidePlanner_nl.ts
+        translations/PlanGuidePlanner_en.ts
 )
 
 set(LOGO_FILES
-../program_info/SG-AppIcon.svg
-../program_info/SG-DarkMode.svg
-../program_info/SG-LightMode.svg
-../program_info/SG-Logo.svg)
+        ../program_info/PGP-AppIcon.svg
+        ../program_info/PGP-full-DarkMode.svg
+        ../program_info/PGP-full-LightMode.svg
+../program_info/PGP-Logo.svg)
 
 if (DEFINED WIN32)
     set(WIN_SOURCES
@@ -70,17 +70,17 @@ if (DEFINED WIN32)
             WindowConsole.h)
 endif ()
 
-qt_add_library(StudyGuide_Logic STATIC ${SOURCES} ${UI} ${WIN_SOURCES} ${CREATOR_SOURCES})
-target_link_libraries(StudyGuide_Logic Qt::Core Qt::Gui Qt::Widgets BuildConfig QuaZip::QuaZip Qt::Svg Qt6::Core5Compat ${ZLIB_LIBRARY})
+qt_add_library(PlanGuidePlanner_Logic STATIC ${SOURCES} ${UI} ${WIN_SOURCES} ${CREATOR_SOURCES})
+target_link_libraries(PlanGuidePlanner_Logic Qt::Core Qt::Gui Qt::Widgets BuildConfig QuaZip::QuaZip Qt::Svg Qt6::Core5Compat ${ZLIB_LIBRARY})
 if (ANDROID)
-    target_link_libraries(StudyGuide_Logic Qt::CorePrivate)
+    target_link_libraries(PlanGuidePlanner_Logic Qt::CorePrivate)
 endif ()
 
 
-qt_add_executable(${EXECUTABLE_NAME} main.cpp ../program_info/studyguide.rc)
-target_link_libraries(${EXECUTABLE_NAME} PRIVATE StudyGuide_Logic)
+qt_add_executable(${EXECUTABLE_NAME} main.cpp ../program_info/planguideplanner.rc)
+target_link_libraries(${EXECUTABLE_NAME} PRIVATE PlanGuidePlanner_Logic)
 
-target_include_directories(StudyGuide_Logic PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(PlanGuidePlanner_Logic PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 if (DEFINED APP_BINARY_NAME)
     set_target_properties(${EXECUTABLE_NAME} PROPERTIES OUTPUT_NAME "${APP_BINARY_NAME}")

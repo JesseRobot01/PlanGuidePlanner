@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="nl_NL" sourcelanguage="en_GB">
+<TS version="2.1" language="en_GB" sourcelanguage="en_GB">
 <context>
     <name>About</name>
     <message>
         <source>About</source>
-        <translation type="vanished">Over StudyGuide</translation>
+        <translation type="vanished">About PlanGuidePlanner</translation>
     </message>
     <message>
-        <source>StudyGuide</source>
-        <translation type="vanished">StudieWijzer</translation>
+        <source>PlanGuidePlanner</source>
+        <translation type="vanished">PlanGuidePlanner</translation>
     </message>
     <message>
         <source>A tool for tracking your progress.</source>
-        <translation type="vanished">Een tool voor het volgen van je voortgang met je studie.</translation>
+        <translation type="vanished">A tool for tracking your progress with your study.</translation>
     </message>
     <message>
         <location filename="../ui/About.ui" line="+14"/>
         <source>About Plan Guide Planner</source>
-        <translation>Over Plan Guide Planner</translation>
+        <translation>About Plan Guide Planner</translation>
     </message>
     <message>
         <location line="+43"/>
         <source>A planner to plan your guides!</source>
-        <translation>Een planner om je plannen mee te plannen!</translation>
+        <translation>A planner to plan your guides!</translation>
     </message>
     <message>
         <location line="+114"/>
         <source>About QT</source>
-        <translation>Over QT</translation>
+        <translation>About QT</translation>
     </message>
     <message>
         <location line="+38"/>
         <source>Close</source>
-        <translation>Sluiten</translation>
+        <translation>Close</translation>
     </message>
 </context>
 <context>
@@ -41,7 +41,7 @@
     <message>
         <location filename="../ui/AboutWindow.cpp" line="+38"/>
         <source>Build Date: %1</source>
-        <translation>Bouw Datum: %1</translation>
+        <translation>Build Date: %1</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -82,12 +82,12 @@
         <location filename="../creator/Creator.cpp" line="+160"/>
         <location line="+68"/>
         <source>Name</source>
-        <translation>Naam</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location line="-95"/>
         <source>Extra Value</source>
-        <translation>Extra Waarde</translation>
+        <translation>Extra Value</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -97,7 +97,7 @@
         <location line="+172"/>
         <location line="+2"/>
         <source>Guide</source>
-        <translation>Wijzer</translation>
+        <translation>Guide</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -107,7 +107,7 @@
         <location line="+244"/>
         <location line="+172"/>
         <source>Period</source>
-        <translation>Periode</translation>
+        <translation>Period</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -124,27 +124,27 @@
         <location line="+96"/>
         <location line="+9"/>
         <source>Information</source>
-        <translation>Informatie</translation>
+        <translation>Information</translation>
     </message>
     <message>
         <location line="-130"/>
         <source>Display stuff!!!</source>
-        <translation>Wijzer Weergeven</translation>
+        <translation>Display Guide</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>File</source>
-        <translation>Bestand</translation>
+        <translation>File</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Add Stuff</source>
-        <translation>Objecten Toevoegen</translation>
+        <translation>Add Objects</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>Edit Stuff</source>
-        <translation>Objecten Bewerken</translation>
+        <translation>Edit Objects</translation>
     </message>
     <message>
         <location line="+42"/>
@@ -159,7 +159,7 @@
         <location line="+204"/>
         <location line="+123"/>
         <source>Work</source>
-        <translation>Maken</translation>
+        <translation>Work</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -168,7 +168,7 @@
         <location line="+360"/>
         <location line="+118"/>
         <source>Watch/ Listen</source>
-        <translation>Kijken/ Luisteren</translation>
+        <translation>Watch/ Listen</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -177,7 +177,7 @@
         <location line="+360"/>
         <location line="+122"/>
         <source>Read</source>
-        <translation>Lezen</translation>
+        <translation>Read</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -186,17 +186,18 @@
         <location line="+360"/>
         <location line="+117"/>
         <source>Process</source>
-        <translation>Verwerken</translation>
+        <translation>Process</translation>
     </message>
     <message>
         <location line="+156"/>
         <source>Ctrl+Shift+S</source>
+        <translatorcomment>Why do I have to translate this?!</translatorcomment>
         <translation>Ctrl+Shift+S</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Quit</source>
-        <translation>Afsluiten</translation>
+        <translation>Quit</translation>
     </message>
     <message>
         <location line="-194"/>
@@ -209,7 +210,7 @@
         <location filename="../creator/Creator.cpp" line="-97"/>
         <location line="+68"/>
         <source>Number</source>
-        <translation>Nummer</translation>
+        <translation>Number</translation>
     </message>
     <message>
         <location filename="../creator/Creator.cpp" line="-8"/>
@@ -222,12 +223,12 @@
         <location line="+19"/>
         <location line="+87"/>
         <source>Test</source>
-        <translation>Toets</translation>
+        <translation>Test</translation>
     </message>
     <message>
         <location filename="../creator/Creator.ui" line="+180"/>
         <source>Open Guide</source>
-        <translation>Bestand Openen</translation>
+        <translation>Open File</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -237,7 +238,7 @@
     <message>
         <location line="+5"/>
         <source>Save Guide</source>
-        <translation>Bestand opslaan</translation>
+        <translation>Save file</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -247,7 +248,7 @@
     <message>
         <location line="+5"/>
         <source>Save Guide As</source>
-        <translation>Bestand opslaan als</translation>
+        <translation>Save File As</translation>
     </message>
     <message>
         <location filename="../creator/Creator.cpp" line="-664"/>
@@ -262,7 +263,7 @@
         <location line="+146"/>
         <location line="+6"/>
         <source>Goal</source>
-        <translation>Doel</translation>
+        <translation>Goal</translation>
     </message>
     <message>
         <location line="-634"/>
@@ -271,7 +272,7 @@
         <location line="+83"/>
         <location line="+238"/>
         <source>Time</source>
-        <translation>Tijd</translation>
+        <translation>Time</translation>
     </message>
     <message>
         <location line="-477"/>
@@ -292,7 +293,7 @@
         <location line="+92"/>
         <location line="+242"/>
         <source>Progress</source>
-        <translation>Voortgang</translation>
+        <translation>Progress</translation>
     </message>
     <message>
         <location filename="../creator/Creator.cpp" line="-441"/>
@@ -302,51 +303,51 @@
         <location line="+233"/>
         <location line="+91"/>
         <source>Report</source>
-        <translation>Rapport</translation>
+        <translation>Report</translation>
     </message>
     <message>
         <location line="-784"/>
         <location line="+393"/>
         <source>Add Goal</source>
-        <translation>Doel Toevoegen</translation>
+        <translation>Add Goal</translation>
     </message>
     <message>
         <location line="-390"/>
         <location line="+409"/>
         <source>Add Test</source>
-        <translation>Toets Toevoegen</translation>
+        <translation>Add Test</translation>
     </message>
     <message>
         <location line="-406"/>
         <location line="+421"/>
         <source>Add Report</source>
-        <translation>Rapport Toevoegen</translation>
+        <translation>Add Report</translation>
     </message>
     <message>
         <location line="-435"/>
         <location line="+447"/>
         <source>Add Goal Task</source>
-        <translation>Voeg taak toe aan doel</translation>
+        <translation>Add task to goal</translation>
     </message>
     <message>
         <location line="-444"/>
         <location line="+462"/>
         <source>Add Test To Report</source>
-        <translation>Voeg toets toe aan rapport</translation>
+        <translation>Add test to report</translation>
     </message>
     <message>
         <location line="-446"/>
         <location line="+223"/>
         <location line="+469"/>
         <source>Subject Name</source>
-        <translation>Vaknaam</translation>
+        <translation>Subject Name</translation>
     </message>
     <message>
         <location line="-691"/>
         <location line="+223"/>
         <location line="+469"/>
         <source>Short Name</source>
-        <translation>Afkorting</translation>
+        <translation>Short Name</translation>
     </message>
     <message>
         <location line="-559"/>
@@ -355,39 +356,39 @@
     </message>
     <message>
         <location line="+343"/>
-        <source>Open StudyGuide</source>
-        <translation>Bestand Openen</translation>
+        <source>Open PlanGuidePlanner</source>
+        <translation>Open File</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>All Supported Files (*.pgd *.pgx *.xml);;Plan Guide Planner Document (*.pgd);;Plan Guide Planner XML-based file (*.pgx);;*.Xml Files (*.xml);;All Files (*)</source>
-        <translation>Alle Ondersteunende bestanden (*.pgd *.pgx *.xml);;Plan Guide Planner Document (*.pgd);;Plan Guide Planner XML-gebaseerde bestand (*.pgx);;*.Xml Bestanden (*.xml);;Alle Bestanden (*)</translation>
+        <translation>All Supported Files (*.pgd *.pgx *.xml);;Plan Guide Planner Document (*.pgd);;Plan Guide Planner XML-based file (*.pgx);;*.Xml Files (*.xml);;All Files (*)</translation>
     </message>
     <message>
         <location line="+67"/>
         <source>Plan Guide Planner Document (*.pgd);;Plan Guide Planner XML-based file (*.pgx);;*.Xml Files (*.xml);;All Files (*)</source>
-        <translation>Plan Guide Planner Document (*.pgd);;Plan Guide Planner XML-gebaseerde bestand (*.pgx);;*.Xml Bestanden (*.xml);;Alle Bestanden(*)</translation>
+        <translation>Plan Guide Planner Document (*.pgd);;Plan Guide Planner XML-based file (*.pgx);;*.Xml Files (*.xml);;All Files (*)</translation>
     </message>
     <message>
-        <source>All Supported Files (*.sgd *.sga *.xml);;StudyGuide Document (*.sgd);;StudyGuide Auto Save File (*.sga);;*.Xml Files (*.xml);;All Files (*)</source>
-        <translation type="vanished">Alle ondersteunende bestanden (*.sgd *.sga *.xml);;StudyGuide-Bestanden (*.sgd);;StudyGuide Autosave-Bestand (*.sga);;*.Xml Bestand(*.xml);;Alle Bestanden(*)</translation>
+        <source>All Supported Files (*.sgd *.sga *.xml);;PlanGuidePlanner Document (*.sgd);;PlanGuidePlanner Auto Save File (*.sga);;*.Xml Files (*.xml);;All Files (*)</source>
+        <translation type="vanished">All Supported Files (*.sgd *.sga *.xml);;PlanGuidePlanner Document (*.sgd);;PlanGuidePlanner Auto Save File (*.sga);;*.Xml Files (*.xml);;All Files (*)</translation>
     </message>
     <message>
-        <source>StudyGuide Document (*.sgd);;XML Files (*.xml);;All Files (*)</source>
-        <translation type="vanished">StudyGuide-Document (*.sgd);;XML Bestand (*.xml);;Alle Bestanden (*)</translation>
+        <source>PlanGuidePlanner Document (*.sgd);;XML Files (*.xml);;All Files (*)</source>
+        <translation type="vanished">PlanGuidePlanner Document (*.sgd);;XML Files (*.xml);;All Files (*)</translation>
     </message>
     <message>
         <source>All Supported Files (*.xml);;*.Xml Files (*.xml);;All Files (*)</source>
-        <translation type="vanished">Alle Ondersteunende Bestanden (*.xml);;*.xml bestanden (*.xml);;Alle Bestanden (*)</translation>
+        <translation type="vanished">All Supported Files (*.xml);;*.Xml Files (*.xml);;All Files (*)</translation>
     </message>
     <message>
         <location line="-2"/>
-        <source>Save StudyGuide</source>
-        <translation>Bestand Opslaan</translation>
+        <source>Save PlanGuidePlanner</source>
+        <translation>Save File</translation>
     </message>
     <message>
         <source>XML Files (*.xml);;All Files (*)</source>
-        <translation type="vanished">Xml bestanden (*.xml);;Alle Bestanden (*)</translation>
+        <translation type="vanished">XML FIles (*.xml);;All files (*)</translation>
     </message>
 </context>
 <context>
@@ -395,22 +396,22 @@
     <message>
         <location filename="../ui/guide/Goal.cpp" line="+88"/>
         <source>UI_WORKINDICATOR</source>
-        <translation>M</translation>
+        <translation>W</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>UI_WATCHINDICATOR</source>
-        <translation>K/L</translation>
+        <translation>W/L</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>UI_READINDICATOR</source>
-        <translation>L</translation>
+        <translation>R</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>UI_PROCESSINDICATOR</source>
-        <translation>V</translation>
+        <translation>P</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -420,7 +421,7 @@
     <message>
         <location filename="../ui/guide/Goal.ui" line="+14"/>
         <source>Goal</source>
-        <translation>Doel</translation>
+        <translation>Goal</translation>
     </message>
 </context>
 <context>
@@ -428,62 +429,62 @@
     <message>
         <location filename="../ui/guide/Guide.ui" line="+14"/>
         <source>Guide</source>
-        <translation>Wijzer</translation>
+        <translation>Guide</translation>
     </message>
     <message>
         <location line="+61"/>
         <source>period</source>
-        <translation>Periode</translation>
+        <translation>Period</translation>
     </message>
     <message>
-        <location line="+195"/>
+        <location line="+201"/>
         <source>UI_WORKINDICATOR</source>
-        <translation>M</translation>
+        <translation>W</translation>
     </message>
     <message>
         <location line="+34"/>
         <source>UI_READINDICATOR</source>
-        <translation>L</translation>
+        <translation>R</translation>
     </message>
     <message>
         <location line="+34"/>
         <source>UI_WATCHINDICATOR</source>
-        <translation>K/L</translation>
+        <translation>W/L</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>Reading</source>
-        <translation>Lezen</translation>
+        <translation>Reading</translation>
     </message>
     <message>
         <location line="+34"/>
         <source>Work</source>
-        <translation>Maken</translation>
+        <translation>Work</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>Watch/ listen</source>
-        <translation>Kijken/ Luisteren</translation>
+        <translation>Watch/ Listen</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>Procces</source>
-        <translation>Verwerken</translation>
+        <translation>Process</translation>
     </message>
     <message>
         <location line="+34"/>
         <source>UI_PROCESSINDICATOR</source>
-        <translation>V</translation>
+        <translation>P</translation>
     </message>
     <message>
         <location line="+28"/>
         <source>Main Information</source>
-        <translation>Algemene Informatie</translation>
+        <translation>Main Information</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>Information</source>
-        <translation>Informatie</translation>
+        <translation>Information</translation>
     </message>
     <message>
         <location line="+34"/>
@@ -507,58 +508,58 @@
         <location line="+2"/>
         <source>Uh oh, something went wrong. 
 Error Description: </source>
-        <translation>Oeps, er is iets misgegaan.
-Foutbeschrijving: </translation>
+        <translation>Uh oh, something went wrong. 
+Error Description: </translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Try this:</source>
-        <translation>Probeer dit:</translation>
+        <translation>Try this:</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Check if the file is supported.</source>
-        <translation>Controleer of het bestand word ondersteund.</translation>
+        <translation>Check if the file is supported.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Open the mentioned file in a text editor,</source>
-        <translation>Open het genoemde bestand in een tekstbewerker,</translation>
+        <translation>Open the mentioned file in a text editor,</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Search for &apos;&lt;StudyGuide&apos; near the start of the document.</source>
-        <translation>Zoek naar &apos;&lt;pgp&apos; aan het begin van het document.</translation>
+        <source>Search for &apos;&lt;PlanGuidePlanner&apos; near the start of the document.</source>
+        <translation>Search for &apos;&lt;pgp&apos; near the start of the document.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Try this too:</source>
-        <translation>Probeer dit ook:</translation>
+        <translation>Try this too:</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Check if the file is not open in another program.</source>
-        <translation>Controleer of het bestand niet in een andere porgramma geopend is.</translation>
+        <translation>Check if the file is not open in another program.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Try making a copy!</source>
-        <translation>Probeer een kopie van het bestand te maken!</translation>
+        <translation>Try making a copy!</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This is also an option:</source>
-        <translation>Dit is ook een optie:</translation>
+        <translation>This is also an option:</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Report an issue here.</source>
-        <translation>Meld hier een probleem.</translation>
+        <translation>Report an issue here.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Make sure to attach the document and the logs!</source>
-        <translation>Zorg ervoor om het juiste document en de huidige logbestand mee te sturen!</translation>
+        <translation>Make sure to attach the document and the logs!</translation>
     </message>
 </context>
 <context>
@@ -566,22 +567,22 @@ Foutbeschrijving: </translation>
     <message>
         <location filename="../ui/guide/Index.ui" line="+14"/>
         <source>Index</source>
-        <translation>Vak Inhoud</translation>
+        <translation>Subject Index</translation>
     </message>
     <message>
         <location line="+39"/>
         <source>Subject Index</source>
-        <translation>Vakinhoud</translation>
+        <translation>Subject Index</translation>
     </message>
     <message>
         <location line="+40"/>
         <source>Time</source>
-        <translation>Tijd</translation>
+        <translation>Time</translation>
     </message>
     <message>
         <location line="+37"/>
         <source>Done</source>
-        <translation>Af</translation>
+        <translation>Done</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -594,24 +595,24 @@ Foutbeschrijving: </translation>
     <message>
         <location filename="../ui/dialogs/LoadGuide.ui" line="+14"/>
         <source>LoadGuide</source>
-        <translation>Wijzer laden</translation>
+        <translation>Loading guide</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>Loading Guides</source>
-        <translation>WIjzers Laden</translation>
+        <translation>Loading Guide</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <source>StudyGuide</source>
-        <translation type="vanished">StudieWijzer</translation>
+        <source>PlanGuidePlanner</source>
+        <translation type="vanished">PlanGuidePlanner</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="+77"/>
         <source>File</source>
-        <translation>Bestand</translation>
+        <translation>File</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -621,7 +622,7 @@ Foutbeschrijving: </translation>
     <message>
         <location line="+11"/>
         <source>Exit</source>
-        <translation>Afsluiten</translation>
+        <translation>Exit</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -631,12 +632,12 @@ Foutbeschrijving: </translation>
     <message>
         <location line="+5"/>
         <source>Preferences</source>
-        <translation>Voorkeuren</translation>
+        <translation>Preferences</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Open File</source>
-        <translation>Bestand Openen</translation>
+        <translation>Open file</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -646,7 +647,7 @@ Foutbeschrijving: </translation>
     <message>
         <location line="+10"/>
         <source>Save And Close Guide</source>
-        <translation>Bestand Opslaan en Sluiten</translation>
+        <translation>Save And Close File</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -661,7 +662,7 @@ Foutbeschrijving: </translation>
     <message>
         <location line="+5"/>
         <source>Save And Close All Guides</source>
-        <translation>Alle Bestanden Opslaan en Sluiten</translation>
+        <translation>Save and Close all files</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -671,7 +672,7 @@ Foutbeschrijving: </translation>
     <message>
         <location line="+5"/>
         <source>Open In Creator</source>
-        <translation>Openen in Creator</translation>
+        <translation>Open in Creator</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -681,30 +682,30 @@ Foutbeschrijving: </translation>
     <message>
         <location line="+5"/>
         <source>Report an issue</source>
-        <translation>Meld een probleem</translation>
+        <translation>Report an issue</translation>
     </message>
     <message>
         <source>Save Guide As</source>
-        <translation type="vanished">Wijzer opslaan als</translation>
+        <translation type="vanished">Save Guide As</translation>
     </message>
     <message>
         <location line="-47"/>
         <source>About</source>
-        <translation>Over Plan Guide Planner</translation>
+        <translation>About Plan Guide Planner</translation>
     </message>
     <message>
         <source>Save Guide</source>
-        <translation type="vanished">Wijzer opslaan</translation>
+        <translation type="vanished">Save Guide</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Close guide</source>
-        <translation>Bestand Sluiten</translation>
+        <translation>Close File</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Close all guides</source>
-        <translation>Alle Bestanden Sluiten</translation>
+        <translation>Close All Files</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.cpp" line="+36"/>
@@ -715,56 +716,56 @@ Foutbeschrijving: </translation>
         <location line="+52"/>
         <location line="+14"/>
         <source>All Supported Files (*.pgd *.pgm *.pgx *.xml *.zip);;Zip Files (*.pgd *.pgm *.zip);;*.Xml Files (*.pgx *.xml);;All Files (*)</source>
-        <translation>Alle Ondersteunende Bestanden (*.pgd *.pgm *.pgx *.xml *.zip);;Zip Bestanden (*.pgd *.pgm *.zip);;*.Xml bestanden (*.pgx *.xml);;Alle Bestanden (*)</translation>
+        <translation>All Supported Files (*.pgd *.pgm *.pgx *.xml *.zip);;Zip Files (*.pgd *.pgm *.zip);;*.Xml Files (*.pgx *.xml);;All Files (*)</translation>
     </message>
     <message>
         <location line="-2"/>
-        <source>Open StudyGuide</source>
-        <translation>Bestanden Openen</translation>
+        <source>Open PlanGuidePlanner</source>
+        <translation>Open Files</translation>
     </message>
     <message>
         <location line="+159"/>
         <source>Plan Guide Planner Document File (*.pgd);;Plan Guide Planner XML-based file (*.pgx);;XML File (*.xml);;All Files (*)</source>
-        <translation>Plan Guide Planner Document bestand (*.pgd);;Plan Guide Planner XML-gebaseerde bestand(*.pgx);;XML Bestand (*.xml);;Alle bestanden (*)</translation>
+        <translation>Plan Guide Planner Document File (*.pgd);;Plan Guide Planner XML-based file (*.pgx);;XML File (*.xml);;All Files (*)</translation>
     </message>
     <message>
         <location line="+109"/>
         <source>Plan Guide Planner Multi File (*.pgm);;ZIP Files (*.zip);;All Files (*)</source>
-        <translation>Plan Guide Planner Multi Bestand (*.pgm);;ZIP Bestand (*.zip);;Alle Bestanden (*)</translation>
+        <translation>Plan Guide Planner Multi File (*.pgm);;ZIP Files (*.zip);;All Files (*)</translation>
     </message>
     <message>
         <source>All Supported Files (*.xml *.zip);;*.Xml Files (*.xml);;Zip Files (*.zip);;All Files (*)</source>
-        <translation type="vanished">Alle ondersteunende bestanden (*.xml *.zip);;xml-Bestanden (*.xml);;Zip Bestanden (*.zip);;Alle Bestanden (*)</translation>
+        <translation type="vanished">All Supported Files (*.xml *.zip);;*.Xml Files (*.xml);;Zip Files (*.zip);;All Files (*)</translation>
     </message>
     <message>
         <source>All Supported Files (*.sgd *.sgc *.sga *.xml *.zip);;*.Xml Files (*.sgd *.sga *.xml);;Zip Files (*.sgc *.zip);;All Files (*)</source>
-        <translation type="vanished">Alle ondersteunende Bestanden (*.sgd *.sgc *.sga *.xml *.zip);;*.Xml-Bestanden (*.sgd *.sga *.xml);;Zip-Bestanden (*.sgc *.zip);;Alle Bestanden (*)</translation>
+        <translation type="vanished">All Supported Files (*.sgd *.sgc *.sga *.xml *.zip);;*.Xml Files (*.sgd *.sga *.xml);;Zip Files (*.sgc *.zip);;All Files (*)</translation>
     </message>
     <message>
         <location line="-111"/>
-        <source>Save StudyGuide</source>
-        <translation>Bestand Opslaan</translation>
+        <source>Save PlanGuidePlanner</source>
+        <translation>Save File</translation>
     </message>
     <message>
-        <source>StudyGuide Document (*.sgd);;XML File (*.xml);;All Files (*)</source>
-        <translation type="vanished">StudyGuide-Document (*.sgd);;XML-Bestand (*.xml);;Alle Bestanden (*)</translation>
+        <source>PlanGuidePlanner Document (*.sgd);;XML File (*.xml);;All Files (*)</source>
+        <translation type="vanished">PlanGuidePlanner Document (*.sgd);;XML File (*.xml);;All Files (*)</translation>
     </message>
     <message>
         <location line="+109"/>
         <source>Save All Guides</source>
-        <translation>Alles Bestanden Opslaan</translation>
+        <translation>Save All Files</translation>
     </message>
     <message>
-        <source>StudyGuide Collection (*.sgc);;ZIP Files (*.zip);;All Files (*)</source>
-        <translation type="vanished">StudyGuide-Collectie (*.sgc);;ZIP-Bestand (*.zip);;Alle Bestanden (*)</translation>
+        <source>PlanGuidePlanner Collection (*.sgc);;ZIP Files (*.zip);;All Files (*)</source>
+        <translation type="vanished">PlanGuidePlanner Collection (*.sgc);;ZIP Files (*.zip);;All Files (*)</translation>
     </message>
     <message>
         <source>ZIP Files (*.zip);;All Files (*)</source>
-        <translation type="vanished">Zip Bestanden (*.zip);;Alle Bestanden (*)</translation>
+        <translation type="vanished">Zip Files (*.zip);;All Files (*)</translation>
     </message>
     <message>
         <source>XML Files (*.xml);;All Files (*)</source>
-        <translation type="vanished">Xml bestanden (*.xml);;Alle Bestanden (*)</translation>
+        <translation type="vanished">XML FIles (*.xml);;All files (*)</translation>
     </message>
 </context>
 <context>
@@ -772,140 +773,138 @@ Foutbeschrijving: </translation>
     <message>
         <location filename="../ui/PreferenceWindow.ui" line="+20"/>
         <source>Preferences</source>
-        <translation>Voorkeuren</translation>
+        <translation>Preferences</translation>
     </message>
     <message>
         <location line="+40"/>
         <source>Appearence</source>
-        <translation>Uiterlijk</translation>
+        <translation>Appearence</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Theme</source>
-        <translation>Thema</translation>
+        <translation>Theme</translation>
     </message>
     <message>
         <location line="+28"/>
         <source>Directories</source>
-        <translation>Mappen</translation>
+        <translation>Directories</translation>
     </message>
     <message>
         <location line="+27"/>
         <source>Logs directory</source>
-        <translation>Log map</translation>
+        <translation>Logs directory</translation>
     </message>
     <message>
         <source>Use Auto Save</source>
-        <translatorcomment>Gebruik automatische opslag</translatorcomment>
-        <translation type="vanished">Gebruik automatische opslag</translation>
+        <translation type="vanished">Use auto save</translation>
     </message>
     <message>
         <location line="+30"/>
         <source>Auto save directory</source>
-        <translation>Map voor automatische opslag</translation>
+        <translation>Auto Save directory</translation>
     </message>
     <message>
         <source>Use Auto Open</source>
-        <translation type="vanished">Gebruik automatische opening</translation>
+        <translation type="vanished">Use auto open</translation>
     </message>
     <message>
         <source>Auto open directory</source>
-        <translation type="vanished">Map voor automatische opening van wijzers</translation>
+        <translation type="vanished">Auto Open directory</translation>
     </message>
     <message>
         <source>Automaticly copy new opened files to auto open directory</source>
-        <translation type="vanished">Kopieër automatisch nieuwe geopende bestanden</translation>
+        <translation type="vanished">Automaticly copy over new opened files to Auto Open Dir</translation>
     </message>
     <message>
         <location line="+45"/>
         <source>Language</source>
-        <translation>Taal</translation>
+        <translation>language</translation>
     </message>
     <message>
         <location line="+27"/>
         <source>Language:</source>
-        <translation>Taal:</translation>
+        <translation>Language:</translation>
     </message>
     <message>
         <location line="+28"/>
         <source>Reset</source>
-        <translation>Resetten</translation>
+        <translation>Reset</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>I&apos;m sure I want to clear all the directories</source>
-        <translation>Ik weet het zeker dat ik alle mappen wil legen</translation>
+        <translation>I&apos;m sure I want to clear all the directories</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Clear all directories</source>
-        <translation>Leeg alle mappen</translation>
+        <translation>Clear all directories</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>I&apos;m sure I want to reset all settings</source>
-        <translation>Ik weet het zeker dat ik alle instellingen wil resetten</translation>
+        <translation>I&apos;m sure I want to reset all the settings</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Reset all settings</source>
-        <translation>Reset Instellingen</translation>
+        <translation>Reset Settings</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>I&apos;m sure I want to reset everything (This cannot be undone!)</source>
-        <translation>Ik weet het zeker dat ik alles wil resetten.
-(Dit kan niet ongedaan worden gemaakt!)</translation>
+        <translation>I&apos;m sure I want to reset everything. (This cannot be undone!)</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Reset Everythig</source>
-        <translation>Reset alles</translation>
+        <translation>Reset everything</translation>
     </message>
     <message>
         <location line="+43"/>
         <source>Save</source>
-        <translation>Opslaan</translation>
+        <translation>Save</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation>Cancel</translation>
     </message>
     <message>
         <location filename="../ui/PreferenceWindow.cpp" line="+24"/>
         <source>English</source>
-        <translation>Engels (English)</translation>
+        <translation>English (English)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Dutch</source>
-        <translation>Nederlands (Nederlands)</translation>
+        <translation>Dutch (Nederlands)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Fusion Dark</source>
-        <translation>Fusion Donker</translation>
+        <translation>Fusion Dark</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Fusion Light</source>
-        <translation>Fusion licht</translation>
+        <translation>Fusion Light</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>System</source>
-        <translation>Systeem</translation>
+        <translation>System</translation>
     </message>
     <message>
         <location line="+94"/>
         <source>log directory</source>
-        <translation>Map voor logbestanden</translation>
+        <translation>Log Directory</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Auto Save directory</source>
-        <translation>Map voor Autosave-Bestanden</translation>
+        <translation>Auto Save Directory</translation>
     </message>
 </context>
 <context>
@@ -914,7 +913,7 @@ Foutbeschrijving: </translation>
         <location filename="../ui/guide/Report.ui" line="+14"/>
         <location line="+39"/>
         <source>Report</source>
-        <translation>Rapport</translation>
+        <translation>Report</translation>
     </message>
 </context>
 <context>
@@ -922,22 +921,22 @@ Foutbeschrijving: </translation>
     <message>
         <location filename="../ui/dialogs/RestartDialog.ui" line="+20"/>
         <source>Restart</source>
-        <translation>Herstart</translation>
+        <translation>Restart</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>The application needs to restart. Restart now?</source>
-        <translation>De programma moet herstarten. Wilt u nu herstarten?</translation>
+        <translation>The application needs to restart. Restart now?</translation>
     </message>
     <message>
         <location line="+28"/>
         <source>Yes</source>
-        <translation>Ja</translation>
+        <translation>Yes</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>No</source>
-        <translation>Nee</translation>
+        <translation>No</translation>
     </message>
 </context>
 <context>
@@ -945,8 +944,12 @@ Foutbeschrijving: </translation>
     <message>
         <location filename="../ui/StartScreen.ui" line="+14"/>
         <source>StartScreen</source>
-        <translatorcomment>Waarom hebben wij hiervoor een vertaling? </translatorcomment>
-        <translation>Start Scherm</translation>
+        <translation>Start Screen</translation>
+    </message>
+    <message>
+        <location filename="../ui/StartScreen.cpp" line="+126"/>
+        <source>Week: %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -954,7 +957,7 @@ Foutbeschrijving: </translation>
     <message>
         <location filename="../ui/guide/Test.ui" line="+17"/>
         <source>Test</source>
-        <translation>Toets</translation>
+        <translation>Test</translation>
     </message>
 </context>
 </TS>

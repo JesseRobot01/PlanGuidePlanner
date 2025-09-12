@@ -2,8 +2,8 @@
 // Created by Jesse on 3 okt. 2023.
 //
 
-#ifndef STUDYGUIDE_INDEX_H
-#define STUDYGUIDE_INDEX_H
+#ifndef PLANGUIDEPLANNER_INDEX_H
+#define PLANGUIDEPLANNER_INDEX_H
 
 
 #include <QWidget>
@@ -46,4 +46,4 @@ private:
 };
 
 
-#endif //STUDYGUIDE_INDEX_H
+#endif //PLANGUIDEPLANNER_INDEX_H

@@ -519,7 +519,7 @@ void Creator::on_longEdit_textChanged() {
 void Creator::on_actionOpen_Guide_triggered() {
     QSettings settings;
 
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open StudyGuide"),
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open PlanGuidePlanner"),
                                                     settings.value("LastOpenedDir", ".").toString(),
                                                     tr(
                                                         "All Supported Files (*.pgd *.pgx *.xml);;Plan Guide Planner Document (*.pgd);;Plan Guide Planner XML-based file (*.pgx);;*.Xml Files (*.xml);;All Files (*)"));
@@ -586,7 +586,7 @@ void Creator::on_actionSave_Guide_As_triggered() {
     else
         baseFileName = settings.value("LastOpenedDir", ".").toString() + "/" + guide.name + ".xml";
 
-    QString saveFileName = QFileDialog::getSaveFileName(this, tr("Save StudyGuide"),
+    QString saveFileName = QFileDialog::getSaveFileName(this, tr("Save PlanGuidePlanner"),
                                                         baseFileName,
                                                         tr(
                                                             "Plan Guide Planner Document (*.pgd);;Plan Guide Planner XML-based file (*.pgx);;*.Xml Files (*.xml);;All Files (*)"));

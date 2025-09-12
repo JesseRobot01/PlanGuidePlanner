@@ -2,8 +2,8 @@
 // Created by Jesse on 3 okt. 2023.
 //
 
-#ifndef STUDYGUIDE_TEST_H
-#define STUDYGUIDE_TEST_H
+#ifndef PLANGUIDEPLANNER_TEST_H
+#define PLANGUIDEPLANNER_TEST_H
 
 
 #include <QWidget>
@@ -48,4 +48,4 @@ private:
 };
 
 
-#endif //STUDYGUIDE_TEST_H
+#endif //PLANGUIDEPLANNER_TEST_H

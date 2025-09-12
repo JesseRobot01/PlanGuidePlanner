@@ -3,7 +3,7 @@
     package="io.jesserobot.planguideplanner"
     android:installLocation="auto"
     android:versionCode="1"
-    android:versionName="@STUDYGUIDE_VERSION@">
+    android:versionName="@PLANGUIDEPLANNER_VERSION@">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

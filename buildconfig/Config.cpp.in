@@ -7,8 +7,8 @@
 const BuildConfig Config;
 
 BuildConfig::BuildConfig() {
-    version = "@STUDYGUIDE_VERSION@";
-    buildDate = "@STUDYGUIDE_BUILD_DATE@";
+    version = "@PLANGUIDEPLANNER_VERSION@";
+    buildDate = "@PLANGUIDEPLANNER_BUILD_DATE@";
     gitCommit = "@GIT_COMMIT_HASH@";
     gitTag = "@GIT_TAG@";
     gitBranch = "@GIT_BRANCH@";

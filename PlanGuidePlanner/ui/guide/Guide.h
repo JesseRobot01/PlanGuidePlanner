@@ -2,8 +2,8 @@
 // Created by Jesse on 3 okt. 2023.
 //
 
-#ifndef STUDYGUIDE_GUIDE_H
-#define STUDYGUIDE_GUIDE_H
+#ifndef PLANGUIDEPLANNER_GUIDE_H
+#define PLANGUIDEPLANNER_GUIDE_H
 
 #include "guide/GuideData.h"
 #include <QWidget>
@@ -73,4 +73,4 @@ private:
     void updateStyle();
 };
 
-#endif //STUDYGUIDE_GUIDE_H
+#endif //PLANGUIDEPLANNER_GUIDE_H
