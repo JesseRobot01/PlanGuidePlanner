@@ -284,7 +284,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset theme="QIcon::ThemeIcon::GoUp"/>
+          <iconset theme="go-up"/>
          </property>
         </widget>
        </item>
@@ -300,7 +300,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset theme="QIcon::ThemeIcon::GoDown"/>
+          <iconset theme="go-down"/>
          </property>
         </widget>
        </item>
@@ -323,7 +323,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset theme="QIcon::ThemeIcon::EditDelete"/>
+          <iconset theme="edit-delete"/>
          </property>
         </widget>
        </item>
