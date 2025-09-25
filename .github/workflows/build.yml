@@ -155,6 +155,12 @@ jobs:
         with:
           version: 1.10.0
 
+      - name: Install NSIS (Windows)
+        if: ${{matrix.os == 'windows-latest'}}
+        uses: repolevedavaj/install-nsis@v1.0.3
+        with:
+          nsis-version: '3.10'
+
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
