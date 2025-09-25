@@ -36,7 +36,7 @@ jobs:
         with:
           pattern: PlanGuidePlanner-Pages-*
           merge-multiple: true
-          path: ./nightly
+          path: ./dev
 
       - name: Deploy to Cloudflare Pages
         id: deployment
