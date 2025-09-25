@@ -527,8 +527,12 @@ Foutbeschrijving: </translation>
     </message>
     <message>
         <location line="+1"/>
+        <source>Search for &apos;&lt;StudyGuide&apos; near the start of the document.</source>
+        <translation>Zoek naar &apos;&lt;PGP&gt; aan de start van het document.</translation>
+    </message>
+    <message>
         <source>Search for &apos;&lt;PlanGuidePlanner&apos; near the start of the document.</source>
-        <translation>Zoek naar &apos;&lt;pgp&apos; aan het begin van het document.</translation>
+        <translation type="vanished">Zoek naar &apos;&lt;pgp&apos; aan het begin van het document.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -614,7 +618,7 @@ Foutbeschrijving: </translation>
         <translation>Bestand</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+17"/>
         <source>Help</source>
         <translation>Help</translation>
     </message>
@@ -949,9 +953,9 @@ Foutbeschrijving: </translation>
         <translation>Start Scherm</translation>
     </message>
     <message>
-        <location filename="../ui/StartScreen.cpp" line="+126"/>
+        <location filename="../ui/StartScreen.cpp" line="+45"/>
         <source>Week: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Week: %1</translation>
     </message>
 </context>
 <context>
