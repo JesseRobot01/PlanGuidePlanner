@@ -14,10 +14,49 @@
 
 StartScreen::StartScreen(QWidget* parent) : QWidget(parent), ui(new Ui::StartScreen) {
     ui->setupUi(this);
+    addWeekLabel();
 }
 
 StartScreen::~StartScreen() {
     delete ui;
+}
+
+void StartScreen::addWeekLabel() {
+    // Set up week label
+    QSpacerItem* EndSpacer = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+    ui->horizontalLayout_2->addItem(EndSpacer);
+    //Styles
+    GuidePalette colourPalette;
+
+    QString headerStyle = QString::fromLatin1(
+               "background-color: %1; border-width: 2px; border-left-width: 8px; border-right-width: 8px; border-style: solid; border-color: %1; color:%2; margin-bottom:2px")
+           .arg(colourPalette.getColor(GuidePalette::HeaderBackground).name())
+           .arg(colourPalette.getColor(GuidePalette::HeaderText).name());
+
+    QFont startScreenLabelFont;
+    startScreenLabelFont.setPointSize(18);
+    startScreenLabelFont.setBold(true);
+
+
+    QWidget* startScreenList = new QWidget(ui->scrollAreaWidgetContents);
+    QVBoxLayout* startScreenLayout = new QVBoxLayout(startScreenList);
+    QLabel* startScreenLabel = new QLabel(startScreenList);
+    startScreenLabel->setText(tr("Week: %1").arg(QDate::currentDate().weekNumber()));
+    startScreenLabel->setAlignment(Qt::AlignCenter);
+
+    startScreenLabel->setFont(startScreenLabelFont);
+    startScreenLabel->setStyleSheet(headerStyle);
+
+    startScreenLabel->setAlignment(Qt::AlignmentFlag::AlignCenter);
+
+    startScreenLayout->addWidget(startScreenLabel);
+
+    ui->horizontalLayout_2->addWidget(startScreenList);
+
+    QSpacerItem* UnderSpacer = new
+            QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
+    startScreenLayout->addItem(UnderSpacer);
 }
 
 void StartScreen::updateStart() {
@@ -36,6 +75,36 @@ void StartScreen::updateStart() {
     ui->horizontalLayout_2 = new QHBoxLayout(ui->scrollAreaWidgetContents);
     ui->startScreenScrollArea->setWidget(ui->scrollAreaWidgetContents);
 
+    //Styles
+    GuidePalette colourPalette;
+
+    QFont startScreenLabelFont;
+    startScreenLabelFont.setPointSize(18);
+    startScreenLabelFont.setBold(true);
+
+    QString headerStyle = QString::fromLatin1(
+                "background-color: %1; border-width: 2px; border-left-width: 8px; border-right-width: 8px; border-style: solid; border-color: %1; color:%2; margin-bottom:2px")
+            .arg(colourPalette.getColor(GuidePalette::HeaderBackground).name())
+            .arg(colourPalette.getColor(GuidePalette::HeaderText).name());
+
+    QString notStarted =
+            QString::fromLatin1(
+                "background-color: %1; border-width: 2px; border-style: solid; border-color:#00000000;")
+            .arg(colourPalette.getColor(GuidePalette::Progress_NotStarted).name());
+
+    QString progress =
+            QString::fromLatin1(
+                "background-color: %1; border-width: 2px; border-style: solid; border-color:#00000000;")
+            .arg(colourPalette.getColor(GuidePalette::Progress_Working).name());
+
+    QString finished = QString::fromLatin1(
+                "background-color: %1; border-width: 2px; border-style: solid; border-color: #00000000;")
+            .arg(colourPalette.getColor(GuidePalette::Progress_Finished).name());
+
+
+    QFont goalFont;
+    goalFont.setBold(true);
+
     //adds lists
     for (GuideData::Data guide: guides) {
         QWidget* startScreenList = new QWidget(ui->scrollAreaWidgetContents);
@@ -44,47 +113,14 @@ void StartScreen::updateStart() {
         startScreenLabel->setText(guide.shortName);
         startScreenLabel->setAlignment(Qt::AlignCenter);
 
-        GuidePalette colourPalette;
-
-        QFont startScreenLabelFont;
-        startScreenLabelFont.setPointSize(18);
-        startScreenLabelFont.setBold(true);
-
         startScreenLabel->setFont(startScreenLabelFont);
-        startScreenLabel->setStyleSheet(
-            QString::fromLatin1(
-                "background-color: %1; border-width: 2px; border-left-width: 8px; border-right-width: 8px; border-style: solid; border-color: %1; color:%2; margin-bottom:2px")
-            .arg(colourPalette.getColor(GuidePalette::HeaderBackground).name())
-            .arg(colourPalette.getColor(GuidePalette::HeaderText).name()));
+        startScreenLabel->setStyleSheet(headerStyle);
 
         startScreenLabel->setAlignment(Qt::AlignmentFlag::AlignCenter);
 
         startScreenLayout->addWidget(startScreenLabel);
 
         ui->horizontalLayout_2->addWidget(startScreenList);
-
-
-        //Styles
-        //todo: proper styles ( even though it works on my system setup :) )
-        //  this code gives a weirder style on fusion, however, on my setup (without fusion) it works.
-
-        QString notStarted =
-                QString::fromLatin1(
-                    "background-color: %1; border-width: 2px; border-style: solid; border-color:#00000000;")
-                .arg(colourPalette.getColor(GuidePalette::Progress_NotStarted).name());
-
-        QString progress =
-                QString::fromLatin1(
-                    "background-color: %1; border-width: 2px; border-style: solid; border-color:#00000000;")
-                .arg(colourPalette.getColor(GuidePalette::Progress_Working).name());
-
-        QString finished = QString::fromLatin1(
-                    "background-color: %1; border-width: 2px; border-style: solid; border-color: #00000000;")
-                .arg(colourPalette.getColor(GuidePalette::Progress_Finished).name());
-
-
-        QFont goalFont;
-        goalFont.setBold(true);
 
         // list :)
         for (GuideData::GuideObject object: guide.objects) {
@@ -123,6 +159,8 @@ void StartScreen::updateStart() {
     QSpacerItem* EndSpacer = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
     ui->horizontalLayout_2->addItem(EndSpacer);
+
+    addWeekLabel();
 
     qDebug() << "Start Screen Update Successful!";
 }

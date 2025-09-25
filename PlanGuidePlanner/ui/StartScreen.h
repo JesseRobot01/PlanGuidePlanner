@@ -28,6 +28,8 @@ public:
 
 private:
     Ui::StartScreen* ui;
+
+    void addWeekLabel();
 };
 
 
