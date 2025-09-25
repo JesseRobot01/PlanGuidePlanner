@@ -18,12 +18,14 @@ A tool for tracking your progress with your study.
 
 ### Installation
 
-<!--Download the latest version from GitHub Releases. -->
+Download the latest version from [GitHub Releases](https://github.com/JesseRobot01/PlanGuidePlanner/releases).
+Or use it [online](https://planguideplanner.pages.dev/). (not stable yet, it just exists)
 
+Alternatively:
 Download the development builds form [GitHub actions](https://github.com/JesseRobot01/PlanGuidePlanner/actions).
+Or use [Nightly.link](https://nightly.link/JesseRobot01/PlanGuidePlanner/workflows/dev-build/master) for the newest development builds.
 
-Or use [Nightly.link](https://nightly.link/JesseRobot01/PlanGuidePlanner/workflows/dev-build/master) for the newest
-development builds.
+The development builds are also available [online](https://planguideplanner.pages.dev/dev/). (But again, still not stable)
 
 ### Building
 
