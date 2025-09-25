@@ -61,6 +61,10 @@ private slots:
 
     void on_actionReport_an_issue_triggered();
 
+    void on_actionClose_guide_triggered();
+
+    void on_actionClose_all_guides_triggered();
+
 private:
     Ui::MainWindow* ui;
     PreferenceWindow* preferenceWindow;

@@ -80,6 +80,9 @@
     <addaction name="actionSave_Guide_As"/>
     <addaction name="actionSave_All_Guides"/>
     <addaction name="separator"/>
+    <addaction name="actionClose_guide"/>
+    <addaction name="actionClose_all_guides"/>
+    <addaction name="separator"/>
     <addaction name="actionOpen_In_Creator"/>
     <addaction name="actionOpen_Creator"/>
     <addaction name="separator"/>

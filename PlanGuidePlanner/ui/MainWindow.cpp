@@ -46,7 +46,7 @@ void MainWindow::on_actionPreference_triggered() {
 }
 
 #ifdef Q_OS_WASM
-// for web, not as fancy as the original
+// for web, not as fancy as the
 void MainWindow::on_actionOpen_File_triggered() {
     auto uploadedGuide = [this](const QString&fileName, const QByteArray&fileContent) {
         if (fileName.isEmpty()) {
@@ -527,4 +527,25 @@ void MainWindow::on_actionOpen_In_Creator_triggered() {
 
 void MainWindow::on_actionReport_an_issue_triggered() {
     QDesktopServices::openUrl(QUrl("https://github.com/JesseRobot01/PlanGuidePlanner/issues"));
+}
+
+void MainWindow::on_actionClose_guide_triggered() {
+    int currentTab = ui->guideSwitcher->currentIndex();
+
+    if (currentTab == 0) {
+        qWarning() << "Can't close start screen, returning.";
+        return;
+    }
+
+    closeGuide(currentTab - 1);
+}
+
+
+void MainWindow::on_actionClose_all_guides_triggered() {
+    // get guide count
+    int guideCount = guides.size();
+    for (int i = 0; i < guideCount; i++) {
+        // each time the index shifts, so always close 0
+        closeGuide(0);
+    }
 }
