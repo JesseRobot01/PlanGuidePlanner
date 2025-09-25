@@ -169,7 +169,7 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
                     QStringList extractedFiles = JlCompress::extractDir(file, tempDir.absolutePath());
 
                     for (const QString&extractedFile: extractedFiles) {
-                        qDebug() << "Extracted:" << file;
+                        qDebug() << "Extracted:" << extractedFile;
                         if (isXmlFile(extractedFile))
                             guideFiles.append(extractedFile);
                     }
@@ -177,7 +177,7 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
                 else if (isXmlFile(file))
                     guideFiles.append(file);
             }
-            QVector<GuideData::Data> guides = XmlParser::readXml(files);
+            QVector<GuideData::Data> guides = XmlParser::readXml(guideFiles);
             for (GuideData::Data guide: guides) {
                 QDir copyToDestination(getAutoSaveLocation());
 
