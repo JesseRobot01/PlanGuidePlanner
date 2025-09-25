@@ -2,8 +2,8 @@
 // Created by Jesse on 3 okt. 2023.
 //
 
-#ifndef STUDYGUIDE_GOAL_H
-#define STUDYGUIDE_GOAL_H
+#ifndef PLANGUIDEPLANNER_GOAL_H
+#define PLANGUIDEPLANNER_GOAL_H
 
 
 #include <QWidget>
@@ -78,4 +78,4 @@ private:
 };
 
 
-#endif //STUDYGUIDE_GOAL_H
+#endif //PLANGUIDEPLANNER_GOAL_H

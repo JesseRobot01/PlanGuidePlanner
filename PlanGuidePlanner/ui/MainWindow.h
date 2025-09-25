@@ -2,8 +2,8 @@
 // Created by Jesse on 30 aug. 2023.
 //
 
-#ifndef STUDYGUIDE_MAINWINDOW_H
-#define STUDYGUIDE_MAINWINDOW_H
+#ifndef PLANGUIDEPLANNER_MAINWINDOW_H
+#define PLANGUIDEPLANNER_MAINWINDOW_H
 
 #include <QMainWindow>
 #include "PreferenceWindow.h"
@@ -75,4 +75,4 @@ private:
 };
 
 
-#endif //STUDYGUIDE_MAINWINDOW_H
+#endif //PLANGUIDEPLANNER_MAINWINDOW_H

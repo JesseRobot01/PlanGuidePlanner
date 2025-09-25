@@ -97,7 +97,7 @@ void MainWindow::on_actionOpen_File_triggered() {
 #endif
     QSettings settings;
 
-    QStringList files = QFileDialog::getOpenFileNames(this, tr("Open StudyGuide"),
+    QStringList files = QFileDialog::getOpenFileNames(this, tr("Open PlanGuidePlanner"),
                                                       settings.value("LastOpenedDir", ".").toString(),
                                                       tr(
                                                           "All Supported Files (*.pgd *.pgm *.pgx *.xml *.zip);;Zip Files (*.pgd *.pgm *.zip);;*.Xml Files (*.pgx *.xml);;All Files (*)"));
@@ -254,7 +254,7 @@ void MainWindow::saveGuideAs(GuideData::Data guide) {
     else
         baseFileName = settings.value("LastOpenedDir", ".").toString() + "/" + guide.name + ".pgd";
 
-    QString saveFileName = QFileDialog::getSaveFileName(this, tr("Save StudyGuide"),
+    QString saveFileName = QFileDialog::getSaveFileName(this, tr("Save PlanGuidePlanner"),
                                                         baseFileName,
                                                         tr(
                                                             "Plan Guide Planner Document File (*.pgd);;Plan Guide Planner XML-based file (*.pgx);;XML File (*.xml);;All Files (*)"));

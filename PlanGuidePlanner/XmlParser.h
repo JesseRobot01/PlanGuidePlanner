@@ -2,8 +2,8 @@
 // Created by Jesse on 6 okt. 2023.
 //
 
-#ifndef STUDYGUIDE_XMLPARSER_H
-#define STUDYGUIDE_XMLPARSER_H
+#ifndef PLANGUIDEPLANNER_XMLPARSER_H
+#define PLANGUIDEPLANNER_XMLPARSER_H
 
 #include <QFile>
 #include <QtConcurrent/QtConcurrent>
@@ -48,4 +48,4 @@ public:
     static void autoSaveXml(QVector<GuideData::Data> GuidesToSave);
 };
 
-#endif //STUDYGUIDE_XMLPARSER_H
+#endif //PLANGUIDEPLANNER_XMLPARSER_H

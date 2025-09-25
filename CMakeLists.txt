@@ -5,18 +5,18 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 
-set(STUDYGUIDE_VERSION_MAJOR 0)
-set(STUDYGUIDE_VERSION_MINOR 1)
-set(STUDYGUIDE_VERSION_PATCH 0)
-set(STUDYGUIDE_VERSION ${STUDYGUIDE_VERSION_MAJOR}.${STUDYGUIDE_VERSION_MINOR}.${STUDYGUIDE_VERSION_PATCH})
+set(PLANGUIDEPLANNER_VERSION_MAJOR 0)
+set(PLANGUIDEPLANNER_VERSION_MINOR 1)
+set(PLANGUIDEPLANNER_VERSION_PATCH 0)
+set(PLANGUIDEPLANNER_VERSION ${PLANGUIDEPLANNER_VERSION_MAJOR}.${PLANGUIDEPLANNER_VERSION_MINOR}.${PLANGUIDEPLANNER_VERSION_PATCH})
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets LinguistTools Core5Compat Test Svg)
 
 if (WIN32 OR EMSCRIPTEN)
-    set(StudyGuide_FORCE_BUNDLED_LIBS 1) # Hacky fix for windows and emsdk
+    set(PlanGuidePlanner_FORCE_BUNDLED_LIBS 1) # Hacky fix for windows and emsdk
 endif ()
 
-if (NOT StudyGuide_FORCE_BUNDLED_LIBS AND NOT FORCE_BUNDLED_ZLIB)
+if (NOT PlanGuidePlanner_FORCE_BUNDLED_LIBS AND NOT FORCE_BUNDLED_ZLIB)
     find_package(ZLIB QUIET)
 endif ()
 if (NOT ZLIB_FOUND)
@@ -24,7 +24,7 @@ if (NOT ZLIB_FOUND)
     mark_as_advanced(FORCE_BUNDLED_ZLIB)
 endif ()
 
-if (NOT StudyGuide_FORCE_BUNDLED_LIBS)
+if (NOT PlanGuidePlanner_FORCE_BUNDLED_LIBS)
     find_package(QuaZip-Qt6 1.3 QUIET)
 endif ()
 if (NOT QuaZip-Qt6_FOUND)
@@ -108,10 +108,10 @@ else ()
 endif ()
 
 string(TIMESTAMP TODAY "%Y-%m-%d")
-set(STUDYGUIDE_BUILD_DATE "${TODAY}")
+set(PLANGUIDEPLANNER_BUILD_DATE "${TODAY}")
 
 if (DEV_BUILD)
-    set(STUDYGUIDE_VERSION "${STUDYGUIDE_VERSION}-r${GIT_COMMIT_NUMBER}.${GIT_COMMIT_HASH}")
+    set(PLANGUIDEPLANNER_VERSION "${PLANGUIDEPLANNER_VERSION}-r${GIT_COMMIT_NUMBER}.${GIT_COMMIT_HASH}")
 endif ()
 
 # Cpack stuff
@@ -124,16 +124,19 @@ set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
 
 set(CPACK_PACKAGE_EXECUTABLES "..\\\\${EXECUTABLE_NAME}" "PlanGuidePlanner") #The ..\ is because CPack looks in the BIN directory, and not in the root as where the executable is.
 set(CPACK_CREATE_DESKTOP_LINKS "..\\\\${EXECUTABLE_NAME}" "PlanGuidePlanner")
-set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/program_info/StudyGuide.ico")
+set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/program_info/PlanGuidePlanner.ico")
 
-set(CPACK_PACKAGE_VERSION ${STUDYGUIDE_VERSION})
-set(CPACK_PACKAGE_VERSION_MAJOR ${STUDYGUIDE_VERSION_MAJOR})
-set(CPACK_PACKAGE_VERSION_MINOR ${STUDYGUIDE_VERSION_MINOR})
-set(CPACK_PACKAGE_VERSION_PATCH ${STUDYGUIDE_VERSION_PATCH})
+set(CPACK_PACKAGE_VERSION ${PLANGUIDEPLANNER_VERSION})
+set(CPACK_PACKAGE_VERSION_MAJOR ${PLANGUIDEPLANNER_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${PLANGUIDEPLANNER_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${PLANGUIDEPLANNER_VERSION_PATCH})
 
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6core6 (>= 6.4.2)")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6core6 (>= ${Qt6Widgets_VERSION}")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6svg6 (>= ${Qt6Widgets_VERSION}")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6core5compat6 (>= ${Qt6Widgets_VERSION}")
+
+
 set(CPACK_PACKAGE_CONTACT "JesseRobot01")
-
 
 set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
   ; Associate .pgd files
@@ -185,12 +188,12 @@ if (LINUX)
     set(LIBRARY_DEST_DIR "lib")
 
     install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/planguideplanner.desktop" DESTINATION "share/applications")
-    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/SG-AppIcon.svg" RENAME "planguideplanner.svg" DESTINATION "share/icons/hicolor/scalable/apps")
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/PGP-AppIcon.svg" RENAME "planguideplanner.svg" DESTINATION "share/icons/hicolor/scalable/apps")
     install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/planguideplanner-mime.xml" DESTINATION "share/mime/packages")
 
-    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/SG-AppIcon.svg" RENAME "application-x-planguideplanner-pgd.svg" DESTINATION "share/icons/hicolor/scalable/mimetypes")
-    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/SG-AppIcon.svg" RENAME "application-x-planguideplanner-pgm.svg" DESTINATION "share/icons/hicolor/scalable/mimetypes")
-    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/SG-AppIcon.svg" RENAME "application-x-planguideplanner-pgx.svg" DESTINATION "share/icons/hicolor/scalable/mimetypes")
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/PGP-AppIcon.svg" RENAME "application-x-planguideplanner-pgd.svg" DESTINATION "share/icons/hicolor/scalable/mimetypes")
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/PGP-AppIcon.svg" RENAME "application-x-planguideplanner-pgm.svg" DESTINATION "share/icons/hicolor/scalable/mimetypes")
+    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/PGP-AppIcon.svg" RENAME "application-x-planguideplanner-pgx.svg" DESTINATION "share/icons/hicolor/scalable/mimetypes")
 
 endif ()
 
@@ -201,5 +204,5 @@ if (BUILD_TESTING)
     add_subdirectory(tests)
 endif ()
 
-add_subdirectory(StudyGuide)
+add_subdirectory(PlanGuidePlanner)
 

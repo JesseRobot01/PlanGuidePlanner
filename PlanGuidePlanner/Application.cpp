@@ -236,7 +236,7 @@ Application::~Application() {
 
 void Application::setLanguage(const QString&languageCode) {
     qDebug() << "Loading translation for" << languageCode;
-    if (translator->load(":/translations/StudyGuide_" + languageCode + ".qm")) {
+    if (translator->load(":/translations/PlanGuidePlanner_" + languageCode + ".qm")) {
         installTranslator(translator);
         qDebug() << "Succesfully loaded translations for" << languageCode;
     }
@@ -244,7 +244,7 @@ void Application::setLanguage(const QString&languageCode) {
         qCritical() << "Failed to load translation for" << languageCode;
         qInfo() << "Falling back to default translations.";
 
-        if (translator->load(":/translations/StudyGuide_en.qm")) {
+        if (translator->load(":/translations/PlanGuidePlanner_en.qm")) {
             installTranslator(translator);
         }
         else {
