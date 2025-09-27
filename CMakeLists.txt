@@ -180,6 +180,11 @@ set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
 if (UNIX)
     set(CPACK_PACKAGE_NAME "PlanGuidePlanner")
 endif ()
+
+if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+    set(CMAKE_INSTALL_DEBUG_LIBRARIES_ONLY 1)
+endif()
+
 include(InstallRequiredSystemLibraries)
 include(CPack)
 
