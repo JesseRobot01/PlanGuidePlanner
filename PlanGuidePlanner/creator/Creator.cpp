@@ -783,7 +783,7 @@ void Creator::on_downButton_clicked() {
         int index = parent->indexOfChild(current);
         if (index > 0) {
             QTreeWidgetItem* below = parent->child(index + 1);
-            if (canBeManipulated(below)) {
+            if (below && canBeManipulated(below)) {
                 parent->takeChild(index);
                 parent->insertChild(index + 1, current);
                 ui->mainDisplay->setCurrentItem(current);
@@ -795,7 +795,7 @@ void Creator::on_downButton_clicked() {
         int index = ui->mainDisplay->indexOfTopLevelItem(current);
         if (index > 0) {
             QTreeWidgetItem* below = ui->mainDisplay->topLevelItem(index + 1);
-            if (canBeManipulated(below)) {
+            if (below && canBeManipulated(below)) {
                 ui->mainDisplay->takeTopLevelItem(index);
                 ui->mainDisplay->insertTopLevelItem(index + 1, current);
                 ui->mainDisplay->setCurrentItem(current);
