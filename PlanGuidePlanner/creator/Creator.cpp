@@ -48,6 +48,7 @@ Creator::Creator(QWidget* parent) : QMainWindow(parent), ui(new Ui::Creator) {
     hideProgressSlider();
     hideAddTask();
     hideAddReportTest();
+    setActionButtons(ui->mainDisplay->currentItem());
 }
 
 Creator::~Creator() {
@@ -278,6 +279,60 @@ void Creator::on_mainDisplay_itemClicked(QTreeWidgetItem* item, int column) {
 
         showShortEdit(mainText, tr("Period"));
     }
+
+    // Enable / Disable actions
+    setActionButtons(item);
+}
+
+void Creator::setActionButtons(QTreeWidgetItem* item) {
+    if (!item) {
+        ui->upButton->setEnabled(false);
+        ui->downButton->setEnabled(false);
+        ui->deleteButton->setEnabled(false);
+        return;
+    }
+
+    bool manipulatable = canBeManipulated(item);
+    bool canGoUp = false;
+    bool canGoDown = false;
+
+    // Check per button;
+    if (manipulatable) {
+        QTreeWidgetItem* parent = item->parent();
+
+        if (parent) {
+            // It's a child item
+            int index = parent->indexOfChild(item);
+            if (index > 0) {
+                QTreeWidgetItem* above = parent->child(index - 1);
+                if (above && canBeManipulated(above)) {
+                    canGoUp = true;
+                }
+            }
+            QTreeWidgetItem* below = parent->child(index + 1);
+            if (below && canBeManipulated(below)) {
+                canGoDown = true;
+            }
+        }
+        else {
+            // It's a top-level item
+            int index = ui->mainDisplay->indexOfTopLevelItem(item);
+            if (index > 0) {
+                QTreeWidgetItem* above = ui->mainDisplay->topLevelItem(index - 1);
+                if (above && canBeManipulated(above)) {
+                    canGoUp = true;
+                }
+            }
+            QTreeWidgetItem* below = ui->mainDisplay->topLevelItem(index + 1);
+            if (below && canBeManipulated(below)) {
+                canGoDown = true;
+            }
+        }
+    }
+
+    ui->upButton->setEnabled(canGoUp);
+    ui->downButton->setEnabled(canGoDown);
+    ui->deleteButton->setEnabled(manipulatable || !isDefaultObject(item));
 }
 
 void Creator::on_shortEdit_editingFinished() {
@@ -603,7 +658,7 @@ void Creator::save(GuideData::Data guide) {
     QFile fileToSave(currentGuide.absoluteFilePath());
 
     if (fileToSave.fileName().endsWith("pgd")) {
-        QDir tempLocation = (QStandardPaths::writableLocation(QStandardPaths::TempLocation) );
+        QDir tempLocation = (QStandardPaths::writableLocation(QStandardPaths::TempLocation));
 
         // saving
         QFileInfo fileInfoToSave(tempLocation.absoluteFilePath(guide.shortName + "_0" + ".pgx"));
@@ -750,7 +805,7 @@ void Creator::on_upButton_clicked() {
         int index = parent->indexOfChild(current);
         if (index > 0) {
             QTreeWidgetItem* above = parent->child(index - 1);
-            if (canBeManipulated(above)) {
+            if (above && canBeManipulated(above)) {
                 parent->takeChild(index);
                 parent->insertChild(index - 1, current);
                 ui->mainDisplay->setCurrentItem(current);
@@ -762,13 +817,16 @@ void Creator::on_upButton_clicked() {
         int index = ui->mainDisplay->indexOfTopLevelItem(current);
         if (index > 0) {
             QTreeWidgetItem* above = ui->mainDisplay->topLevelItem(index - 1);
-            if (canBeManipulated(above)) {
+            if (above && canBeManipulated(above)) {
                 ui->mainDisplay->takeTopLevelItem(index);
                 ui->mainDisplay->insertTopLevelItem(index - 1, current);
                 ui->mainDisplay->setCurrentItem(current);
             }
         }
     }
+
+    // Reset Buttons
+    setActionButtons(current);
 }
 
 void Creator::on_downButton_clicked() {
@@ -781,27 +839,26 @@ void Creator::on_downButton_clicked() {
     if (parent) {
         // It's a child item
         int index = parent->indexOfChild(current);
-        if (index > 0) {
-            QTreeWidgetItem* below = parent->child(index + 1);
-            if (below && canBeManipulated(below)) {
-                parent->takeChild(index);
-                parent->insertChild(index + 1, current);
-                ui->mainDisplay->setCurrentItem(current);
-            }
+        QTreeWidgetItem* below = parent->child(index + 1);
+        if (below && canBeManipulated(below)) {
+            parent->takeChild(index);
+            parent->insertChild(index + 1, current);
+            ui->mainDisplay->setCurrentItem(current);
         }
     }
     else {
         // It's a top-level item
         int index = ui->mainDisplay->indexOfTopLevelItem(current);
-        if (index > 0) {
-            QTreeWidgetItem* below = ui->mainDisplay->topLevelItem(index + 1);
-            if (below && canBeManipulated(below)) {
-                ui->mainDisplay->takeTopLevelItem(index);
-                ui->mainDisplay->insertTopLevelItem(index + 1, current);
-                ui->mainDisplay->setCurrentItem(current);
-            }
+        QTreeWidgetItem* below = ui->mainDisplay->topLevelItem(index + 1);
+        if (below && canBeManipulated(below)) {
+            ui->mainDisplay->takeTopLevelItem(index);
+            ui->mainDisplay->insertTopLevelItem(index + 1, current);
+            ui->mainDisplay->setCurrentItem(current);
         }
     }
+
+    // Reset Buttons
+    setActionButtons(current);
 }
 
 
@@ -834,6 +891,9 @@ void Creator::on_deleteButton_clicked() {
         delete currentItem; // Aju!
     else if (!isDefaultObject(currentItem))
         delete currentItem->parent(); // Aju parent!
+
+    // Reset Buttons
+    setActionButtons(ui->mainDisplay->currentItem());
 }
 
 void Creator::on_progressSlider_sliderMoved(int newValue) {

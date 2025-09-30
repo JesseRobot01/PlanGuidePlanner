@@ -114,6 +114,9 @@ private:
     bool isDefaultObject(QTreeWidgetItem* item);
 
     void setProgressSliderColour(int colour);
+
+    void setActionButtons(QTreeWidgetItem* item);
+
 };
 
 
