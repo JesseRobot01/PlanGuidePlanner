@@ -30,9 +30,9 @@ void StartScreen::addWeekLabel() {
     GuidePalette colourPalette;
 
     QString headerStyle = QString::fromLatin1(
-               "background-color: %1; border-width: 2px; border-left-width: 8px; border-right-width: 8px; border-style: solid; border-color: %1; color:%2; margin-bottom:2px")
-           .arg(colourPalette.getColor(GuidePalette::HeaderBackground).name())
-           .arg(colourPalette.getColor(GuidePalette::HeaderText).name());
+                "background-color: %1; border-width: 2px; border-left-width: 8px; border-right-width: 8px; border-style: solid; border-color: %1; color:%2; margin-bottom:2px")
+            .arg(colourPalette.getColor(GuidePalette::HeaderBackground).name())
+            .arg(colourPalette.getColor(GuidePalette::HeaderText).name());
 
     QFont startScreenLabelFont;
     startScreenLabelFont.setPointSize(18);
@@ -110,6 +110,9 @@ void StartScreen::updateStart() {
         QWidget* startScreenList = new QWidget(ui->scrollAreaWidgetContents);
         QVBoxLayout* startScreenLayout = new QVBoxLayout(startScreenList);
         QLabel* startScreenLabel = new QLabel(startScreenList);
+        float currentTotalProgress = 0;
+        float totalMaxProgress = 0;
+
         startScreenLabel->setText(guide.shortName);
         startScreenLabel->setAlignment(Qt::AlignCenter);
 
@@ -147,6 +150,9 @@ void StartScreen::updateStart() {
                         break;
                 }
                 startScreenLayout->addWidget(goalLabel);
+
+                totalMaxProgress += 2;
+                currentTotalProgress += goal.progress.toInt();
             }
             QLabel* spacerLabel = new QLabel();
             startScreenLayout->addWidget(spacerLabel);
@@ -154,6 +160,21 @@ void StartScreen::updateStart() {
         QSpacerItem* UnderSpacer = new
                 QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
         startScreenLayout->addItem(UnderSpacer);
+
+        int percentage = floor(currentTotalProgress / totalMaxProgress * 100);
+        QLabel* percentageLabel = new QLabel();
+        percentageLabel->setFont(goalFont);
+        percentageLabel->setAlignment(Qt::AlignCenter);
+
+        percentageLabel->setText(QString::number(percentage) + "%");
+        if (percentage == 100)
+            percentageLabel->setStyleSheet(finished);
+        else if (percentage >= 50)
+            percentageLabel->setStyleSheet(progress);
+        else
+            percentageLabel->setStyleSheet(notStarted);
+
+        startScreenLayout->addWidget(percentageLabel);
     }
 
     QSpacerItem* EndSpacer = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
