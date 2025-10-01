@@ -30,6 +30,13 @@ PreferenceWindow::PreferenceWindow(QWidget* parent)
 
     ui->themes->addItem(tr("System"), "system");
 
+    ui->colourDropDown->addItem(tr("Blue"), "blue");
+    ui->colourDropDown->addItem(tr("Green"), "green");
+    ui->colourDropDown->addItem(tr("Red"), "red");
+    ui->colourDropDown->addItem(tr("Orange"), "orange");
+    ui->colourDropDown->addItem(tr("High Contrast"), "contrast");
+
+
 
     loadSettings();
 }
@@ -44,6 +51,7 @@ void PreferenceWindow::loadSettings() {
     // Qt, why did you made this part so wierd, just add a SetCurrentData() function!
     ui->languageSelector->setCurrentIndex(ui->languageSelector->findData(settings.value("Lang", "en")));
     ui->themes->setCurrentIndex(ui->themes->findData(settings.value("Theme", "fusion_dark")));
+    ui->colourDropDown->setCurrentIndex(ui->colourDropDown->findData(settings.value("Colour", "blue")));
 
     ui->autoSaveDir->setText(APPLICATION->getAutoSaveLocation());
 
@@ -56,6 +64,7 @@ void PreferenceWindow::saveSettings() {
     QSettings settings;
     settings.setValue("Lang", ui->languageSelector->currentData());
     settings.setValue("Theme", ui->themes->currentData());
+    settings.setValue("Colour", ui->colourDropDown->currentData());
 
     settings.setValue("AutoSaveDir", ui->autoSaveDir->text());
     settings.setValue("LogsDir", ui->logsDirectory->text());

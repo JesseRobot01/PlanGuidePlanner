@@ -4,6 +4,11 @@
 
 #include "GuidePalette.h"
 #include "Application.h"
+#include "BlueTheme.h"
+#include "ContrastTheme.h"
+#include "GreenTheme.h"
+#include "OrangeTheme.h"
+#include "RedTheme.h"
 
 QColor GuidePalette::getColor(GuideElements element) {
     if (isLightMode()) {
@@ -19,149 +24,39 @@ bool GuidePalette::isLightMode() {
 }
 
 QColor GuidePalette::getLightModeColor(GuidePalette::GuideElements element) {
-    switch (element) {
-        case HeaderBackground:
-            return {8, 73, 149};
-            break;
-        case HeaderText:
-            return {255, 255, 255};
-            break;
-        case ObjectText:
-            return {248, 122, 44};
-            break;
-        case WorkIndicatorBackground:
-            return {147, 196, 125};
-            break;
-        case WorkIndicatorText:
-            return {255, 255, 255};
-            break;
-        case WorkIndicatorExample:
-            return {56, 118, 29};
-            break;
-        case WatchIndicatorBackground:
-            return {111, 168, 220};
-            break;
-        case WatchIndicatorText:
-            return {255, 255, 255};
-            break;
-        case WatchIndicatorExample:
-            return {11, 83, 148};
-            break;
-        case ReadIndicatorBackground:
-            return {255, 217, 102};
-            break;
-        case ReadIndicatorText:
-            return {255, 255, 255};
-            break;
-        case ReadIndicatorExample:
-            return {191, 144, 0};
-            break;
-        case ProcessIndicatorBackground:
-            return {142, 124, 195};
-            break;
-        case ProcessIndicatorText:
-            return {255, 255, 255};
-            break;
-        case ProcessIndicatorExample:
-            return {53, 28, 117};
-            break;
-        case Progress_NotStarted:
-            return {234, 67, 53};
-            break;
-        case Progress_Working:
-            return {255, 153, 0};
-            break;
-        case Progress_Finished:
-            return {52, 168, 83};
-            break;
-        case TestBackground:
-            return {248, 122, 44};
-            break;
-        case InfoIndicatorBackground:
-            return {182, 182, 182};
-            break;
-        case InfoIndicatorText:
-            return {255, 255, 255};
-            break;
-        case InfoIndicatorExample:
-            return {124, 124, 124};
-            break;
-        default:
-            return {0, 0, 0};
-    }
+    QSettings settings;
+    QString currentColour = settings.value("Colour", "blue").toString();
+
+    if (currentColour == "blue")
+        return getLightBlueColour(element);
+    if (currentColour == "green")
+        return getLightGreenColour(element);
+    if (currentColour == "red")
+        return getLightRedColour(element);
+    if (currentColour == "orange")
+        return getLightOrangeColour(element);
+if (currentColour == "contrast")
+    return getContrastColour(element);
+
+    return getLightBlueColour(element);
 }
 
 QColor GuidePalette::getDarkModeColor(GuidePalette::GuideElements element) {
-    switch (element) {
-        case HeaderBackground:
-            return {3, 56, 118};
-            break;
-        case HeaderText:
-            return {255, 255, 255};
-            break;
-        case ObjectText:
-            return {255, 109, 1};
-            break;
-        case WorkIndicatorBackground:
-            return {56, 118, 29};
-            break;
-        case WorkIndicatorText:
-            return {255, 255, 255};
-            break;
-        case WorkIndicatorExample:
-            return {39, 78, 19};
-            break;
-        case WatchIndicatorBackground:
-            return {11, 83, 148};
-            break;
-        case WatchIndicatorText:
-            return {255, 255, 255};
-            break;
-        case WatchIndicatorExample:
-            return {7, 55, 99};
-            break;
-        case ReadIndicatorBackground:
-            return {191, 144, 0};
-            break;
-        case ReadIndicatorText:
-            return {255, 255, 255};
-            break;
-        case ReadIndicatorExample:
-            return {127, 96, 0};
-            break;
-        case ProcessIndicatorBackground:
-            return {53, 28, 117};
-            break;
-        case ProcessIndicatorText:
-            return {255, 255, 255};
-            break;
-        case ProcessIndicatorExample:
-            return {32, 18, 77};
-            break;
-        case Progress_NotStarted:
-            return {234, 67, 53};
-            break;
-        case Progress_Working:
-            return {255, 153, 0};
-            break;
-        case Progress_Finished:
-            return {52, 168, 83};
-            break;
-        case TestBackground:
-            return {203, 86, 13};
-            break;
-        case InfoIndicatorBackground:
-            return {124, 124, 124};
-            break;
-        case InfoIndicatorText:
-            return {255, 255, 255};
-            break;
-        case InfoIndicatorExample:
-            return {73, 73, 73};
-            break;
-        default:
-            return {0, 0, 0};
-    }
+    QSettings settings;
+    QString currentColour = settings.value("Colour", "blue").toString();
+
+    if (currentColour == "blue")
+        return getDarkBlueColour(element);
+    if (currentColour == "green")
+        return getDarkGreenColour(element);
+    if (currentColour == "red")
+        return getDarkRedColour(element);
+    if (currentColour == "orange")
+        return getDarkOrangeColour(element);
+    if (currentColour == "contrast")
+        return getContrastColour(element);
+
+    return getDarkBlueColour(element);
 }
 
 void GuidePalette::setFusionDark() {

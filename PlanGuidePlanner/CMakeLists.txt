@@ -25,6 +25,11 @@ set(SOURCES
         guide/GuideData.cpp
         LegacyXmlParsers.cpp
         LegacyXmlParsers.h
+        themes/BlueTheme.h
+        themes/GreenTheme.h
+        themes/RedTheme.h
+        themes/OrangeTheme.h
+        themes/ContrastTheme.h
 )
 
 set(UI
@@ -67,7 +72,8 @@ set(LOGO_FILES
 if (DEFINED WIN32)
     set(WIN_SOURCES
             WindowConsole.cpp
-            WindowConsole.h)
+            WindowConsole.h
+            themes/ContrastTheme.h)
 endif ()
 
 qt_add_library(PlanGuidePlanner_Logic STATIC ${SOURCES} ${UI} ${WIN_SOURCES} ${CREATOR_SOURCES})
