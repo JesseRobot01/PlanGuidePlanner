@@ -72,8 +72,7 @@ set(LOGO_FILES
 if (DEFINED WIN32)
     set(WIN_SOURCES
             WindowConsole.cpp
-            WindowConsole.h
-            themes/ContrastTheme.h)
+            WindowConsole.h)
 endif ()
 
 qt_add_library(PlanGuidePlanner_Logic STATIC ${SOURCES} ${UI} ${WIN_SOURCES} ${CREATOR_SOURCES})
