@@ -64,9 +64,9 @@ void Test::finalise() {
     }
 }
 
-GuideData::GuideObject Test::getGuideobject() {
-    GuideData::GuideObject object;
-    object.objectType = GuideData::Test;
+OldGuideData::GuideObject Test::getGuideobject() {
+    OldGuideData::GuideObject object;
+    object.objectType = OldGuideData::Test;
     object.setTestName(ui->testName->text());
     object.setShortTestName(ui->shortTestName->text());
     object.setTestInfo(ui->testInfo->text());

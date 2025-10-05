@@ -4,7 +4,7 @@
 
 #include <QFile>
 
-#include "guide/GuideData.h"
+#include "guide/OldGuideData.h"
 
 #include "Guide.h"
 #include "Index.h"
@@ -134,7 +134,7 @@ Guide::~Guide() {
 
 void Guide::addIndex(Index* index) {
     indexes.append(index);
-    objectOrder.append(GuideData::Index);
+    objectOrder.append(OldGuideData::Index);
     index->setGeometry(30, size, 1240, index->size + 5);
     index->show();
     size += (index->size + 35);
@@ -144,7 +144,7 @@ void Guide::addIndex(Index* index) {
 
 void Guide::addTest(Test* test) {
     tests.append(test);
-    objectOrder.append(GuideData::Test);
+    objectOrder.append(OldGuideData::Test);
     test->setGeometry(50, size, 1260, test->size);
     test->show();
     size += test->size + 30;
@@ -153,7 +153,7 @@ void Guide::addTest(Test* test) {
 
 void Guide::addReport(Report* report) {
     reports.append(report);
-    objectOrder.append(GuideData::Report);
+    objectOrder.append(OldGuideData::Report);
     report->setGeometry(30, size, 1240, report->size + 5);
     report->show();
     size += report->size + 35;
@@ -181,8 +181,8 @@ void Guide::setShortName(const QString&shortNameE) {
     shortName = shortNameE;
 }
 
-GuideData::Data Guide::getGuide() {
-    GuideData::Data finalGuide;
+OldGuideData::Data Guide::getGuide() {
+    OldGuideData::Data finalGuide;
     int currentIndex = 0;
     int currentTest = 0;
     int currentReport = 0;
@@ -194,20 +194,20 @@ GuideData::Data Guide::getGuide() {
     finalGuide.originalFile = originalFile;
     finalGuide.autoSaveFile = autoSaveFile;
 
-    for (GuideData::ObjectTypes type: objectOrder) {
-        if (type == GuideData::Index) {
+    for (OldGuideData::ObjectTypes type: objectOrder) {
+        if (type == OldGuideData::Index) {
             Index&index = *indexes.at(currentIndex);
 
             finalGuide.objects.append(index.getGuideObject());
             currentIndex++;
         }
-        if (type == GuideData::Test) {
+        if (type == OldGuideData::Test) {
             Test&test = *tests.at(currentTest);
 
             finalGuide.objects.append(test.getGuideobject());
             currentTest++;
         }
-        if (type == GuideData::Report) {
+        if (type == OldGuideData::Report) {
             Report&report = *reports.at(currentReport);
 
             finalGuide.objects.append(report.getGuideobject());
@@ -218,7 +218,7 @@ GuideData::Data Guide::getGuide() {
     return finalGuide;
 }
 
-void Guide::setGuide(GuideData::Data guide) {
+void Guide::setGuide(OldGuideData::Data guide) {
     // Default things
     QString name = guide.name;
     QString shortName = guide.shortName;
@@ -231,10 +231,10 @@ void Guide::setGuide(GuideData::Data guide) {
 
 
     //Processing the guide objects
-    for (GuideData::GuideObject guideObject: guide.objects) {
-        if (guideObject.objectType == GuideData::Index) {
+    for (OldGuideData::GuideObject guideObject: guide.objects) {
+        if (guideObject.objectType == OldGuideData::Index) {
             Index* index = new Index(this);
-            for (GuideData::GuideGoals goal: guideObject.goals) {
+            for (OldGuideData::GuideGoals goal: guideObject.goals) {
                 Goal* finalGoal = new Goal(index);
                 finalGoal->setName(goal.name);
                 finalGoal->setProgress(goal.progress, false);
@@ -243,21 +243,21 @@ void Guide::setGuide(GuideData::Data guide) {
                 finalGoal->setGoalNumber(goal.goalNumber);
                 finalGoal->parentGuide = this;
 
-                for (GuideData::GuideGoalTasks goalTask: goal.tasks) {
+                for (OldGuideData::GuideGoalTasks goalTask: goal.tasks) {
                     switch (goalTask.task) {
-                        case GuideData::Work:
+                        case OldGuideData::Work:
                             finalGoal->addWork(goalTask.text, goalTask.link);
                             break;
-                        case GuideData::Read:
+                        case OldGuideData::Read:
                             finalGoal->addRead(goalTask.text, goalTask.link);
                             break;
-                        case GuideData::Watch:
+                        case OldGuideData::Watch:
                             finalGoal->addWatch(goalTask.text, goalTask.link);
                             break;
-                        case GuideData::Process:
+                        case OldGuideData::Process:
                             finalGoal->addProcess(goalTask.text, goalTask.link);
                             break;
-                        case GuideData::Info:
+                        case OldGuideData::Info:
                             finalGoal->addInfo(goalTask.text, goalTask.link);
                             break;
                     }
@@ -268,7 +268,7 @@ void Guide::setGuide(GuideData::Data guide) {
             index->finalise();
             addIndex(index);
         }
-        if (guideObject.objectType == GuideData::Test) {
+        if (guideObject.objectType == OldGuideData::Test) {
             Test* test = new Test(this);
             test->setName(guideObject.name);
             test->setWeek(guideObject.week);
@@ -277,9 +277,9 @@ void Guide::setGuide(GuideData::Data guide) {
             test->finalise();
             addTest(test);
         }
-        if (guideObject.objectType == GuideData::Report) {
+        if (guideObject.objectType == OldGuideData::Report) {
             Report* report = new Report(this);
-            for (GuideData::ReportTests test: guideObject.tests)
+            for (OldGuideData::ReportTests test: guideObject.tests)
                 report->addTest(test.name, test.weight);
             report->finalise();
             addReport(report);

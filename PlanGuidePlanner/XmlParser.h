@@ -8,21 +8,21 @@
 #include <QFile>
 #include <QtConcurrent/QtConcurrent>
 
-#include "guide/GuideData.h"
+#include "guide/OldGuideData.h"
 
 
 class XmlParser {
 public:
-    static GuideData::Data readXml(QFile *xmlFile);
+    static OldGuideData::Data readXml(QFile *xmlFile);
 
-    static GuideData::Data readXml(const QString &xmlFile) {
+    static OldGuideData::Data readXml(const QString &xmlFile) {
         QFile *file = new QFile(xmlFile);
         return readXml(file);
     }
 
-    static QVector<GuideData::Data> readXml(const QStringList &xmlFiles) {
-        QVector<GuideData::Data> guides;
-        QVector<QFuture<GuideData::Data>> futures;
+    static QVector<OldGuideData::Data> readXml(const QStringList &xmlFiles) {
+        QVector<OldGuideData::Data> guides;
+        QVector<QFuture<OldGuideData::Data>> futures;
 
         for (const QString &xmlFile: xmlFiles) {
             futures.append(QtConcurrent::run([xmlFile]() {
@@ -31,21 +31,21 @@ public:
         }
 
         // Wait for all threads to finish
-        for (QFuture<GuideData::Data> future: futures) {
+        for (QFuture<OldGuideData::Data> future: futures) {
             future.waitForFinished();
         }
 
         // Retrieve the results
-        for (const QFuture<GuideData::Data> &future: futures) {
+        for (const QFuture<OldGuideData::Data> &future: futures) {
             guides.append(future.result());
         }
 
         return guides;
     }
 
-    static void saveXml(const GuideData::Data &guide, QFile &fileToSaveTo, bool isAutoSave = false, bool useAutoFormatting = true);
+    static void saveXml(const OldGuideData::Data &guide, QFile &fileToSaveTo, bool isAutoSave = false, bool useAutoFormatting = true);
 
-    static void autoSaveXml(QVector<GuideData::Data> GuidesToSave);
+    static void autoSaveXml(QVector<OldGuideData::Data> GuidesToSave);
 };
 
 #endif //PLANGUIDEPLANNER_XMLPARSER_H

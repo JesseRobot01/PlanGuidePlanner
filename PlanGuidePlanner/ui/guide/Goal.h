@@ -9,7 +9,7 @@
 #include <QWidget>
 #include <QFile>
 
-#include "guide/GuideData.h"
+#include "guide/OldGuideData.h"
 #include "Guide.h"
 
 
@@ -47,7 +47,7 @@ public:
 
     void addInfo(const QString &info, const QString&link = "");
 
-    void addTask(const GuideData::GuideGoalTasks task);
+    void addTask(const OldGuideData::GuideGoalTasks task);
 
     void setProgress(int progress, bool changedFile = true);
 
@@ -59,7 +59,7 @@ public:
 
     void setWeek(const QString &week);
 
-    GuideData::GuideGoals getGoal();
+    OldGuideData::GuideGoals getGoal();
 
     int size = 40;
     Guide* parentGuide; // for knowing which guide to save for auto save.
@@ -72,7 +72,7 @@ private slots:
 
 private:
     Ui::Goal *ui;
-    QVector<GuideData::GuideGoalTasks> tasks;
+    QVector<OldGuideData::GuideGoalTasks> tasks;
 
     void updateStyle();
 };

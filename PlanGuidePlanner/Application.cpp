@@ -145,10 +145,10 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
             for (const QString&GuideFileName: guideFileNames)
                 guideFiles.append(autoOpenDir.filePath(GuideFileName));
 
-            QVector<GuideData::Data> guides = XmlParser::readXml(guideFiles);
+            QVector<OldGuideData::Data> guides = XmlParser::readXml(guideFiles);
             loadGuide->increaseProgress(guideFileNames.count());
 
-            for (GuideData::Data guide: guides) {
+            for (OldGuideData::Data guide: guides) {
                 appWindow->processGuide(guide, false);
                 loadGuide->increaseProgress();
             }
@@ -177,8 +177,8 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
                 else if (isXmlFile(file))
                     guideFiles.append(file);
             }
-            QVector<GuideData::Data> guides = XmlParser::readXml(guideFiles);
-            for (GuideData::Data guide: guides) {
+            QVector<OldGuideData::Data> guides = XmlParser::readXml(guideFiles);
+            for (OldGuideData::Data guide: guides) {
                 QDir copyToDestination(getAutoSaveLocation());
 
                 if (copyToDestination.mkpath(".")) {
@@ -332,7 +332,7 @@ void Application::startAutoSaveTimer() {
 
 void Application::autoSaveTriggered() {
     qDebug() << "Auto saving...";
-    QVector<GuideData::Data> guideDataToSave;
+    QVector<OldGuideData::Data> guideDataToSave;
 
     //extract the guideData
     for (Guide* guide: guidesToSave) {
@@ -346,16 +346,16 @@ void Application::autoSaveTriggered() {
     appWindow->updateStart();
 }
 
-QVector<GuideData::Data> Application::getUpToDateGuides() {
+QVector<OldGuideData::Data> Application::getUpToDateGuides() {
     // Extract guides
-    QVector<GuideData::Data> result;
+    QVector<OldGuideData::Data> result;
     for (Guide* guide: appWindow->guides) {
         result.append(guide->getGuide());
     }
     return result;
 }
 
-void Application::updateGuide(int guideIndex, GuideData::Data updatedGuide) {
+void Application::updateGuide(int guideIndex, OldGuideData::Data updatedGuide) {
     Guide* guide = appWindow->guides.at(guideIndex);
     guide->emptyGuide();
     guide->setGuide(updatedGuide);

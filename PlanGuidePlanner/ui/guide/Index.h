@@ -8,7 +8,7 @@
 
 #include <QWidget>
 
-#include "guide/GuideData.h"
+#include "guide/OldGuideData.h"
 
 #include "Goal.h"
 
@@ -35,7 +35,7 @@ public:
 
     int size = 100;
 
-    GuideData::GuideObject getGuideObject();
+    OldGuideData::GuideObject getGuideObject();
 
 private:
     Ui::Index* ui;

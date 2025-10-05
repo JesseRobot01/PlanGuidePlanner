@@ -4,12 +4,12 @@
 
 #ifndef PLANGUIDEPLANNER_LEGACYXMLPARSERS_H
 #define PLANGUIDEPLANNER_LEGACYXMLPARSERS_H
-#include "guide/GuideData.h"
+#include "guide/OldGuideData.h"
 
 
 class LegacyXmlParsers {
 public:
-    static GuideData::Data v1Reader(QFile* xmlFileP);
+    static OldGuideData::Data v1Reader(QFile* xmlFileP);
 };
 
 

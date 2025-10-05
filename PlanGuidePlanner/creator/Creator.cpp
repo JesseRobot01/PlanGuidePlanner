@@ -11,7 +11,7 @@
 #include <JlCompress.h>
 
 #include "ui_Creator.h"
-#include "guide/GuideData.h"
+#include "guide/OldGuideData.h"
 #include <ui/guide/Guide.h>
 
 #include "Application.h"
@@ -360,20 +360,20 @@ void Creator::on_displayButton_clicked() {
     widget->show();
 }
 
-GuideData::Data Creator::getCurrentGuide() {
-    GuideData::Data guidedata;
-    GuideData::GuideObject* index = nullptr;
+OldGuideData::Data Creator::getCurrentGuide() {
+    OldGuideData::Data guidedata;
+    OldGuideData::GuideObject* index = nullptr;
 
     for (int i = 0; i < ui->mainDisplay->topLevelItemCount(); ++i) {
         QTreeWidgetItem* item = ui->mainDisplay->topLevelItem(i);
 
         if (item->text(0) == tr("Goal")) {
             if (index == nullptr) {
-                index = new GuideData::GuideObject();
-                index->objectType = GuideData::Index;
+                index = new OldGuideData::GuideObject();
+                index->objectType = OldGuideData::Index;
             }
 
-            GuideData::GuideGoals goal;
+            OldGuideData::GuideGoals goal;
 
             goal.name = item->text(1);
             goal.goalNumber = item->text(2);
@@ -416,8 +416,8 @@ GuideData::Data Creator::getCurrentGuide() {
         }
 
         if (item->text(0) == tr("Test")) {
-            GuideData::GuideObject test;
-            test.objectType = GuideData::Test;
+            OldGuideData::GuideObject test;
+            test.objectType = OldGuideData::Test;
             test.setTestName(item->text(1));
             test.shortName = (item->text(2));
 
@@ -436,13 +436,13 @@ GuideData::Data Creator::getCurrentGuide() {
         }
 
         if (item->text(0) == tr("Report")) {
-            GuideData::GuideObject report;
-            report.objectType = GuideData::Report;
+            OldGuideData::GuideObject report;
+            report.objectType = OldGuideData::Report;
 
             for (int j = 0; j < item->childCount(); ++j) {
                 QTreeWidgetItem* child = item->child(j);
                 if (child->text(0) == tr("Test")) {
-                    GuideData::ReportTests reportTest;
+                    OldGuideData::ReportTests reportTest;
                     reportTest.name = child->text(1);
                     reportTest.weight = child->text(2);
 
@@ -610,7 +610,7 @@ void Creator::on_actionSave_Guide_triggered() {
     // First of all, check if the guide is actually from the program itself.
     if (applicationGuideIndex != -1) {
         // First save to auto save
-        GuideData::Data guide = getCurrentGuide();
+        OldGuideData::Data guide = getCurrentGuide();
         QFile currentAutoSaveFile(appAutoSaveLocation.absoluteFilePath());
         XmlParser::saveXml(guide, currentAutoSaveFile, true, false);
 
@@ -634,7 +634,7 @@ void Creator::on_actionSave_Guide_triggered() {
 void Creator::on_actionSave_Guide_As_triggered() {
     QSettings settings;
     QString baseFileName;
-    GuideData::Data guide = getCurrentGuide();
+    OldGuideData::Data guide = getCurrentGuide();
 
     if (currentGuide.exists())
         baseFileName = currentGuide.baseName();
@@ -654,7 +654,7 @@ void Creator::on_actionSave_Guide_As_triggered() {
     save(guide);
 }
 
-void Creator::save(GuideData::Data guide) {
+void Creator::save(OldGuideData::Data guide) {
     QFile fileToSave(currentGuide.absoluteFilePath());
 
     if (fileToSave.fileName().endsWith("pgd")) {
@@ -692,7 +692,7 @@ void Creator::save(GuideData::Data guide) {
         XmlParser::saveXml(guide, fileToSave);
 }
 
-void Creator::open(GuideData::Data guide) {
+void Creator::open(OldGuideData::Data guide) {
     auto* mainDisplay = ui->mainDisplay;
 
     // First of all, clear the current one
@@ -713,7 +713,7 @@ void Creator::open(GuideData::Data guide) {
     info->setText(1, guide.info);
 
     for (auto object: guide.objects) {
-        if (object.objectType == GuideData::Index) {
+        if (object.objectType == OldGuideData::Index) {
             for (auto goal: object.goals) {
                 QTreeWidgetItem* goalItem = new QTreeWidgetItem(mainDisplay);
                 goalItem->setText(0, tr("Goal"));
@@ -739,19 +739,19 @@ void Creator::open(GuideData::Data guide) {
                     QTreeWidgetItem* taskItem = new QTreeWidgetItem(goalItem);
 
                     switch (task.task) {
-                        case GuideData::Work:
+                        case OldGuideData::Work:
                             taskItem->setText(0, tr("Work"));
                             break;
-                        case GuideData::Read:
+                        case OldGuideData::Read:
                             taskItem->setText(0, tr("Read"));
                             break;
-                        case GuideData::Watch:
+                        case OldGuideData::Watch:
                             taskItem->setText(0, tr("Watch/ Listen"));
                             break;
-                        case GuideData::Process:
+                        case OldGuideData::Process:
                             taskItem->setText(0, tr("Process"));
                             break;
-                        case GuideData::Info:
+                        case OldGuideData::Info:
                             taskItem->setText(0, tr("Information"));
                             break;
                     }
@@ -761,7 +761,7 @@ void Creator::open(GuideData::Data guide) {
             }
             continue;
         }
-        if (object.objectType == GuideData::Test) {
+        if (object.objectType == OldGuideData::Test) {
             QTreeWidgetItem* testItem = new QTreeWidgetItem(mainDisplay);
             testItem->setText(0, tr("Test"));
             testItem->setText(1, object.name);
@@ -777,7 +777,7 @@ void Creator::open(GuideData::Data guide) {
 
             continue;
         }
-        if (object.objectType == GuideData::Report) {
+        if (object.objectType == OldGuideData::Report) {
             QTreeWidgetItem* reportItem = new QTreeWidgetItem(mainDisplay);
             reportItem->setText(0, tr("Report"));
             for (auto test: object.tests) {

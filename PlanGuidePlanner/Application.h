@@ -4,7 +4,7 @@
 
 
 #include <QTimer>
-#include "guide/GuideData.h"
+#include "guide/OldGuideData.h"
 #include "ui/MainWindow.h"
 #include <QApplication>
 #include "creator/Creator.h"
@@ -34,9 +34,9 @@ public:
 
     bool isAutoSaveTimerStarted = false;
 
-    QVector<GuideData::Data> getUpToDateGuides();
+    QVector<OldGuideData::Data> getUpToDateGuides();
 
-    void updateGuide(int guideIndex, GuideData::Data updatedGuide);
+    void updateGuide(int guideIndex, OldGuideData::Data updatedGuide);
 
     bool isFileChanged = false;
 

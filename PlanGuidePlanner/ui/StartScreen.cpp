@@ -63,7 +63,7 @@ void StartScreen::updateStart() {
     qDebug() << "Updating start screen.";
 
     // gather all guides.
-    QVector<GuideData::Data> guides = APPLICATION->getUpToDateGuides();
+    QVector<OldGuideData::Data> guides = APPLICATION->getUpToDateGuides();
 
 
     //nuke old start screen.                            (A la kaboem?!)
@@ -106,7 +106,7 @@ void StartScreen::updateStart() {
     goalFont.setBold(true);
 
     //adds lists
-    for (GuideData::Data guide: guides) {
+    for (OldGuideData::Data guide: guides) {
         QWidget* startScreenList = new QWidget(ui->scrollAreaWidgetContents);
         QVBoxLayout* startScreenLayout = new QVBoxLayout(startScreenList);
         QLabel* startScreenLabel = new QLabel(startScreenList);
@@ -126,12 +126,12 @@ void StartScreen::updateStart() {
         ui->horizontalLayout_2->addWidget(startScreenList);
 
         // list :)
-        for (GuideData::GuideObject object: guide.objects) {
-            if (object.objectType != GuideData::Index) {
+        for (OldGuideData::GuideObject object: guide.objects) {
+            if (object.objectType != OldGuideData::Index) {
                 continue;
             }
 
-            for (GuideData::GuideGoals goal: object.goals) {
+            for (OldGuideData::GuideGoals goal: object.goals) {
                 QLabel* goalLabel = new QLabel(goal.goalNumber);
                 goalLabel->setFont(goalFont);
                 goalLabel->setAlignment(Qt::AlignCenter);
