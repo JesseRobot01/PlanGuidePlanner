@@ -54,12 +54,12 @@ public:
         QString name;
         QString info;
         QString shortName;
-        int time;
+        int time = 0;
 
-        QDate week;
+        QDate date = {0,0,0};
         Progress progress = NotStarted;
 
-        void setWeekFromWeekNumber(QString weekNumber);
+        void setDateFromWeek(QString weekNumber);
 
         void addTask(const QString&name, const TaskTypes&taskType, const QString&link = "");
 
@@ -73,15 +73,16 @@ public:
         QVector<Object> objects;
         QString name;
         QString info;
-        int period;
+        QString period;
         QString shortName;
         QFileInfo originalFile;
         QFileInfo autoSaveFile;
     };
 
-    Data errorGuide(const QString&error);
+   static Data errorGuide(const QString&error);
 
-    Data fromOldData(const OldGuideData::Data&guide);
+    static Data fromOldData(const OldGuideData::Data&guide);
+    static OldGuideData::Data toOldData(NewGuideData::Data newDataFormat);
 };
 
 
