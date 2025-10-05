@@ -25,6 +25,7 @@
 #include <QDesktopServices>
 
 #include "creator/Creator.h"
+#include "prototypeGui/newguideprototype.h"
 
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
@@ -33,7 +34,10 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     // poke in start screen
     startScreen = new StartScreen(this);
     startScreen->show();
+    newGuidePrototype *proto = new newGuidePrototype(this);
     ui->guideSwitcher->addTab(startScreen, tr("Start"));
+    ui->guideSwitcher->addTab(proto, tr("Prototype")); //The new prototype ui.
+
 }
 
 MainWindow::~MainWindow() {

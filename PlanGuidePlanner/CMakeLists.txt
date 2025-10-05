@@ -30,9 +30,12 @@ set(SOURCES
         themes/RedTheme.h
         themes/OrangeTheme.h
         themes/ContrastTheme.h
+        ui/prototypeGui/newguideprototype.cpp
+        ui/prototypeGui/newguideprototype.h
 )
 
 set(UI
+        ui/prototypeGui/newGuidePrototype.ui
         ui/MainWindow.ui
         ui/PreferenceWindow.ui
         ui/guide/Guide.ui
