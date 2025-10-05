@@ -11,6 +11,8 @@
 
 #include "LegacyXmlParsers.h"
 
+const float currentReadWriteVersion = 1.0;
+
 GuideData::Data XmlParser::readXml(QFile* xmlFileP) {
     QFile&xmlFile = *xmlFileP;
     QFileInfo fileInfo(xmlFile);
@@ -46,6 +48,11 @@ GuideData::Data XmlParser::readXml(QFile* xmlFileP) {
                     }
                     else if (attribute.name().toString() == "originalfile") {
                         guide.originalFile = QFileInfo(attribute.value().toString());
+                    }
+                    else if (attribute.name().toString() == "format-version") {
+                        // Check if version is supported
+                        if (attribute.value().toFloat() < currentReadWriteVersion)
+                            qWarning() << "This file is newer than the supported reader, continue with caution!";
                     }
                 }
                 elementName = "";
@@ -235,7 +242,7 @@ void XmlParser::saveXml(const GuideData::Data&guide, QFile&fileToSaveTo, bool is
 
         xml.writeStartDocument();
         xml.writeStartElement("pgp");
-        xml.writeAttribute("format-version", "1.0");
+        xml.writeAttribute("format-version", QString::number(currentReadWriteVersion));
         if (isAutoSave) {
             xml.writeAttribute("autosavefile", "true");
             xml.writeAttribute("originalfile", guide.originalFile.filePath());
