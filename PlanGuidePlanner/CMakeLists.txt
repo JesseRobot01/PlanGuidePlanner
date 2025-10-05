@@ -33,6 +33,8 @@ set(SOURCES
         ui/prototypeGui/newguideprototype.cpp
         ui/prototypeGui/newguideprototype.h
         guide/NewGuideData.cpp
+        ui/newGuideExperiment/NewGuide.h
+        ui/newGuideExperiment/NewGuide.cpp
 )
 
 set(UI
@@ -54,6 +56,7 @@ set(UI
         ui/StartScreen.cpp
         ui/StartScreen.h
         ui/StartScreen.ui
+        ui/newGuideExperiment/NewGuide.ui
 
 )
 

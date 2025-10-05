@@ -25,6 +25,8 @@
 #include <QDesktopServices>
 
 #include "creator/Creator.h"
+#include "guide/NewGuideData.h"
+#include "newGuideExperiment/NewGuide.h"
 #include "prototypeGui/newguideprototype.h"
 
 
@@ -198,8 +200,22 @@ void MainWindow::on_actionOpen_File_triggered() {
 void MainWindow::processGuide(OldGuideData::Data guide, bool updateStart) {
     Guide* finalGuide = new Guide(this);
 
+    NewGuideData::Data newData = NewGuideData::fromOldData(guide);
+    NewGuide* newGuide = new NewGuide(this, &newData); // New Gui, for comparison
+    NewGuide* newGuide2 = new NewGuide(this, &newData); // New Gui, for comparison no scroll
+
     finalGuide->setGuide(guide);
     addGuide(finalGuide, guide.shortName.isEmpty() ? guide.name : guide.shortName);
+
+    QScrollArea* scrollArea = new QScrollArea();
+
+    scrollArea->setWidget(newGuide);
+    scrollArea->setWidgetResizable(true); // Ensure the content resizes with the scroll area
+
+
+    ui->guideSwitcher->addTab(scrollArea, newData.shortName + " - NewUI");
+    ui->guideSwitcher->addTab(newGuide2, newData.shortName + " - NewUI - No scroll");
+
 
     //update start
     if (updateStart)
