@@ -83,7 +83,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QLabel" name="label">
+          <widget class="QLabel" name="mainName">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -109,7 +109,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_2">
+          <widget class="QLabel" name="Period">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -144,7 +144,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_3">
+          <widget class="QLabel" name="PeriodNum">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -209,7 +209,7 @@
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
-          <widget class="QWidget" name="widget" native="true">
+          <widget class="QWidget" name="infoContent" native="true">
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <property name="spacing">
              <number>0</number>
@@ -224,7 +224,7 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QLabel" name="label_4">
+             <widget class="QLabel" name="MainInfoLabel">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
@@ -252,7 +252,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_5">
+             <widget class="QLabel" name="info">
               <property name="styleSheet">
                <string notr="true">color: #000000
 </string>
@@ -275,7 +275,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QWidget" name="widget_2" native="true">
+          <widget class="QWidget" name="exampleLabels" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -311,7 +311,7 @@
              <number>20</number>
             </property>
             <item>
-             <spacer name="verticalSpacer_5">
+             <spacer name="labelSpacer">
               <property name="orientation">
                <enum>Qt::Orientation::Vertical</enum>
               </property>
@@ -327,12 +327,12 @@
              </spacer>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <layout class="QHBoxLayout" name="labellayout_5">
               <property name="spacing">
                <number>0</number>
               </property>
               <item>
-               <widget class="QLabel" name="label_6">
+               <widget class="QLabel" name="Name">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -375,7 +375,7 @@ color:white;
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="label_8">
+               <widget class="QLabel" name="Label_5">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -420,12 +420,12 @@ color:white;
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <layout class="QHBoxLayout" name="labellayout_2">
               <property name="spacing">
                <number>0</number>
               </property>
               <item>
-               <widget class="QLabel" name="label_14">
+               <widget class="QLabel" name="Name_4">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -468,7 +468,7 @@ color:white;
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="label_15">
+               <widget class="QLabel" name="Label_2">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -513,12 +513,12 @@ color:white;
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_6">
+             <layout class="QHBoxLayout" name="labellayout_3">
               <property name="spacing">
                <number>0</number>
               </property>
               <item>
-               <widget class="QLabel" name="label_12">
+               <widget class="QLabel" name="Name_3">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -561,7 +561,7 @@ color:white;
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="label_13">
+               <widget class="QLabel" name="Label_4">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -606,12 +606,12 @@ color:white;
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <layout class="QHBoxLayout" name="labellayout">
               <property name="spacing">
                <number>0</number>
               </property>
               <item>
-               <widget class="QLabel" name="label_7">
+               <widget class="QLabel" name="Name_5">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -654,7 +654,7 @@ color:white;
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="label_9">
+               <widget class="QLabel" name="Label">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -699,12 +699,12 @@ color:white;
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <layout class="QHBoxLayout" name="labellayout_4">
               <property name="spacing">
                <number>0</number>
               </property>
               <item>
-               <widget class="QLabel" name="label_10">
+               <widget class="QLabel" name="Name_2">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -747,7 +747,7 @@ color:white;
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="label_11">
+               <widget class="QLabel" name="Label_3">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -792,7 +792,7 @@ color:white;
              </layout>
             </item>
             <item>
-             <spacer name="verticalSpacer_4">
+             <spacer name="labelSpacer_2">
               <property name="orientation">
                <enum>Qt::Orientation::Vertical</enum>
               </property>
@@ -1394,7 +1394,7 @@ color:white;
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="label_18">
+                <widget class="QLabel" name="taskText">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                    <horstretch>0</horstretch>
@@ -1612,7 +1612,7 @@ color:white;
        <number>0</number>
       </property>
       <item>
-       <widget class="QWidget" name="widget_4" native="true">
+       <widget class="QWidget" name="testHead" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout_10">
          <property name="spacing">
           <number>0</number>
@@ -1841,7 +1841,7 @@ border-color : white;</string>
        </widget>
       </item>
       <item>
-       <widget class="QWidget" name="widget_3" native="true">
+       <widget class="QWidget" name="test_2" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout_14">
          <property name="spacing">
           <number>0</number>
@@ -1859,7 +1859,7 @@ border-color : white;</string>
           <number>0</number>
          </property>
          <item>
-          <widget class="QLabel" name="label_19">
+          <widget class="QLabel" name="name">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -1900,7 +1900,7 @@ border-color : white;</string>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_20">
+          <widget class="QLabel" name="weight">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -1950,7 +1950,7 @@ border-color : white;</string>
     </widget>
    </item>
    <item>
-    <spacer name="verticalSpacer">
+    <spacer name="lastSpacer">
      <property name="orientation">
       <enum>Qt::Orientation::Vertical</enum>
      </property>
