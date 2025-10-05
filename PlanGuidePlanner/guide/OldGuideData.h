@@ -21,7 +21,7 @@
  * @code GuideObject @endcode stores all the data for the differend sections. (Index, test, Report)
  */
 
-class GuideData : public QObject{
+class OldGuideData : public QObject{
 public:
     enum ObjectTypes {
         Index,

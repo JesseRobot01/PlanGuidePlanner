@@ -5,7 +5,7 @@
 // You may need to build the project (run Qt uic code generator) to get "ui_MainWindow.h" resolved
 
 #include <QFileDialog>
-#include <guide/GuideData.h>
+#include <guide/OldGuideData.h>
 
 #include "MainWindow.h"
 
@@ -73,14 +73,14 @@ void MainWindow::on_actionOpen_File_triggered() {
                     for (const QString&extractedFile: extractedFiles) {
                         qDebug() << "Extracted:" << extractedFile;
                         if (APPLICATION->isXmlFile(extractedFile)) {
-                            GuideData::Data guide = XmlParser::readXml(extractedFile);
+                            OldGuideData::Data guide = XmlParser::readXml(extractedFile);
                             processGuide(guide);
                         }
                     }
                 }
                 else if (APPLICATION->isXmlFile(fileName)) {
                     file.close(); // Parser does not like open files.
-                    GuideData::Data guide = XmlParser::readXml(&file);
+                    OldGuideData::Data guide = XmlParser::readXml(&file);
                     processGuide(guide);
                 }
                 file.close();
@@ -140,13 +140,13 @@ void MainWindow::on_actionOpen_File_triggered() {
 
     loadGuide->show();
 
-    QVector<GuideData::Data> guides;
+    QVector<OldGuideData::Data> guides;
 
     guides = XmlParser::readXml(guideFiles);
     loadGuide->increaseProgress(guideFiles.count());
 
 
-    for (GuideData::Data guide: guides) {
+    for (OldGuideData::Data guide: guides) {
         QDir copyToDestination(APPLICATION->getAutoSaveLocation());
 
         if (copyToDestination.mkpath(".")) {
@@ -195,7 +195,7 @@ void MainWindow::on_actionOpen_File_triggered() {
 #endif
 
 
-void MainWindow::processGuide(GuideData::Data guide, bool updateStart) {
+void MainWindow::processGuide(OldGuideData::Data guide, bool updateStart) {
     Guide* finalGuide = new Guide(this);
 
     finalGuide->setGuide(guide);
@@ -217,7 +217,7 @@ void MainWindow::addGuide(Guide* guide, const QString&name) {
 void MainWindow::on_actionSave_Guide_As_triggered() {
     int currentTab = (ui->guideSwitcher->currentIndex() - 1);
     Guide* guideToSave = guides.at(currentTab);
-    GuideData::Data guide = guideToSave->getGuide();
+    OldGuideData::Data guide = guideToSave->getGuide();
 
     QFile tmpFile("/tmp/savingGuide.pgx");
 
@@ -239,7 +239,7 @@ void MainWindow::on_actionSave_Guide_As_triggered() {
 void MainWindow::on_actionSave_Guide_As_triggered() {
     int currentTab(ui->guideSwitcher->currentIndex() - 1);
     Guide* guideToSave = guides.at(currentTab);
-    GuideData::Data guide = guideToSave->getGuide();
+    OldGuideData::Data guide = guideToSave->getGuide();
 
     saveGuideAs(guide);
 
@@ -249,7 +249,7 @@ void MainWindow::on_actionSave_Guide_As_triggered() {
 
 #endif
 
-void MainWindow::saveGuideAs(GuideData::Data guide) {
+void MainWindow::saveGuideAs(OldGuideData::Data guide) {
     QSettings settings;
     QString baseFileName;
 
@@ -311,7 +311,7 @@ void MainWindow::on_actionSave_All_Guides_triggered() {
     QStringList GuidesToSave;
 
     for (auto* guide: guides) {
-        GuideData::Data guideDat = guide->getGuide();
+        OldGuideData::Data guideDat = guide->getGuide();
 
         QFileInfo fileInfoToSave(tempLocation.absoluteFilePath(guideDat.shortName + "_0.xml"));
 
@@ -387,7 +387,7 @@ void MainWindow::on_actionSave_All_Guides_triggered() {
         extention = ".xml";
 
     for (auto* guide: guides) {
-        GuideData::Data guideDat = guide->getGuide();
+        OldGuideData::Data guideDat = guide->getGuide();
 
         // saving
         QFileInfo fileInfoToSave(tempLocation.absoluteFilePath(guideDat.shortName + "_0" + extention));
@@ -465,7 +465,7 @@ void MainWindow::on_guideSwitcher_tabCloseRequested(int tab) {
 void MainWindow::closeGuide(int guideIndex, bool updateStartBool) {
     Guide* guideToClose = guides.at(guideIndex);
     qDebug() << "Closing Guide " << guideToClose->name;
-    GuideData::Data guide = guideToClose->getGuide();
+    OldGuideData::Data guide = guideToClose->getGuide();
 
     // next, delete the auto save file.
     QFile autoSaveFile(guide.autoSaveFile.filePath());
@@ -518,7 +518,7 @@ void MainWindow::on_actionOpen_In_Creator_triggered() {
 
     // Now get the guide to open.
     int currentGuideIndex(ui->guideSwitcher->currentIndex() - 1);
-    GuideData::Data currentGuide = guides.at(currentGuideIndex)->getGuide();
+    OldGuideData::Data currentGuide = guides.at(currentGuideIndex)->getGuide();
 
     // Open in creator
     Creator* creator = new Creator();

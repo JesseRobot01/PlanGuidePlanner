@@ -7,7 +7,7 @@
 
 #include <QMainWindow>
 #include "PreferenceWindow.h"
-#include "guide/GuideData.h"
+#include "guide/OldGuideData.h"
 #include<QCloseEvent>
 #include "StartScreen.h"
 
@@ -30,7 +30,7 @@ public:
 
     ~MainWindow() override;
 
-    void processGuide(GuideData::Data guide, bool updateStart = true);
+    void processGuide(OldGuideData::Data guide, bool updateStart = true);
 
     QVector<Guide *> guides;
 
@@ -75,7 +75,7 @@ private:
 
     void closeEvent(QCloseEvent* event) override;
 
-    void saveGuideAs(GuideData::Data guide);
+    void saveGuideAs(OldGuideData::Data guide);
 };
 
 

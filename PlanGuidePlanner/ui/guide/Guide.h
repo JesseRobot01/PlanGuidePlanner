@@ -5,7 +5,7 @@
 #ifndef PLANGUIDEPLANNER_GUIDE_H
 #define PLANGUIDEPLANNER_GUIDE_H
 
-#include "guide/GuideData.h"
+#include "guide/OldGuideData.h"
 #include <QWidget>
 
 class Index;
@@ -42,7 +42,7 @@ public:
 
     void setShortName(const QString&shortName);
 
-    GuideData::Data getGuide();
+    OldGuideData::Data getGuide();
 
     QString name;
 
@@ -52,7 +52,7 @@ public:
 
     bool isInAutoSaveList = false;
 
-    void setGuide(GuideData::Data guide);
+    void setGuide(OldGuideData::Data guide);
 
     void emptyGuide();
 
@@ -68,7 +68,7 @@ private:
     QVector<Index *> indexes;
     QVector<Test *> tests;
     QVector<Report *> reports;
-    QVector<GuideData::ObjectTypes> objectOrder;
+    QVector<OldGuideData::ObjectTypes> objectOrder;
 
     void updateStyle();
 };

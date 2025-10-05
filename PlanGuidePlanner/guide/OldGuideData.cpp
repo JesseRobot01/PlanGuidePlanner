@@ -2,9 +2,9 @@
 // Created by Jesse on 19-08-2025.
 //
 
-#include "GuideData.h"
+#include "OldGuideData.h"
 
-GuideData::Data GuideData::errorGuide(const QString&error) {
+OldGuideData::Data OldGuideData::errorGuide(const QString&error) {
     qWarning() << "Error thrown via GuideData.";
     qWarning() << "Error:" << error;
     Data errorGuide;

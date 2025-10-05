@@ -8,7 +8,7 @@
 
 #include <QWidget>
 
-#include "guide/GuideData.h"
+#include "guide/OldGuideData.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -33,11 +33,11 @@ public:
 
     int size = 60;
 
-    GuideData::GuideObject getGuideobject();
+    OldGuideData::GuideObject getGuideobject();
 
 private:
     Ui::Report *ui;
-    QVector<GuideData::ReportTests> tests;
+    QVector<OldGuideData::ReportTests> tests;
 
     void updateStyle();
 };

@@ -53,9 +53,9 @@ void Index::finalise() {
     ui->frame->resize(1240, size + 5);
 }
 
-GuideData::GuideObject Index::getGuideObject() {
-    GuideData::GuideObject object;
-    object.objectType = GuideData::Index;
+OldGuideData::GuideObject Index::getGuideObject() {
+    OldGuideData::GuideObject object;
+    object.objectType = OldGuideData::Index;
     // get all the goals.
     for (Goal* goal: goals) {
         object.goals.append(goal->getGoal());

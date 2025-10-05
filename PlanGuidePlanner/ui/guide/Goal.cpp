@@ -73,7 +73,7 @@ void Goal::setTime(const QString&time) {
     ui->goalTime->setText(time);
 }
 
-void Goal::addTask(const GuideData::GuideGoalTasks task) {
+void Goal::addTask(const OldGuideData::GuideGoalTasks task) {
     GuidePalette palette;
 
     QString indicatorText;
@@ -84,21 +84,21 @@ void Goal::addTask(const GuideData::GuideGoalTasks task) {
     QString name = task.text;
 
     switch (task.task) {
-        case GuideData::Work:
+        case OldGuideData::Work:
             indicatorText = tr("UI_WORKINDICATOR");
 
             indicatorBackgroundColour = palette.getColor(GuidePalette::WorkIndicatorBackground).name();
             indicatorTextColour = palette.getColor(GuidePalette::WorkIndicatorText).name();
             break;
 
-        case GuideData::Watch:
+        case OldGuideData::Watch:
             indicatorText = tr("UI_WATCHINDICATOR");
 
             indicatorBackgroundColour = palette.getColor(GuidePalette::WatchIndicatorBackground).name();
             indicatorTextColour = palette.getColor(GuidePalette::WatchIndicatorText).name();
             break;
 
-        case GuideData::Read:
+        case OldGuideData::Read:
             indicatorText = tr("UI_READINDICATOR");
 
             indicatorBackgroundColour = palette.getColor(GuidePalette::ReadIndicatorBackground).name();
@@ -106,14 +106,14 @@ void Goal::addTask(const GuideData::GuideGoalTasks task) {
             break;
 
 
-        case GuideData::Process:
+        case OldGuideData::Process:
             indicatorText = tr("UI_PROCESSINDICATOR");
 
             indicatorBackgroundColour = palette.getColor(GuidePalette::ProcessIndicatorBackground).name();
             indicatorTextColour = palette.getColor(GuidePalette::InfoIndicatorText).name();
             break;
 
-        case GuideData::Info:
+        case OldGuideData::Info:
             indicatorText = tr("UI_INFOINDICATOR");
 
             indicatorBackgroundColour = palette.getColor(GuidePalette::InfoIndicatorBackground).name();
@@ -168,9 +168,9 @@ void Goal::addTask(const GuideData::GuideGoalTasks task) {
 
 void Goal::addWork(const QString&workName, const QString&link) {
     // First save them in the Vector for resaving
-    GuideData::GuideGoalTasks task;
+    OldGuideData::GuideGoalTasks task;
 
-    task.task = GuideData::Work;
+    task.task = OldGuideData::Work;
     task.text = workName;
     task.link = link;
     tasks.append(task);
@@ -180,9 +180,9 @@ void Goal::addWork(const QString&workName, const QString&link) {
 
 void Goal::addWatch(const QString&watchName, const QString&link) {
     // First save them in the Vector for resaving
-    GuideData::GuideGoalTasks task;
+    OldGuideData::GuideGoalTasks task;
 
-    task.task = GuideData::Watch;
+    task.task = OldGuideData::Watch;
     task.text = watchName;
     task.link = link;
     tasks.append(task);
@@ -192,8 +192,8 @@ void Goal::addWatch(const QString&watchName, const QString&link) {
 
 void Goal::addRead(const QString&readName, const QString&link) {
     // First save them in the Vector for resaving
-    GuideData::GuideGoalTasks task;
-    task.task = GuideData::Read;
+    OldGuideData::GuideGoalTasks task;
+    task.task = OldGuideData::Read;
     task.text = readName;
     task.link = link;
     tasks.append(task);
@@ -203,8 +203,8 @@ void Goal::addRead(const QString&readName, const QString&link) {
 
 void Goal::addProcess(const QString&processName, const QString&link) {
     // First save them in the Vector for resaving
-    GuideData::GuideGoalTasks task;
-    task.task = GuideData::Process;
+    OldGuideData::GuideGoalTasks task;
+    task.task = OldGuideData::Process;
     task.text = processName;
     task.link = link;
     tasks.append(task);
@@ -214,8 +214,8 @@ void Goal::addProcess(const QString&processName, const QString&link) {
 
 void Goal::addInfo(const QString&infoText, const QString&link) {
     // First save them in the Vector for resaving
-    GuideData::GuideGoalTasks task;
-    task.task = GuideData::Info;
+    OldGuideData::GuideGoalTasks task;
+    task.task = OldGuideData::Info;
     task.text = infoText;
     task.link = link;
     tasks.append(task);
@@ -273,8 +273,8 @@ void Goal::on_progressSlider_sliderMoved(int newValue) {
     setProgress(newValue);
 }
 
-GuideData::GuideGoals Goal::getGoal() {
-    GuideData::GuideGoals finalGoal;
+OldGuideData::GuideGoals Goal::getGoal() {
+    OldGuideData::GuideGoals finalGoal;
 
     finalGoal.name = ui->goalName->text();
     finalGoal.goalNumber = ui->leraningGoal->text();

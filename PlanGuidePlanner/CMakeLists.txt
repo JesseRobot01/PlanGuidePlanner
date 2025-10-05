@@ -19,10 +19,10 @@ set(SOURCES
         ui/guide/Report.h
         ui/dialogs/LoadGuide.cpp
         ui/dialogs/LoadGuide.h
-        guide/GuideData.h
+        guide/OldGuideData.h
         themes/GuidePalette.cpp
         themes/GuidePalette.h
-        guide/GuideData.cpp
+        guide/OldGuideData.cpp
         LegacyXmlParsers.cpp
         LegacyXmlParsers.h
         themes/BlueTheme.h
@@ -32,6 +32,7 @@ set(SOURCES
         themes/ContrastTheme.h
         ui/prototypeGui/newguideprototype.cpp
         ui/prototypeGui/newguideprototype.h
+        guide/NewGuideData.cpp
 )
 
 set(UI

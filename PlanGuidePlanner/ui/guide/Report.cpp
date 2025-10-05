@@ -26,7 +26,7 @@ Report::~Report() {
 }
 
 void Report::addTest(const QString &name, const QString &weight) {
-    GuideData::ReportTests test;
+    OldGuideData::ReportTests test;
     test.name = name;
     test.weight = weight;
     tests.append(test);
@@ -65,9 +65,9 @@ void Report::finalise() {
     ui->frame->resize(1240, size + 5);
 }
 
-GuideData::GuideObject Report::getGuideobject() {
-    GuideData::GuideObject object;
-    object.objectType = GuideData::Report;
+OldGuideData::GuideObject Report::getGuideobject() {
+    OldGuideData::GuideObject object;
+    object.objectType = OldGuideData::Report;
     object.tests = tests;
 
     return object;

@@ -9,7 +9,7 @@
 #include <QMainWindow>
 #include <qtreewidget.h>
 
-#include "guide/GuideData.h"
+#include "guide/OldGuideData.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -29,7 +29,7 @@ public:
     ~Creator() override;
 
 
-    void open(GuideData::Data guide);
+    void open(OldGuideData::Data guide);
 
     QFileInfo currentGuide;
 
@@ -77,9 +77,9 @@ private:
     QListWidgetItem* addTest;
     QListWidgetItem* addReport;
 
-    GuideData::Data getCurrentGuide();
+    OldGuideData::Data getCurrentGuide();
 
-    void save(GuideData::Data guide);
+    void save(OldGuideData::Data guide);
 
     void hideAddTask();
 
