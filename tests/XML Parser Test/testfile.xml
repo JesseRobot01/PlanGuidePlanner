@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pgp format-version="1.0">
+    <name>Example</name>
+    <shortname>TEST</shortname>
+    <period>2</period>
+    <info>This is an example Guide!</info>
+    <goal>
+        <name>Hello World!</name>
+        <number>1.1</number>
+        <time>90</time>
+        <week>53</week>
+        <progress>0</progress>
+        <work>Make exercise 1 to 6.</work>
+        <watch href="https://youtu.be/hUqO3tFexiQ?si=h-AJ7ujvtEdDJaaE">How to cook an egg on YouTube.</watch>
+        <read>The book you've chosen</read>
+        <process>The vocab</process>
+    </goal>
+    <test>
+        <name>Hello World</name>
+        <shortname>HW1</shortname>
+        <info>Know how the PlanGuidePlanner Work</info>
+        <week>0</week>
+    </test>
+    <report>
+        <test>
+            <name>Hello World</name>
+            <weight>3</weight>
+        </test>
+        <test>
+            <name>Bye World</name>
+            <weight>2048</weight>
+        </test>
+    </report>
+</pgp>
