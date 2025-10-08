@@ -57,6 +57,9 @@ set(UI
         ui/StartScreen.h
         ui/StartScreen.ui
         ui/newGuideExperiment/NewGuide.ui
+        ui/newGuideExperiment/NewTest.cpp
+        ui/newGuideExperiment/NewTest.h
+        ui/newGuideExperiment/NewTest.ui
 
 )
 

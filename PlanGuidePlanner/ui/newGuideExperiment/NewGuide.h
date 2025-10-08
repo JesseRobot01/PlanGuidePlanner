@@ -15,7 +15,7 @@ namespace Ui {
 }
 
 class NewGuide : public QWidget {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     explicit NewGuide(QWidget* parent = nullptr, const NewGuideData::Data* data = nullptr);
