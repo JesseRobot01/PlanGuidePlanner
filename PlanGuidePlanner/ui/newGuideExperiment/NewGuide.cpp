@@ -11,23 +11,24 @@
 #include "themes/GuidePalette.h"
 
 NewGuide::NewGuide(QWidget* parent, const NewGuideData::Data* data) : QWidget(parent), ui(new Ui::GuideBase) {
-ui->setupUi(this);
+    ui->setupUi(this);
 
     ui->period->hide();
     ui->periodNum->hide();
 
-    lastSpacer =new QSpacerItem(20, 39, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
+    lastSpacer = new QSpacerItem(20, 39, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
 
     ui->mainLayout->addItem(lastSpacer);
     ui->mainName->setText(data->name);
     ui->mainInfoText->setText(data->info);
 
     updateStyle();
-
 }
-NewGuide::~NewGuide(){
+
+NewGuide::~NewGuide() {
     delete ui;
 }
+
 void NewGuide::updateStyle() {
     GuidePalette palette;
 

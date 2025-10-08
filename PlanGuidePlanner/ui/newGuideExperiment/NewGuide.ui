@@ -253,12 +253,19 @@
             </item>
             <item>
              <widget class="QLabel" name="mainInfoText">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
               <property name="styleSheet">
-               <string notr="true">color: #000000
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string/>
+              </property>
+              <property name="textFormat">
+               <enum>Qt::TextFormat::MarkdownText</enum>
               </property>
               <property name="scaledContents">
                <bool>false</bool>
