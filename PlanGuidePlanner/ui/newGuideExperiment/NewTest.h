@@ -26,6 +26,8 @@ public:
 
     ~NewTest() override;
 
+    void updateStyle();
+
 private:
     Ui::NewTest* ui;
 };
