@@ -61,6 +61,7 @@ set(CREATOR_SOURCES
 set(TRANSLATIONS
         translations/PlanGuidePlanner_nl.ts
         translations/PlanGuidePlanner_en.ts
+        translations/PlanGuidePlanner_ce.ts
 )
 
 set(LOGO_FILES

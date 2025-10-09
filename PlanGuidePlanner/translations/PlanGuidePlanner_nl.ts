@@ -79,7 +79,7 @@
     <message>
         <location line="+5"/>
         <location line="+100"/>
-        <location filename="../creator/Creator.cpp" line="+160"/>
+        <location filename="../creator/Creator.cpp" line="+161"/>
         <location line="+68"/>
         <source>Name</source>
         <translation>Naam</translation>
@@ -92,36 +92,36 @@
     <message>
         <location line="+5"/>
         <location filename="../creator/Creator.cpp" line="+33"/>
-        <location line="+140"/>
+        <location line="+194"/>
         <location line="+250"/>
-        <location line="+172"/>
+        <location line="+174"/>
         <location line="+2"/>
         <source>Guide</source>
         <translation>Wijzer</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location filename="../creator/Creator.cpp" line="-554"/>
+        <location filename="../creator/Creator.cpp" line="-610"/>
         <location line="+8"/>
-        <location line="+129"/>
+        <location line="+183"/>
         <location line="+244"/>
-        <location line="+172"/>
+        <location line="+174"/>
         <source>Period</source>
         <translation>Periode</translation>
     </message>
     <message>
         <location line="+5"/>
         <location line="+139"/>
-        <location filename="../creator/Creator.cpp" line="-655"/>
+        <location filename="../creator/Creator.cpp" line="-711"/>
         <location line="+80"/>
-        <location line="+91"/>
+        <location line="+145"/>
         <location line="+35"/>
         <location line="+36"/>
         <location line="+43"/>
         <location line="+199"/>
         <location line="+47"/>
         <location line="+20"/>
-        <location line="+96"/>
+        <location line="+98"/>
         <location line="+9"/>
         <source>Information</source>
         <translation>Informatie</translation>
@@ -153,38 +153,38 @@
     </message>
     <message>
         <location line="+8"/>
-        <location filename="../creator/Creator.cpp" line="-660"/>
-        <location line="+163"/>
+        <location filename="../creator/Creator.cpp" line="-716"/>
+        <location line="+217"/>
         <location line="+156"/>
         <location line="+204"/>
-        <location line="+123"/>
+        <location line="+125"/>
         <source>Work</source>
         <translation>Maken</translation>
     </message>
     <message>
         <location line="+5"/>
-        <location filename="../creator/Creator.cpp" line="-645"/>
-        <location line="+168"/>
+        <location filename="../creator/Creator.cpp" line="-701"/>
+        <location line="+222"/>
         <location line="+360"/>
-        <location line="+118"/>
+        <location line="+120"/>
         <source>Watch/ Listen</source>
         <translation>Kijken/ Luisteren</translation>
     </message>
     <message>
         <location line="+5"/>
-        <location filename="../creator/Creator.cpp" line="-645"/>
-        <location line="+164"/>
+        <location filename="../creator/Creator.cpp" line="-701"/>
+        <location line="+218"/>
         <location line="+360"/>
-        <location line="+122"/>
+        <location line="+124"/>
         <source>Read</source>
         <translation>Lezen</translation>
     </message>
     <message>
         <location line="+5"/>
-        <location filename="../creator/Creator.cpp" line="-645"/>
-        <location line="+169"/>
+        <location filename="../creator/Creator.cpp" line="-701"/>
+        <location line="+223"/>
         <location line="+360"/>
-        <location line="+117"/>
+        <location line="+119"/>
         <source>Process</source>
         <translation>Verwerken</translation>
     </message>
@@ -200,7 +200,7 @@
     </message>
     <message>
         <location line="-194"/>
-        <location filename="../creator/Creator.cpp" line="-556"/>
+        <location filename="../creator/Creator.cpp" line="-612"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
@@ -213,14 +213,14 @@
     </message>
     <message>
         <location filename="../creator/Creator.cpp" line="-8"/>
-        <location line="+142"/>
+        <location line="+196"/>
         <location line="+26"/>
         <location line="+59"/>
         <location line="+18"/>
         <location line="+35"/>
         <location line="+210"/>
         <location line="+19"/>
-        <location line="+87"/>
+        <location line="+89"/>
         <source>Test</source>
         <translation>Toets</translation>
     </message>
@@ -250,33 +250,33 @@
         <translation>Bestand opslaan als</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="-664"/>
+        <location filename="../creator/Creator.cpp" line="-720"/>
         <location line="+17"/>
         <location line="+8"/>
         <location line="+25"/>
         <location line="+46"/>
-        <location line="+66"/>
+        <location line="+120"/>
         <location line="+114"/>
         <location line="+48"/>
         <location line="+187"/>
-        <location line="+146"/>
+        <location line="+148"/>
         <location line="+6"/>
         <source>Goal</source>
         <translation>Doel</translation>
     </message>
     <message>
-        <location line="-634"/>
+        <location line="-690"/>
         <location line="+8"/>
-        <location line="+159"/>
+        <location line="+213"/>
         <location line="+83"/>
         <location line="+238"/>
         <source>Time</source>
         <translation>Tijd</translation>
     </message>
     <message>
-        <location line="-477"/>
+        <location line="-531"/>
         <location line="+8"/>
-        <location line="+142"/>
+        <location line="+196"/>
         <location line="+29"/>
         <location line="+63"/>
         <location line="+16"/>
@@ -287,74 +287,74 @@
     </message>
     <message>
         <location filename="../creator/Creator.ui" line="-140"/>
-        <location filename="../creator/Creator.cpp" line="-506"/>
-        <location line="+136"/>
+        <location filename="../creator/Creator.cpp" line="-560"/>
+        <location line="+190"/>
         <location line="+92"/>
         <location line="+242"/>
         <source>Progress</source>
         <translation>Voortgang</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="-441"/>
-        <location line="+144"/>
+        <location filename="../creator/Creator.cpp" line="-495"/>
+        <location line="+198"/>
         <location line="+80"/>
         <location line="+31"/>
         <location line="+233"/>
-        <location line="+91"/>
+        <location line="+93"/>
         <source>Report</source>
         <translation>Rapport</translation>
     </message>
     <message>
-        <location line="-784"/>
-        <location line="+393"/>
+        <location line="-841"/>
+        <location line="+448"/>
         <source>Add Goal</source>
         <translation>Doel Toevoegen</translation>
     </message>
     <message>
-        <location line="-390"/>
-        <location line="+409"/>
+        <location line="-445"/>
+        <location line="+464"/>
         <source>Add Test</source>
         <translation>Toets Toevoegen</translation>
     </message>
     <message>
-        <location line="-406"/>
-        <location line="+421"/>
+        <location line="-461"/>
+        <location line="+476"/>
         <source>Add Report</source>
         <translation>Rapport Toevoegen</translation>
     </message>
     <message>
-        <location line="-435"/>
-        <location line="+447"/>
+        <location line="-490"/>
+        <location line="+502"/>
         <source>Add Goal Task</source>
         <translation>Voeg taak toe aan doel</translation>
     </message>
     <message>
-        <location line="-444"/>
-        <location line="+462"/>
+        <location line="-499"/>
+        <location line="+517"/>
         <source>Add Test To Report</source>
         <translation>Voeg toets toe aan rapport</translation>
     </message>
     <message>
-        <location line="-446"/>
-        <location line="+223"/>
-        <location line="+469"/>
+        <location line="-501"/>
+        <location line="+224"/>
+        <location line="+523"/>
         <source>Subject Name</source>
         <translation>Vaknaam</translation>
     </message>
     <message>
-        <location line="-691"/>
-        <location line="+223"/>
-        <location line="+469"/>
+        <location line="-746"/>
+        <location line="+224"/>
+        <location line="+523"/>
         <source>Short Name</source>
         <translation>Afkorting</translation>
     </message>
     <message>
-        <location line="-559"/>
+        <location line="-613"/>
         <source>Link</source>
         <translation>Link</translation>
     </message>
     <message>
-        <location line="+343"/>
+        <location line="+397"/>
         <source>Open PlanGuidePlanner</source>
         <translation>Bestand Openen</translation>
     </message>
@@ -789,6 +789,11 @@ Foutbeschrijving: </translation>
         <translation>Thema</translation>
     </message>
     <message>
+        <location line="+10"/>
+        <source>Colour Palette</source>
+        <translation>Kleurenschema</translation>
+    </message>
+    <message>
         <location line="+28"/>
         <source>Directories</source>
         <translation>Mappen</translation>
@@ -887,7 +892,12 @@ Foutbeschrijving: </translation>
         <translation>Nederlands (Nederlands)</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
+        <source>Cheesearian</source>
+        <translation>Cheesearian (???)</translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Fusion Dark</source>
         <translation>Fusion Donker</translation>
     </message>
@@ -902,7 +912,32 @@ Foutbeschrijving: </translation>
         <translation>Systeem</translation>
     </message>
     <message>
-        <location line="+94"/>
+        <location line="+2"/>
+        <source>Blue</source>
+        <translation>Blauw</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Green</source>
+        <translation>Groen</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Red</source>
+        <translation>Rood</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Orange</source>
+        <translation>Oranje</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>High Contrast</source>
+        <translation>Hoge Contrast</translation>
+    </message>
+    <message>
+        <location line="+97"/>
         <source>log directory</source>
         <translation>Map voor logbestanden</translation>
     </message>

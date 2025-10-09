@@ -23,6 +23,8 @@ PreferenceWindow::PreferenceWindow(QWidget* parent)
 
     ui->languageSelector->addItem(tr("English"), "en");
     ui->languageSelector->addItem(tr("Dutch"), "nl");
+    ui->languageSelector->addItem(tr("Cheesearian"), "ce");
+
 
     ui->themes->addItem(tr("Fusion Dark"), "fusion_dark");
     ui->themes->addItem(tr("Fusion Light"), "fusion_light");
