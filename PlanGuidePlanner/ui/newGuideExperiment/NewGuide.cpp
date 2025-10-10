@@ -7,6 +7,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
+#include "NewReport.h"
 #include "NewTest.h"
 #include "ui_NewGuide.h"
 #include "themes/GuidePalette.h"
@@ -21,6 +22,10 @@ NewGuide::NewGuide(QWidget* parent, const NewGuideData::Data* data) : QWidget(pa
         if (object.type == NewGuideData::Test) {
             NewTest* newTest = new NewTest(this, &object);
             ui->mainLayout->addWidget(newTest);
+        }
+        if (object.type == NewGuideData::Report) {
+            NewReport* newReport = new NewReport(this, &object);
+            ui->mainLayout->addWidget(newReport);
         }
     }
     lastSpacer = new QSpacerItem(20, 39, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
