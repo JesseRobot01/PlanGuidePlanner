@@ -60,6 +60,8 @@ set(UI
         ui/newGuideExperiment/NewTest.cpp
         ui/newGuideExperiment/NewTest.h
         ui/newGuideExperiment/NewTest.ui
+        ui/newGuideExperiment/NewReport.cpp
+        ui/newGuideExperiment/NewReport.h
 
 )
 
