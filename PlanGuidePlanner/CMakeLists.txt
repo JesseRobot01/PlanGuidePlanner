@@ -35,6 +35,11 @@ set(SOURCES
         guide/NewGuideData.cpp
         ui/newGuideExperiment/NewGuide.h
         ui/newGuideExperiment/NewGuide.cpp
+        ui/newGuideExperiment/NewGoal.cpp
+        ui/newGuideExperiment/NewGoal.h
+        ui/newGuideExperiment/GoalFrame.ui
+        ui/newGuideExperiment/NewGoal.ui
+
 )
 
 set(UI

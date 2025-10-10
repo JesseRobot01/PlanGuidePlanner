@@ -9,6 +9,7 @@
 
 #include "NewReport.h"
 #include "NewTest.h"
+#include "NewGoal.h"
 #include "ui_NewGuide.h"
 #include "themes/GuidePalette.h"
 
@@ -18,29 +19,50 @@ NewGuide::NewGuide(QWidget* parent, const NewGuideData::Data* data) : QWidget(pa
     ui->period->hide();
     ui->periodNum->hide();
 
-    for (const auto object : data->objects) {
-        if (object.type == NewGuideData::Test) {
-            NewTest* newTest = new NewTest(this, &object);
-            ui->mainLayout->addWidget(newTest);
+    if (data) {
+        QVector<NewGuideData::Object> goals;
+
+        for (auto object: data->objects) {
+            if (object.type == NewGuideData::Goal) {
+                goals.append(object);
+                continue;
+            }
+            if (!goals.isEmpty()) {
+                GoalFrame *frame = new GoalFrame(this, &goals);
+                goals.clear();
+                ui->mainLayout->addWidget(frame);
+            }
+            if (object.type == NewGuideData::Test) {
+                NewTest* newTest = new NewTest(this, &object);
+                ui->mainLayout->addWidget(newTest);
+            }
+            if (object.type == NewGuideData::Report) {
+                NewReport* newReport = new NewReport(this, &object);
+                ui->mainLayout->addWidget(newReport);
+            }
         }
-        if (object.type == NewGuideData::Report) {
-            NewReport* newReport = new NewReport(this, &object);
-            ui->mainLayout->addWidget(newReport);
+
+        if (!goals.isEmpty()) {
+            GoalFrame *frame = new GoalFrame(this, &goals);
+            goals.clear();
+            ui->mainLayout->addWidget(frame);
+
         }
     }
-    lastSpacer = new QSpacerItem(20, 39, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
+
+
+    lastSpacer =new QSpacerItem(20, 39, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
 
     ui->mainLayout->addItem(lastSpacer);
     ui->mainName->setText(data->name);
     ui->mainInfoText->setText(data->info);
 
     updateStyle();
-}
 
-NewGuide::~NewGuide() {
+}
+NewGuide::~NewGuide(){
     delete ui;
 }
-
 void NewGuide::updateStyle() {
     GuidePalette palette;
 
