@@ -196,7 +196,7 @@ OldGuideData::Data NewGuideData::toOldData(NewGuideData::Data newData) {
     OldGuideData::Data oldData;
 
     oldData.name = newData.name;
-    oldData.shortName = newData.shortName + "- Converted";
+    oldData.shortName = newData.shortName;
     oldData.autoSaveFile = newData.autoSaveFile;
     oldData.originalFile = newData.originalFile;
     oldData.period = newData.period;
@@ -253,7 +253,7 @@ OldGuideData::Data NewGuideData::toOldData(NewGuideData::Data newData) {
             test.shortName = object.shortName;
             test.info = object.info;
             if (object.date != QDate(0, 0, 0))
-            test.week = QString::number(object.date.weekNumber());
+                test.week = QString::number(object.date.weekNumber());
 
             oldData.objects.append(test);
         }

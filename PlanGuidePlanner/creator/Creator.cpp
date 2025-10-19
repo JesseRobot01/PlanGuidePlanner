@@ -7,12 +7,11 @@
 #include "Creator.h"
 
 #include <QFileDialog>
-#include <QScrollArea>
 #include <JlCompress.h>
 
 #include "ui_Creator.h"
-#include "guide/OldGuideData.h"
-#include <ui/guide/Guide.h>
+#include "guide/NewGuideData.h"
+#include <ui/newGuideExperiment/NewGuide.h>
 
 #include "Application.h"
 #include "XmlParser.h"
@@ -41,13 +40,11 @@ Creator::Creator(QWidget* parent) : QMainWindow(parent), ui(new Ui::Creator) {
 
 
     //Restore to initial configuration
-    hideTypeSelector();
+    hideAllOptions();
+
     showShortEdit("", tr("Subject Name"));
     showExtraEdit("", tr("Short Name"));
-    hideLongEdit();
-    hideProgressSlider();
-    hideAddTask();
-    hideAddReportTest();
+
     setActionButtons(ui->mainDisplay->currentItem());
 }
 
@@ -55,10 +52,39 @@ Creator::~Creator() {
     delete ui;
 }
 
-
-void Creator::hideAddTask() {
+void Creator::hideAllOptions() {
     addTask->setHidden(true);
     listSpacer->setHidden(true);
+    addReportTest->setHidden(true);
+    listSpacer->setHidden(true);
+
+    ui->typeSelector->setEnabled(false);
+    ui->typeSelector->hide();
+    ui->typeSelectorLabel->hide();
+
+    ui->shortEdit->setEnabled(false);
+    ui->shortEdit->hide();
+    ui->shortEditLabel->hide();
+
+    ui->extraEdit->setEnabled(false);
+    ui->extraEdit->hide();
+    ui->extraEditLabel->hide();
+
+    ui->longEdit->setEnabled(false);
+    ui->longEdit->hide();
+    ui->longEditLabel->hide();
+
+    ui->progressSlider->setEnabled(false);
+    ui->progressSlider->hide();
+    ui->progressLabel->hide();
+
+    ui->dateEdit->setEnabled(false);
+    ui->dateEdit->hide();
+    ui->dateEditLabel->hide();
+
+    ui->timeEdit->setEnabled(false);
+    ui->timeEdit->hide();
+    ui->timeEditLabel->hide();
 }
 
 void Creator::showAddTask() {
@@ -66,21 +92,12 @@ void Creator::showAddTask() {
     listSpacer->setHidden(false);
 }
 
-void Creator::hideAddReportTest() {
-    addReportTest->setHidden(true);
-    listSpacer->setHidden(true);
-}
 
 void Creator::showAddReportTest() {
     addReportTest->setHidden(false);
     listSpacer->setHidden(false);
 }
 
-void Creator::hideTypeSelector() {
-    ui->typeSelector->setEnabled(false);
-    ui->typeSelector->hide();
-    ui->typeSelectorLabel->hide();
-}
 
 void Creator::showTypeSelector(QString text) {
     ui->typeSelector->setCurrentText(text);
@@ -89,11 +106,6 @@ void Creator::showTypeSelector(QString text) {
     ui->typeSelectorLabel->show();
 }
 
-void Creator::hideShortEdit() {
-    ui->shortEdit->setEnabled(false);
-    ui->shortEdit->hide();
-    ui->shortEditLabel->hide();
-}
 
 void Creator::showShortEdit(QString text, QString labelName) {
     ui->shortEdit->setText(text);
@@ -103,11 +115,6 @@ void Creator::showShortEdit(QString text, QString labelName) {
     ui->shortEditLabel->show();
 }
 
-void Creator::hideExtraEdit() {
-    ui->extraEdit->setEnabled(false);
-    ui->extraEdit->hide();
-    ui->extraEditLabel->hide();
-}
 
 void Creator::showExtraEdit(QString text, QString labelName) {
     ui->extraEdit->setText(text);
@@ -117,11 +124,6 @@ void Creator::showExtraEdit(QString text, QString labelName) {
     ui->extraEditLabel->show();
 }
 
-void Creator::hideLongEdit() {
-    ui->longEdit->setEnabled(false);
-    ui->longEdit->hide();
-    ui->longEditLabel->hide();
-}
 
 void Creator::showLongEdit(QString text, QString labelName) {
     ui->longEdit->setPlainText(text);
@@ -131,11 +133,6 @@ void Creator::showLongEdit(QString text, QString labelName) {
     ui->longEditLabel->show();
 }
 
-void Creator::hideProgressSlider() {
-    ui->progressSlider->setEnabled(false);
-    ui->progressSlider->hide();
-    ui->progressLabel->hide();
-}
 
 void Creator::showProgressSlider(int value) {
     ui->progressSlider->setValue(value);
@@ -145,143 +142,106 @@ void Creator::showProgressSlider(int value) {
     ui->progressLabel->show();
 }
 
+
+void Creator::showDateEdit(QString date) {
+    ui->dateEdit->setDate(QDate::fromString(date, Qt::RFC2822Date));
+    ui->dateEdit->setEnabled(true);
+    ui->dateEdit->show();
+    ui->dateEditLabel->show();
+}
+
+
+void Creator::showTimeEdit(QString value) {
+    ui->timeEdit->setValue(value.toInt());
+    ui->timeEdit->setEnabled(true);
+    ui->timeEdit->show();
+    ui->timeEditLabel->show();
+}
+
 void Creator::on_mainDisplay_itemClicked(QTreeWidgetItem* item, int column) {
     const QString type = item->text(0);
     const QString mainText = item->text(1);
     const QString extraText = item->text(2);
 
+    hideAllOptions();
+
+    // Enable / Disable actions
+    setActionButtons(item);
+
     //goals
     if (type == tr("Goal")) {
-        hideAddReportTest();
-        hideTypeSelector();
-        hideLongEdit();
-        hideProgressSlider();
-
         //goal
         showShortEdit(mainText, tr("Name"));
         showExtraEdit(extraText, tr("Number"));
         showAddTask();
+
+        return;
     }
     // For the goal prefixes
-    else if (type == tr("Work") ||
-             type == tr("Watch/ Listen") ||
-             type == tr("Read") ||
-             type == tr("Process") ||
-             type == tr("Information") &&
-             item->parent()->text(0) == tr("Goal")) // big if :)
+    if (type == tr("Work") ||
+        type == tr("Watch/ Listen") ||
+        type == tr("Read") ||
+        type == tr("Process") ||
+        type == tr("Information") &&
+        item->parent()->text(0) == tr("Goal")) // big if :)
 
     {
-        hideAddReportTest();
-        hideLongEdit();
-        hideProgressSlider();
-
         showTypeSelector(type);
         showShortEdit(mainText, tr("Goal"));
         showExtraEdit(extraText, tr("Link"));
         showAddTask();
+
+        return;
     }
-    else if (type == tr("Time")) {
+    if (type == tr("Date & Duration")) {
         //goal time
-        hideAddReportTest();
-        hideTypeSelector();
-        hideExtraEdit();
-        hideLongEdit();
-        hideProgressSlider();
 
-        showShortEdit(mainText, tr("Time"));
+        showDateEdit(mainText);
+        showTimeEdit(extraText);
         showAddTask();
+        return;
     }
-    else if (type == tr("Week")) {
-        //goal week (also works with test)
-        hideAddReportTest();
-        hideTypeSelector();
-        hideExtraEdit();
-        hideLongEdit();
-        hideProgressSlider();
-
-        showShortEdit(mainText, tr("Week"));
-
-        if (item->parent()->text(0) == tr("Goal")) {
-            showAddTask();
-        }
-        else {
-            hideAddTask();
-        }
+    if (type == tr("Date")) {
+        // this comment used to be usefull, but lost his purpose
+        showDateEdit(mainText);
+        return;
     }
-    else if (type == tr("Progress")) {
+    if (type == tr("Progress")) {
         //goal progress
-        hideAddReportTest();
-        hideTypeSelector();
-        hideExtraEdit();
-        hideLongEdit();
-        hideShortEdit();
-
         showAddTask();
         showProgressSlider(mainText.toInt());
+        return;
     } // Test
-    else if (type == tr("Test")) {
+    if (type == tr("Test")) {
         //Main Test (also works with report test)
-        hideAddTask();
-        hideTypeSelector();
-        hideLongEdit();
-        hideProgressSlider();
-
         showShortEdit(mainText, tr("Name"));
         showExtraEdit(extraText, tr("Number"));
 
         if (item->parent() != nullptr) {
             showAddReportTest();
         }
-        else {
-            hideAddReportTest();
-        }
+        return;
     }
     // report
-    else if (type == tr("Report")) {
-        hideAddTask();
-        hideTypeSelector();
-        hideShortEdit();
-        hideExtraEdit();
-        hideLongEdit();
-        hideProgressSlider();
-
+    if (type == tr("Report")) {
         showAddReportTest();
+        return;
     }
-    else if (type == tr("Information") && item->parent()->text(0) != tr("Goal")) {
+    if (type == tr("Information") && item->parent()->text(0) != tr("Goal")) {
         // Also used for the main info
-        hideAddTask();
-        hideAddReportTest();
-        hideTypeSelector();
-        hideShortEdit();
-        hideExtraEdit();
-        hideProgressSlider();
-
         showLongEdit(mainText, tr("Info"));
+        return;
     }
     //Main Guide
-    else if (type == tr("Guide")) {
-        hideAddTask();
-        hideAddReportTest();
-        hideTypeSelector();
-        hideLongEdit();
-        hideProgressSlider();
-
+    if (type == tr("Guide")) {
         showShortEdit(mainText, tr("Subject Name"));
         showExtraEdit(extraText, tr("Short Name"));
+        return;
     }
-    else if (type == tr("Period")) {
-        hideAddReportTest();
-        hideTypeSelector();
-        hideAddTask();
-        hideExtraEdit();
-        hideLongEdit();
-        hideProgressSlider();
-
+    if (type == tr("Period")) {
         showShortEdit(mainText, tr("Period"));
+        return;
     }
-
-    // Enable / Disable actions
-    setActionButtons(item);
 }
 
 void Creator::setActionButtons(QTreeWidgetItem* item) {
@@ -347,85 +307,77 @@ void Creator::on_typeSelector_currentTextChanged(QString string) {
 }
 
 void Creator::on_displayButton_clicked() {
-    QWidget* widget = new QWidget();
+    /*QWidget* widget = new QWidget();
     QVBoxLayout* layout = new QVBoxLayout(widget);
     QScrollArea* scrollArea = new QScrollArea(widget);
-    Guide* guide = new Guide();
 
-    guide->setGuide(getCurrentGuide());
 
     scrollArea->setWidget(guide);
     layout->addWidget(scrollArea);
     widget->setLayout(layout);
-    widget->show();
+    widget->show();*/
+
+    NewGuideData::Data data = getCurrentGuide();
+    NewGuide* guide = new NewGuide(nullptr, &data);
+    guide->show();
 }
 
-OldGuideData::Data Creator::getCurrentGuide() {
-    OldGuideData::Data guidedata;
-    OldGuideData::GuideObject* index = nullptr;
+NewGuideData::Data Creator::getCurrentGuide() {
+    NewGuideData::Data guidedata;
 
     for (int i = 0; i < ui->mainDisplay->topLevelItemCount(); ++i) {
         QTreeWidgetItem* item = ui->mainDisplay->topLevelItem(i);
 
         if (item->text(0) == tr("Goal")) {
-            if (index == nullptr) {
-                index = new OldGuideData::GuideObject();
-                index->objectType = OldGuideData::Index;
-            }
-
-            OldGuideData::GuideGoals goal;
+            NewGuideData::Object goal;
+            goal.type = NewGuideData::Goal;
 
             goal.name = item->text(1);
-            goal.goalNumber = item->text(2);
+            goal.shortName = item->text(2);
             for (int j = 0; j < item->childCount(); ++j) {
                 QTreeWidgetItem* child = item->child(j);
 
                 if (child->text(0) == tr("Work"))
-                    goal.addWork(child->text(1), child->text(2));
+                    goal.addTask(child->text(1), NewGuideData::Work, child->text(2));
 
                 else if (child->text(0) == tr("Read"))
-                    goal.addRead(child->text(1), child->text(2));
+                    goal.addTask(child->text(1), NewGuideData::Read, child->text(2));
 
                 else if (child->text(0) == tr("Watch/ Listen"))
-                    goal.addWatch(child->text(1), child->text(2));
+                    goal.addTask(child->text(1), NewGuideData::Watch, child->text(2));
 
                 else if (child->text(0) == tr("Process"))
-                    goal.addProcess(child->text(1), child->text(2));
+                    goal.addTask(child->text(1), NewGuideData::Process, child->text(2));
 
                 else if (child->text(0) == tr("Information"))
-                    goal.addInfo(child->text(1), child->text(2));
+                    goal.addTask(child->text(1), NewGuideData::Info, child->text(2));
 
                 else if (child->text(0) == tr("Week"))
-                    goal.week = child->text(1);
+                    goal.setDateFromWeek(child->text(1));
 
                 else if (child->text(0) == tr("Progress"))
-                    goal.progress = child->text(1);
+                    goal.setProgressFromInt(child->text(1).toInt());
 
-                else if (child->text(0) == tr("Time"))
-                    goal.time = child->text(1);
+                else if (child->text(0) == tr("Date & Duration")) {
+                    goal.date = QDate::fromString(child->text(1), Qt::RFC2822Date);
+                    goal.time = child->text(2).toInt();
+                }
             }
 
-            index->goals.append(goal);
-            continue;
-        }
-        else {
-            if (index != nullptr) {
-                guidedata.objects.append(*index);
-                index = nullptr;
-            }
+            guidedata.objects.append(goal);
         }
 
         if (item->text(0) == tr("Test")) {
-            OldGuideData::GuideObject test;
-            test.objectType = OldGuideData::Test;
-            test.setTestName(item->text(1));
+            NewGuideData::Object test;
+            test.type = NewGuideData::Test;
+            test.name = (item->text(1));
             test.shortName = (item->text(2));
 
             for (int j = 0; j < item->childCount(); ++j) {
                 QTreeWidgetItem* child = item->child(j);
 
-                if (child->text(0) == tr("Week"))
-                    test.week = child->text(1);
+                if (child->text(0) == tr("Date"))
+                    test.date = QDate::fromString(child->text(1));
 
                 else if (child->text(0) == tr("Information"))
                     test.info = child->text(1);
@@ -436,15 +388,15 @@ OldGuideData::Data Creator::getCurrentGuide() {
         }
 
         if (item->text(0) == tr("Report")) {
-            OldGuideData::GuideObject report;
-            report.objectType = OldGuideData::Report;
+            NewGuideData::Object report;
+            report.type = NewGuideData::Report;
 
             for (int j = 0; j < item->childCount(); ++j) {
                 QTreeWidgetItem* child = item->child(j);
                 if (child->text(0) == tr("Test")) {
-                    OldGuideData::ReportTests reportTest;
+                    NewGuideData::ReportTest reportTest;
                     reportTest.name = child->text(1);
-                    reportTest.weight = child->text(2);
+                    reportTest.weight = child->text(2).toInt();
 
                     report.tests.append(reportTest);
                 }
@@ -469,12 +421,6 @@ OldGuideData::Data Creator::getCurrentGuide() {
             continue;
         }
     }
-
-    if (index != nullptr) {
-        guidedata.objects.append(*index);
-        index = nullptr;
-    }
-
     return guidedata;
 }
 
@@ -484,10 +430,9 @@ void Creator::on_addList_itemDoubleClicked(QListWidgetItem* item) {
         topItem->setText(0, tr("Goal"));
 
         QTreeWidgetItem* timeItem = new QTreeWidgetItem(topItem);
-        timeItem->setText(0, tr("Time"));
-
-        QTreeWidgetItem* weekItem = new QTreeWidgetItem(topItem);
-        weekItem->setText(0, tr("Week"));
+        timeItem->setText(0, tr("Date & Duration"));
+        timeItem->setText(1, "0-0-0");
+        timeItem->setText(2, "0");
 
         QTreeWidgetItem* progressItem = new QTreeWidgetItem(topItem);
         progressItem->setText(0, tr("Progress"));
@@ -503,7 +448,8 @@ void Creator::on_addList_itemDoubleClicked(QListWidgetItem* item) {
         topItem->setText(0, tr("Test"));
 
         QTreeWidgetItem* week = new QTreeWidgetItem(topItem);
-        week->setText(0, tr("Week"));
+        week->setText(0, tr("Date"));
+        week->setText(1, "0-0-0");
 
         QTreeWidgetItem* information = new QTreeWidgetItem(topItem);
         information->setText(0, tr("Information"));
@@ -593,7 +539,7 @@ void Creator::on_actionOpen_Guide_triggered() {
         for (const QString&extractedFile: extractedFiles) {
             qDebug() << "Extracted:" << file;
             if (APPLICATION->isXmlFile(extractedFile)) {
-                open(XmlParser::readXml(extractedFile));
+                open(NewGuideData::fromOldData(XmlParser::readXml(extractedFile)));
                 // We're done!
                 if (tempDir.exists()) {
                     tempDir.removeRecursively();
@@ -603,14 +549,14 @@ void Creator::on_actionOpen_Guide_triggered() {
         }
     }
     else if (APPLICATION->isXmlFile(file.fileName()))
-        open(XmlParser::readXml(fileName));
+        open(NewGuideData::fromOldData(XmlParser::readXml(fileName)));
 }
 
 void Creator::on_actionSave_Guide_triggered() {
     // First of all, check if the guide is actually from the program itself.
     if (applicationGuideIndex != -1) {
         // First save to auto save
-        OldGuideData::Data guide = getCurrentGuide();
+        OldGuideData::Data guide = NewGuideData::toOldData(getCurrentGuide());
         QFile currentAutoSaveFile(appAutoSaveLocation.absoluteFilePath());
         XmlParser::saveXml(guide, currentAutoSaveFile, true, false);
 
@@ -634,7 +580,7 @@ void Creator::on_actionSave_Guide_triggered() {
 void Creator::on_actionSave_Guide_As_triggered() {
     QSettings settings;
     QString baseFileName;
-    OldGuideData::Data guide = getCurrentGuide();
+    NewGuideData::Data guide = getCurrentGuide();
 
     if (currentGuide.exists())
         baseFileName = currentGuide.baseName();
@@ -654,7 +600,8 @@ void Creator::on_actionSave_Guide_As_triggered() {
     save(guide);
 }
 
-void Creator::save(OldGuideData::Data guide) {
+void Creator::save(NewGuideData::Data newGuide) {
+    OldGuideData::Data guide = NewGuideData::toOldData(newGuide);
     QFile fileToSave(currentGuide.absoluteFilePath());
 
     if (fileToSave.fileName().endsWith("pgd")) {
@@ -692,7 +639,7 @@ void Creator::save(OldGuideData::Data guide) {
         XmlParser::saveXml(guide, fileToSave);
 }
 
-void Creator::open(OldGuideData::Data guide) {
+void Creator::open(NewGuideData::Data guide) {
     auto* mainDisplay = ui->mainDisplay;
 
     // First of all, clear the current one
@@ -713,63 +660,55 @@ void Creator::open(OldGuideData::Data guide) {
     info->setText(1, guide.info);
 
     for (auto object: guide.objects) {
-        if (object.objectType == OldGuideData::Index) {
-            for (auto goal: object.goals) {
-                QTreeWidgetItem* goalItem = new QTreeWidgetItem(mainDisplay);
-                goalItem->setText(0, tr("Goal"));
-                goalItem->setText(1, goal.name);
-                goalItem->setText(2, goal.goalNumber);
+        if (object.type == NewGuideData::Goal) {
+            QTreeWidgetItem* goalItem = new QTreeWidgetItem(mainDisplay);
+            goalItem->setText(0, tr("Goal"));
+            goalItem->setText(1, object.name);
+            goalItem->setText(2, object.shortName);
 
 
-                QTreeWidgetItem* timeItem = new QTreeWidgetItem(goalItem);
-                timeItem->setText(0, tr("Time"));
-                timeItem->setText(1, goal.time);
+            QTreeWidgetItem* timeItem = new QTreeWidgetItem(goalItem);
+            timeItem->setText(0, tr("Date & Duration"));
+            timeItem->setText(1, object.date.toString(Qt::RFC2822Date));
+            timeItem->setText(2, QString::number(object.time));
 
+            QTreeWidgetItem* progressItem = new QTreeWidgetItem(goalItem);
+            progressItem->setText(0, tr("Progress"));
+            progressItem->setText(1, QString::number(object.progress));
 
-                QTreeWidgetItem* weekItem = new QTreeWidgetItem(goalItem);
-                weekItem->setText(0, tr("Week"));
-                weekItem->setText(1, goal.week);
+            for (auto task: object.tasks) {
+                QTreeWidgetItem* taskItem = new QTreeWidgetItem(goalItem);
 
-
-                QTreeWidgetItem* progressItem = new QTreeWidgetItem(goalItem);
-                progressItem->setText(0, tr("Progress"));
-                progressItem->setText(1, goal.progress);
-
-                for (auto task: goal.tasks) {
-                    QTreeWidgetItem* taskItem = new QTreeWidgetItem(goalItem);
-
-                    switch (task.task) {
-                        case OldGuideData::Work:
-                            taskItem->setText(0, tr("Work"));
-                            break;
-                        case OldGuideData::Read:
-                            taskItem->setText(0, tr("Read"));
-                            break;
-                        case OldGuideData::Watch:
-                            taskItem->setText(0, tr("Watch/ Listen"));
-                            break;
-                        case OldGuideData::Process:
-                            taskItem->setText(0, tr("Process"));
-                            break;
-                        case OldGuideData::Info:
-                            taskItem->setText(0, tr("Information"));
-                            break;
-                    }
-                    taskItem->setText(1, task.text);
-                    taskItem->setText(2, task.link);
+                switch (task.task) {
+                    case NewGuideData::Work:
+                        taskItem->setText(0, tr("Work"));
+                        break;
+                    case NewGuideData::Read:
+                        taskItem->setText(0, tr("Read"));
+                        break;
+                    case NewGuideData::Watch:
+                        taskItem->setText(0, tr("Watch/ Listen"));
+                        break;
+                    case NewGuideData::Process:
+                        taskItem->setText(0, tr("Process"));
+                        break;
+                    case NewGuideData::Info:
+                        taskItem->setText(0, tr("Information"));
+                        break;
                 }
+                taskItem->setText(1, task.text);
             }
             continue;
         }
-        if (object.objectType == OldGuideData::Test) {
+        if (object.type == NewGuideData::Test) {
             QTreeWidgetItem* testItem = new QTreeWidgetItem(mainDisplay);
             testItem->setText(0, tr("Test"));
             testItem->setText(1, object.name);
             testItem->setText(2, object.shortName);
 
             QTreeWidgetItem* week = new QTreeWidgetItem(testItem);
-            week->setText(0, tr("Week"));
-            week->setText(1, object.week);
+            week->setText(0, tr("Date"));
+            week->setText(1, object.date.toString(Qt::RFC2822Date));
 
             QTreeWidgetItem* information = new QTreeWidgetItem(testItem);
             information->setText(0, tr("Information"));
@@ -777,14 +716,14 @@ void Creator::open(OldGuideData::Data guide) {
 
             continue;
         }
-        if (object.objectType == OldGuideData::Report) {
+        if (object.type == NewGuideData::Report) {
             QTreeWidgetItem* reportItem = new QTreeWidgetItem(mainDisplay);
             reportItem->setText(0, tr("Report"));
             for (auto test: object.tests) {
                 QTreeWidgetItem* testItem = new QTreeWidgetItem(reportItem);
                 testItem->setText(0, tr("Test"));
                 testItem->setText(1, test.name);
-                testItem->setText(2, test.weight);
+                testItem->setText(2, QString::number(test.weight));
             }
         }
     }
@@ -861,7 +800,6 @@ void Creator::on_downButton_clicked() {
     setActionButtons(current);
 }
 
-
 bool Creator::canBeManipulated(QTreeWidgetItem* item) {
     QString name = item->text(0);
     return name == tr("Goal") ||
@@ -925,4 +863,12 @@ void Creator::setProgressSliderColour(int progress) {
             .arg(palette.getColor(element).name());
 
     ui->progressSlider->setStyleSheet(colour);
+}
+
+void Creator::on_dateEdit_dateChanged(QDate date) {
+    ui->mainDisplay->currentItem()->setText(1, date.toString(Qt::RFC2822Date));
+}
+
+void Creator::on_timeEdit_valueChanged(int newTime) {
+    ui->mainDisplay->currentItem()->setText(2, QString::number(newTime));
 }
