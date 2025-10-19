@@ -38,6 +38,9 @@ Creator::Creator(QWidget* parent) : QMainWindow(parent), ui(new Ui::Creator) {
     addReport = new QListWidgetItem(ui->addList);
     addReport->setText(tr("Add Report"));
 
+    addBreak = new QListWidgetItem(ui->addList);
+    addBreak->setText(tr("Add Break"));
+
 
     //Restore to initial configuration
     hideAllOptions();
@@ -420,6 +423,13 @@ NewGuideData::Data Creator::getCurrentGuide() {
             }
             continue;
         }
+        if (item->text(0) == tr("Break")) {
+            NewGuideData::Object breakObj;
+            breakObj.type = NewGuideData::Break;
+
+            guidedata.objects.append(breakObj);
+            continue;
+        }
     }
     return guidedata;
 }
@@ -503,6 +513,16 @@ void Creator::on_addList_itemDoubleClicked(QListWidgetItem* item) {
 
         ui->mainDisplay->setCurrentItem(reportTest);
         on_mainDisplay_itemClicked(reportTest, 0);
+        return;
+    }
+
+    if (item->text() == tr("Add Break")) {
+        QTreeWidgetItem* topItem = new QTreeWidgetItem(ui->mainDisplay);
+        topItem->setText(0, tr("Break"));
+
+        ui->mainDisplay->setCurrentItem(topItem);
+        on_mainDisplay_itemClicked(topItem, 0);
+
         return;
     }
 }
@@ -810,7 +830,8 @@ bool Creator::canBeManipulated(QTreeWidgetItem* item) {
            // There are multiple instances of information, but only 1 can be manipulated.
            (name == tr("Information") && item->parent()->text(0) == tr("Goal")) ||
            name == tr("Test") || // Also for report tests
-           name == tr("Report");
+           name == tr("Report")||
+           name == tr("Break");
 }
 
 bool Creator::isDefaultObject(QTreeWidgetItem* item) {

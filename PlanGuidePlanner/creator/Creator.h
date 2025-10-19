@@ -80,6 +80,7 @@ private:
     QListWidgetItem* addGoal;
     QListWidgetItem* addTest;
     QListWidgetItem* addReport;
+    QListWidgetItem* addBreak;
 
     NewGuideData::Data getCurrentGuide();
 
