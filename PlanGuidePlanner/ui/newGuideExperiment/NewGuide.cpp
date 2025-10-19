@@ -16,8 +16,11 @@
 NewGuide::NewGuide(QWidget* parent, const NewGuideData::Data* data) : QWidget(parent), ui(new Ui::GuideBase) {
     ui->setupUi(this);
 
-    ui->period->hide();
-    ui->periodNum->hide();
+    if (data->period.isEmpty()) {
+        ui->period->hide();
+        ui->periodNum->hide();
+    }
+    else ui->periodNum->setText(data->period);
 
     if (data) {
         QVector<NewGuideData::Object> goals;
