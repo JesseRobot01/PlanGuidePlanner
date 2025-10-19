@@ -538,7 +538,7 @@ void MainWindow::on_actionOpen_In_Creator_triggered() {
 
     // Open in creator
     Creator* creator = new Creator();
-    creator->open(currentGuide);
+    creator->open(NewGuideData::fromOldData(currentGuide));
     creator->currentGuide = currentGuide.originalFile;
     creator->appAutoSaveLocation = currentGuide.autoSaveFile;
     creator->applicationGuideIndex = currentGuideIndex;

@@ -9,7 +9,7 @@
 #include <QMainWindow>
 #include <qtreewidget.h>
 
-#include "guide/OldGuideData.h"
+#include "guide/NewGuideData.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -29,7 +29,7 @@ public:
     ~Creator() override;
 
 
-    void open(OldGuideData::Data guide);
+    void open(NewGuideData::Data guide);
 
     QFileInfo currentGuide;
 
@@ -66,6 +66,10 @@ private slots:
 
     void on_actionSave_Guide_As_triggered();
 
+    void on_dateEdit_dateChanged(QDate date);
+
+    void on_timeEdit_valueChanged(int time);
+
 private:
     Ui::Creator* ui;
 
@@ -77,35 +81,21 @@ private:
     QListWidgetItem* addTest;
     QListWidgetItem* addReport;
 
-    OldGuideData::Data getCurrentGuide();
+    NewGuideData::Data getCurrentGuide();
 
-    void save(OldGuideData::Data guide);
-
-    void hideAddTask();
+    void save(NewGuideData::Data guide);
 
     void showAddTask();
 
-    void hideAddReportTest();
-
     void showAddReportTest();
-
-    void hideTypeSelector();
 
     void showTypeSelector(QString text);
 
-    void hideShortEdit();
-
     void showShortEdit(QString text, QString labelName);
-
-    void hideExtraEdit();
 
     void showExtraEdit(QString text, QString labelName);
 
-    void hideLongEdit();
-
     void showLongEdit(QString text, QString labelName);
-
-    void hideProgressSlider();
 
     void showProgressSlider(int value);
 
@@ -117,6 +107,11 @@ private:
 
     void setActionButtons(QTreeWidgetItem* item);
 
+    void showDateEdit(QString date);
+
+    void hideAllOptions();
+
+    void showTimeEdit(QString value);
 };
 
 

@@ -224,7 +224,7 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
             QFileInfo fileInfo(file.fileName());
             if (file.exists() && isXmlFile(fileInfo.fileName())) {
                 creator->currentGuide = fileInfo;
-                creator->open(XmlParser::readXml(&file));
+                creator->open(NewGuideData::fromOldData(XmlParser::readXml(&file)));
             }
         }
         creator->show();
