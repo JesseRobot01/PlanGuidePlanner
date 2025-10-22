@@ -53,7 +53,7 @@ public:
 
         QString name;
         QString info;
-        QString shortName;
+        QString number;
         int time = 0;
 
         QDate date = {0,0,0};

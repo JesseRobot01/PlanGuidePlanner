@@ -21,7 +21,7 @@ NewGoal::NewGoal(QWidget* parent, NewGuideData::Object* goal) : QWidget(parent),
 
     ui->name->setText(goal->name);
     ui->time->setText(QString::number(goal->time));
-    ui->number->setText(goal->shortName);
+    ui->number->setText(goal->number);
     ui->week->setText(QString::number(goal->date.weekNumber()));
 
 

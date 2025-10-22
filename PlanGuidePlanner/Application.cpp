@@ -145,10 +145,10 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
             for (const QString&GuideFileName: guideFileNames)
                 guideFiles.append(autoOpenDir.filePath(GuideFileName));
 
-            QVector<OldGuideData::Data> guides = XmlParser::readXml(guideFiles);
+            QVector<NewGuideData::Data> guides = XmlParser::readXml(guideFiles);
             loadGuide->increaseProgress(guideFileNames.count());
 
-            for (OldGuideData::Data guide: guides) {
+            for (NewGuideData::Data guide: guides) {
                 appWindow->processGuide(guide, false);
                 loadGuide->increaseProgress();
             }
@@ -177,8 +177,8 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
                 else if (isXmlFile(file))
                     guideFiles.append(file);
             }
-            QVector<OldGuideData::Data> guides = XmlParser::readXml(guideFiles);
-            for (OldGuideData::Data guide: guides) {
+            QVector<NewGuideData::Data> guides = XmlParser::readXml(guideFiles);
+            for (NewGuideData::Data guide: guides) {
                 QDir copyToDestination(getAutoSaveLocation());
 
                 if (copyToDestination.mkpath(".")) {
@@ -224,7 +224,7 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
             QFileInfo fileInfo(file.fileName());
             if (file.exists() && isXmlFile(fileInfo.fileName())) {
                 creator->currentGuide = fileInfo;
-                creator->open(NewGuideData::fromOldData(XmlParser::readXml(&file)));
+                creator->open(XmlParser::readXml(&file));
             }
         }
         creator->show();
@@ -332,12 +332,12 @@ void Application::startAutoSaveTimer() {
 
 void Application::autoSaveTriggered() {
     qDebug() << "Auto saving...";
-    QVector<OldGuideData::Data> guideDataToSave;
+    QVector<NewGuideData::Data> guideDataToSave;
 
     //extract the guideData
     for (Guide* guide: guidesToSave) {
         guide->isInAutoSaveList = false;
-        guideDataToSave.append(guide->getGuide());
+        guideDataToSave.append(NewGuideData::fromOldData(guide->getGuide()));
     }
     XmlParser::autoSaveXml(guideDataToSave);
 

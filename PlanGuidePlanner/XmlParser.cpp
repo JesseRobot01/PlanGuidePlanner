@@ -5,21 +5,21 @@
 #include <QFile>
 #include <QXmlStreamReader>
 #include "XmlParser.h"
-#include "guide/OldGuideData.h"
+#include "guide/NewGuideData.h"
 #include "Application.h"
 #include <QString>
 
 #include "LegacyXmlParsers.h"
 
-const float currentReadWriteVersion = 1.0;
+const float currentReadWriteVersion = 2.0;
 
-OldGuideData::Data XmlParser::readXml(QFile* xmlFileP) {
+NewGuideData::Data XmlParser::readXml(QFile* xmlFileP) {
     QFile&xmlFile = *xmlFileP;
     QFileInfo fileInfo(xmlFile);
     qDebug() << "Reading xml file" << fileInfo.fileName();
     if (!xmlFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qWarning() << "Failed to open file" << fileInfo.fileName();
-        return OldGuideData::errorGuide("Failed to open file " + fileInfo.fileName());
+        return NewGuideData::errorGuide("Failed to open file " + fileInfo.fileName());
     }
 
     try {
@@ -38,21 +38,27 @@ OldGuideData::Data XmlParser::readXml(QFile* xmlFileP) {
             }
 
             if (elementName == "pgp" && token != QXmlStreamReader::EndElement) {
-                OldGuideData::Data guide;
-                OldGuideData::GuideObject* index = nullptr;
+                NewGuideData::Data guide;
 
                 guide.originalFile = fileInfo;
                 for (QXmlStreamAttribute attribute: xml.attributes()) {
+                    if (attribute.name().toString() == "format-version") {
+                        // Check if version is supported
+                        if (attribute.value().toFloat() == 1.0) {
+                            qWarning() << "PGP file V1 found! Starting V1 parser...";
+                            xmlFile.close();
+                            return LegacyXmlParsers::v1PGPReader(xmlFileP);
+                        }
+
+                        if (attribute.value().toFloat() > currentReadWriteVersion)
+                            qWarning() << "This file is newer than the supported reader, continue with caution!";
+                    }
+
                     if (attribute.name().toString() == "autosavefile" && attribute.value().toString() == "true") {
                         guide.autoSaveFile = fileInfo;
                     }
                     else if (attribute.name().toString() == "originalfile") {
                         guide.originalFile = QFileInfo(attribute.value().toString());
-                    }
-                    else if (attribute.name().toString() == "format-version") {
-                        // Check if version is supported
-                        if (attribute.value().toFloat() < currentReadWriteVersion)
-                            qWarning() << "This file is newer than the supported reader, continue with caution!";
                     }
                 }
                 elementName = "";
@@ -61,126 +67,115 @@ OldGuideData::Data XmlParser::readXml(QFile* xmlFileP) {
                     token = xml.readNext();
                     elementName = xml.name().toString();
 
+                    if (elementName == "guide") {
+                        for (QXmlStreamAttribute attribute: xml.attributes()) {
+                            if (attribute.name() == "period") {
+                                guide.period = attribute.value().toString();
+                            }
+                        }
+                        elementName = "";
+                        while (!(token == QXmlStreamReader::EndElement && elementName == "guide")) {
+                            token = xml.readNext();
+                            elementName = xml.name().toString();
 
-                    if (elementName == "name") {
-                        guide.name = xml.readElementText();
-                    }
-                    if (elementName == "shortname") {
-                        guide.shortName = xml.readElementText();
-                    }
-                    if (elementName == "info") {
-                        guide.info = xml.readElementText();
-                    }
-                    if (elementName == "period") {
-                        guide.period = xml.readElementText();
+                            if (elementName == "name") {
+                                for (QXmlStreamAttribute attribute: xml.attributes()) {
+                                    if (attribute.name() == "short") {
+                                        guide.shortName = attribute.value().toString();
+                                    }
+                                }
+                                guide.name = xml.readElementText();
+                            }
+                            if (elementName == "info") {
+                                guide.info = xml.readElementText();
+                            }
+                        }
                     }
 
                     if (elementName == "goal") {
-                        if (index == nullptr) {
-                            index = new OldGuideData::GuideObject();
-                            index->objectType = OldGuideData::Index;
-                        }
-                        OldGuideData::GuideGoals goal;
+                        NewGuideData::Object goal;
+                        goal.type = NewGuideData::Goal;
 
                         elementName = "";
+
+                        for (QXmlStreamAttribute attribute: xml.attributes()) {
+                            if (attribute.name() == "number") {
+                                goal.number = attribute.value().toString();
+                            }
+                            if (attribute.name() == "time") {
+                                goal.time = attribute.value().toInt();
+                            }
+                            if (attribute.name() == "date") {
+                                goal.date = QDate::fromString(attribute.value().toString(), Qt::ISODate);
+                            }
+                            if (attribute.name() == "progress") {
+                                goal.setProgressFromInt( attribute.value().toInt());
+                            }
+                        }
+
                         while (!(token == QXmlStreamReader::EndElement && elementName == "goal")) {
                             token = xml.readNext();
                             elementName = xml.name().toString();
                             if (elementName == "name") {
                                 goal.name = xml.readElementText();
                             }
-                            if (elementName == "number") {
-                                goal.goalNumber = xml.readElementText();
-                            }
-                            if (elementName == "time") {
-                                goal.time = xml.readElementText();
-                            }
-                            if (elementName == "work") {
-                                QString link = "";
-                                for (QXmlStreamAttribute attribute: xml.attributes())
-                                    if (attribute.name().toString() == "href")
-                                        link = attribute.value().toString();
+                            if (elementName == "task") {
+                                NewGuideData::TaskTypes taskType = NewGuideData::Work;
+                                for (QXmlStreamAttribute attribute: xml.attributes()) {
+                                    if (attribute.name().toString() == "type") {
+                                        if (attribute.value().toString() == "work")
+                                            taskType = NewGuideData::Work;
+                                        if (attribute.value().toString() == "watch")
+                                            taskType = NewGuideData::Watch;
+                                        if (attribute.value().toString() == "read")
+                                            taskType = NewGuideData::Read;
+                                        if (attribute.value().toString() == "process")
+                                            taskType = NewGuideData::Process;
+                                        if (attribute.value().toString() == "info")
+                                            taskType = NewGuideData::Info;
+                                    }
+                                }
 
-                                goal.addWork(xml.readElementText(), link);
-                            }
-                            if (elementName == "watch") {
-                                QString link = "";
-                                for (QXmlStreamAttribute attribute: xml.attributes())
-                                    if (attribute.name().toString() == "href")
-                                        link = attribute.value().toString();
-
-                                goal.addWatch(xml.readElementText(), link);
-                            }
-                            if (elementName == "read") {
-                                QString link = "";
-                                for (QXmlStreamAttribute attribute: xml.attributes())
-                                    if (attribute.name().toString() == "href")
-                                        link = attribute.value().toString();
-
-                                goal.addRead(xml.readElementText(), link);
-                            }
-                            if (elementName == "process") {
-                                QString link = "";
-                                for (QXmlStreamAttribute attribute: xml.attributes())
-                                    if (attribute.name().toString() == "href")
-                                        link = attribute.value().toString();
-
-
-                                goal.addProcess(xml.readElementText(), link);
-                            }
-                            if (elementName == "info") {
-                                QString link = "";
-                                for (QXmlStreamAttribute attribute: xml.attributes())
-                                    if (attribute.name().toString() == "href")
-                                        link = attribute.value().toString();
-
-
-                                goal.addInfo(xml.readElementText(), link);
-                            }
-                            if (elementName == "week") {
-                                goal.week = xml.readElementText();
-                            }
-                            if (elementName == "progress") {
-                                goal.progress = xml.readElementText();
+                                goal.addTask(xml.readElementText(), taskType);
                             }
                         }
-
-                        index->goals.append(goal);
+                        guide.objects.append(goal);
                     }
-                    if (elementName == "test" || elementName == "report") {
-                        if (index != nullptr) {
-                            guide.objects.append(*index);
-                            index = nullptr;
-                        }
+                    if (elementName == "br") {
+                        NewGuideData::Object br;
+                        br.type = NewGuideData::Break;
+                        guide.objects.append(br);
                     }
 
                     if (elementName == "test") {
-                        OldGuideData::GuideObject test;
-                        test.objectType = OldGuideData::Test;
+                        NewGuideData::Object test;
+                        test.type = NewGuideData::Test;
 
                         elementName = "";
+                        for (QXmlStreamAttribute attribute: xml.attributes()) {
+                            if (attribute.name() == "number") {
+                                test.number = attribute.value().toString();
+                            }
+                            if (attribute.name() == "date") {
+                                test.date = QDate::fromString(attribute.value().toString(), Qt::ISODate);
+                            }
+                        }
                         while (!(token == QXmlStreamReader::EndElement && elementName == "test")) {
                             token = xml.readNext();
                             elementName = xml.name().toString();
 
-                            if (elementName == "shortname") {
-                                test.setShortTestName(xml.readElementText());
-                            }
                             if (elementName == "name") {
-                                test.setTestName(xml.readElementText());
+                                test.name = (xml.readElementText());
                             }
                             if (elementName == "info") {
-                                test.setTestInfo(xml.readElementText());
-                            }
-                            if (elementName == "week") {
-                                test.setTestWeek(xml.readElementText());
+                                test.info = (xml.readElementText());
                             }
                         }
                         guide.objects.append(test);
                     }
                     if (elementName == "report") {
-                        OldGuideData::GuideObject report;
-                        report.objectType = OldGuideData::Report;
+                        NewGuideData::Object report;
+                        report.type = NewGuideData::Report;
 
                         elementName = "";
                         while (!(token == QXmlStreamReader::EndElement && elementName == "report")) {
@@ -188,28 +183,22 @@ OldGuideData::Data XmlParser::readXml(QFile* xmlFileP) {
                             elementName = xml.name().toString();
 
                             if (elementName == "test") {
-                                OldGuideData::ReportTests test;
+                                NewGuideData::ReportTest test;
                                 elementName = "";
-                                while (!(token == QXmlStreamReader::EndElement && elementName == "test")) {
-                                    token = xml.readNext();
-                                    elementName = xml.name().toString();
-
-                                    if (elementName == "name") {
-                                        test.name = xml.readElementText();
+                                for (QXmlStreamAttribute attribute: xml.attributes()) {
+                                    if (attribute.name() == "weight") {
+                                        test.weight = attribute.value().toInt();
                                     }
-                                    if (elementName == "weight") {
-                                        test.weight = xml.readElementText();
+                                    if (attribute.name() == "type") {
+                                        test.weightType = attribute.value().toString();
                                     }
                                 }
-                                report.addTest(test);
+                                test.name = xml.readElementText();
+                                report.tests.append(test);
                             }
                         }
                         guide.objects.append(report);
                     }
-                }
-                if (index != nullptr) {
-                    guide.objects.append(*index);
-                    index = nullptr;
                 }
 
 
@@ -225,12 +214,12 @@ OldGuideData::Data XmlParser::readXml(QFile* xmlFileP) {
         qCritical() << "Error while reading XML file" << fileInfo.fileName();
         xmlFile.close();
 
-        return OldGuideData::errorGuide("Error while reading XML file " + fileInfo.fileName());
+        return NewGuideData::errorGuide("Error while reading XML file " + fileInfo.fileName());
     }
-    return OldGuideData::errorGuide("Xml Parser returned nothing on file " + fileInfo.fileName());
+    return NewGuideData::errorGuide("Xml Parser returned nothing on file " + fileInfo.fileName());
 }
 
-void XmlParser::saveXml(const OldGuideData::Data&guide, QFile&fileToSaveTo, bool isAutoSave, bool useAutoFormatting) {
+void XmlParser::saveXml(const NewGuideData::Data&guide, QFile&fileToSaveTo, bool isAutoSave, bool useAutoFormatting) {
     // QFile&fileToSaveTo = *fileToSaveToP;
     QFileInfo fileInfo(fileToSaveTo);
     if (!fileToSaveTo.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -247,97 +236,79 @@ void XmlParser::saveXml(const OldGuideData::Data&guide, QFile&fileToSaveTo, bool
             xml.writeAttribute("autosavefile", "true");
             xml.writeAttribute("originalfile", guide.originalFile.filePath());
         }
-        xml.writeTextElement("name", guide.name);
-        xml.writeTextElement("shortname", guide.shortName);
-        xml.writeTextElement("period", guide.period);
-        xml.writeTextElement("info", guide.info);
+        xml.writeStartElement("guide");
+        xml.writeAttribute("period", guide.period); {
+            xml.writeStartElement("name");
+            xml.writeAttribute("short", guide.shortName);
+            xml.writeCharacters(guide.name);
+            xml.writeEndElement();
+            xml.writeTextElement("info", guide.info);
+        }
+        xml.writeEndElement(); // Guide
 
         // start element loop
-        for (OldGuideData::GuideObject object: guide.objects) {
-            switch (object.objectType) {
-                case OldGuideData::Index:
-                    for (OldGuideData::GuideGoals goal: object.goals) {
-                        xml.writeStartElement("goal");
+        for (NewGuideData::Object object: guide.objects) {
+            switch (object.type) {
+                case NewGuideData::Goal:
+                    xml.writeStartElement("goal");
 
-                        xml.writeTextElement("name", goal.name);
-                        xml.writeTextElement("number", goal.goalNumber);
-                        xml.writeTextElement("time", goal.time);
-                        xml.writeTextElement("week", goal.week);
-                        xml.writeTextElement("progress", goal.progress);
+                    xml.writeAttribute("number", object.number);
+                    xml.writeAttribute("time", QString::number(object.time));
+                    xml.writeAttribute("date", object.date.toString(Qt::ISODate));
+                    xml.writeAttribute("progress", QString::number(object.progress));
 
-                        for (OldGuideData::GuideGoalTasks task: goal.tasks) {
-                            switch (task.task) {
-                                case OldGuideData::Work:
-                                    xml.writeStartElement("work");
-
-                                    if (!task.link.isEmpty())
-                                        xml.writeAttribute("href", task.link);
-
-                                    xml.writeCharacters(task.text);
-                                    xml.writeEndElement(); // Work
-                                    break;
-                                case OldGuideData::Read:
-                                    xml.writeStartElement("read");
-
-                                    if (!task.link.isEmpty())
-                                        xml.writeAttribute("href", task.link);
-
-                                    xml.writeCharacters(task.text);
-                                    xml.writeEndElement(); // Read
-                                    break;
-                                case OldGuideData::Watch:
-                                    xml.writeStartElement("watch");
-
-                                    if (!task.link.isEmpty())
-                                        xml.writeAttribute("href", task.link);
-
-                                    xml.writeCharacters(task.text);
-                                    xml.writeEndElement(); // Watch
-                                    break;
-                                case OldGuideData::Process:
-                                    xml.writeStartElement("process");
-
-                                    if (!task.link.isEmpty())
-                                        xml.writeAttribute("href", task.link);
-
-                                    xml.writeCharacters(task.text);
-                                    xml.writeEndElement(); // process
-                                    break;
-                                case OldGuideData::Info:
-                                    xml.writeStartElement("info");
-
-                                    if (!task.link.isEmpty())
-                                        xml.writeAttribute("href", task.link);
-
-                                    xml.writeCharacters(task.text);
-                                    xml.writeEndElement(); // info
-                                    break;
-                            }
-                        }
-                        xml.writeEndElement(); // goal
-                    }
-                    break;
-                case OldGuideData::Test:
-                    xml.writeStartElement("test");
                     xml.writeTextElement("name", object.name);
-                    xml.writeTextElement("shortname", object.shortName);
+
+
+                    for (NewGuideData::Task task: object.tasks) {
+                        xml.writeStartElement("task");
+                        switch (task.task) {
+                            case NewGuideData::Work:
+                                xml.writeAttribute("type", "work");
+                                break;
+                            case NewGuideData::Read:
+                                xml.writeAttribute("type", "read");
+                                break;
+                            case NewGuideData::Watch:
+                                xml.writeAttribute("type", "watch");
+                                break;
+                            case NewGuideData::Process:
+                                xml.writeAttribute("type", "process");
+                                break;
+                            case NewGuideData::Info:
+                                xml.writeAttribute("type", "info");
+                                break;
+                        }
+                        xml.writeCharacters(task.text);
+                        xml.writeEndElement(); // end of task
+                    }
+                    xml.writeEndElement(); // goal
+                    break;
+                case NewGuideData::Break:
+                    xml.writeEmptyElement("br");
+                    break;
+                case NewGuideData::Test:
+                    xml.writeStartElement("test");
+                    xml.writeAttribute("number", object.number);
+                    xml.writeAttribute("date", object.date.toString(Qt::ISODate));
+                    xml.writeTextElement("name", object.name);
                     xml.writeTextElement("info", object.info);
-                    xml.writeTextElement("week", object.week);
                     xml.writeEndElement(); // test
                     break;
-                case OldGuideData::Report:
+                case NewGuideData::Report:
                     xml.writeStartElement("report");
-                    for (OldGuideData::ReportTests test: object.tests) {
+                    for (NewGuideData::ReportTest test: object.tests) {
                         xml.writeStartElement("test");
-                        xml.writeTextElement("name", test.name);
-                        xml.writeTextElement("weight", test.weight);
+                        xml.writeAttribute("weight", QString::number(test.weight));
+                        xml.writeAttribute("type", test.weightType);
+                        xml.writeCharacters(test.name);
                         xml.writeEndElement(); // test
                     }
                     xml.writeEndElement(); // report
             }
         }
 
-        xml.writeEndElement(); // studyguide
+        xml.writeEndElement(); // pgp
         xml.writeEndDocument();
         qDebug() << "Finished saving file" << fileInfo.fileName();;
     }
@@ -347,7 +318,7 @@ void XmlParser::saveXml(const OldGuideData::Data&guide, QFile&fileToSaveTo, bool
     fileToSaveTo.close();
 }
 
-void XmlParser::autoSaveXml(QVector<OldGuideData::Data> GuidesToSave) {
+void XmlParser::autoSaveXml(QVector<NewGuideData::Data> GuidesToSave) {
     QVector<QFuture<void>> futures;
 
     for (auto guide: GuidesToSave) {

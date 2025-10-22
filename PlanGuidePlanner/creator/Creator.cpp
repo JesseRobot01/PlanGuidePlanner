@@ -336,7 +336,7 @@ NewGuideData::Data Creator::getCurrentGuide() {
             goal.type = NewGuideData::Goal;
 
             goal.name = item->text(1);
-            goal.shortName = item->text(2);
+            goal.number = item->text(2);
             for (int j = 0; j < item->childCount(); ++j) {
                 QTreeWidgetItem* child = item->child(j);
 
@@ -374,7 +374,7 @@ NewGuideData::Data Creator::getCurrentGuide() {
             NewGuideData::Object test;
             test.type = NewGuideData::Test;
             test.name = (item->text(1));
-            test.shortName = (item->text(2));
+            test.number = (item->text(2));
 
             for (int j = 0; j < item->childCount(); ++j) {
                 QTreeWidgetItem* child = item->child(j);
@@ -559,7 +559,7 @@ void Creator::on_actionOpen_Guide_triggered() {
         for (const QString&extractedFile: extractedFiles) {
             qDebug() << "Extracted:" << file;
             if (APPLICATION->isXmlFile(extractedFile)) {
-                open(NewGuideData::fromOldData(XmlParser::readXml(extractedFile)));
+                open(XmlParser::readXml(extractedFile));
                 // We're done!
                 if (tempDir.exists()) {
                     tempDir.removeRecursively();
@@ -569,14 +569,14 @@ void Creator::on_actionOpen_Guide_triggered() {
         }
     }
     else if (APPLICATION->isXmlFile(file.fileName()))
-        open(NewGuideData::fromOldData(XmlParser::readXml(fileName)));
+        open(XmlParser::readXml(fileName));
 }
 
 void Creator::on_actionSave_Guide_triggered() {
     // First of all, check if the guide is actually from the program itself.
     if (applicationGuideIndex != -1) {
         // First save to auto save
-        OldGuideData::Data guide = NewGuideData::toOldData(getCurrentGuide());
+        NewGuideData::Data guide = getCurrentGuide();
         QFile currentAutoSaveFile(appAutoSaveLocation.absoluteFilePath());
         XmlParser::saveXml(guide, currentAutoSaveFile, true, false);
 
@@ -585,7 +585,7 @@ void Creator::on_actionSave_Guide_triggered() {
             save(getCurrentGuide());
         }
 
-        APPLICATION->updateGuide(applicationGuideIndex, guide);
+        APPLICATION->updateGuide(applicationGuideIndex, NewGuideData::toOldData(guide));
         return;
     }
     else if (!currentGuide.exists()) {
@@ -620,8 +620,7 @@ void Creator::on_actionSave_Guide_As_triggered() {
     save(guide);
 }
 
-void Creator::save(NewGuideData::Data newGuide) {
-    OldGuideData::Data guide = NewGuideData::toOldData(newGuide);
+void Creator::save(NewGuideData::Data guide) {
     QFile fileToSave(currentGuide.absoluteFilePath());
 
     if (fileToSave.fileName().endsWith("pgd")) {
@@ -684,7 +683,7 @@ void Creator::open(NewGuideData::Data guide) {
             QTreeWidgetItem* goalItem = new QTreeWidgetItem(mainDisplay);
             goalItem->setText(0, tr("Goal"));
             goalItem->setText(1, object.name);
-            goalItem->setText(2, object.shortName);
+            goalItem->setText(2, object.number);
 
 
             QTreeWidgetItem* timeItem = new QTreeWidgetItem(goalItem);
@@ -724,7 +723,7 @@ void Creator::open(NewGuideData::Data guide) {
             QTreeWidgetItem* testItem = new QTreeWidgetItem(mainDisplay);
             testItem->setText(0, tr("Test"));
             testItem->setText(1, object.name);
-            testItem->setText(2, object.shortName);
+            testItem->setText(2, object.number);
 
             QTreeWidgetItem* week = new QTreeWidgetItem(testItem);
             week->setText(0, tr("Date"));
