@@ -26,7 +26,7 @@ NewGuideData::Data NewGuideData::errorGuide(const QString&error) {
     goal3.type = Goal;
 
     goal1.name = tr("Try this:");
-    goal1.shortName = "1";
+    goal1.number = "1";
     goal1.time = 5;
     goal1.date = QDate::currentDate();;
     goal1.addTask(tr("Check if the file is supported."), Work);
@@ -34,14 +34,14 @@ NewGuideData::Data NewGuideData::errorGuide(const QString&error) {
     goal1.addTask(tr("Search for '<StudyGuide' near the start of the document."), Info);
 
     goal2.name = tr("Try this too:");
-    goal2.shortName = "2";
+    goal2.number = "2";
     goal2.time = 5;
     goal2.date = QDate::currentDate();
     goal2.addTask(tr("Check if the file is not open in another program."), Work);
     goal2.addTask(tr("Try making a copy!"), Work);
 
     goal3.name = tr("This is also an option:");
-    goal3.shortName = "3";
+    goal3.number = "3";
     goal3.time = 5;
     goal3.date = QDate::currentDate();
     goal3.addTask(tr("Report an issue here."), Work, "https://github.com/JesseRobot01/PlanGuidePlanner/issues");
@@ -81,7 +81,7 @@ NewGuideData::Data NewGuideData::fromOldData(const OldGuideData::Data&guide) {
                 newGoal.type = Goal;
 
                 newGoal.name = goal.name;
-                newGoal.shortName = goal.goalNumber;
+                newGoal.number = goal.goalNumber;
                 newGoal.time = goal.time.toInt();
 
                 newGoal.setDateFromWeek(goal.week);
@@ -117,7 +117,7 @@ NewGuideData::Data NewGuideData::fromOldData(const OldGuideData::Data&guide) {
             newTest.type = Test;
 
             newTest.name = object.name;
-            newTest.shortName = object.shortName;
+            newTest.number = object.shortName;
             newTest.info = object.info;
             newTest.setDateFromWeek(object.week);
 
@@ -211,7 +211,7 @@ OldGuideData::Data NewGuideData::toOldData(NewGuideData::Data newData) {
             }
             OldGuideData::GuideGoals goal;
             goal.name = object.name;
-            goal.goalNumber = object.shortName;
+            goal.goalNumber = object.number;
             if (object.time != 0)
                 goal.time = QString::number(object.time);
             if (object.date != QDate(0, 0, 0))
@@ -250,7 +250,7 @@ OldGuideData::Data NewGuideData::toOldData(NewGuideData::Data newData) {
             test.objectType = OldGuideData::Test;
 
             test.name = object.name;
-            test.shortName = object.shortName;
+            test.shortName = object.number;
             test.info = object.info;
             if (object.date != QDate(0, 0, 0))
                 test.week = QString::number(object.date.weekNumber());

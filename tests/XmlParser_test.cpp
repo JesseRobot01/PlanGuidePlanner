@@ -14,7 +14,7 @@ private slots:
     void XmlReadWriteTest() {
         auto testDir = QDir(QFINDTESTDATA("XML Parser Test"));
         QFile* inputFile = new QFile(testDir.absoluteFilePath("testfile.xml"));
-        OldGuideData::Data testData;
+        NewGuideData::Data testData;
 
 
         //benchmarkig read speed

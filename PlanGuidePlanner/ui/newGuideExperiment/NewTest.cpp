@@ -14,7 +14,7 @@ NewTest::NewTest(QWidget* parent, const NewGuideData::Object* testObject) : QWid
     ui->setupUi(this);
 
     ui->name->setText(testObject->name);
-    ui->shortName->setText(testObject->shortName);
+    ui->shortName->setText(testObject->number);
     ui->week->setText(QString::number(testObject->date.weekNumber()));
     ui->testInfo->setText(testObject->info);
 

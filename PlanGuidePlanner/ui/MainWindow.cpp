@@ -75,14 +75,14 @@ void MainWindow::on_actionOpen_File_triggered() {
                     for (const QString&extractedFile: extractedFiles) {
                         qDebug() << "Extracted:" << extractedFile;
                         if (APPLICATION->isXmlFile(extractedFile)) {
-                            OldGuideData::Data guide = XmlParser::readXml(extractedFile);
+                            NewGuideData::Data guide = XmlParser::readXml(extractedFile);
                             processGuide(guide);
                         }
                     }
                 }
                 else if (APPLICATION->isXmlFile(fileName)) {
                     file.close(); // Parser does not like open files.
-                    OldGuideData::Data guide = XmlParser::readXml(&file);
+                    NewGuideData::Data guide = XmlParser::readXml(&file);
                     processGuide(guide);
                 }
                 file.close();
@@ -142,13 +142,13 @@ void MainWindow::on_actionOpen_File_triggered() {
 
     loadGuide->show();
 
-    QVector<OldGuideData::Data> guides;
+    QVector<NewGuideData::Data> guides;
 
     guides = XmlParser::readXml(guideFiles);
     loadGuide->increaseProgress(guideFiles.count());
 
 
-    for (OldGuideData::Data guide: guides) {
+    for (NewGuideData::Data guide: guides) {
         QDir copyToDestination(APPLICATION->getAutoSaveLocation());
 
         if (copyToDestination.mkpath(".")) {
@@ -197,14 +197,14 @@ void MainWindow::on_actionOpen_File_triggered() {
 #endif
 
 
-void MainWindow::processGuide(OldGuideData::Data guide, bool updateStart) {
+void MainWindow::processGuide(NewGuideData::Data guide, bool updateStart) {
     Guide* finalGuide = new Guide(this);
 
-    NewGuideData::Data newData = NewGuideData::fromOldData(guide);
-    NewGuide* newGuide = new NewGuide(this, &newData); // New Gui, for comparison
-    NewGuide* newGuide2 = new NewGuide(this, &newData); // New Gui, for comparison no scroll
+    OldGuideData::Data oldData = NewGuideData::toOldData(guide);
+    NewGuide* newGuide = new NewGuide(this, &guide); // New Gui, for comparison
+    NewGuide* newGuide2 = new NewGuide(this, &guide); // New Gui, for comparison no scroll
 
-    finalGuide->setGuide(guide);
+    finalGuide->setGuide(oldData);
     addGuide(finalGuide, guide.shortName.isEmpty() ? guide.name : guide.shortName);
 
     QScrollArea* scrollArea = new QScrollArea();
@@ -213,8 +213,8 @@ void MainWindow::processGuide(OldGuideData::Data guide, bool updateStart) {
     scrollArea->setWidgetResizable(true); // Ensure the content resizes with the scroll area
 
 
-    ui->guideSwitcher->addTab(scrollArea, newData.shortName + " - NewUI");
-    ui->guideSwitcher->addTab(newGuide2, newData.shortName + " - NewUI - No scroll");
+    ui->guideSwitcher->addTab(scrollArea, guide.shortName + " - NewUI");
+    ui->guideSwitcher->addTab(newGuide2, guide.shortName + " - NewUI - No scroll");
 
 
     //update start
@@ -233,7 +233,7 @@ void MainWindow::addGuide(Guide* guide, const QString&name) {
 void MainWindow::on_actionSave_Guide_As_triggered() {
     int currentTab = (ui->guideSwitcher->currentIndex() - 1);
     Guide* guideToSave = guides.at(currentTab);
-    OldGuideData::Data guide = guideToSave->getGuide();
+    NewGuideData::Data guide = NewGuideData::fromOldData(guideToSave->getGuide());
 
     QFile tmpFile("/tmp/savingGuide.pgx");
 
@@ -257,7 +257,7 @@ void MainWindow::on_actionSave_Guide_As_triggered() {
     Guide* guideToSave = guides.at(currentTab);
     OldGuideData::Data guide = guideToSave->getGuide();
 
-    saveGuideAs(guide);
+    saveGuideAs(NewGuideData::fromOldData(guide));
 
     //close it!
     closeGuide(currentTab);
@@ -265,7 +265,7 @@ void MainWindow::on_actionSave_Guide_As_triggered() {
 
 #endif
 
-void MainWindow::saveGuideAs(OldGuideData::Data guide) {
+void MainWindow::saveGuideAs(NewGuideData::Data guide) {
     QSettings settings;
     QString baseFileName;
 
@@ -327,7 +327,7 @@ void MainWindow::on_actionSave_All_Guides_triggered() {
     QStringList GuidesToSave;
 
     for (auto* guide: guides) {
-        OldGuideData::Data guideDat = guide->getGuide();
+        NewGuideData::Data guideDat = NewGuideData::fromOldData(guide->getGuide());
 
         QFileInfo fileInfoToSave(tempLocation.absoluteFilePath(guideDat.shortName + "_0.xml"));
 
@@ -403,7 +403,7 @@ void MainWindow::on_actionSave_All_Guides_triggered() {
         extention = ".xml";
 
     for (auto* guide: guides) {
-        OldGuideData::Data guideDat = guide->getGuide();
+        NewGuideData::Data guideDat = NewGuideData::fromOldData(guide->getGuide());
 
         // saving
         QFileInfo fileInfoToSave(tempLocation.absoluteFilePath(guideDat.shortName + "_0" + extention));
