@@ -16,20 +16,30 @@ NewGoal::NewGoal(QWidget* parent, NewGuideData::Object* goal) : QWidget(parent),
     ui->progressSlider->installEventFilter(this);
     ui->sliderFrame->installEventFilter(this);
     ui->sliderFrame->setAttribute(Qt::WA_Hover);
-    setProgress(goal->progress);
+
+    if (goal)
+        processGoal(*goal);
+    else
+        qCritical() << "Goal created without an object!";
+}
+
+void NewGoal::processGoal(NewGuideData::Object goal) {
+    if (goal.type != NewGuideData::Goal)
+        qWarning() << "Object inside Goal is not a Goal!";
+
+    baseGoal = goal;
+    setProgress(goal.progress);
     ui->progressSlider->hide();
 
-    ui->name->setText(goal->name);
-    ui->time->setText(QString::number(goal->time));
-    ui->number->setText(goal->number);
-    ui->week->setText(QString::number(goal->date.weekNumber()));
+    ui->name->setText(goal.name);
+    ui->time->setText(QString::number(goal.time));
+    ui->number->setText(goal.number);
+    ui->week->setText(QString::number(goal.date.weekNumber()));
 
 
-    for (auto task: goal->tasks) {
+    for (auto task: goal.tasks) {
         addTask(task);
     }
-    updateStyle();
-    retranslateUi();
 }
 
 void NewGoal::addTask(NewGuideData::Task task) {
@@ -116,41 +126,39 @@ void NewGoal::on_progressSlider_sliderMoved(int newValue) {
 void NewGoal::updateStyle() {
     GuidePalette palette;
 
-    QString borderStyle = QString::fromLatin1("border-width:3px;border-style:solid;border-color: %1;")
+    const QString borderStyle = QString::fromLatin1("border-width:3px;border-style:solid;border-color: %1;")
             .arg(palette.color(QPalette::Base).name());
 
-    QString headerStyle =
-            QString::fromLatin1("background-color: %1; color:%2; ")
+    const QString baseStyle = "background-color:%1; color:%2; " + borderStyle;
+
+    const QString headerStyle = baseStyle
             .arg(palette.getColor(GuidePalette::HeaderBackground).name())
-            .arg(palette.getColor(GuidePalette::HeaderText).name()) + borderStyle;
+            .arg(palette.getColor(GuidePalette::HeaderText).name());
+
+    const QString workIndicatorStyle = baseStyle
+            .arg(palette.getColor(GuidePalette::WorkIndicatorBackground).name())
+            .arg(palette.getColor(GuidePalette::WorkIndicatorText).name());
+
+    const QString watchIndicatorStyle = baseStyle
+            .arg(palette.getColor(GuidePalette::WatchIndicatorBackground).name())
+            .arg(palette.getColor(GuidePalette::WatchIndicatorText).name());
+
+    const QString readIndicatorStyle = baseStyle
+            .arg(palette.getColor(GuidePalette::ReadIndicatorBackground).name())
+            .arg(palette.getColor(GuidePalette::ReadIndicatorText).name());
+
+    const QString processIndicatorStyle = baseStyle
+            .arg(palette.getColor(GuidePalette::ProcessIndicatorBackground).name())
+            .arg(palette.getColor(GuidePalette::ProcessIndicatorText).name());
+
+    const QString infoIndicatorStyle = baseStyle
+            .arg(palette.getColor(GuidePalette::InfoIndicatorBackground).name())
+            .arg(palette.getColor(GuidePalette::InfoIndicatorText).name());
 
     ui->name->setStyleSheet(headerStyle);
     ui->time->setStyleSheet(headerStyle);
     ui->number->setStyleSheet(headerStyle);
     ui->week->setStyleSheet(headerStyle);
-
-
-    QString baseIndicatorStyle = "background-color:%1; color:%2; " + borderStyle;
-
-    QString workIndicatorStyle = baseIndicatorStyle
-            .arg(palette.getColor(GuidePalette::WorkIndicatorBackground).name())
-            .arg(palette.getColor(GuidePalette::WorkIndicatorText).name());
-
-    QString watchIndicatorStyle = baseIndicatorStyle
-            .arg(palette.getColor(GuidePalette::WatchIndicatorBackground).name())
-            .arg(palette.getColor(GuidePalette::WatchIndicatorText).name());
-
-    QString readIndicatorStyle = baseIndicatorStyle
-            .arg(palette.getColor(GuidePalette::ReadIndicatorBackground).name())
-            .arg(palette.getColor(GuidePalette::ReadIndicatorText).name());
-
-    QString processIndicatorStyle = baseIndicatorStyle
-            .arg(palette.getColor(GuidePalette::ProcessIndicatorBackground).name())
-            .arg(palette.getColor(GuidePalette::ProcessIndicatorText).name());
-
-    QString infoIndicatorStyle = baseIndicatorStyle
-            .arg(palette.getColor(GuidePalette::InfoIndicatorBackground).name())
-            .arg(palette.getColor(GuidePalette::InfoIndicatorText).name());
 
     for (int i = 0; i < taskOrder.size(); i++) {
         switch (taskOrder.at(i)) {
@@ -260,19 +268,25 @@ void NewGoal::retranslateUi() {
     }
 }
 
+NewGuideData::Object NewGoal::getGoal() {
+    baseGoal.setProgressFromInt(ui->progressSlider->value());
+    return baseGoal;
+}
+
 NewGoal::~NewGoal() {
     delete ui;
 }
 
-
-GoalFrame::GoalFrame(QWidget* parent, QVector<NewGuideData::Object>* goals) : QFrame(parent), ui(new Ui::GoalFrame) {
+GoalFrame::GoalFrame(QWidget* parent, QVector<NewGuideData::Object>* goalsI) : QFrame(parent), ui(new Ui::GoalFrame) {
     ui->setupUi(this);
-    for (auto goal: *goals) {
-        NewGoal* newGoal = new NewGoal(this, &goal);
-        ui->verticalLayout->addWidget(newGoal);
-    }
-
-    updateStyle();
+    if (goalsI)
+        for (auto goal: *goalsI) {
+            NewGoal* newGoal = new NewGoal(this, &goal);
+            ui->verticalLayout->addWidget(newGoal);
+            goals.append(newGoal);
+        }
+    else
+        qCritical() << "No Goals in Goalframe!";
 }
 
 GoalFrame::~GoalFrame() {
@@ -282,9 +296,9 @@ GoalFrame::~GoalFrame() {
 void GoalFrame::updateStyle() {
     GuidePalette palette;
 
-    QString frameStyle = QString::fromLatin1("background-color: %1;").arg(palette.color(QPalette::Base).name());
-    QString textStyle = QString::fromLatin1("color: %1;").arg(palette.getColor(GuidePalette::ObjectText).name());
-    QString labelStyle = QString::fromLatin1(
+    const QString frameStyle = QString::fromLatin1("background-color: %1;").arg(palette.color(QPalette::Base).name());
+    const QString textStyle = QString::fromLatin1("color: %1;").arg(palette.getColor(GuidePalette::ObjectText).name());
+    const QString labelStyle = QString::fromLatin1(
                 "background-color: %1; color: %2; border-width:3px;border-style:solid;border-color: %3;")
             .arg(palette.getColor(GuidePalette::HeaderBackground).name())
             .arg(palette.getColor(GuidePalette::HeaderText).name())
@@ -296,4 +310,23 @@ void GoalFrame::updateStyle() {
     ui->time->setStyleSheet(labelStyle);
     ui->done->setStyleSheet(labelStyle);
     ui->week->setStyleSheet(labelStyle);
+
+    for (auto goal: goals)
+        goal->updateStyle();
+}
+
+void GoalFrame::retranslateUi() {
+    ui->retranslateUi(this);
+
+    for (auto goal: goals)
+        goal->retranslateUi();
+}
+
+QVector<NewGuideData::Object> GoalFrame::getGoals() {
+    QVector<NewGuideData::Object> goalData;
+
+    for (auto goal: goals)
+        goalData.append(goal->getGoal());
+
+    return goalData;
 }

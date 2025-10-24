@@ -9,6 +9,9 @@
 #include <QLabel>
 
 #include "guide/NewGuideData.h"
+#include "NewReport.h"
+#include "NewTest.h"
+#include "NewGoal.h"
 
 namespace Ui {
     class GuideBase;
@@ -24,11 +27,26 @@ public:
 
     void updateStyle();
 
+    void retranslateUi();
+
+    void processGuide(NewGuideData::Data data);
+
+    NewGuideData::Data getGuide();
+
 private:
     Ui::GuideBase* ui;
     QLayout* mainLayout;
 
     QSpacerItem* lastSpacer;
+
+    QVector<GoalFrame*> goalFrames;
+    QVector<NewTest*> testWidgets;
+    QVector<NewReport*> reportWidgets;
+
+    QVector<NewGuideData::ObjectTypes> objectOrder;
+    QVector<NewGuideData::Object> nonGoalObjects;
+
+    NewGuideData::Data baseData;
 
 };
 

@@ -11,7 +11,7 @@
 #include "guide/NewGuideData.h"
 #include "themes/GuidePalette.h"
 
-NewReport::NewReport(QWidget* parent, const NewGuideData::Object* reportObject) : QFrame(parent) {
+NewReport::NewReport(QWidget* parent, const NewGuideData::Object* report) : QFrame(parent) {
     mainLabel = new QLabel(this);
     mainLayout = new QVBoxLayout(this);
 
@@ -30,13 +30,19 @@ NewReport::NewReport(QWidget* parent, const NewGuideData::Object* reportObject) 
 
     mainLayout->addWidget(mainLabel);
 
+    if (report)
+        processReport(*report);
+    else
+        qCritical() << "Report made without object!";
+}
 
-    for (auto test: reportObject->tests) {
+void NewReport::processReport(NewGuideData::Object reportObject) {
+    if (reportObject.type != NewGuideData::Report)
+        qWarning() << "Object inside Report is not a Report!";
+
+    for (auto test: reportObject.tests) {
         addTest(test);
     }
-
-    updateStyle();
-    retranslateUi();
 }
 
 void NewReport::addTest(NewGuideData::ReportTest test) {

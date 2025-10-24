@@ -19,6 +19,8 @@ class NewReport : public QFrame {
 public:
     NewReport(QWidget* parent = nullptr, const NewGuideData::Object* reportObject = nullptr);
 
+    void processReport(NewGuideData::Object reportObject);
+
     void addTest(NewGuideData::ReportTest test);
 
     void updateStyle();

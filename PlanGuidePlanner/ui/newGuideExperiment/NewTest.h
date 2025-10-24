@@ -24,6 +24,8 @@ class NewTest : public QWidget {
 public:
     explicit NewTest(QWidget* parent = nullptr, const NewGuideData::Object* test = nullptr);
 
+    void setTest(NewGuideData::Object testObject);
+
     ~NewTest() override;
 
     void updateStyle();
