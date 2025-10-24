@@ -26,6 +26,8 @@ class NewGoal : public QWidget {
 public:
     explicit NewGoal(QWidget* parent = nullptr, NewGuideData::Object* goal = nullptr);
 
+    void processGoal(NewGuideData::Object goal);
+
     void addTask(NewGuideData::Task task);
 
     bool eventFilter(QObject* obj, QEvent* event) override;
@@ -37,6 +39,8 @@ public:
     void setProgress(NewGuideData::Progress progress, bool changedFile = true);
 
     void retranslateUi();
+
+    NewGuideData::Object getGoal();
 
     ~NewGoal() override;
 
@@ -50,6 +54,7 @@ private:
     QVector<NewGuideData::TaskTypes> taskOrder;
     QVector<QLabel*> taskLabels;
     QVector<QLabel*> taskNames;
+    NewGuideData::Object baseGoal;
 
 };
 
@@ -63,8 +68,13 @@ public:
 
     void updateStyle();
 
+    void retranslateUi();
+
+    QVector<NewGuideData::Object> getGoals();
+
 private:
     Ui::GoalFrame* ui;
+    QVector<NewGoal*> goals;
 };
 
 

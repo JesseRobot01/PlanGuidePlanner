@@ -42,7 +42,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>1260</width>
+        <width>1285</width>
         <height>370</height>
        </rect>
       </property>
@@ -131,7 +131,7 @@
                 </font>
                </property>
                <property name="text">
-                <string/>
+                <string notr="true"/>
                </property>
                <property name="alignment">
                 <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -219,7 +219,7 @@
                 <number>1</number>
                </property>
                <property name="text">
-                <string/>
+                <string notr="true"/>
                </property>
                <property name="alignment">
                 <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -295,7 +295,7 @@
                    <string notr="true"/>
                   </property>
                   <property name="text">
-                   <string/>
+                   <string notr="true"/>
                   </property>
                   <property name="textFormat">
                    <enum>Qt::TextFormat::MarkdownText</enum>
