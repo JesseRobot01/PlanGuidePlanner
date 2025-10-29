@@ -102,7 +102,7 @@ NewGuideData::Data XmlParser::readXml(QFile* xmlFileP) {
                             if (attribute.name() == "number") {
                                 goal.number = attribute.value().toString();
                             }
-                            if (attribute.name() == "time") {
+                            if (attribute.name() == "duration") {
                                 goal.time = attribute.value().toInt();
                             }
                             if (attribute.name() == "date") {
@@ -253,7 +253,7 @@ void XmlParser::saveXml(const NewGuideData::Data&guide, QFile&fileToSaveTo, bool
                     xml.writeStartElement("goal");
 
                     xml.writeAttribute("number", object.number);
-                    xml.writeAttribute("time", QString::number(object.time));
+                    xml.writeAttribute("duration", QString::number(object.time));
                     xml.writeAttribute("date", object.date.toString(Qt::ISODate));
                     xml.writeAttribute("progress", QString::number(object.progress));
 
