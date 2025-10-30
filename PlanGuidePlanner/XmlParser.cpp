@@ -69,7 +69,7 @@ NewGuideData::Data XmlParser::readXml(QFile* xmlFileP) {
 
                     if (elementName == "guide") {
                         for (QXmlStreamAttribute attribute: xml.attributes()) {
-                            if (attribute.name() == "period") {
+                            if (attribute.name().toString() == "period") {
                                 guide.period = attribute.value().toString();
                             }
                         }
@@ -80,7 +80,7 @@ NewGuideData::Data XmlParser::readXml(QFile* xmlFileP) {
 
                             if (elementName == "name") {
                                 for (QXmlStreamAttribute attribute: xml.attributes()) {
-                                    if (attribute.name() == "short") {
+                                    if (attribute.name().toString() == "short") {
                                         guide.shortName = attribute.value().toString();
                                     }
                                 }
@@ -95,21 +95,20 @@ NewGuideData::Data XmlParser::readXml(QFile* xmlFileP) {
                     if (elementName == "goal") {
                         NewGuideData::Object goal;
                         goal.type = NewGuideData::Goal;
-                        goal.type = NewGuideData::Goal;
 
                         elementName = "";
 
                         for (QXmlStreamAttribute attribute: xml.attributes()) {
-                            if (attribute.name() == "number") {
+                            if (attribute.name().toString() == "number") {
                                 goal.number = attribute.value().toString();
                             }
-                            if (attribute.name() == "duration") {
+                            if (attribute.name().toString() == "duration") {
                                 goal.time = attribute.value().toInt();
                             }
-                            if (attribute.name() == "date") {
+                            if (attribute.name().toString() == "date") {
                                 goal.date = QDate::fromString(attribute.value().toString(), Qt::ISODate);
                             }
-                            if (attribute.name() == "progress") {
+                            if (attribute.name().toString() == "progress") {
                                 goal.setProgressFromInt(attribute.value().toInt());
                             }
                         }
@@ -146,7 +145,6 @@ NewGuideData::Data XmlParser::readXml(QFile* xmlFileP) {
                         NewGuideData::Object br;
                         br.type = NewGuideData::Break;
                         guide.objects.append(br);
-                        token = xml.readNext();
                     }
 
                     if (elementName == "test") {
@@ -155,10 +153,10 @@ NewGuideData::Data XmlParser::readXml(QFile* xmlFileP) {
 
                         elementName = "";
                         for (QXmlStreamAttribute attribute: xml.attributes()) {
-                            if (attribute.name() == "number") {
+                            if (attribute.name().toString() == "number") {
                                 test.number = attribute.value().toString();
                             }
-                            if (attribute.name() == "date") {
+                            if (attribute.name().toString() == "date") {
                                 test.date = QDate::fromString(attribute.value().toString(), Qt::ISODate);
                             }
                         }
@@ -188,10 +186,10 @@ NewGuideData::Data XmlParser::readXml(QFile* xmlFileP) {
                                 NewGuideData::ReportTest test;
                                 elementName = "";
                                 for (QXmlStreamAttribute attribute: xml.attributes()) {
-                                    if (attribute.name() == "weight") {
+                                    if (attribute.name().toString() == "weight") {
                                         test.weight = attribute.value().toInt();
                                     }
-                                    if (attribute.name() == "type") {
+                                    if (attribute.name().toString() == "type") {
                                         test.weightType = attribute.value().toString();
                                     }
                                 }
