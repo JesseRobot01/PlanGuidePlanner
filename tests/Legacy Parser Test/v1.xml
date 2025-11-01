@@ -11,6 +11,14 @@
         <task type="read">The book you've chosen</task>
         <task type="process">The vocab</task>
     </goal>
+    <br/>
+    <goal number="1.1" duration="90" date="2025-12-29" progress="0">
+        <name>Hello World!</name>
+        <task type="work">Make exercise 1 to 6.</task>
+        <task type="watch">&lt;a href='https://youtu.be/hUqO3tFexiQ?si=h-AJ7ujvtEdDJaaE'&gt;How to cook an egg on YouTube.&lt;/a&gt;</task>
+        <task type="read">The book you've chosen</task>
+        <task type="process">The vocab</task>
+    </goal>
     <test number="HW1" date="2024-12-23">
         <name>Hello World</name>
         <info>Know how the PlanGuidePlanner Work</info>
