@@ -95,6 +95,7 @@ NewGuideData::Data XmlParser::readXml(QFile* xmlFileP) {
                     if (elementName == "goal") {
                         NewGuideData::Object goal;
                         goal.type = NewGuideData::Goal;
+                        goal.type = NewGuideData::Goal;
 
                         elementName = "";
 
@@ -109,7 +110,7 @@ NewGuideData::Data XmlParser::readXml(QFile* xmlFileP) {
                                 goal.date = QDate::fromString(attribute.value().toString(), Qt::ISODate);
                             }
                             if (attribute.name() == "progress") {
-                                goal.setProgressFromInt( attribute.value().toInt());
+                                goal.setProgressFromInt(attribute.value().toInt());
                             }
                         }
 
@@ -145,6 +146,7 @@ NewGuideData::Data XmlParser::readXml(QFile* xmlFileP) {
                         NewGuideData::Object br;
                         br.type = NewGuideData::Break;
                         guide.objects.append(br);
+                        token = xml.readNext();
                     }
 
                     if (elementName == "test") {
