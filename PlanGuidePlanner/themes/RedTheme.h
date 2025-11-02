@@ -12,7 +12,7 @@
 QColor getLightRedColour(GuidePalette::GuideElements element) {
     switch (element) {
         case GuidePalette::HeaderBackground:
-            return "#FFFF00";
+            return "#FF0000";
         case GuidePalette::TestBackground:
             return "#CC0000";
         default:
