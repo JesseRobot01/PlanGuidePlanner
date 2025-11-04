@@ -7,7 +7,7 @@
 #include <QObject>
 #include <XmlParser.h>
 
-#include "ui/newGuideExperiment/NewGuide.h"
+#include "ui/guide/Guide.h"
 
 class CollectDataTest : public QObject {
     Q_OBJECT
@@ -16,13 +16,13 @@ private slots:
     void CollectDataFromGuideTest() {
         auto testDir = QDir(QFINDTESTDATA("testdata"));
         QFile* inputFile = new QFile(testDir.absoluteFilePath("testfile.xml"));
-        NewGuideData::Data testData;
+        GuideData::Data testData;
 
 
         testData = XmlParser::readXml(inputFile);
 
 
-        NewGuide* guide = new NewGuide(nullptr, &testData);
+        Guide* guide = new Guide(nullptr, &testData);
 
         //save it
         testDir.mkdir("tmp");

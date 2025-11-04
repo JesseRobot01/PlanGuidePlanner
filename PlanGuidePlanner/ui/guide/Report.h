@@ -1,45 +1,37 @@
 //
-// Created by Jesse on 3 okt. 2023.
+// Created by Jesse on 08-10-2025.
 //
 
 #ifndef PLANGUIDEPLANNER_REPORT_H
 #define PLANGUIDEPLANNER_REPORT_H
-
-
+#include <QFrame>
+#include <QLabel>
+#include <qtmetamacros.h>
+#include <QVBoxLayout>
 #include <QWidget>
 
-#include "guide/OldGuideData.h"
+#include "guide/GuideData.h"
 
 
-QT_BEGIN_NAMESPACE
+class Guide;
 
-namespace Ui {
-    class Report;
-}
-
-QT_END_NAMESPACE
-
-class Report : public QWidget {
-Q_OBJECT
+class Report : public QFrame {
+    Q_OBJECT
 
 public:
-    explicit Report(QWidget *parent = nullptr);
+    Report(Guide* parent, const GuideData::Object* reportObject = nullptr);
 
-    ~Report() override;
+    void processReport(GuideData::Object reportObject);
 
-    void addTest(const QString &name, const QString &weight);
-
-    void finalise();
-
-    int size = 60;
-
-    OldGuideData::GuideObject getGuideobject();
-
-private:
-    Ui::Report *ui;
-    QVector<OldGuideData::ReportTests> tests;
+    void addTest(GuideData::ReportTest test);
 
     void updateStyle();
+
+    void retranslateUi();
+private:
+    QVBoxLayout* mainLayout ;
+    QLabel* mainLabel ;
+
 };
 
 

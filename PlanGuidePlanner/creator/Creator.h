@@ -9,7 +9,7 @@
 #include <QMainWindow>
 #include <qtreewidget.h>
 
-#include "guide/NewGuideData.h"
+#include "guide/GuideData.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -29,13 +29,15 @@ public:
     ~Creator() override;
 
 
-    void open(NewGuideData::Data guide);
+    void open(GuideData::Data guide);
 
     QFileInfo currentGuide;
 
     QFileInfo appAutoSaveLocation;
 
     int applicationGuideIndex = -1;
+
+    GuideData::Data getCurrentGuide();
 
 private slots:
     void on_mainDisplay_itemClicked(QTreeWidgetItem* item, int column);
@@ -82,9 +84,7 @@ private:
     QListWidgetItem* addReport;
     QListWidgetItem* addBreak;
 
-    NewGuideData::Data getCurrentGuide();
-
-    void save(NewGuideData::Data guide);
+    void save(GuideData::Data guide);
 
     void showAddTask();
 

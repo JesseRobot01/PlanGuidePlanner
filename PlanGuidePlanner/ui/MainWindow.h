@@ -7,7 +7,7 @@
 
 #include <QMainWindow>
 #include "PreferenceWindow.h"
-#include "guide/NewGuideData.h"
+#include "guide/GuideData.h"
 #include<QCloseEvent>
 #include "StartScreen.h"
 
@@ -30,7 +30,7 @@ public:
 
     ~MainWindow() override;
 
-    void processGuide(NewGuideData::Data guide, bool updateStart = true);
+    void processGuide(GuideData::Data guide, bool updateStart = true);
 
     QVector<Guide *> guides;
 
@@ -39,6 +39,8 @@ public:
     void closeGuide(int guideIndex, bool updateStart = true);
 
     void setTabName(int tab, QString name);
+
+    void updateGuide(int guideIndex, GuideData::Data updatedGuide);
 
 private slots:
     void on_actionPreference_triggered();
@@ -75,7 +77,7 @@ private:
 
     void closeEvent(QCloseEvent* event) override;
 
-    void saveGuideAs(NewGuideData::Data guide);
+    void saveGuideAs(GuideData::Data guide);
 };
 
 

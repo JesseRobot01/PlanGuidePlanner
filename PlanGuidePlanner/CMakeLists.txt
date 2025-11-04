@@ -9,8 +9,6 @@ set(SOURCES
         ui/PreferenceWindow.h
         ui/guide/Guide.cpp
         ui/guide/Guide.h
-        ui/guide/Index.cpp
-        ui/guide/Index.h
         ui/guide/Goal.cpp
         ui/guide/Goal.h
         ui/guide/Test.cpp
@@ -19,10 +17,9 @@ set(SOURCES
         ui/guide/Report.h
         ui/dialogs/LoadGuide.cpp
         ui/dialogs/LoadGuide.h
-        guide/OldGuideData.h
+        guide/GuideData.cpp
         themes/GuidePalette.cpp
         themes/GuidePalette.h
-        guide/OldGuideData.cpp
         LegacyXmlParsers.cpp
         LegacyXmlParsers.h
         themes/BlueTheme.h
@@ -30,27 +27,15 @@ set(SOURCES
         themes/RedTheme.h
         themes/OrangeTheme.h
         themes/ContrastTheme.h
-        ui/prototypeGui/newguideprototype.cpp
-        ui/prototypeGui/newguideprototype.h
-        guide/NewGuideData.cpp
-        ui/newGuideExperiment/NewGuide.h
-        ui/newGuideExperiment/NewGuide.cpp
-        ui/newGuideExperiment/NewGoal.cpp
-        ui/newGuideExperiment/NewGoal.h
-        ui/newGuideExperiment/GoalFrame.ui
-        ui/newGuideExperiment/NewGoal.ui
-
 )
 
 set(UI
-        ui/prototypeGui/newGuidePrototype.ui
         ui/MainWindow.ui
         ui/PreferenceWindow.ui
         ui/guide/Guide.ui
-        ui/guide/Index.ui
+        ui/guide/GoalFrame.ui
         ui/guide/Goal.ui
         ui/guide/Test.ui
-        ui/guide/Report.ui
         ui/dialogs/LoadGuide.ui
         ui/dialogs/RestartDialog.cpp
         ui/dialogs/RestartDialog.h
@@ -61,13 +46,6 @@ set(UI
         ui/StartScreen.cpp
         ui/StartScreen.h
         ui/StartScreen.ui
-        ui/newGuideExperiment/NewGuide.ui
-        ui/newGuideExperiment/NewTest.cpp
-        ui/newGuideExperiment/NewTest.h
-        ui/newGuideExperiment/NewTest.ui
-        ui/newGuideExperiment/NewReport.cpp
-        ui/newGuideExperiment/NewReport.h
-
 )
 
 set(CREATOR_SOURCES

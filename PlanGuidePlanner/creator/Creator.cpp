@@ -10,8 +10,8 @@
 #include <JlCompress.h>
 
 #include "ui_Creator.h"
-#include "guide/NewGuideData.h"
-#include <ui/newGuideExperiment/NewGuide.h>
+#include "guide/GuideData.h"
+#include <ui/guide/Guide.h>
 
 #include "Application.h"
 #include "XmlParser.h"
@@ -320,20 +320,20 @@ void Creator::on_displayButton_clicked() {
     widget->setLayout(layout);
     widget->show();*/
 
-    NewGuideData::Data data = getCurrentGuide();
-    NewGuide* guide = new NewGuide(nullptr, &data);
+    GuideData::Data data = getCurrentGuide();
+    Guide* guide = new Guide(nullptr, &data);
     guide->show();
 }
 
-NewGuideData::Data Creator::getCurrentGuide() {
-    NewGuideData::Data guidedata;
+GuideData::Data Creator::getCurrentGuide() {
+    GuideData::Data guidedata;
 
     for (int i = 0; i < ui->mainDisplay->topLevelItemCount(); ++i) {
         QTreeWidgetItem* item = ui->mainDisplay->topLevelItem(i);
 
         if (item->text(0) == tr("Goal")) {
-            NewGuideData::Object goal;
-            goal.type = NewGuideData::Goal;
+            GuideData::Object goal;
+            goal.type = GuideData::Goal;
 
             goal.name = item->text(1);
             goal.number = item->text(2);
@@ -341,19 +341,19 @@ NewGuideData::Data Creator::getCurrentGuide() {
                 QTreeWidgetItem* child = item->child(j);
 
                 if (child->text(0) == tr("Work"))
-                    goal.addTask(child->text(1), NewGuideData::Work, child->text(2));
+                    goal.addTask(child->text(1), GuideData::Work, child->text(2));
 
                 else if (child->text(0) == tr("Read"))
-                    goal.addTask(child->text(1), NewGuideData::Read, child->text(2));
+                    goal.addTask(child->text(1), GuideData::Read, child->text(2));
 
                 else if (child->text(0) == tr("Watch/ Listen"))
-                    goal.addTask(child->text(1), NewGuideData::Watch, child->text(2));
+                    goal.addTask(child->text(1), GuideData::Watch, child->text(2));
 
                 else if (child->text(0) == tr("Process"))
-                    goal.addTask(child->text(1), NewGuideData::Process, child->text(2));
+                    goal.addTask(child->text(1), GuideData::Process, child->text(2));
 
                 else if (child->text(0) == tr("Information"))
-                    goal.addTask(child->text(1), NewGuideData::Info, child->text(2));
+                    goal.addTask(child->text(1), GuideData::Info, child->text(2));
 
                 else if (child->text(0) == tr("Week"))
                     goal.setDateFromWeek(child->text(1));
@@ -371,8 +371,8 @@ NewGuideData::Data Creator::getCurrentGuide() {
         }
 
         if (item->text(0) == tr("Test")) {
-            NewGuideData::Object test;
-            test.type = NewGuideData::Test;
+            GuideData::Object test;
+            test.type = GuideData::Test;
             test.name = (item->text(1));
             test.number = (item->text(2));
 
@@ -380,7 +380,7 @@ NewGuideData::Data Creator::getCurrentGuide() {
                 QTreeWidgetItem* child = item->child(j);
 
                 if (child->text(0) == tr("Date"))
-                    test.date = QDate::fromString(child->text(1));
+                    test.date = QDate::fromString(child->text(1), Qt::RFC2822Date);
 
                 else if (child->text(0) == tr("Information"))
                     test.info = child->text(1);
@@ -391,15 +391,16 @@ NewGuideData::Data Creator::getCurrentGuide() {
         }
 
         if (item->text(0) == tr("Report")) {
-            NewGuideData::Object report;
-            report.type = NewGuideData::Report;
+            GuideData::Object report;
+            report.type = GuideData::Report;
 
             for (int j = 0; j < item->childCount(); ++j) {
                 QTreeWidgetItem* child = item->child(j);
                 if (child->text(0) == tr("Test")) {
-                    NewGuideData::ReportTest reportTest;
+                    GuideData::ReportTest reportTest;
                     reportTest.name = child->text(1);
                     reportTest.weight = child->text(2).toInt();
+                    reportTest.weightType = child->text(3);
 
                     report.tests.append(reportTest);
                 }
@@ -424,8 +425,8 @@ NewGuideData::Data Creator::getCurrentGuide() {
             continue;
         }
         if (item->text(0) == tr("Break")) {
-            NewGuideData::Object breakObj;
-            breakObj.type = NewGuideData::Break;
+            GuideData::Object breakObj;
+            breakObj.type = GuideData::Break;
 
             guidedata.objects.append(breakObj);
             continue;
@@ -576,7 +577,7 @@ void Creator::on_actionSave_Guide_triggered() {
     // First of all, check if the guide is actually from the program itself.
     if (applicationGuideIndex != -1) {
         // First save to auto save
-        NewGuideData::Data guide = getCurrentGuide();
+        GuideData::Data guide = getCurrentGuide();
         QFile currentAutoSaveFile(appAutoSaveLocation.absoluteFilePath());
         XmlParser::saveXml(guide, currentAutoSaveFile, true, false);
 
@@ -585,7 +586,7 @@ void Creator::on_actionSave_Guide_triggered() {
             save(getCurrentGuide());
         }
 
-        APPLICATION->updateGuide(applicationGuideIndex, NewGuideData::toOldData(guide));
+        APPLICATION->updateGuide(applicationGuideIndex, guide);
         return;
     }
     else if (!currentGuide.exists()) {
@@ -600,7 +601,7 @@ void Creator::on_actionSave_Guide_triggered() {
 void Creator::on_actionSave_Guide_As_triggered() {
     QSettings settings;
     QString baseFileName;
-    NewGuideData::Data guide = getCurrentGuide();
+    GuideData::Data guide = getCurrentGuide();
 
     if (currentGuide.exists())
         baseFileName = currentGuide.baseName();
@@ -620,7 +621,7 @@ void Creator::on_actionSave_Guide_As_triggered() {
     save(guide);
 }
 
-void Creator::save(NewGuideData::Data guide) {
+void Creator::save(GuideData::Data guide) {
     QFile fileToSave(currentGuide.absoluteFilePath());
 
     if (fileToSave.fileName().endsWith("pgd")) {
@@ -658,7 +659,7 @@ void Creator::save(NewGuideData::Data guide) {
         XmlParser::saveXml(guide, fileToSave);
 }
 
-void Creator::open(NewGuideData::Data guide) {
+void Creator::open(GuideData::Data guide) {
     auto* mainDisplay = ui->mainDisplay;
 
     // First of all, clear the current one
@@ -679,7 +680,7 @@ void Creator::open(NewGuideData::Data guide) {
     info->setText(1, guide.info);
 
     for (auto object: guide.objects) {
-        if (object.type == NewGuideData::Goal) {
+        if (object.type == GuideData::Goal) {
             QTreeWidgetItem* goalItem = new QTreeWidgetItem(mainDisplay);
             goalItem->setText(0, tr("Goal"));
             goalItem->setText(1, object.name);
@@ -699,19 +700,19 @@ void Creator::open(NewGuideData::Data guide) {
                 QTreeWidgetItem* taskItem = new QTreeWidgetItem(goalItem);
 
                 switch (task.task) {
-                    case NewGuideData::Work:
+                    case GuideData::Work:
                         taskItem->setText(0, tr("Work"));
                         break;
-                    case NewGuideData::Read:
+                    case GuideData::Read:
                         taskItem->setText(0, tr("Read"));
                         break;
-                    case NewGuideData::Watch:
+                    case GuideData::Watch:
                         taskItem->setText(0, tr("Watch/ Listen"));
                         break;
-                    case NewGuideData::Process:
+                    case GuideData::Process:
                         taskItem->setText(0, tr("Process"));
                         break;
-                    case NewGuideData::Info:
+                    case GuideData::Info:
                         taskItem->setText(0, tr("Information"));
                         break;
                 }
@@ -719,7 +720,7 @@ void Creator::open(NewGuideData::Data guide) {
             }
             continue;
         }
-        if (object.type == NewGuideData::Test) {
+        if (object.type == GuideData::Test) {
             QTreeWidgetItem* testItem = new QTreeWidgetItem(mainDisplay);
             testItem->setText(0, tr("Test"));
             testItem->setText(1, object.name);
@@ -735,7 +736,7 @@ void Creator::open(NewGuideData::Data guide) {
 
             continue;
         }
-        if (object.type == NewGuideData::Report) {
+        if (object.type == GuideData::Report) {
             QTreeWidgetItem* reportItem = new QTreeWidgetItem(mainDisplay);
             reportItem->setText(0, tr("Report"));
             for (auto test: object.tests) {
@@ -743,7 +744,12 @@ void Creator::open(NewGuideData::Data guide) {
                 testItem->setText(0, tr("Test"));
                 testItem->setText(1, test.name);
                 testItem->setText(2, QString::number(test.weight));
+                testItem->setText(3, test.weightType);
             }
+        }
+        if (object.type == GuideData::Break) {
+            QTreeWidgetItem* reportItem = new QTreeWidgetItem(mainDisplay);
+            reportItem->setText(0, tr("Break"));
         }
     }
 

@@ -8,9 +8,7 @@
 #include <QDate>
 #include <QFileInfo>
 
-#include "OldGuideData.h"
-
-class NewGuideData : public QObject {
+class GuideData : public QObject {
 public:
     enum ObjectTypes {
         Goal,
@@ -41,7 +39,7 @@ public:
     struct ReportTest {
         QString name;
         int weight;
-        QString weightType;
+        QString weightType = "x";
     };
 
     class Object {
@@ -80,9 +78,6 @@ public:
     };
 
    static Data errorGuide(const QString&error);
-
-    static Data fromOldData(const OldGuideData::Data&guide);
-    static OldGuideData::Data toOldData(NewGuideData::Data newDataFormat);
 };
 
 

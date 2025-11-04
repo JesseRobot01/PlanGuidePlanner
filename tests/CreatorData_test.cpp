@@ -1,5 +1,5 @@
 //
-// Created by Jesse on 30-06-2025.
+// Created by Jesse on 01-11-2025.
 //
 
 #include <QTest>
@@ -7,31 +7,33 @@
 #include <QObject>
 #include <XmlParser.h>
 
-class XmlParserTest : public QObject {
+#include "creator/Creator.h"
+
+class CreatorDataTest : public QObject {
     Q_OBJECT
 
 private slots:
-    void XmlReadWriteTest() {
+    void CollectDataFromCreatorTest() {
         auto testDir = QDir(QFINDTESTDATA("testdata"));
         QFile* inputFile = new QFile(testDir.absoluteFilePath("testfile.xml"));
         GuideData::Data testData;
 
 
-        //benchmarkig read speed
-        QBENCHMARK {
-            testData = XmlParser::readXml(inputFile);
-        }
+        testData = XmlParser::readXml(inputFile);
+
+
+        auto creator = new Creator(nullptr);
+
+        creator->open(testData);
 
         //save it
         testDir.mkdir("tmp");
         QDir testTmpDir = testDir.filePath("tmp");
 
-        auto* outputFile = new QFile(testTmpDir.absoluteFilePath("output.xml"));
+        auto* outputFile = new QFile(testTmpDir.absoluteFilePath("output_creatorData.xml"));
 
-        //benchmarking write speed;
-        QBENCHMARK {
-            XmlParser::saveXml(testData, *outputFile);
-        }
+        XmlParser::saveXml(creator->getCurrentGuide(), *outputFile);
+
 
         inputFile->open(QIODevice::ReadOnly);
         outputFile->open(QIODevice::ReadOnly);
@@ -40,6 +42,6 @@ private slots:
     }
 };
 
-QTEST_GUILESS_MAIN(XmlParserTest);
+QTEST_MAIN(CreatorDataTest);
 
-#include "XmlParser_test.moc"
+#include "CreatorData_test.moc"

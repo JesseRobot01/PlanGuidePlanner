@@ -1,76 +1,59 @@
 //
-// Created by Jesse on 3 okt. 2023.
+// Created by Jesse on 04-10-2025.
 //
 
 #ifndef PLANGUIDEPLANNER_GUIDE_H
 #define PLANGUIDEPLANNER_GUIDE_H
 
-#include "guide/OldGuideData.h"
+#include "guide/GuideData.h"
+#include <QVBoxLayout>
 #include <QWidget>
+#include <QLabel>
 
-class Index;
+class Goal;
+class GoalFrame;
 class Test;
 class Report;
 
-QT_BEGIN_NAMESPACE
-
 namespace Ui {
-    class Guide;
+    class GuideBase;
 }
-
-QT_END_NAMESPACE
 
 class Guide : public QWidget {
     Q_OBJECT
 
 public:
-    explicit Guide(QWidget* parent = nullptr);
+    explicit Guide(QWidget* parent = nullptr, const GuideData::Data* data = nullptr);
 
     ~Guide() override;
 
-    void addIndex(Index* index);
+    void processGuide(GuideData::Data data);
 
-    void addTest(Test* test);
+    void updateStyle();
 
-    void addReport(Report* Report);
+    void retranslateUi();
 
-    void setName(const QString&name);
-
-    void setInfo(const QString&info);
-
-    void setPeriod(const QString&period);
-
-    void setShortName(const QString&shortName);
-
-    OldGuideData::Data getGuide();
+    GuideData::Data getGuide();
 
     QString name;
 
-    QFileInfo originalFile;
-
-    QFileInfo autoSaveFile;
-
-    bool isInAutoSaveList = false;
-
-    void setGuide(OldGuideData::Data guide);
-
-    void emptyGuide();
+    bool isInAutoSaveList = false; //TODO autosave
 
 private:
-    Ui::Guide* ui;
+    Ui::GuideBase* ui;
+    QLayout* mainLayout;
 
-    QString shortName;
+    QSpacerItem* lastSpacer;
 
-    const int defaultSize = 360;
+    QVector<GoalFrame *> goalFrames;
+    QVector<Test *> testWidgets;
+    QVector<Report *> reportWidgets;
 
-    int size = defaultSize;
+    QVector<GuideData::ObjectTypes> objectOrder;
+    QVector<GuideData::Object> nonGoalObjects;
 
-    QVector<Index *> indexes;
-    QVector<Test *> tests;
-    QVector<Report *> reports;
-    QVector<OldGuideData::ObjectTypes> objectOrder;
-
-    void updateStyle();
+    GuideData::Data baseData;
 };
+
 
 #endif //PLANGUIDEPLANNER_GUIDE_H

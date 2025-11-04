@@ -4,7 +4,7 @@
 
 
 #include <QTimer>
-#include "guide/OldGuideData.h"
+#include "guide/GuideData.h"
 #include "ui/MainWindow.h"
 #include <QApplication>
 #include "creator/Creator.h"
@@ -34,15 +34,17 @@ public:
 
     bool isAutoSaveTimerStarted = false;
 
-    QVector<OldGuideData::Data> getUpToDateGuides();
+    QVector<GuideData::Data> getUpToDateGuides();
 
-    void updateGuide(int guideIndex, OldGuideData::Data updatedGuide);
+    void updateGuide(int guideIndex, GuideData::Data updatedGuide);
 
     bool isFileChanged = false;
 
     bool isXmlFile(const QString&file);
 
     bool isZipFile(const QString&file);
+
+    void autoSave(Guide* guide);
 
 #ifdef Q_OS_ANDROID
 
