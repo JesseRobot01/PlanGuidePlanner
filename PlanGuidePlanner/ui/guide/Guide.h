@@ -37,7 +37,7 @@ public:
 
     QString name;
 
-    bool isInAutoSaveList = false; //TODO autosave
+    bool isInAutoSaveList = false;
 
 private:
     Ui::GuideBase* ui;
