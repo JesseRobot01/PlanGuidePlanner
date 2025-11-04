@@ -6,19 +6,19 @@
 #include <QFile>
 #include <QXmlStreamReader>
 #include "XmlParser.h"
-#include "guide/NewGuideData.h"
+#include "guide/GuideData.h"
 #include "Application.h"
 #include <QString>
 
 
-NewGuideData::Data LegacyXmlParsers::v1Reader(QFile* xmlFileP) {
+GuideData::Data LegacyXmlParsers::v1Reader(QFile* xmlFileP) {
     QFile&xmlFile = *xmlFileP;
     QFileInfo fileInfo(xmlFile);
     bool isPrevIndex = 0; //Used for the Breaks.
     qDebug() << "Reading xml file (using v1 parser)" << fileInfo.fileName();
     if (!xmlFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qWarning() << "Failed to open file" << fileInfo.fileName();
-        return NewGuideData::errorGuide("Failed to open file " + fileInfo.fileName());
+        return GuideData::errorGuide("Failed to open file " + fileInfo.fileName());
     }
 
     try {
@@ -32,7 +32,7 @@ NewGuideData::Data LegacyXmlParsers::v1Reader(QFile* xmlFileP) {
 
 
             if (elementName == "studyguide" && token != QXmlStreamReader::EndElement) {
-                NewGuideData::Data guide;
+                GuideData::Data guide;
                 guide.originalFile = fileInfo;
                 for (QXmlStreamAttribute attribute: xml.attributes()) {
                     if (attribute.name().toString() == "autosavefile" && attribute.value().toString() == "true") {
@@ -63,8 +63,8 @@ NewGuideData::Data LegacyXmlParsers::v1Reader(QFile* xmlFileP) {
                     }
                     if (elementName == "index") {
                         if (isPrevIndex) {
-                            NewGuideData::Object goal;
-                            goal.type = NewGuideData::Break;
+                            GuideData::Object goal;
+                            goal.type = GuideData::Break;
                             guide.objects.append(goal); // yes, I'm lazy to rename it.
                         }
                         isPrevIndex = true;
@@ -75,8 +75,8 @@ NewGuideData::Data LegacyXmlParsers::v1Reader(QFile* xmlFileP) {
                             elementName = xml.name().toString();
 
                             if (elementName == "goal") {
-                                NewGuideData::Object goal;
-                                goal.type = NewGuideData::Goal;
+                                GuideData::Object goal;
+                                goal.type = GuideData::Goal;
 
                                 elementName = "";
                                 while (!(token == QXmlStreamReader::EndElement && elementName == "goal")) {
@@ -97,7 +97,7 @@ NewGuideData::Data LegacyXmlParsers::v1Reader(QFile* xmlFileP) {
                                             if (attribute.name().toString() == "href")
                                                 link = attribute.value().toString();
 
-                                        goal.addTask(xml.readElementText(), NewGuideData::Work, link);
+                                        goal.addTask(xml.readElementText(), GuideData::Work, link);
                                     }
                                     if (elementName == "watch") {
                                         QString link = "";
@@ -105,7 +105,7 @@ NewGuideData::Data LegacyXmlParsers::v1Reader(QFile* xmlFileP) {
                                             if (attribute.name().toString() == "href")
                                                 link = attribute.value().toString();
 
-                                        goal.addTask(xml.readElementText(), NewGuideData::Watch, link);
+                                        goal.addTask(xml.readElementText(), GuideData::Watch, link);
                                     }
                                     if (elementName == "read") {
                                         QString link = "";
@@ -113,7 +113,7 @@ NewGuideData::Data LegacyXmlParsers::v1Reader(QFile* xmlFileP) {
                                             if (attribute.name().toString() == "href")
                                                 link = attribute.value().toString();
 
-                                        goal.addTask(xml.readElementText(), NewGuideData::Read, link);
+                                        goal.addTask(xml.readElementText(), GuideData::Read, link);
                                     }
                                     if (elementName == "process") {
                                         QString link = "";
@@ -122,7 +122,7 @@ NewGuideData::Data LegacyXmlParsers::v1Reader(QFile* xmlFileP) {
                                                 link = attribute.value().toString();
 
 
-                                        goal.addTask(xml.readElementText(), NewGuideData::Process, link);
+                                        goal.addTask(xml.readElementText(), GuideData::Process, link);
                                     }
                                     if (elementName == "info") {
                                         QString link = "";
@@ -131,7 +131,7 @@ NewGuideData::Data LegacyXmlParsers::v1Reader(QFile* xmlFileP) {
                                                 link = attribute.value().toString();
 
 
-                                        goal.addTask(xml.readElementText(), NewGuideData::Info, link);
+                                        goal.addTask(xml.readElementText(), GuideData::Info, link);
                                     }
                                     if (elementName == "week") {
                                         goal.setDateFromWeek(xml.readElementText());
@@ -149,8 +149,8 @@ NewGuideData::Data LegacyXmlParsers::v1Reader(QFile* xmlFileP) {
                     isPrevIndex = false;
 
                     if (elementName == "test") {
-                        NewGuideData::Object test;
-                        test.type = NewGuideData::Test;
+                        GuideData::Object test;
+                        test.type = GuideData::Test;
 
                         elementName = "";
                         while (!(token == QXmlStreamReader::EndElement && elementName == "test")) {
@@ -173,8 +173,8 @@ NewGuideData::Data LegacyXmlParsers::v1Reader(QFile* xmlFileP) {
                         guide.objects.append(test);
                     }
                     if (elementName == "report") {
-                        NewGuideData::Object report;
-                        report.type = NewGuideData::Report;
+                        GuideData::Object report;
+                        report.type = GuideData::Report;
 
                         elementName = "";
                         while (!(token == QXmlStreamReader::EndElement && elementName == "report")) {
@@ -182,7 +182,7 @@ NewGuideData::Data LegacyXmlParsers::v1Reader(QFile* xmlFileP) {
                             elementName = xml.name().toString();
 
                             if (elementName == "test") {
-                                NewGuideData::ReportTest test;
+                                GuideData::ReportTest test;
                                 elementName = "";
                                 while (!(token == QXmlStreamReader::EndElement && elementName == "test")) {
                                     token = xml.readNext();
@@ -214,18 +214,18 @@ NewGuideData::Data LegacyXmlParsers::v1Reader(QFile* xmlFileP) {
         qCritical() << "Error while reading XML file" << fileInfo.fileName();
         xmlFile.close();
 
-        return NewGuideData::errorGuide("Error while reading XML file " + fileInfo.fileName());
+        return GuideData::errorGuide("Error while reading XML file " + fileInfo.fileName());
     }
-    return NewGuideData::errorGuide("Xml Parser returned nothing on file " + fileInfo.fileName());
+    return GuideData::errorGuide("Xml Parser returned nothing on file " + fileInfo.fileName());
 }
 
-NewGuideData::Data LegacyXmlParsers::v1PGPReader(QFile* xmlFileP) {
+GuideData::Data LegacyXmlParsers::v1PGPReader(QFile* xmlFileP) {
     QFile&xmlFile = *xmlFileP;
     QFileInfo fileInfo(xmlFile);
     qDebug() << "Reading xml file" << fileInfo.fileName();
     if (!xmlFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qWarning() << "Failed to open file" << fileInfo.fileName();
-        return NewGuideData::errorGuide("Failed to open file " + fileInfo.fileName());
+        return GuideData::errorGuide("Failed to open file " + fileInfo.fileName());
     }
 
     try {
@@ -238,7 +238,7 @@ NewGuideData::Data LegacyXmlParsers::v1PGPReader(QFile* xmlFileP) {
             elementName = xml.name().toString();
 
             if (elementName == "pgp" && token != QXmlStreamReader::EndElement) {
-                NewGuideData::Data guide;
+                GuideData::Data guide;
 
                 guide.originalFile = fileInfo;
                 for (QXmlStreamAttribute attribute: xml.attributes()) {
@@ -270,8 +270,8 @@ NewGuideData::Data LegacyXmlParsers::v1PGPReader(QFile* xmlFileP) {
                     }
 
                     if (elementName == "goal") {
-                        NewGuideData::Object goal;
-                        goal.type = NewGuideData::Goal;
+                        GuideData::Object goal;
+                        goal.type = GuideData::Goal;
 
                         elementName = "";
                         while (!(token == QXmlStreamReader::EndElement && elementName == "goal")) {
@@ -292,7 +292,7 @@ NewGuideData::Data LegacyXmlParsers::v1PGPReader(QFile* xmlFileP) {
                                     if (attribute.name().toString() == "href")
                                         link = attribute.value().toString();
 
-                                goal.addTask(xml.readElementText(), NewGuideData::Work, link);
+                                goal.addTask(xml.readElementText(), GuideData::Work, link);
                             }
                             if (elementName == "watch") {
                                 QString link = "";
@@ -300,7 +300,7 @@ NewGuideData::Data LegacyXmlParsers::v1PGPReader(QFile* xmlFileP) {
                                     if (attribute.name().toString() == "href")
                                         link = attribute.value().toString();
 
-                                goal.addTask(xml.readElementText(), NewGuideData::Watch, link);
+                                goal.addTask(xml.readElementText(), GuideData::Watch, link);
                             }
                             if (elementName == "read") {
                                 QString link = "";
@@ -308,7 +308,7 @@ NewGuideData::Data LegacyXmlParsers::v1PGPReader(QFile* xmlFileP) {
                                     if (attribute.name().toString() == "href")
                                         link = attribute.value().toString();
 
-                                goal.addTask(xml.readElementText(), NewGuideData::Read, link);
+                                goal.addTask(xml.readElementText(), GuideData::Read, link);
                             }
                             if (elementName == "process") {
                                 QString link = "";
@@ -317,7 +317,7 @@ NewGuideData::Data LegacyXmlParsers::v1PGPReader(QFile* xmlFileP) {
                                         link = attribute.value().toString();
 
 
-                                goal.addTask(xml.readElementText(), NewGuideData::Process, link);
+                                goal.addTask(xml.readElementText(), GuideData::Process, link);
                             }
                             if (elementName == "info") {
                                 QString link = "";
@@ -326,7 +326,7 @@ NewGuideData::Data LegacyXmlParsers::v1PGPReader(QFile* xmlFileP) {
                                         link = attribute.value().toString();
 
 
-                                goal.addTask(xml.readElementText(), NewGuideData::Info, link);
+                                goal.addTask(xml.readElementText(), GuideData::Info, link);
                             }
                             if (elementName == "week") {
                                 goal.setDateFromWeek(xml.readElementText());
@@ -339,8 +339,8 @@ NewGuideData::Data LegacyXmlParsers::v1PGPReader(QFile* xmlFileP) {
                     }
 
                     if (elementName == "test") {
-                        NewGuideData::Object test;
-                        test.type = NewGuideData::Test;
+                        GuideData::Object test;
+                        test.type = GuideData::Test;
 
                         elementName = "";
                         while (!(token == QXmlStreamReader::EndElement && elementName == "test")) {
@@ -363,8 +363,8 @@ NewGuideData::Data LegacyXmlParsers::v1PGPReader(QFile* xmlFileP) {
                         guide.objects.append(test);
                     }
                     if (elementName == "report") {
-                        NewGuideData::Object report;
-                        report.type = NewGuideData::Report;
+                        GuideData::Object report;
+                        report.type = GuideData::Report;
 
                         elementName = "";
                         while (!(token == QXmlStreamReader::EndElement && elementName == "report")) {
@@ -372,7 +372,7 @@ NewGuideData::Data LegacyXmlParsers::v1PGPReader(QFile* xmlFileP) {
                             elementName = xml.name().toString();
 
                             if (elementName == "test") {
-                                NewGuideData::ReportTest test;
+                                GuideData::ReportTest test;
                                 elementName = "";
                                 while (!(token == QXmlStreamReader::EndElement && elementName == "test")) {
                                     token = xml.readNext();
@@ -404,7 +404,7 @@ NewGuideData::Data LegacyXmlParsers::v1PGPReader(QFile* xmlFileP) {
         qCritical() << "Error while reading XML file" << fileInfo.fileName();
         xmlFile.close();
 
-        return NewGuideData::errorGuide("Error while reading XML file " + fileInfo.fileName());
+        return GuideData::errorGuide("Error while reading XML file " + fileInfo.fileName());
     }
-    return NewGuideData::errorGuide("Xml Parser returned nothing on file " + fileInfo.fileName());
+    return GuideData::errorGuide("Xml Parser returned nothing on file " + fileInfo.fileName());
 }

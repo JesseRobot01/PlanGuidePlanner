@@ -63,7 +63,7 @@ void StartScreen::updateStart() {
     qDebug() << "Updating start screen.";
 
     // gather all guides.
-    QVector<OldGuideData::Data> guides = APPLICATION->getUpToDateGuides();
+    QVector<GuideData::Data> guides = APPLICATION->getUpToDateGuides();
 
 
     //nuke old start screen.                            (A la kaboem?!)
@@ -106,7 +106,7 @@ void StartScreen::updateStart() {
     goalFont.setBold(true);
 
     //adds lists
-    for (OldGuideData::Data guide: guides) {
+    for (auto guide: guides) {
         QWidget* startScreenList = new QWidget(ui->scrollAreaWidgetContents);
         QVBoxLayout* startScreenLayout = new QVBoxLayout(startScreenList);
         QLabel* startScreenLabel = new QLabel(startScreenList);
@@ -126,23 +126,19 @@ void StartScreen::updateStart() {
         ui->horizontalLayout_2->addWidget(startScreenList);
 
         // list :)
-        for (OldGuideData::GuideObject object: guide.objects) {
-            if (object.objectType != OldGuideData::Index) {
-                continue;
-            }
-
-            for (OldGuideData::GuideGoals goal: object.goals) {
-                QLabel* goalLabel = new QLabel(goal.goalNumber);
+        for (auto object: guide.objects) {
+            if (object.type == GuideData::Goal) {
+                QLabel* goalLabel = new QLabel(object.number);
                 goalLabel->setFont(goalFont);
                 goalLabel->setAlignment(Qt::AlignCenter);
-                switch (goal.progress.toInt()) {
-                    case 0:
+                switch (object.progress) {
+                    case GuideData::NotStarted:
                         goalLabel->setStyleSheet(notStarted);
                         break;
-                    case 1:
+                    case GuideData::Working:
                         goalLabel->setStyleSheet(progress);
                         break;
-                    case 2:
+                    case GuideData::Finished:
                         goalLabel->setStyleSheet(finished);
                         break;
                     default:
@@ -152,10 +148,12 @@ void StartScreen::updateStart() {
                 startScreenLayout->addWidget(goalLabel);
 
                 totalMaxProgress += 2;
-                currentTotalProgress += goal.progress.toInt();
+                currentTotalProgress += object.progress;
             }
-            QLabel* spacerLabel = new QLabel();
-            startScreenLayout->addWidget(spacerLabel);
+            else {
+                QLabel* spacerLabel = new QLabel();
+                startScreenLayout->addWidget(spacerLabel);
+            }
         }
         QSpacerItem* UnderSpacer = new
                 QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);

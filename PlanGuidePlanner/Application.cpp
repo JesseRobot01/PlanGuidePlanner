@@ -145,10 +145,10 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
             for (const QString&GuideFileName: guideFileNames)
                 guideFiles.append(autoOpenDir.filePath(GuideFileName));
 
-            QVector<NewGuideData::Data> guides = XmlParser::readXml(guideFiles);
+            QVector<GuideData::Data> guides = XmlParser::readXml(guideFiles);
             loadGuide->increaseProgress(guideFileNames.count());
 
-            for (NewGuideData::Data guide: guides) {
+            for (GuideData::Data guide: guides) {
                 appWindow->processGuide(guide, false);
                 loadGuide->increaseProgress();
             }
@@ -177,8 +177,8 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
                 else if (isXmlFile(file))
                     guideFiles.append(file);
             }
-            QVector<NewGuideData::Data> guides = XmlParser::readXml(guideFiles);
-            for (NewGuideData::Data guide: guides) {
+            QVector<GuideData::Data> guides = XmlParser::readXml(guideFiles);
+            for (GuideData::Data guide: guides) {
                 QDir copyToDestination(getAutoSaveLocation());
 
                 if (copyToDestination.mkpath(".")) {
@@ -332,12 +332,12 @@ void Application::startAutoSaveTimer() {
 
 void Application::autoSaveTriggered() {
     qDebug() << "Auto saving...";
-    QVector<NewGuideData::Data> guideDataToSave;
+    QVector<GuideData::Data> guideDataToSave;
 
     //extract the guideData
-    for (Guide* guide: guidesToSave) {
+    for (auto* guide: guidesToSave) {
         guide->isInAutoSaveList = false;
-        guideDataToSave.append(NewGuideData::fromOldData(guide->getGuide()));
+        guideDataToSave.append(guide->getGuide());
     }
     XmlParser::autoSaveXml(guideDataToSave);
 
@@ -346,21 +346,17 @@ void Application::autoSaveTriggered() {
     appWindow->updateStart();
 }
 
-QVector<OldGuideData::Data> Application::getUpToDateGuides() {
+QVector<GuideData::Data> Application::getUpToDateGuides() {
     // Extract guides
-    QVector<OldGuideData::Data> result;
-    for (Guide* guide: appWindow->guides) {
+    QVector<GuideData::Data> result;
+    for (auto* guide: appWindow->guides) {
         result.append(guide->getGuide());
     }
     return result;
 }
 
-void Application::updateGuide(int guideIndex, OldGuideData::Data updatedGuide) {
-    Guide* guide = appWindow->guides.at(guideIndex);
-    guide->emptyGuide();
-    guide->setGuide(updatedGuide);
-    appWindow->setTabName(guideIndex + 1, updatedGuide.shortName);
-    appWindow->updateStart();
+void Application::updateGuide(int guideIndex, GuideData::Data updatedGuide) {
+appWindow->updateGuide(guideIndex, updatedGuide);
 }
 
 bool Application::isXmlFile(const QString&file) {
@@ -375,4 +371,14 @@ bool Application::isZipFile(const QString&file) {
            || file.endsWith("pgd")
            || file.endsWith("pgm")
            || file.endsWith("sgc");
+}
+
+void Application::autoSave(Guide* guide) {
+    isFileChanged = true;
+    if (guide->isInAutoSaveList)
+        return;
+
+    guide->isInAutoSaveList = true;
+    APPLICATION->guidesToSave.append(guide);
+    APPLICATION->startAutoSaveTimer();
 }

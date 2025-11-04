@@ -1,5 +1,5 @@
 //
-// Created by Jesse on 24-10-2025.
+// Created by Jesse on 01-11-2025.
 //
 
 #include <QTest>
@@ -7,13 +7,13 @@
 #include <QObject>
 #include <XmlParser.h>
 
-#include "ui/guide/Guide.h"
+#include "creator/Creator.h"
 
-class CollectDataTest : public QObject {
+class CreatorDataTest : public QObject {
     Q_OBJECT
 
 private slots:
-    void CollectDataFromGuideTest() {
+    void CollectDataFromCreatorTest() {
         auto testDir = QDir(QFINDTESTDATA("testdata"));
         QFile* inputFile = new QFile(testDir.absoluteFilePath("testfile.xml"));
         GuideData::Data testData;
@@ -22,15 +22,17 @@ private slots:
         testData = XmlParser::readXml(inputFile);
 
 
-        Guide* guide = new Guide(nullptr, &testData);
+        auto creator = new Creator(nullptr);
+
+        creator->open(testData);
 
         //save it
         testDir.mkdir("tmp");
         QDir testTmpDir = testDir.filePath("tmp");
 
-        auto* outputFile = new QFile(testTmpDir.absoluteFilePath("output_collectData.xml"));
+        auto* outputFile = new QFile(testTmpDir.absoluteFilePath("output_creatorData.xml"));
 
-        XmlParser::saveXml(guide->getGuide(), *outputFile);
+        XmlParser::saveXml(creator->getCurrentGuide(), *outputFile);
 
 
         inputFile->open(QIODevice::ReadOnly);
@@ -40,6 +42,6 @@ private slots:
     }
 };
 
-QTEST_MAIN(CollectDataTest);
+QTEST_MAIN(CreatorDataTest);
 
-#include "CollectData_test.moc"
+#include "CreatorData_test.moc"

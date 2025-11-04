@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pgp format-version="2.0">
+<pgp format-version="2">
     <guide period="2">
         <name short="TEST">Example</name>
         <info>This is an example Guide!</info>
     </guide>
-    <goal number="1.1" duration="90" date="2025-12-16" progress="0">
+    <goal number="1.1" duration="90" date="2025-12-16" progress="2">
         <name>Hello World!</name>
         <task type="work">Make exercise 1 to 6.</task>
         <task type="watch">[How to cook an egg on YouTube.](https://youtu.be/hUqO3tFexiQ?si=h-AJ7ujvtEdDJaaE)</task>
