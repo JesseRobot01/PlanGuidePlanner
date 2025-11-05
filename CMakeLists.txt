@@ -181,9 +181,13 @@ if (UNIX)
     set(CPACK_PACKAGE_NAME "PlanGuidePlanner")
 endif ()
 
-if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
-    set(CMAKE_MSVC_RUNTIME_LIBRARY MultiThreadedDebug)
-endif ()
+if(MSVC)
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+endif()
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+    set(CMAKE_INSTALL_DEBUG_LIBRARIES_ONLY ON)
+endif()
 
 include(InstallRequiredSystemLibraries)
 include(CPack)
