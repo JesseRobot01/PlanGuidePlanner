@@ -145,6 +145,7 @@ GuideData::Data XmlParser::readXml(QFile* xmlFileP) {
                         GuideData::Object br;
                         br.type = GuideData::Break;
                         guide.objects.append(br);
+                        xml.readNext(); // Reads the end and avoids duplicates.
                     }
 
                     if (elementName == "test") {
