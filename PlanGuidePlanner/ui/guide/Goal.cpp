@@ -115,19 +115,19 @@ void Goal::retranslateUi() {
     for (int i = 0; i < taskOrder.size(); i++) {
         switch (taskOrder.at(i)) {
             case GuideData::Work:
-                taskLabels.at(i)->setText("UI_WORKINDICATOR");
+                taskLabels.at(i)->setText(tr("UI_WORKINDICATOR"));
                 break;
             case GuideData::Watch:
-                taskLabels.at(i)->setText("UI_WATCHINDICATOR");
+                taskLabels.at(i)->setText(tr("UI_WATCHINDICATOR"));
                 break;
             case GuideData::Read:
-                taskLabels.at(i)->setText("UI_READINDICATOR");
+                taskLabels.at(i)->setText(tr("UI_READINDICATOR"));
                 break;
             case GuideData::Process:
-                taskLabels.at(i)->setText("UI_PROCESSINDICATOR");
+                taskLabels.at(i)->setText(tr("UI_PROCESSINDICATOR"));
                 break;
             case GuideData::Info:
-                taskLabels.at(i)->setText("UI_INFOINDICATOR");
+                taskLabels.at(i)->setText(tr("UI_INFOINDICATOR"));
                 break;
         }
     }

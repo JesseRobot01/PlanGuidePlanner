@@ -67,8 +67,8 @@
     <message>
         <location filename="../creator/Creator.ui" line="47"/>
         <location filename="../creator/Creator.ui" line="147"/>
-        <location filename="../creator/Creator.cpp" line="161"/>
-        <location filename="../creator/Creator.cpp" line="229"/>
+        <location filename="../creator/Creator.cpp" line="177"/>
+        <location filename="../creator/Creator.cpp" line="220"/>
         <source>Name</source>
         <translation>Cheese 🧀</translation>
     </message>
@@ -79,38 +79,38 @@
     </message>
     <message>
         <location filename="../creator/Creator.ui" line="57"/>
-        <location filename="../creator/Creator.cpp" line="262"/>
-        <location filename="../creator/Creator.cpp" line="456"/>
-        <location filename="../creator/Creator.cpp" line="706"/>
-        <location filename="../creator/Creator.cpp" line="880"/>
-        <location filename="../creator/Creator.cpp" line="882"/>
+        <location filename="../creator/Creator.cpp" line="239"/>
+        <location filename="../creator/Creator.cpp" line="412"/>
+        <location filename="../creator/Creator.cpp" line="673"/>
+        <location filename="../creator/Creator.cpp" line="844"/>
+        <location filename="../creator/Creator.cpp" line="846"/>
         <source>Guide</source>
         <translation>Cheese 🧀</translation>
     </message>
     <message>
         <location filename="../creator/Creator.ui" line="61"/>
-        <location filename="../creator/Creator.cpp" line="272"/>
-        <location filename="../creator/Creator.cpp" line="280"/>
-        <location filename="../creator/Creator.cpp" line="463"/>
-        <location filename="../creator/Creator.cpp" line="707"/>
-        <location filename="../creator/Creator.cpp" line="881"/>
+        <location filename="../creator/Creator.cpp" line="244"/>
+        <location filename="../creator/Creator.cpp" line="245"/>
+        <location filename="../creator/Creator.cpp" line="419"/>
+        <location filename="../creator/Creator.cpp" line="674"/>
+        <location filename="../creator/Creator.cpp" line="845"/>
         <source>Period</source>
         <translation>Cheesey Period 🧀</translation>
     </message>
     <message>
         <location filename="../creator/Creator.ui" line="66"/>
         <location filename="../creator/Creator.ui" line="205"/>
-        <location filename="../creator/Creator.cpp" line="170"/>
-        <location filename="../creator/Creator.cpp" line="250"/>
-        <location filename="../creator/Creator.cpp" line="395"/>
-        <location filename="../creator/Creator.cpp" line="430"/>
+        <location filename="../creator/Creator.cpp" line="188"/>
+        <location filename="../creator/Creator.cpp" line="233"/>
+        <location filename="../creator/Creator.cpp" line="355"/>
+        <location filename="../creator/Creator.cpp" line="385"/>
+        <location filename="../creator/Creator.cpp" line="422"/>
         <location filename="../creator/Creator.cpp" line="466"/>
-        <location filename="../creator/Creator.cpp" line="509"/>
-        <location filename="../creator/Creator.cpp" line="708"/>
-        <location filename="../creator/Creator.cpp" line="755"/>
-        <location filename="../creator/Creator.cpp" line="775"/>
-        <location filename="../creator/Creator.cpp" line="873"/>
-        <location filename="../creator/Creator.cpp" line="882"/>
+        <location filename="../creator/Creator.cpp" line="675"/>
+        <location filename="../creator/Creator.cpp" line="716"/>
+        <location filename="../creator/Creator.cpp" line="734"/>
+        <location filename="../creator/Creator.cpp" line="836"/>
+        <location filename="../creator/Creator.cpp" line="846"/>
         <source>Information</source>
         <translation>Info about cheese: 🧀</translation>
     </message>
@@ -136,14 +136,14 @@
     </message>
     <message>
         <location filename="../creator/Creator.ui" line="157"/>
-        <location filename="../creator/Creator.cpp" line="162"/>
-        <location filename="../creator/Creator.cpp" line="230"/>
+        <location filename="../creator/Creator.cpp" line="178"/>
+        <location filename="../creator/Creator.cpp" line="221"/>
         <source>Number</source>
         <translation>Cheese Number 🧀</translation>
     </message>
     <message>
         <location filename="../creator/Creator.ui" line="167"/>
-        <location filename="../creator/Creator.cpp" line="259"/>
+        <location filename="../creator/Creator.cpp" line="235"/>
         <source>Info</source>
         <translation>Cheesey Info 🧀</translation>
     </message>
@@ -154,210 +154,233 @@
     </message>
     <message>
         <location filename="../creator/Creator.ui" line="185"/>
-        <location filename="../creator/Creator.cpp" line="166"/>
-        <location filename="../creator/Creator.cpp" line="383"/>
-        <location filename="../creator/Creator.cpp" line="539"/>
-        <location filename="../creator/Creator.cpp" line="743"/>
-        <location filename="../creator/Creator.cpp" line="868"/>
+        <location filename="../creator/Creator.cpp" line="184"/>
+        <location filename="../creator/Creator.cpp" line="343"/>
+        <location filename="../creator/Creator.cpp" line="496"/>
+        <location filename="../creator/Creator.cpp" line="704"/>
+        <location filename="../creator/Creator.cpp" line="831"/>
         <source>Work</source>
         <translation>Workng Cheese 🧀</translation>
     </message>
     <message>
         <location filename="../creator/Creator.ui" line="190"/>
-        <location filename="../creator/Creator.cpp" line="167"/>
-        <location filename="../creator/Creator.cpp" line="389"/>
-        <location filename="../creator/Creator.cpp" line="749"/>
-        <location filename="../creator/Creator.cpp" line="869"/>
+        <location filename="../creator/Creator.cpp" line="185"/>
+        <location filename="../creator/Creator.cpp" line="349"/>
+        <location filename="../creator/Creator.cpp" line="710"/>
+        <location filename="../creator/Creator.cpp" line="832"/>
         <source>Watch/ Listen</source>
         <translation>The cheese is watching you 🧀</translation>
     </message>
     <message>
         <location filename="../creator/Creator.ui" line="195"/>
-        <location filename="../creator/Creator.cpp" line="168"/>
-        <location filename="../creator/Creator.cpp" line="386"/>
-        <location filename="../creator/Creator.cpp" line="746"/>
-        <location filename="../creator/Creator.cpp" line="870"/>
+        <location filename="../creator/Creator.cpp" line="186"/>
+        <location filename="../creator/Creator.cpp" line="346"/>
+        <location filename="../creator/Creator.cpp" line="707"/>
+        <location filename="../creator/Creator.cpp" line="833"/>
         <source>Read</source>
         <translation>Reading  Cheese 🧀</translation>
     </message>
     <message>
         <location filename="../creator/Creator.ui" line="200"/>
-        <location filename="../creator/Creator.cpp" line="169"/>
-        <location filename="../creator/Creator.cpp" line="392"/>
-        <location filename="../creator/Creator.cpp" line="752"/>
-        <location filename="../creator/Creator.cpp" line="871"/>
+        <location filename="../creator/Creator.cpp" line="187"/>
+        <location filename="../creator/Creator.cpp" line="352"/>
+        <location filename="../creator/Creator.cpp" line="713"/>
+        <location filename="../creator/Creator.cpp" line="834"/>
         <source>Process</source>
         <translation>Processing  Cheese 🧀</translation>
     </message>
     <message>
         <location filename="../creator/Creator.ui" line="213"/>
-        <location filename="../creator/Creator.cpp" line="211"/>
-        <location filename="../creator/Creator.cpp" line="401"/>
-        <location filename="../creator/Creator.cpp" line="493"/>
-        <location filename="../creator/Creator.cpp" line="735"/>
+        <location filename="../creator/Creator.cpp" line="212"/>
+        <location filename="../creator/Creator.cpp" line="361"/>
+        <location filename="../creator/Creator.cpp" line="449"/>
+        <location filename="../creator/Creator.cpp" line="696"/>
         <source>Progress</source>
         <translation>Cheesey Progress 🧀</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.ui" line="337"/>
+        <location filename="../creator/Creator.ui" line="255"/>
+        <location filename="../creator/Creator.cpp" line="207"/>
+        <location filename="../creator/Creator.cpp" line="382"/>
+        <location filename="../creator/Creator.cpp" line="462"/>
+        <location filename="../creator/Creator.cpp" line="730"/>
+        <source>Date</source>
+        <translation>When Cheese 🧀</translation>
+    </message>
+    <message>
+        <location filename="../creator/Creator.ui" line="272"/>
+        <source>Duration</source>
+        <translation>How long Cheese 🧀</translation>
+    </message>
+    <message>
+        <location filename="../creator/Creator.ui" line="355"/>
         <source>Open Guide</source>
         <translation>Open Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.ui" line="340"/>
+        <location filename="../creator/Creator.ui" line="358"/>
         <source>Ctrl+O</source>
         <translation>Cheesey Keybind 🧀</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.ui" line="345"/>
+        <location filename="../creator/Creator.ui" line="363"/>
         <source>Save Guide</source>
         <translation>Save Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.ui" line="348"/>
+        <location filename="../creator/Creator.ui" line="366"/>
         <source>Ctrl+S</source>
         <translation>Cheesey Keybind 🧀</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.ui" line="353"/>
+        <location filename="../creator/Creator.ui" line="371"/>
         <source>Save Guide As</source>
         <translation>Save Cheese 🧀 as</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.ui" line="356"/>
+        <location filename="../creator/Creator.ui" line="374"/>
         <source>Ctrl+Shift+S</source>
         <translation>Cheesey Keybind 🧀</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.ui" line="361"/>
+        <location filename="../creator/Creator.ui" line="379"/>
         <source>Quit</source>
         <translation>Exit Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="26"/>
-        <location filename="../creator/Creator.cpp" line="528"/>
+        <location filename="../creator/Creator.cpp" line="25"/>
+        <location filename="../creator/Creator.cpp" line="485"/>
         <source>Add Goal Task</source>
         <translation>Add 🧀 to 🧀</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="29"/>
-        <location filename="../creator/Creator.cpp" line="546"/>
+        <location filename="../creator/Creator.cpp" line="28"/>
+        <location filename="../creator/Creator.cpp" line="503"/>
         <source>Add Test To Report</source>
         <translation>Add cheesey 🧀 test to cheesey 🧀 grades</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="34"/>
-        <location filename="../creator/Creator.cpp" line="482"/>
+        <location filename="../creator/Creator.cpp" line="33"/>
+        <location filename="../creator/Creator.cpp" line="439"/>
         <source>Add Goal</source>
         <translation>Add Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="37"/>
-        <location filename="../creator/Creator.cpp" line="501"/>
+        <location filename="../creator/Creator.cpp" line="36"/>
+        <location filename="../creator/Creator.cpp" line="457"/>
         <source>Add Test</source>
         <translation>Add Testing Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="40"/>
-        <location filename="../creator/Creator.cpp" line="516"/>
+        <location filename="../creator/Creator.cpp" line="39"/>
+        <location filename="../creator/Creator.cpp" line="473"/>
         <source>Add Report</source>
         <translation>Add Cheesey Grades 🧀</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="45"/>
-        <location filename="../creator/Creator.cpp" line="269"/>
-        <location filename="../creator/Creator.cpp" line="792"/>
+        <location filename="../creator/Creator.cpp" line="42"/>
+        <location filename="../creator/Creator.cpp" line="520"/>
+        <source>Add Break</source>
+        <translation>Add empty Cheese 🧀</translation>
+    </message>
+    <message>
+        <location filename="../creator/Creator.cpp" line="48"/>
+        <location filename="../creator/Creator.cpp" line="240"/>
+        <location filename="../creator/Creator.cpp" line="756"/>
         <source>Subject Name</source>
         <translation>Cheese name 🧀</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="46"/>
-        <location filename="../creator/Creator.cpp" line="270"/>
-        <location filename="../creator/Creator.cpp" line="793"/>
+        <location filename="../creator/Creator.cpp" line="49"/>
+        <location filename="../creator/Creator.cpp" line="241"/>
+        <location filename="../creator/Creator.cpp" line="757"/>
         <source>Short Name</source>
         <translation>smol 🧀 name</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="154"/>
-        <location filename="../creator/Creator.cpp" line="171"/>
-        <location filename="../creator/Creator.cpp" line="179"/>
-        <location filename="../creator/Creator.cpp" line="204"/>
-        <location filename="../creator/Creator.cpp" line="250"/>
-        <location filename="../creator/Creator.cpp" line="370"/>
-        <location filename="../creator/Creator.cpp" line="484"/>
-        <location filename="../creator/Creator.cpp" line="532"/>
-        <location filename="../creator/Creator.cpp" line="719"/>
-        <location filename="../creator/Creator.cpp" line="867"/>
-        <location filename="../creator/Creator.cpp" line="873"/>
+        <location filename="../creator/Creator.cpp" line="175"/>
+        <location filename="../creator/Creator.cpp" line="189"/>
+        <location filename="../creator/Creator.cpp" line="193"/>
+        <location filename="../creator/Creator.cpp" line="233"/>
+        <location filename="../creator/Creator.cpp" line="334"/>
+        <location filename="../creator/Creator.cpp" line="441"/>
+        <location filename="../creator/Creator.cpp" line="489"/>
+        <location filename="../creator/Creator.cpp" line="685"/>
+        <location filename="../creator/Creator.cpp" line="830"/>
+        <location filename="../creator/Creator.cpp" line="836"/>
         <source>Goal</source>
         <translation>Cheesey Goal 🧀</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="180"/>
+        <location filename="../creator/Creator.cpp" line="194"/>
         <source>Link</source>
         <translation>External Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="183"/>
-        <location filename="../creator/Creator.cpp" line="191"/>
-        <location filename="../creator/Creator.cpp" line="404"/>
-        <location filename="../creator/Creator.cpp" line="487"/>
-        <location filename="../creator/Creator.cpp" line="725"/>
         <source>Time</source>
-        <translation>Cheesey Time 🧀</translation>
+        <translation type="vanished">Cheesey Time 🧀</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="194"/>
-        <location filename="../creator/Creator.cpp" line="202"/>
-        <location filename="../creator/Creator.cpp" line="398"/>
-        <location filename="../creator/Creator.cpp" line="427"/>
-        <location filename="../creator/Creator.cpp" line="490"/>
-        <location filename="../creator/Creator.cpp" line="506"/>
-        <location filename="../creator/Creator.cpp" line="730"/>
-        <location filename="../creator/Creator.cpp" line="771"/>
+        <location filename="../creator/Creator.cpp" line="358"/>
         <source>Week</source>
         <translation>Cheesey Week 🧀</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="222"/>
-        <location filename="../creator/Creator.cpp" line="418"/>
-        <location filename="../creator/Creator.cpp" line="444"/>
-        <location filename="../creator/Creator.cpp" line="503"/>
-        <location filename="../creator/Creator.cpp" line="521"/>
-        <location filename="../creator/Creator.cpp" line="556"/>
-        <location filename="../creator/Creator.cpp" line="766"/>
-        <location filename="../creator/Creator.cpp" line="785"/>
-        <location filename="../creator/Creator.cpp" line="874"/>
+        <location filename="../creator/Creator.cpp" line="218"/>
+        <location filename="../creator/Creator.cpp" line="373"/>
+        <location filename="../creator/Creator.cpp" line="399"/>
+        <location filename="../creator/Creator.cpp" line="459"/>
+        <location filename="../creator/Creator.cpp" line="478"/>
+        <location filename="../creator/Creator.cpp" line="513"/>
+        <location filename="../creator/Creator.cpp" line="725"/>
+        <location filename="../creator/Creator.cpp" line="744"/>
+        <location filename="../creator/Creator.cpp" line="837"/>
         <source>Test</source>
         <translation>Testing Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="240"/>
-        <location filename="../creator/Creator.cpp" line="438"/>
-        <location filename="../creator/Creator.cpp" line="518"/>
-        <location filename="../creator/Creator.cpp" line="549"/>
-        <location filename="../creator/Creator.cpp" line="782"/>
-        <location filename="../creator/Creator.cpp" line="875"/>
+        <location filename="../creator/Creator.cpp" line="199"/>
+        <location filename="../creator/Creator.cpp" line="364"/>
+        <location filename="../creator/Creator.cpp" line="444"/>
+        <location filename="../creator/Creator.cpp" line="691"/>
+        <source>Date &amp; Duration</source>
+        <translation>When 🧀 and for how long 🧀?</translation>
+    </message>
+    <message>
+        <location filename="../creator/Creator.cpp" line="229"/>
+        <location filename="../creator/Creator.cpp" line="393"/>
+        <location filename="../creator/Creator.cpp" line="475"/>
+        <location filename="../creator/Creator.cpp" line="506"/>
+        <location filename="../creator/Creator.cpp" line="741"/>
+        <location filename="../creator/Creator.cpp" line="838"/>
         <source>Report</source>
         <translation>Cheesey Grades 🧀</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="577"/>
+        <location filename="../creator/Creator.cpp" line="427"/>
+        <location filename="../creator/Creator.cpp" line="522"/>
+        <location filename="../creator/Creator.cpp" line="752"/>
+        <location filename="../creator/Creator.cpp" line="839"/>
+        <source>Break</source>
+        <translation>Empty Cheese 🧀</translation>
+    </message>
+    <message>
+        <location filename="../creator/Creator.cpp" line="544"/>
         <source>Open PlanGuidePlanner</source>
         <translation>Open Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="579"/>
+        <location filename="../creator/Creator.cpp" line="546"/>
         <source>All Supported Files (*.pgd *.pgx *.xml);;Plan Guide Planner Document (*.pgd);;Plan Guide Planner XML-based file (*.pgx);;*.Xml Files (*.xml);;All Files (*)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="644"/>
+        <location filename="../creator/Creator.cpp" line="611"/>
         <source>Save PlanGuidePlanner</source>
         <translation>Save Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="646"/>
+        <location filename="../creator/Creator.cpp" line="613"/>
         <source>Plan Guide Planner Document (*.pgd);;Plan Guide Planner XML-based file (*.pgx);;*.Xml Files (*.xml);;All Files (*)</source>
         <translation></translation>
     </message>
@@ -365,100 +388,187 @@
 <context>
     <name>Goal</name>
     <message>
-        <location filename="../ui/guide/Goal.ui" line="14"/>
         <source>Goal</source>
-        <translation>Cheese 🧀</translation>
+        <translation type="vanished">Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../ui/guide/Goal.cpp" line="88"/>
+        <location filename="../ui/guide/Goal.cpp" line="118"/>
         <source>UI_WORKINDICATOR</source>
         <translation>🧀</translation>
     </message>
     <message>
-        <location filename="../ui/guide/Goal.cpp" line="95"/>
+        <location filename="../ui/guide/Goal.cpp" line="121"/>
         <source>UI_WATCHINDICATOR</source>
         <translation>🧀</translation>
     </message>
     <message>
-        <location filename="../ui/guide/Goal.cpp" line="102"/>
+        <location filename="../ui/guide/Goal.cpp" line="124"/>
         <source>UI_READINDICATOR</source>
         <translation>🧀</translation>
     </message>
     <message>
-        <location filename="../ui/guide/Goal.cpp" line="110"/>
+        <location filename="../ui/guide/Goal.cpp" line="127"/>
         <source>UI_PROCESSINDICATOR</source>
         <translation>🧀</translation>
     </message>
     <message>
-        <location filename="../ui/guide/Goal.cpp" line="117"/>
+        <location filename="../ui/guide/Goal.cpp" line="130"/>
         <source>UI_INFOINDICATOR</source>
+        <translation>🧀</translation>
+    </message>
+    <message>
+        <location filename="../ui/guide/Goal.ui" line="14"/>
+        <source>GoalFrame</source>
         <translation>🧀</translation>
     </message>
 </context>
 <context>
+    <name>GoalFrame</name>
+    <message>
+        <location filename="../ui/guide/GoalFrame.ui" line="14"/>
+        <source>GoalFrame</source>
+        <translation>🧀</translation>
+    </message>
+    <message>
+        <location filename="../ui/guide/GoalFrame.ui" line="71"/>
+        <source>Subject Index</source>
+        <translation>Cheese 🧀</translation>
+    </message>
+    <message>
+        <location filename="../ui/guide/GoalFrame.ui" line="148"/>
+        <source>Time</source>
+        <translation>Cheesey Time 🧀</translation>
+    </message>
+    <message>
+        <location filename="../ui/guide/GoalFrame.ui" line="197"/>
+        <source>Done</source>
+        <translation>Finished Cheese 🧀</translation>
+    </message>
+    <message>
+        <location filename="../ui/guide/GoalFrame.ui" line="240"/>
+        <source>Week</source>
+        <translation>Cheesey Week 🧀</translation>
+    </message>
+</context>
+<context>
     <name>Guide</name>
+    <message>
+        <source>Guide</source>
+        <translation type="vanished">Cheese 🧀</translation>
+    </message>
+    <message>
+        <source>period</source>
+        <translation type="vanished">Cheese Number 🧀</translation>
+    </message>
+    <message>
+        <source>UI_WORKINDICATOR</source>
+        <translation type="vanished">🧀</translation>
+    </message>
+    <message>
+        <source>UI_READINDICATOR</source>
+        <translation type="vanished">🧀</translation>
+    </message>
+    <message>
+        <source>UI_WATCHINDICATOR</source>
+        <translation type="vanished">🧀</translation>
+    </message>
+    <message>
+        <source>Reading</source>
+        <translation type="vanished">Cheesing 🧀</translation>
+    </message>
+    <message>
+        <source>Work</source>
+        <translation type="vanished">Cheesing 🧀</translation>
+    </message>
+    <message>
+        <source>Watch/ listen</source>
+        <translation type="vanished">Cheesing 🧀</translation>
+    </message>
+    <message>
+        <source>Procces</source>
+        <translation type="vanished">Cheesing 🧀</translation>
+    </message>
+    <message>
+        <source>UI_PROCESSINDICATOR</source>
+        <translation type="vanished">🧀</translation>
+    </message>
+    <message>
+        <source>Main Information</source>
+        <translation type="vanished">Main Cheese 🧀</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="vanished">Info about cheese: 🧀</translation>
+    </message>
+    <message>
+        <source>UI_INFOINDICATOR</source>
+        <translation type="vanished">🧀</translation>
+    </message>
+</context>
+<context>
+    <name>GuideBase</name>
     <message>
         <location filename="../ui/guide/Guide.ui" line="14"/>
         <source>Guide</source>
         <translation>Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../ui/guide/Guide.ui" line="75"/>
-        <source>period</source>
-        <translation>Cheese Number 🧀</translation>
+        <location filename="../ui/guide/Guide.ui" line="172"/>
+        <source>Period</source>
+        <translation>Cheesey Period 🧀</translation>
     </message>
     <message>
-        <location filename="../ui/guide/Guide.ui" line="276"/>
-        <source>UI_WORKINDICATOR</source>
-        <translation>🧀</translation>
-    </message>
-    <message>
-        <location filename="../ui/guide/Guide.ui" line="310"/>
-        <source>UI_READINDICATOR</source>
-        <translation>🧀</translation>
-    </message>
-    <message>
-        <location filename="../ui/guide/Guide.ui" line="344"/>
-        <source>UI_WATCHINDICATOR</source>
-        <translation>🧀</translation>
-    </message>
-    <message>
-        <location filename="../ui/guide/Guide.ui" line="375"/>
-        <source>Reading</source>
-        <translation>Cheesing 🧀</translation>
-    </message>
-    <message>
-        <location filename="../ui/guide/Guide.ui" line="409"/>
-        <source>Work</source>
-        <translation>Cheesing 🧀</translation>
-    </message>
-    <message>
-        <location filename="../ui/guide/Guide.ui" line="440"/>
-        <source>Watch/ listen</source>
-        <translation>Cheesing 🧀</translation>
-    </message>
-    <message>
-        <location filename="../ui/guide/Guide.ui" line="471"/>
-        <source>Procces</source>
-        <translation>Cheesing 🧀</translation>
-    </message>
-    <message>
-        <location filename="../ui/guide/Guide.ui" line="505"/>
-        <source>UI_PROCESSINDICATOR</source>
-        <translation>🧀</translation>
-    </message>
-    <message>
-        <location filename="../ui/guide/Guide.ui" line="533"/>
+        <location filename="../ui/guide/Guide.ui" line="280"/>
         <source>Main Information</source>
         <translation>Main Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../ui/guide/Guide.ui" line="564"/>
+        <location filename="../ui/guide/Guide.ui" line="410"/>
+        <source>Work</source>
+        <translation>Workng Cheese 🧀</translation>
+    </message>
+    <message>
+        <location filename="../ui/guide/Guide.ui" line="453"/>
+        <source>UI_WORKINDICATOR</source>
+        <translation>🧀</translation>
+    </message>
+    <message>
+        <location filename="../ui/guide/Guide.ui" line="503"/>
+        <source>Watch / Listen</source>
+        <translation>The cheese is watching you 🧀</translation>
+    </message>
+    <message>
+        <location filename="../ui/guide/Guide.ui" line="546"/>
+        <source>UI_WATCHINDICATOR</source>
+        <translation>🧀</translation>
+    </message>
+    <message>
+        <location filename="../ui/guide/Guide.ui" line="596"/>
+        <source>Reading</source>
+        <translation>Cheesing 🧀</translation>
+    </message>
+    <message>
+        <location filename="../ui/guide/Guide.ui" line="639"/>
+        <source>UI_READINDICATOR</source>
+        <translation>🧀</translation>
+    </message>
+    <message>
+        <location filename="../ui/guide/Guide.ui" line="689"/>
+        <source>Process</source>
+        <translation>Processing  Cheese 🧀</translation>
+    </message>
+    <message>
+        <location filename="../ui/guide/Guide.ui" line="732"/>
+        <source>UI_PROCESSINDICATOR</source>
+        <translation>🧀</translation>
+    </message>
+    <message>
+        <location filename="../ui/guide/Guide.ui" line="782"/>
         <source>Information</source>
         <translation>Info about cheese: 🧀</translation>
     </message>
     <message>
-        <location filename="../ui/guide/Guide.ui" line="598"/>
+        <location filename="../ui/guide/Guide.ui" line="825"/>
         <source>UI_INFOINDICATOR</source>
         <translation>🧀</translation>
     </message>
@@ -466,68 +576,68 @@
 <context>
     <name>GuideData</name>
     <message>
-        <location filename="../guide/GuideData.cpp" line="12"/>
+        <location filename="../guide/GuideData.cpp" line="14"/>
         <source>Error</source>
         <translation>Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../guide/GuideData.cpp" line="13"/>
+        <location filename="../guide/GuideData.cpp" line="15"/>
         <source>Err</source>
         <translation>🧀</translation>
     </message>
     <message>
-        <location filename="../guide/GuideData.cpp" line="15"/>
+        <location filename="../guide/GuideData.cpp" line="17"/>
         <source>Uh oh, something went wrong. 
 Error Description: </source>
         <translation>Uh oh, Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../guide/GuideData.cpp" line="22"/>
+        <location filename="../guide/GuideData.cpp" line="28"/>
         <source>Try this:</source>
         <translation>Try cheese: 🧀</translation>
     </message>
     <message>
-        <location filename="../guide/GuideData.cpp" line="26"/>
+        <location filename="../guide/GuideData.cpp" line="32"/>
         <source>Check if the file is supported.</source>
         <translation>Check if Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../guide/GuideData.cpp" line="27"/>
+        <location filename="../guide/GuideData.cpp" line="33"/>
         <source>Open the mentioned file in a text editor,</source>
         <translation>Open Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../guide/GuideData.cpp" line="28"/>
+        <location filename="../guide/GuideData.cpp" line="34"/>
         <source>Search for &apos;&lt;StudyGuide&apos; near the start of the document.</source>
         <translation>Search For Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../guide/GuideData.cpp" line="33"/>
+        <location filename="../guide/GuideData.cpp" line="36"/>
         <source>Try this too:</source>
         <translation>Typ Cheese 🧀!</translation>
     </message>
     <message>
-        <location filename="../guide/GuideData.cpp" line="37"/>
+        <location filename="../guide/GuideData.cpp" line="40"/>
         <source>Check if the file is not open in another program.</source>
         <translation>Check if Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../guide/GuideData.cpp" line="38"/>
+        <location filename="../guide/GuideData.cpp" line="41"/>
         <source>Try making a copy!</source>
         <translation>Try cheesing! 🧀</translation>
     </message>
     <message>
-        <location filename="../guide/GuideData.cpp" line="42"/>
+        <location filename="../guide/GuideData.cpp" line="43"/>
         <source>This is also an option:</source>
         <translation>This is cheese: 🧀🧀🧀</translation>
     </message>
     <message>
-        <location filename="../guide/GuideData.cpp" line="46"/>
+        <location filename="../guide/GuideData.cpp" line="47"/>
         <source>Report an issue here.</source>
         <translation>Report the impostor cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../guide/GuideData.cpp" line="47"/>
+        <location filename="../guide/GuideData.cpp" line="48"/>
         <source>Make sure to attach the document and the logs!</source>
         <translation>Make sure you have cheese! 🧀</translation>
     </message>
@@ -535,29 +645,24 @@ Error Description: </source>
 <context>
     <name>Index</name>
     <message>
-        <location filename="../ui/guide/Index.ui" line="14"/>
         <source>Index</source>
-        <translation>Cheese 🧀</translation>
+        <translation type="vanished">Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../ui/guide/Index.ui" line="53"/>
         <source>Subject Index</source>
-        <translation>Cheese 🧀</translation>
+        <translation type="vanished">Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../ui/guide/Index.ui" line="93"/>
         <source>Time</source>
-        <translation>Cheesey Time 🧀</translation>
+        <translation type="vanished">Cheesey Time 🧀</translation>
     </message>
     <message>
-        <location filename="../ui/guide/Index.ui" line="130"/>
         <source>Done</source>
-        <translation>Finished Cheese 🧀</translation>
+        <translation type="vanished">Finished Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../ui/guide/Index.ui" line="167"/>
         <source>Week</source>
-        <translation>Cheesey Week 🧀</translation>
+        <translation type="vanished">Cheesey Week 🧀</translation>
     </message>
 </context>
 <context>
@@ -666,38 +771,38 @@ Error Description: </source>
         <translation>Report Impostor Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="36"/>
+        <location filename="../ui/MainWindow.cpp" line="32"/>
         <source>Start</source>
         <translation>Cheesey Start 🧀</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="88"/>
-        <location filename="../ui/MainWindow.cpp" line="102"/>
+        <location filename="../ui/MainWindow.cpp" line="84"/>
+        <location filename="../ui/MainWindow.cpp" line="99"/>
         <source>All Supported Files (*.pgd *.pgm *.pgx *.xml *.zip);;Zip Files (*.pgd *.pgm *.zip);;*.Xml Files (*.pgx *.xml);;All Files (*)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="100"/>
+        <location filename="../ui/MainWindow.cpp" line="97"/>
         <source>Open PlanGuidePlanner</source>
         <translation>Open Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="257"/>
+        <location filename="../ui/MainWindow.cpp" line="252"/>
         <source>Save PlanGuidePlanner</source>
         <translation>Save Cheese 🧀</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="259"/>
+        <location filename="../ui/MainWindow.cpp" line="254"/>
         <source>Plan Guide Planner Document File (*.pgd);;Plan Guide Planner XML-based file (*.pgx);;XML File (*.xml);;All Files (*)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="366"/>
+        <location filename="../ui/MainWindow.cpp" line="361"/>
         <source>Save All Guides</source>
         <translation>Save all 🧀 :)</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="368"/>
+        <location filename="../ui/MainWindow.cpp" line="363"/>
         <source>Plan Guide Planner Multi File (*.pgm);;ZIP Files (*.zip);;All Files (*)</source>
         <translation></translation>
     </message>
@@ -867,8 +972,7 @@ PLS DON&apos;T!!!!</translation>
 <context>
     <name>Report</name>
     <message>
-        <location filename="../ui/guide/Report.ui" line="14"/>
-        <location filename="../ui/guide/Report.ui" line="53"/>
+        <location filename="../ui/guide/Report.cpp" line="108"/>
         <source>Report</source>
         <translation>Cheesey Grades 🧀</translation>
     </message>
@@ -912,7 +1016,7 @@ PLS DON&apos;T!!!!</translation>
 <context>
     <name>Test</name>
     <message>
-        <location filename="../ui/guide/Test.ui" line="17"/>
+        <location filename="../ui/guide/Test.ui" line="14"/>
         <source>Test</source>
         <translation>Cheesey 🧀</translation>
     </message>
