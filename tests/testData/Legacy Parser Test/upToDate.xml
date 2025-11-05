@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pgp format-version="2">
     <guide period="2">
-        <name short="mom">Je moeder heet henk!</name>
+        <name short="TEST">Example</name>
         <info>This is an example Guide!</info>
     </guide>
-    <goal number="1.1" duration="90" date="2025-12-29" progress="0">
-        <name>Hello World!</name>
-        <task type="work">Make exercise 1 to 6.</task>
-        <task type="watch">&lt;a href='https://youtu.be/hUqO3tFexiQ?si=h-AJ7ujvtEdDJaaE'&gt;How to cook an egg on YouTube.&lt;/a&gt;</task>
-        <task type="read">The book you've chosen</task>
-        <task type="process">The vocab</task>
-    </goal>
-    <br/>
     <goal number="1.1" duration="90" date="2025-12-29" progress="0">
         <name>Hello World!</name>
         <task type="work">Make exercise 1 to 6.</task>
@@ -24,7 +16,7 @@
         <info>Know how the PlanGuidePlanner Work</info>
     </test>
     <report>
-        <test weight="3" type="KAAS">Hello World</test>
-        <test weight="2048" type="CONSUMENT!">Bye World</test>
+        <test weight="3" type="x">Hello World</test>
+        <test weight="2048" type="x">Bye World</test>
     </report>
 </pgp>

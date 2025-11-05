@@ -14,8 +14,8 @@ class CollectDataTest : public QObject {
 
 private slots:
     void CollectDataFromGuideTest() {
-        auto testDir = QDir(QFINDTESTDATA("testdata"));
-        QFile* inputFile = new QFile(testDir.absoluteFilePath("testfile.xml"));
+        auto testDir = QDir(QFINDTESTDATA("testData")); // Can use this file.
+        QFile* inputFile = new QFile(testDir.absoluteFilePath("TestFile.xml"));
         GuideData::Data testData;
 
 

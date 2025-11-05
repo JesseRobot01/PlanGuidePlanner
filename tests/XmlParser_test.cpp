@@ -12,8 +12,8 @@ class XmlParserTest : public QObject {
 
 private slots:
     void XmlReadWriteTest() {
-        auto testDir = QDir(QFINDTESTDATA("XML Parser Test"));
-        QFile* inputFile = new QFile(testDir.absoluteFilePath("testfile.xml"));
+        auto testDir = QDir(QFINDTESTDATA("testData"));
+        QFile* inputFile = new QFile(testDir.absoluteFilePath("TestFile.xml"));
         GuideData::Data testData;
 
 
