@@ -182,8 +182,8 @@ if (UNIX)
 endif ()
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
-    set(CMAKE_INSTALL_DEBUG_LIBRARIES_ONLY 1)
-endif()
+    set(CMAKE_MSVC_RUNTIME_LIBRARY MultiThreadedDebug)
+endif ()
 
 include(InstallRequiredSystemLibraries)
 include(CPack)
