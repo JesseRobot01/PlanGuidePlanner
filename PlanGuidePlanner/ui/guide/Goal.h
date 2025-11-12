@@ -1,80 +1,84 @@
 //
-// Created by Jesse on 3 okt. 2023.
+// Created by Jesse on 09-10-2025.
 //
 
 #ifndef PLANGUIDEPLANNER_GOAL_H
 #define PLANGUIDEPLANNER_GOAL_H
 
-
-#include <QWidget>
-#include <QFile>
+#include <QFrame>
+#include <QLabel>
 
 #include "guide/GuideData.h"
-#include "Guide.h"
 
+
+class Guide;
+class GoalFrame;
 
 QT_BEGIN_NAMESPACE
 
 namespace Ui {
+    class GoalFrame;
     class Goal;
 }
 
 QT_END_NAMESPACE
 
 class Goal : public QWidget {
-Q_OBJECT
+    Q_OBJECT
 
 public:
-    explicit Goal(QWidget *parent = nullptr);
+    explicit Goal(GoalFrame* parent, GuideData::Object* goal = nullptr);
 
     ~Goal() override;
 
-    bool eventFilter(QObject *obj, QEvent *event) override;
+    bool eventFilter(QObject* obj, QEvent* event) override;
 
-    void addWork(const QString &workName, const QString&link = "");
+    void processGoal(GuideData::Object goal);
 
-    void setName(const QString &name);
-
-    void setGoalNumber(const QString &goalNumber);
-
-    void setTime(const QString &time);
-
-    void addWatch(const QString &watchName, const QString&link = "");
-
-    void addRead(const QString &readName, const QString&link = "");
-
-    void addProcess(const QString &processName, const QString&link = "");
-
-    void addInfo(const QString &info, const QString&link = "");
-
-    void addTask(const GuideData::GuideGoalTasks task);
+    void addTask(GuideData::Task task);
 
     void setProgress(int progress, bool changedFile = true);
 
-    void setProgress(const QString &progress , bool changedFile = true) {
-        setProgress(progress.toInt(), changedFile);
-    }
+    void setProgress(GuideData::Progress progress, bool changedFile = true);
 
-    void finalise();
+    void updateStyle();
 
-    void setWeek(const QString &week);
+    void retranslateUi();
 
-    GuideData::GuideGoals getGoal();
-
-    int size = 40;
-    Guide* parentGuide; // for knowing which guide to save for auto save.
-
-
+    GuideData::Object getGoal();
 
 private slots:
-
     void on_progressSlider_sliderMoved(int newValue);
 
 private:
-    Ui::Goal *ui;
-    QVector<GuideData::GuideGoalTasks> tasks;
+    Ui::Goal* ui;
+
+    QVector<GuideData::TaskTypes> taskOrder;
+    QVector<QLabel *> taskLabels;
+    QVector<QLabel *> taskNames;
+    GuideData::Object baseGoal;
+    GoalFrame* parent;
+};
+
+class GoalFrame : public QFrame {
+    Q_OBJECT
+
+public:
+    explicit GoalFrame(Guide* parent, QVector<GuideData::Object>* goals = nullptr);
+
+    ~GoalFrame() override;
 
     void updateStyle();
+
+    void retranslateUi();
+
+    QVector<GuideData::Object> getGoals();
+
+    Guide* parent;
+
+private:
+    Ui::GoalFrame* ui;
+    QVector<Goal *> goals;
 };
 
 

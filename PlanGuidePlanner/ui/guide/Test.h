@@ -1,16 +1,16 @@
 //
-// Created by Jesse on 3 okt. 2023.
+// Created by Jesse on 08-10-2025.
 //
 
 #ifndef PLANGUIDEPLANNER_TEST_H
 #define PLANGUIDEPLANNER_TEST_H
-
 
 #include <QWidget>
 
 #include "guide/GuideData.h"
 
 
+class Guide;
 QT_BEGIN_NAMESPACE
 
 namespace Ui {
@@ -20,31 +20,19 @@ namespace Ui {
 QT_END_NAMESPACE
 
 class Test : public QWidget {
-Q_OBJECT
+    Q_OBJECT
 
 public:
-    explicit Test(QWidget *parent = nullptr);
+    explicit Test(Guide* parent, const GuideData::Object* test = nullptr);
+
+    void setTest(GuideData::Object testObject);
 
     ~Test() override;
 
-    void setName(const QString &name);
-
-    void setShortName(const QString &shortName);
-
-    void setInfo(const QString &info);
-
-    void setWeek(const QString &week);
-
-    void finalise();
-
-    GuideData::GuideObject getGuideobject();
-
-    int size = 80;
+    void updateStyle();
 
 private:
-    Ui::Test *ui;
-
-    void updateStyle();
+    Ui::Test* ui;
 };
 
 

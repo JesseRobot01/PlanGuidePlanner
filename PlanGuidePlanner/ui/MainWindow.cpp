@@ -12,20 +12,16 @@
 #include "AboutWindow.h"
 #include "ui_MainWindow.h"
 #include "XmlParser.h"
-#include "guide/Index.h"
-#include "guide/Test.h"
-#include "guide/Report.h"
 #include "guide/Guide.h"
 #include "ui/dialogs/LoadGuide.h"
 #include "Application.h"
-#include "ui/guide/Goal.h"
+
 #include <QCloseEvent>
 #include <JlCompress.h>
 #include <QScrollArea>
 #include <QDesktopServices>
 
 #include "creator/Creator.h"
-
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
@@ -85,7 +81,8 @@ void MainWindow::on_actionOpen_File_triggered() {
     };
 
     QFileDialog::getOpenFileContent(
-        tr("All Supported Files (*.pgd *.pgm *.pgx *.xml *.zip);;Zip Files (*.pgd *.pgm *.zip);;*.Xml Files (*.pgx *.xml);;All Files (*)"),
+        tr(
+            "All Supported Files (*.pgd *.pgm *.pgx *.xml *.zip);;Zip Files (*.pgd *.pgm *.zip);;*.Xml Files (*.pgx *.xml);;All Files (*)"),
         uploadedGuide);
 }
 #else
@@ -192,9 +189,8 @@ void MainWindow::on_actionOpen_File_triggered() {
 
 
 void MainWindow::processGuide(GuideData::Data guide, bool updateStart) {
-    Guide* finalGuide = new Guide(this);
+    Guide* finalGuide = new Guide(this, &guide);
 
-    finalGuide->setGuide(guide);
     addGuide(finalGuide, guide.shortName.isEmpty() ? guide.name : guide.shortName);
 
     //update start
@@ -204,9 +200,8 @@ void MainWindow::processGuide(GuideData::Data guide, bool updateStart) {
 
 void MainWindow::addGuide(Guide* guide, const QString&name) {
     guides.append(guide);
-    QScrollArea* scrollArea = new QScrollArea;
-    scrollArea->setWidget(guide);
-    ui->guideSwitcher->addTab(scrollArea, name);
+
+    ui->guideSwitcher->addTab(guide, name);
 }
 
 #ifdef Q_OS_WASM
@@ -461,7 +456,9 @@ void MainWindow::on_guideSwitcher_tabCloseRequested(int tab) {
 void MainWindow::closeGuide(int guideIndex, bool updateStartBool) {
     Guide* guideToClose = guides.at(guideIndex);
     qDebug() << "Closing Guide " << guideToClose->name;
+
     GuideData::Data guide = guideToClose->getGuide();
+
 
     // next, delete the auto save file.
     QFile autoSaveFile(guide.autoSaveFile.filePath());
@@ -548,4 +545,20 @@ void MainWindow::on_actionClose_all_guides_triggered() {
         // each time the index shifts, so always close 0
         closeGuide(0);
     }
+}
+
+void MainWindow::updateGuide(int guideIndex, GuideData::Data updatedGuide) {
+    auto* newGuide = new Guide(this, &updatedGuide);
+
+    int oldTab = ui->guideSwitcher->currentIndex();
+
+    ui->guideSwitcher->removeTab(guideIndex + 1);
+    ui->guideSwitcher->insertTab(guideIndex + 1, newGuide,
+                                 updatedGuide.shortName.isEmpty() ? updatedGuide.name : updatedGuide.shortName);
+
+    ui->guideSwitcher->setCurrentIndex(oldTab);
+
+    guides.replace(guideIndex, newGuide);
+
+    updateStart();
 }

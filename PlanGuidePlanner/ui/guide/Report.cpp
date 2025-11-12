@@ -1,74 +1,109 @@
 //
-// Created by Jesse on 3 okt. 2023.
+// Created by Jesse on 08-10-2025.
 //
 
 #include "Report.h"
-#include "ui_Report.h"
+
+#include <QLabel>
+#include <QVBoxLayout>
+
+#include "guide/GuideData.h"
+#include "guide/GuideData.h"
 #include "themes/GuidePalette.h"
+#include "ui/guide/Guide.h"
 
-Report::Report(QWidget *parent) : QWidget(parent), ui(new Ui::Report) {
-    ui->setupUi(this);
-    updateStyle();
 
+Report::Report(Guide* parent, const GuideData::Object* report) : QFrame(parent) {
+    mainLabel = new QLabel(this);
+    mainLayout = new QVBoxLayout(this);
+
+    QFont font;
+    font.setPointSize(23);
+    font.setBold(true);
+
+
+    setFrameShape(WinPanel);
+    setFrameShadow(Raised);
+
+    mainLayout->setSpacing(0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLabel->setFont(font);
+    mainLabel->setAlignment(Qt::AlignCenter);
+
+    mainLayout->addWidget(mainLabel);
+
+    if (report)
+        processReport(*report);
+    else
+        qCritical() << "Report made without object!";
+}
+
+void Report::processReport(GuideData::Object reportObject) {
+    if (reportObject.type != GuideData::Report)
+        qWarning() << "Object inside Report is not a Report!";
+
+    for (auto test: reportObject.tests) {
+        addTest(test);
+    }
+}
+
+void Report::addTest(GuideData::ReportTest test) {
+    QWidget* testWidget = new QWidget(this);
+    QHBoxLayout* testLayout = new QHBoxLayout(testWidget);
+
+    testLayout->setSpacing(0);
+    testLayout->setContentsMargins(0, 0, 0, 0);
+
+
+    QLabel* name = new QLabel(testWidget);
+    QLabel* weight = new QLabel(testWidget);
+
+    QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+    sizePolicy.setHorizontalStretch(0);
+    sizePolicy.setVerticalStretch(0);
+
+    QFont nameFont;
+    nameFont.setPointSize(12);
+
+    QFont labelFont;
+    labelFont.setPointSize(15);
+    labelFont.setBold(true);
+
+    sizePolicy.setHeightForWidth(name->sizePolicy().hasHeightForWidth());
+    name->setSizePolicy(sizePolicy);
+    name->setMinimumSize(0, 40);
+    name->setMaximumSize(16777215, 40);
+    name->setFont(nameFont);
+    name->setLineWidth(3);
+    name->setFrameShape(NoFrame);
+    name->setAlignment(Qt::AlignCenter);
+    name->setTextFormat(Qt::MarkdownText);
+
+
+    sizePolicy.setHeightForWidth(weight->sizePolicy().hasHeightForWidth());
+    weight->setSizePolicy(sizePolicy);
+    weight->setMinimumSize(0, 40);
+    weight->setMaximumSize(125, 40);
+    weight->setFont(labelFont);
+    weight->setLineWidth(3);
+    weight->setAlignment(Qt::AlignCenter);
+    weight->setFrameShape(QFrame::NoFrame);
+
+    testLayout->addWidget(name);
+    testLayout->addWidget(weight);
+
+    mainLayout->addWidget(testWidget);
+
+    name->setText(test.name);
+    weight->setText(QString::number(test.weight) + test.weightType);
 }
 
 void Report::updateStyle() {
     GuidePalette palette;
-    QString frameStyle = QString::fromLatin1("background-color: %1;").arg(palette.color(QPalette::Base).name());
-    QString textStyle = QString::fromLatin1("color: %1;").arg(palette.getColor(GuidePalette::ObjectText).name());
-
-    ui->frame->setStyleSheet(frameStyle);
-    ui->report->setStyleSheet(textStyle);
+    setStyleSheet(QString::fromUtf8("background-color: %1;").arg(palette.color(QPalette::Base).name()));
+    mainLabel->setStyleSheet(QString::fromUtf8("color: %1;").arg(palette.getColor(GuidePalette::ObjectText).name()));
 }
 
-Report::~Report() {
-    delete ui;
-}
-
-void Report::addTest(const QString &name, const QString &weight) {
-    GuideData::ReportTests test;
-    test.name = name;
-    test.weight = weight;
-    tests.append(test);
-
-    QLabel *testName = new QLabel(ui->frame);
-    QLabel *testWeight = new QLabel(ui->frame);
-
-
-    // first the test name
-    testName->setGeometry(QRect(0, size, 1100, 40));
-    QFont testNameFont;
-    testNameFont.setPointSize(12);
-    testNameFont.setBold(false);
-    testName->setFont(testNameFont);
-    testName->setFrameShape(QFrame::NoFrame);
-    testName->setLineWidth(3);
-    testName->setAlignment(Qt::AlignCenter);
-    testName->setTextFormat(Qt::MarkdownText);
-    testName->setText(name);
-
-    // and now the weight
-    testWeight->setGeometry(QRect(1110, size, 125, 40));
-    QFont testWeightFont;
-    testWeightFont.setPointSize(15);
-    testWeightFont.setBold(true);
-    testWeight->setFont(testWeightFont);
-    testWeight->setFrameShape(QFrame::NoFrame);
-    testWeight->setLineWidth(3);
-    testWeight->setAlignment(Qt::AlignCenter);
-    testWeight->setText(weight + "x");
-
-    size += 40;
-}
-
-void Report::finalise() {
-    ui->frame->resize(1240, size + 5);
-}
-
-GuideData::GuideObject Report::getGuideobject() {
-    GuideData::GuideObject object;
-    object.objectType = GuideData::Report;
-    object.tests = tests;
-
-    return object;
+void Report::retranslateUi() {
+    mainLabel->setText(tr("Report"));
 }

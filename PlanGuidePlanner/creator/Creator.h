@@ -37,6 +37,8 @@ public:
 
     int applicationGuideIndex = -1;
 
+    GuideData::Data getCurrentGuide();
+
 private slots:
     void on_mainDisplay_itemClicked(QTreeWidgetItem* item, int column);
 
@@ -66,6 +68,10 @@ private slots:
 
     void on_actionSave_Guide_As_triggered();
 
+    void on_dateEdit_dateChanged(QDate date);
+
+    void on_timeEdit_valueChanged(int time);
+
 private:
     Ui::Creator* ui;
 
@@ -76,36 +82,21 @@ private:
     QListWidgetItem* addGoal;
     QListWidgetItem* addTest;
     QListWidgetItem* addReport;
-
-    GuideData::Data getCurrentGuide();
+    QListWidgetItem* addBreak;
 
     void save(GuideData::Data guide);
 
-    void hideAddTask();
-
     void showAddTask();
-
-    void hideAddReportTest();
 
     void showAddReportTest();
 
-    void hideTypeSelector();
-
     void showTypeSelector(QString text);
-
-    void hideShortEdit();
 
     void showShortEdit(QString text, QString labelName);
 
-    void hideExtraEdit();
-
     void showExtraEdit(QString text, QString labelName);
 
-    void hideLongEdit();
-
     void showLongEdit(QString text, QString labelName);
-
-    void hideProgressSlider();
 
     void showProgressSlider(int value);
 
@@ -117,6 +108,11 @@ private:
 
     void setActionButtons(QTreeWidgetItem* item);
 
+    void showDateEdit(QString date);
+
+    void hideAllOptions();
+
+    void showTimeEdit(QString value);
 };
 
 

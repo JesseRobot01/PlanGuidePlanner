@@ -10,6 +10,7 @@
 class LegacyXmlParsers {
 public:
     static GuideData::Data v1Reader(QFile* xmlFileP);
+    static GuideData::Data v1PGPReader(QFile* xmlFileP);
 };
 
 

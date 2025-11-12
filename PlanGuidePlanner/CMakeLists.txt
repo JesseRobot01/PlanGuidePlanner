@@ -9,8 +9,6 @@ set(SOURCES
         ui/PreferenceWindow.h
         ui/guide/Guide.cpp
         ui/guide/Guide.h
-        ui/guide/Index.cpp
-        ui/guide/Index.h
         ui/guide/Goal.cpp
         ui/guide/Goal.h
         ui/guide/Test.cpp
@@ -19,10 +17,9 @@ set(SOURCES
         ui/guide/Report.h
         ui/dialogs/LoadGuide.cpp
         ui/dialogs/LoadGuide.h
-        guide/GuideData.h
+        guide/GuideData.cpp
         themes/GuidePalette.cpp
         themes/GuidePalette.h
-        guide/GuideData.cpp
         LegacyXmlParsers.cpp
         LegacyXmlParsers.h
         themes/BlueTheme.h
@@ -36,10 +33,9 @@ set(UI
         ui/MainWindow.ui
         ui/PreferenceWindow.ui
         ui/guide/Guide.ui
-        ui/guide/Index.ui
+        ui/guide/GoalFrame.ui
         ui/guide/Goal.ui
         ui/guide/Test.ui
-        ui/guide/Report.ui
         ui/dialogs/LoadGuide.ui
         ui/dialogs/RestartDialog.cpp
         ui/dialogs/RestartDialog.h
@@ -50,7 +46,6 @@ set(UI
         ui/StartScreen.cpp
         ui/StartScreen.h
         ui/StartScreen.ui
-
 )
 
 set(CREATOR_SOURCES
@@ -73,7 +68,8 @@ set(LOGO_FILES
 if (DEFINED WIN32)
     set(WIN_SOURCES
             WindowConsole.cpp
-            WindowConsole.h)
+            WindowConsole.h
+    )
 endif ()
 
 qt_add_library(PlanGuidePlanner_Logic STATIC ${SOURCES} ${UI} ${WIN_SOURCES} ${CREATOR_SOURCES})

@@ -243,17 +243,35 @@
         </widget>
        </item>
        <item row="5" column="1">
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Orientation::Vertical</enum>
+        <widget class="QDateEdit" name="dateEdit">
+         <property name="calendarPopup">
+          <bool>true</bool>
          </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="dateEditLabel">
+         <property name="text">
+          <string>Date</string>
          </property>
-        </spacer>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QSpinBox" name="timeEdit">
+         <property name="maximum">
+          <number>300</number>
+         </property>
+         <property name="singleStep">
+          <number>15</number>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="timeEditLabel">
+         <property name="text">
+          <string>Duration</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>

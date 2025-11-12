@@ -335,7 +335,7 @@ void Application::autoSaveTriggered() {
     QVector<GuideData::Data> guideDataToSave;
 
     //extract the guideData
-    for (Guide* guide: guidesToSave) {
+    for (auto* guide: guidesToSave) {
         guide->isInAutoSaveList = false;
         guideDataToSave.append(guide->getGuide());
     }
@@ -349,18 +349,14 @@ void Application::autoSaveTriggered() {
 QVector<GuideData::Data> Application::getUpToDateGuides() {
     // Extract guides
     QVector<GuideData::Data> result;
-    for (Guide* guide: appWindow->guides) {
+    for (auto* guide: appWindow->guides) {
         result.append(guide->getGuide());
     }
     return result;
 }
 
 void Application::updateGuide(int guideIndex, GuideData::Data updatedGuide) {
-    Guide* guide = appWindow->guides.at(guideIndex);
-    guide->emptyGuide();
-    guide->setGuide(updatedGuide);
-    appWindow->setTabName(guideIndex + 1, updatedGuide.shortName);
-    appWindow->updateStart();
+appWindow->updateGuide(guideIndex, updatedGuide);
 }
 
 bool Application::isXmlFile(const QString&file) {
@@ -375,4 +371,14 @@ bool Application::isZipFile(const QString&file) {
            || file.endsWith("pgd")
            || file.endsWith("pgm")
            || file.endsWith("sgc");
+}
+
+void Application::autoSave(Guide* guide) {
+    isFileChanged = true;
+    if (guide->isInAutoSaveList)
+        return;
+
+    guide->isInAutoSaveList = true;
+    APPLICATION->guidesToSave.append(guide);
+    APPLICATION->startAutoSaveTimer();
 }

@@ -1,321 +1,234 @@
 //
-// Created by Jesse on 3 okt. 2023.
+// Created by Jesse on 04-10-2025.
 //
 
-#include <QFile>
-
-#include "guide/GuideData.h"
-
 #include "Guide.h"
-#include "Index.h"
+
+#include "Goal.h"
 #include "Test.h"
 #include "Report.h"
+
+#include <QLabel>
+#include <QVBoxLayout>
 
 #include "ui_Guide.h"
 #include "themes/GuidePalette.h"
 
-
-Guide::Guide(QWidget* parent) : QWidget(parent), ui(new Ui::Guide) {
+Guide::Guide(QWidget* parent, const GuideData::Data* data) : QWidget(parent), ui(new Ui::GuideBase) {
     ui->setupUi(this);
+
+    if (data)
+        processGuide(*data);
+    else
+        qCritical() << "No data in guide!";
+
     updateStyle();
-    ui->period->hide();
-    ui->period_number->hide();
-    ui->subject_name->setGeometry(0, 0, ui->headerFrame->width() - 5, 68);
+    retranslateUi();
 }
 
 void Guide::updateStyle() {
     GuidePalette palette;
 
-    QString objectTextStyle = QString::fromLatin1("color: %1;").arg(palette.getColor(GuidePalette::ObjectText).name());
+    const QString objectTextStyle = QString::fromLatin1("color: %1;").arg(
+        palette.getColor(GuidePalette::ObjectText).name());
 
-    QString frameStyle = QString::fromLatin1("background-color: %1;").arg(palette.color(QPalette::Base).name());
+    const QString frameStyle = QString::fromLatin1("background-color: %1;").arg(palette.color(QPalette::Base).name());
 
-    QString borderColourString = QString::fromLatin1("border-width:3px;border-style:solid;border-color: %1;")
+    const QString borderColourString = QString::fromLatin1("border-width:3px;border-style:solid;border-color: %1;")
             .arg(palette.color(QPalette::Base).name());
 
-    QString headerStyle = QString::fromLatin1("background-color: %1; color: %2")
+    const QString baseStyle = QString::fromLatin1("background-color: %1; color:%2; ") + borderColourString;
+
+    const QString headerStyle = QString::fromLatin1("background-color: %1; color: %2")
             .arg(palette.getColor(GuidePalette::HeaderBackground).name())
             .arg(palette.getColor(GuidePalette::HeaderText).name());
 
-    QString periodStyle = QString::fromLatin1("background-color: %1; color:%2")
+    const QString periodStyle = QString::fromLatin1("background-color: %1; color: %2")
             .arg(palette.getColor(GuidePalette::TestBackground).name())
             .arg(palette.getColor(GuidePalette::HeaderText).name());
 
+    const QString workIndicatorStyle = baseStyle
+                                       .arg(palette.getColor(GuidePalette::WorkIndicatorBackground).name())
+                                       .arg(palette.getColor(GuidePalette::WorkIndicatorText).name())
+                                       + borderColourString;
 
-    QString workIndicatorStyle = QString::fromLatin1("background-color: %1;color:%2;")
-                                 .arg(palette.getColor(GuidePalette::WorkIndicatorBackground).name())
-                                 .arg(palette.getColor(GuidePalette::WorkIndicatorText).name())
-                                 + borderColourString;
+    const QString workIndicatorTextStyle = baseStyle
+                                           .arg(palette.getColor(GuidePalette::WorkIndicatorExample).name())
+                                           .arg(palette.getColor(GuidePalette::WorkIndicatorText).name())
+                                           + borderColourString;
 
-    QString workIndicatorTextStyle = QString::fromLatin1("background-color: %1;color:%2;")
-                                     .arg(palette.getColor(GuidePalette::WorkIndicatorExample).name())
-                                     .arg(palette.getColor(GuidePalette::WorkIndicatorText).name())
-                                     + borderColourString;
-
-
-    QString watchIndicatorStyle = QString::fromLatin1("background-color: %1;color:%2;")
-                                  .arg(palette.getColor(GuidePalette::WatchIndicatorBackground).name())
-                                  .arg(palette.getColor(GuidePalette::WatchIndicatorText).name())
-                                  + borderColourString;
-
-    QString watchIndicatorTextStyle = QString::fromLatin1("background-color: %1;color:%2;")
-                                      .arg(palette.getColor(GuidePalette::WatchIndicatorExample).name())
-                                      .arg(palette.getColor(GuidePalette::WatchIndicatorText).name())
-                                      + borderColourString;
-
-
-    QString readIndicatorStyle = QString::fromLatin1("background-color: %1;color:%2;")
-                                 .arg(palette.getColor(GuidePalette::ReadIndicatorBackground).name())
-                                 .arg(palette.getColor(GuidePalette::ReadIndicatorText).name())
-                                 + borderColourString;
-
-    QString readIndicatorTextStyle = QString::fromLatin1("background-color: %1;color:%2;")
-                                     .arg(palette.getColor(GuidePalette::ReadIndicatorExample).name())
-                                     .arg(palette.getColor(GuidePalette::ReadIndicatorText).name())
-                                     + borderColourString;
-
-
-    QString processIndicatorStyle = QString::fromLatin1("background-color: %1;color:%2;")
-                                    .arg(palette.getColor(GuidePalette::ProcessIndicatorBackground).name())
-                                    .arg(palette.getColor(GuidePalette::ProcessIndicatorText).name())
-                                    + borderColourString;
-
-    QString processIndicatorTextStyle = QString::fromLatin1("background-color: %1;color:%2;")
-                                        .arg(palette.getColor(GuidePalette::ProcessIndicatorExample).name())
-                                        .arg(palette.getColor(GuidePalette::ProcessIndicatorText).name())
+    const QString watchIndicatorStyle = baseStyle
+                                        .arg(palette.getColor(GuidePalette::WatchIndicatorBackground).name())
+                                        .arg(palette.getColor(GuidePalette::WatchIndicatorText).name())
                                         + borderColourString;
 
-    QString infoIndicatorStyle = QString::fromLatin1("background-color: %1;color:%2;")
-                                 .arg(palette.getColor(GuidePalette::InfoIndicatorBackground).name())
-                                 .arg(palette.getColor(GuidePalette::InfoIndicatorText).name())
-                                 + borderColourString;
+    const QString watchIndicatorTextStyle = baseStyle
+                                            .arg(palette.getColor(GuidePalette::WatchIndicatorExample).name())
+                                            .arg(palette.getColor(GuidePalette::WatchIndicatorText).name())
+                                            + borderColourString;
 
-    QString infoIndicatorTextStyle = QString::fromLatin1("background-color: %1;color:%2;")
-                                     .arg(palette.getColor(GuidePalette::InfoIndicatorExample).name())
-                                     .arg(palette.getColor(GuidePalette::InfoIndicatorText).name())
-                                     + borderColourString;
+    const QString readIndicatorStyle = baseStyle
+                                       .arg(palette.getColor(GuidePalette::ReadIndicatorBackground).name())
+                                       .arg(palette.getColor(GuidePalette::ReadIndicatorText).name())
+                                       + borderColourString;
+
+    const QString readIndicatorTextStyle = baseStyle
+                                           .arg(palette.getColor(GuidePalette::ReadIndicatorExample).name())
+                                           .arg(palette.getColor(GuidePalette::ReadIndicatorText).name())
+                                           + borderColourString;
+
+    const QString processIndicatorStyle = baseStyle
+                                          .arg(palette.getColor(GuidePalette::ProcessIndicatorBackground).name())
+                                          .arg(palette.getColor(GuidePalette::ProcessIndicatorText).name())
+                                          + borderColourString;
+
+    const QString processIndicatorTextStyle = baseStyle
+                                              .arg(palette.getColor(GuidePalette::ProcessIndicatorExample).name())
+                                              .arg(palette.getColor(GuidePalette::ProcessIndicatorText).name())
+                                              + borderColourString;
+
+    const QString infoIndicatorStyle = baseStyle
+                                       .arg(palette.getColor(GuidePalette::InfoIndicatorBackground).name())
+                                       .arg(palette.getColor(GuidePalette::InfoIndicatorText).name())
+                                       + borderColourString;
+
+    const QString infoIndicatorTextStyle = baseStyle
+                                           .arg(palette.getColor(GuidePalette::InfoIndicatorExample).name())
+                                           .arg(palette.getColor(GuidePalette::InfoIndicatorText).name())
+                                           + borderColourString;
 
 
     ui->infoFrame->setStyleSheet(frameStyle);
-    ui->headerFrame->setStyleSheet(headerStyle);
-    ui->period_number->setStyleSheet(periodStyle);
-    ui->mainInfoLabel->setStyleSheet(objectTextStyle);
+    ui->header->setStyleSheet(headerStyle);
+    ui->periodNum->setStyleSheet(periodStyle);
+
+    ui->mainInfoHead->setStyleSheet(objectTextStyle);
     ui->period->setStyleSheet(headerStyle);
 
-    ui->work_indicator_name->setStyleSheet(workIndicatorTextStyle);
-    ui->work_indicator_example->setStyleSheet(workIndicatorStyle);
+    ui->workLabelText->setStyleSheet(workIndicatorTextStyle);
+    ui->workLabel->setStyleSheet(workIndicatorStyle);
 
-    ui->wl_indicator_name->setStyleSheet(watchIndicatorTextStyle);
-    ui->wl_indicator_example->setStyleSheet(watchIndicatorStyle);
+    ui->watchLabelText->setStyleSheet(watchIndicatorTextStyle);
+    ui->watchLabel->setStyleSheet(watchIndicatorStyle);
 
-    ui->read_indicator_name->setStyleSheet(readIndicatorTextStyle);
-    ui->read_indicator_example->setStyleSheet(readIndicatorStyle);
+    ui->readLabelText->setStyleSheet(readIndicatorTextStyle);
+    ui->readLabel->setStyleSheet(readIndicatorStyle);
 
-    ui->process_indicator_name->setStyleSheet(processIndicatorTextStyle);
-    ui->process_indicator_example->setStyleSheet(processIndicatorStyle);
+    ui->processLabelText->setStyleSheet(processIndicatorTextStyle);
+    ui->processLabel->setStyleSheet(processIndicatorStyle);
 
-    ui->info_indicator_name->setStyleSheet(infoIndicatorTextStyle);
-    ui->info_indicator_example->setStyleSheet(infoIndicatorStyle);
+    ui->infoLabelText->setStyleSheet(infoIndicatorTextStyle);
+    ui->infoLabel->setStyleSheet(infoIndicatorStyle);
+
+    for (auto frame: goalFrames) {
+        frame->updateStyle();
+    }
+    for (auto test: testWidgets) {
+        test->updateStyle();
+    }
+    for (auto report: reportWidgets) {
+        report->updateStyle();
+    }
+}
+
+void Guide::retranslateUi() {
+    ui->retranslateUi(this);
+
+    for (auto frame: goalFrames) {
+        frame->retranslateUi();
+    }
+    for (auto report: reportWidgets) {
+        report->retranslateUi();
+    }
 }
 
 Guide::~Guide() {
     delete ui;
-    for (int i = 0; i < indexes.size(); i++) {
-        delete indexes.at(i);
+    delete mainLayout;
+    delete lastSpacer;
+
+    goalFrames.clear();
+    testWidgets.clear();
+    reportWidgets.clear();
+}
+
+void Guide::processGuide(GuideData::Data data) {
+    baseData = data;
+    name = data.name;
+
+    ui->mainName->setText(data.name);
+    ui->mainInfoText->setText(data.info);
+
+    if (data.period.isEmpty()) {
+        ui->period->hide();
+        ui->periodNum->hide();
     }
-    for (int i = 0; i < tests.size(); i++) {
-        delete tests.at(i);
+    else ui->periodNum->setText(data.period);
+
+    QVector<GuideData::Object> goals;
+
+    for (auto object: data.objects) {
+        objectOrder.append(object.type);
+        if (object.type == GuideData::Goal) {
+            goals.append(object);
+            continue;
+        }
+        nonGoalObjects.append(object);
+
+        if (!goals.isEmpty()) {
+            //This also works for breaks.
+            GoalFrame* frame = new GoalFrame(this, &goals);
+            goals.clear();
+            ui->mainLayout->addWidget(frame);
+            goalFrames.append(frame);
+        }
+        if (object.type == GuideData::Test) {
+            auto* test = new Test(this, &object);
+            ui->mainLayout->addWidget(test);
+            testWidgets.append(test);
+        }
+        if (object.type == GuideData::Report) {
+            auto* report = new Report(this, &object);
+            ui->mainLayout->addWidget(report);
+            reportWidgets.append(report);
+        }
     }
-    for (int i = 0; i < reports.size(); i++) {
-        delete reports.at(i);
+
+    if (!goals.isEmpty()) {
+        GoalFrame* frame = new GoalFrame(this, &goals);
+        goals.clear();
+        ui->mainLayout->addWidget(frame);
+        goalFrames.append(frame);
     }
-}
 
-
-void Guide::addIndex(Index* index) {
-    indexes.append(index);
-    objectOrder.append(GuideData::Index);
-    index->setGeometry(30, size, 1240, index->size + 5);
-    index->show();
-    size += (index->size + 35);
-    resize(1285, size);
-}
-
-
-void Guide::addTest(Test* test) {
-    tests.append(test);
-    objectOrder.append(GuideData::Test);
-    test->setGeometry(50, size, 1260, test->size);
-    test->show();
-    size += test->size + 30;
-    resize(1285, size);
-}
-
-void Guide::addReport(Report* report) {
-    reports.append(report);
-    objectOrder.append(GuideData::Report);
-    report->setGeometry(30, size, 1240, report->size + 5);
-    report->show();
-    size += report->size + 35;
-    resize(1285, size);
-}
-
-void Guide::setName(const QString&nameE) {
-    name = nameE;
-    ui->subject_name->setText(name);
-}
-
-void Guide::setInfo(const QString&info) {
-    ui->info->setText(info);
-}
-
-void Guide::setPeriod(const QString&period) {
-    if (period.isEmpty()) return;
-    ui->period->show();
-    ui->period_number->show();
-    ui->subject_name->setGeometry(0, 0, 950, 68);
-    ui->period_number->setText(period);
-}
-
-void Guide::setShortName(const QString&shortNameE) {
-    shortName = shortNameE;
+    lastSpacer = new QSpacerItem(20, 39, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
+    ui->mainLayout->addItem(lastSpacer);
 }
 
 GuideData::Data Guide::getGuide() {
-    GuideData::Data finalGuide;
-    int currentIndex = 0;
-    int currentTest = 0;
-    int currentReport = 0;
+    GuideData::Data data;
+    data = baseData; // Fill up main data
+    data.objects.clear(); // Reset
 
-    finalGuide.name = ui->subject_name->text();
-    finalGuide.shortName = shortName;
-    finalGuide.period = ui->period_number->text();
-    finalGuide.info = ui->info->text();
-    finalGuide.originalFile = originalFile;
-    finalGuide.autoSaveFile = autoSaveFile;
+    int goalCounter = 0;
+    int restCounter = 0;
 
-    for (GuideData::ObjectTypes type: objectOrder) {
-        if (type == GuideData::Index) {
-            Index&index = *indexes.at(currentIndex);
-
-            finalGuide.objects.append(index.getGuideObject());
-            currentIndex++;
-        }
-        if (type == GuideData::Test) {
-            Test&test = *tests.at(currentTest);
-
-            finalGuide.objects.append(test.getGuideobject());
-            currentTest++;
-        }
-        if (type == GuideData::Report) {
-            Report&report = *reports.at(currentReport);
-
-            finalGuide.objects.append(report.getGuideobject());
-            currentReport++;
+    QVector<GuideData::Object> goals;
+    for (auto goalFrame: goalFrames) {
+        goals.append(goalFrame->getGoals());
+    }
+    for (auto object: objectOrder) {
+        switch (object) {
+            case GuideData::Goal:
+                data.objects.append(goals.at(goalCounter));
+                goalCounter++;
+                break;
+            default: //The rest
+                data.objects.append(nonGoalObjects.at(restCounter));
+                restCounter++;
+                break;
         }
     }
-
-    return finalGuide;
-}
-
-void Guide::setGuide(GuideData::Data guide) {
-    // Default things
-    QString name = guide.name;
-    QString shortName = guide.shortName;
-    setName(name);
-    setShortName(shortName);
-    setInfo(guide.info);
-    setPeriod(guide.period);
-    originalFile = guide.originalFile;
-    autoSaveFile = guide.autoSaveFile;
-
-
-    //Processing the guide objects
-    for (GuideData::GuideObject guideObject: guide.objects) {
-        if (guideObject.objectType == GuideData::Index) {
-            Index* index = new Index(this);
-            for (GuideData::GuideGoals goal: guideObject.goals) {
-                Goal* finalGoal = new Goal(index);
-                finalGoal->setName(goal.name);
-                finalGoal->setProgress(goal.progress, false);
-                finalGoal->setTime(goal.time);
-                finalGoal->setWeek(goal.week);
-                finalGoal->setGoalNumber(goal.goalNumber);
-                finalGoal->parentGuide = this;
-
-                for (GuideData::GuideGoalTasks goalTask: goal.tasks) {
-                    switch (goalTask.task) {
-                        case GuideData::Work:
-                            finalGoal->addWork(goalTask.text, goalTask.link);
-                            break;
-                        case GuideData::Read:
-                            finalGoal->addRead(goalTask.text, goalTask.link);
-                            break;
-                        case GuideData::Watch:
-                            finalGoal->addWatch(goalTask.text, goalTask.link);
-                            break;
-                        case GuideData::Process:
-                            finalGoal->addProcess(goalTask.text, goalTask.link);
-                            break;
-                        case GuideData::Info:
-                            finalGoal->addInfo(goalTask.text, goalTask.link);
-                            break;
-                    }
-                }
-                finalGoal->finalise();
-                index->addGoal(finalGoal);
-            }
-            index->finalise();
-            addIndex(index);
-        }
-        if (guideObject.objectType == GuideData::Test) {
-            Test* test = new Test(this);
-            test->setName(guideObject.name);
-            test->setWeek(guideObject.week);
-            test->setInfo(guideObject.info);
-            test->setShortName(guideObject.shortName);
-            test->finalise();
-            addTest(test);
-        }
-        if (guideObject.objectType == GuideData::Report) {
-            Report* report = new Report(this);
-            for (GuideData::ReportTests test: guideObject.tests)
-                report->addTest(test.name, test.weight);
-            report->finalise();
-            addReport(report);
-        }
-    }
-}
-
-void Guide::emptyGuide() {
-    // Deleting...
-    for (auto index: indexes) {
-        delete index;
-    }
-    for (auto test: tests) {
-        delete test;
-    }
-    for (auto report: reports) {
-        delete report;
-    }
-    // Clearing
-    indexes.clear();
-    tests.clear();
-    reports.clear();
-    objectOrder.clear();
-
-    // Resetting
-    size = defaultSize;
-    name = "";
-    shortName = "";
-
-    originalFile = QFileInfo("");
-    autoSaveFile = QFileInfo("");
-
-    ui->period->hide();
-    ui->period_number->hide();
-    ui->subject_name->setGeometry(0, 0, ui->headerFrame->width() - 5, 68);
-    ui->subject_name->setText(name);
-    ui->info->setText("");
-    ui->period_number->setText("");
+    baseData = data;
+    return baseData;
 }

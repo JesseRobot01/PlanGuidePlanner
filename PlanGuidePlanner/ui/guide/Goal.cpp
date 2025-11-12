@@ -1,55 +1,149 @@
 //
-// Created by Jesse on 3 okt. 2023.
+// Created by Jesse on 09-10-2025.
 //
 
+// You may need to build the project (run Qt uic code generator) to get "ui_Goal.h" and "ui_GoalFrame.h" resolved
+
 #include "Goal.h"
-#include "ui_Goal.h"
-#include "themes/GuidePalette.h"
+
+#include "Guide.h"
 #include "Application.h"
+#include "ui_Goal.h"
+#include "ui_GoalFrame.h"
+#include "guide/GuideData.h"
+#include "themes/GuidePalette.h"
 
-Goal::Goal(QWidget* parent) : QWidget(parent), ui(new Ui::Goal) {
+Goal::Goal(GoalFrame* parent, GuideData::Object* goal) : QWidget(parent), ui(new Ui::Goal) {
     ui->setupUi(this);
-    GuidePalette palette;
-    QString defaultSlider = QString::fromLatin1("background-color:%1;").arg(
-        palette.getColor(GuidePalette::Progress_NotStarted).name());
+    this->parent = parent;
 
-    ui->progressSlider->setStyleSheet(defaultSlider);
-    ui->progressBackground->setStyleSheet(defaultSlider);
     ui->progressSlider->installEventFilter(this);
-    ui->progressBackground->installEventFilter(this);
-    ui->progressBackground->setAttribute(Qt::WA_Hover);
-    ui->progressSlider->hide();
+    ui->sliderFrame->installEventFilter(this);
+    ui->sliderFrame->setAttribute(Qt::WA_Hover);
 
-    updateStyle();
+    if (goal)
+        processGoal(*goal);
+    else
+        qCritical() << "Goal created without an object!";
 }
 
 void Goal::updateStyle() {
     GuidePalette palette;
-    QString headerStyle =
-            QString::fromLatin1(
-                "background-color: %1; border-width: 3px; border-style: solid; border-color:%2;color:%3")
+
+    const QString borderStyle = QString::fromLatin1("border-width:3px;border-style:solid;border-color: %1;")
+            .arg(palette.color(QPalette::Base).name());
+
+    const QString baseStyle = "background-color:%1; color:%2; " + borderStyle;
+
+    const QString headerStyle = baseStyle
             .arg(palette.getColor(GuidePalette::HeaderBackground).name())
-            .arg(palette.color(QPalette::Base).name())
             .arg(palette.getColor(GuidePalette::HeaderText).name());
 
-    ui->goalName->setStyleSheet(headerStyle);
-    ui->goalTime->setStyleSheet(headerStyle);
-    ui->leraningGoal->setStyleSheet(headerStyle);
+    const QString workIndicatorStyle = baseStyle
+            .arg(palette.getColor(GuidePalette::WorkIndicatorBackground).name())
+            .arg(palette.getColor(GuidePalette::WorkIndicatorText).name());
+
+    const QString watchIndicatorStyle = baseStyle
+            .arg(palette.getColor(GuidePalette::WatchIndicatorBackground).name())
+            .arg(palette.getColor(GuidePalette::WatchIndicatorText).name());
+
+    const QString readIndicatorStyle = baseStyle
+            .arg(palette.getColor(GuidePalette::ReadIndicatorBackground).name())
+            .arg(palette.getColor(GuidePalette::ReadIndicatorText).name());
+
+    const QString processIndicatorStyle = baseStyle
+            .arg(palette.getColor(GuidePalette::ProcessIndicatorBackground).name())
+            .arg(palette.getColor(GuidePalette::ProcessIndicatorText).name());
+
+    const QString infoIndicatorStyle = baseStyle
+            .arg(palette.getColor(GuidePalette::InfoIndicatorBackground).name())
+            .arg(palette.getColor(GuidePalette::InfoIndicatorText).name());
+
+    ui->name->setStyleSheet(headerStyle);
+    ui->time->setStyleSheet(headerStyle);
+    ui->number->setStyleSheet(headerStyle);
     ui->week->setStyleSheet(headerStyle);
+
+    for (int i = 0; i < taskOrder.size(); i++) {
+        switch (taskOrder.at(i)) {
+            case GuideData::Work:
+                taskLabels.at(i)->setStyleSheet(workIndicatorStyle);
+                break;
+            case GuideData::Read:
+                taskLabels.at(i)->setStyleSheet(readIndicatorStyle);
+                break;
+            case GuideData::Watch:
+                taskLabels.at(i)->setStyleSheet(watchIndicatorStyle);
+                break;
+            case GuideData::Process:
+                taskLabels.at(i)->setStyleSheet(processIndicatorStyle);
+                break;
+            case GuideData::Info:
+                taskLabels.at(i)->setStyleSheet(infoIndicatorStyle);
+                break;
+        }
+        taskNames.at(i)->setStyleSheet(borderStyle);
+    }
+
+    // Set progress Style
+    QString ProgressColour;
+    GuidePalette::GuideElements progress;
+
+    switch (static_cast<GuideData::Progress>(ui->progressSlider->value())) {
+        case GuideData::Finished:
+            progress = GuidePalette::Progress_Finished;
+            break;
+        case GuideData::Working:
+            progress = GuidePalette::Progress_Working;
+            break;
+        case GuideData::NotStarted:
+            progress = GuidePalette::Progress_NotStarted;
+            break;
+        default:
+            progress = GuidePalette::HeaderBackground;
+            break;
+    }
+
+    ProgressColour = QString::fromLatin1("background-color:%1;")
+            .arg(palette.getColor(progress).name());
+
+    ui->progressSlider->setStyleSheet(ProgressColour + "border-width: 0px;");
+    ui->sliderFrame->setStyleSheet(ProgressColour + borderStyle);
 }
 
-// disable scrolling on scrollwheel
+void Goal::retranslateUi() {
+    for (int i = 0; i < taskOrder.size(); i++) {
+        switch (taskOrder.at(i)) {
+            case GuideData::Work:
+                taskLabels.at(i)->setText(tr("UI_WORKINDICATOR"));
+                break;
+            case GuideData::Watch:
+                taskLabels.at(i)->setText(tr("UI_WATCHINDICATOR"));
+                break;
+            case GuideData::Read:
+                taskLabels.at(i)->setText(tr("UI_READINDICATOR"));
+                break;
+            case GuideData::Process:
+                taskLabels.at(i)->setText(tr("UI_PROCESSINDICATOR"));
+                break;
+            case GuideData::Info:
+                taskLabels.at(i)->setText(tr("UI_INFOINDICATOR"));
+                break;
+        }
+    }
+}
+
 bool Goal::eventFilter(QObject* obj, QEvent* event) {
     if (obj == ui->progressSlider && event->type() == QEvent::Wheel) {
         event->ignore();
         return true;
     }
-    if (obj == ui->progressSlider && event->type() == QEvent::HoverLeave) {
+    if (obj == ui->sliderFrame && event->type() == QEvent::HoverLeave) {
         ui->progressSlider->hide();
         setProgress(ui->progressSlider->value()); // force update
         return true;
     }
-    if (obj == ui->progressBackground && event->type() == QEvent::HoverEnter) {
+    if (obj == ui->sliderFrame && event->type() == QEvent::HoverEnter) {
         ui->progressSlider->show();
         return true;
     }
@@ -61,227 +155,184 @@ Goal::~Goal() {
     delete ui;
 }
 
-void Goal::setName(const QString&name) {
-    ui->goalName->setText(name);
-}
+void Goal::processGoal(GuideData::Object goal) {
+    if (goal.type != GuideData::Goal)
+        qWarning() << "Object inside Goal is not a Goal!";
 
-void Goal::setGoalNumber(const QString&goalNumber) {
-    ui->leraningGoal->setText(goalNumber);
-}
+    baseGoal = goal;
+    setProgress(goal.progress);
+    ui->progressSlider->hide();
 
-void Goal::setTime(const QString&time) {
-    ui->goalTime->setText(time);
-}
-
-void Goal::addTask(const GuideData::GuideGoalTasks task) {
-    GuidePalette palette;
-
-    QString indicatorText;
-    QString indicatorBackgroundColour;
-    QString indicatorTextColour;
-
-    QString link = task.link;
-    QString name = task.text;
-
-    switch (task.task) {
-        case GuideData::Work:
-            indicatorText = tr("UI_WORKINDICATOR");
-
-            indicatorBackgroundColour = palette.getColor(GuidePalette::WorkIndicatorBackground).name();
-            indicatorTextColour = palette.getColor(GuidePalette::WorkIndicatorText).name();
-            break;
-
-        case GuideData::Watch:
-            indicatorText = tr("UI_WATCHINDICATOR");
-
-            indicatorBackgroundColour = palette.getColor(GuidePalette::WatchIndicatorBackground).name();
-            indicatorTextColour = palette.getColor(GuidePalette::WatchIndicatorText).name();
-            break;
-
-        case GuideData::Read:
-            indicatorText = tr("UI_READINDICATOR");
-
-            indicatorBackgroundColour = palette.getColor(GuidePalette::ReadIndicatorBackground).name();
-            indicatorTextColour = palette.getColor(GuidePalette::InfoIndicatorText).name();
-            break;
+    ui->name->setText(goal.name);
+    ui->time->setText(QString::number(goal.time));
+    ui->number->setText(goal.number);
+    ui->week->setText(QString::number(goal.date.weekNumber()));
 
 
-        case GuideData::Process:
-            indicatorText = tr("UI_PROCESSINDICATOR");
-
-            indicatorBackgroundColour = palette.getColor(GuidePalette::ProcessIndicatorBackground).name();
-            indicatorTextColour = palette.getColor(GuidePalette::InfoIndicatorText).name();
-            break;
-
-        case GuideData::Info:
-            indicatorText = tr("UI_INFOINDICATOR");
-
-            indicatorBackgroundColour = palette.getColor(GuidePalette::InfoIndicatorBackground).name();
-            indicatorTextColour = palette.getColor(GuidePalette::InfoIndicatorText).name();
-            break;
+    for (auto task: goal.tasks) {
+        addTask(task);
     }
-
-
-    QString indicatorStyle = QString::fromLatin1(
-                "background-color:%1; border-width:3px; border-style:solid; border-color:%2;color:%3")
-            .arg(indicatorBackgroundColour)
-            .arg(palette.color(QPalette::Base).name())
-            .arg(indicatorTextColour);
-
-    // work indicator generation
-    QLabel* indicator = new QLabel(this);
-    indicator->setGeometry(0, size, 90, 40);
-    QFont indicatorFont;
-    indicatorFont.setPointSize(22);
-    indicatorFont.setBold(true);
-    indicator->setFont(indicatorFont);
-    indicator->setStyleSheet(indicatorStyle);
-    indicator->setFrameShape(QFrame::Box);
-    indicator->setLineWidth(3);
-    indicator->setAlignment(Qt::AlignCenter);
-    indicator->setText(indicatorText);
-
-    // and now the text
-    QLabel* textLabel = new QLabel(this);
-    textLabel->setGeometry(QRect(90, size, 890, 40));
-    QFont workFont;
-    workFont.setPointSize(12);
-    workFont.setBold(false);
-    textLabel->setFont(workFont);
-    textLabel->setFrameShape(QFrame::NoFrame);
-    textLabel->setLineWidth(3);
-    textLabel->setAlignment(Qt::AlignCenter);
-    textLabel->setTextFormat(Qt::MarkdownText);
-    textLabel->setOpenExternalLinks(true);
-
-    if (!link.isEmpty()) {
-        QString text = QString("<a href=\"%2\">%1</a>")
-                .arg(name)
-                .arg(link);
-        textLabel->setText(text);
-    }
-    else
-        textLabel->setText(name);
-
-    size += 40;
 }
 
-void Goal::addWork(const QString&workName, const QString&link) {
-    // First save them in the Vector for resaving
-    GuideData::GuideGoalTasks task;
+void Goal::addTask(GuideData::Task task) {
+    QWidget* goal = new QWidget(ui->text);
+    QLayout* layout = new QHBoxLayout(goal);
 
-    task.task = GuideData::Work;
-    task.text = workName;
-    task.link = link;
-    tasks.append(task);
+    layout->setSpacing(0);
+    layout->setContentsMargins(0, 0, 0, 0);
 
-    addTask(task);
-}
+    QFont labelFont;
+    labelFont.setPointSize(21);
+    labelFont.setBold(true);
 
-void Goal::addWatch(const QString&watchName, const QString&link) {
-    // First save them in the Vector for resaving
-    GuideData::GuideGoalTasks task;
+    QFont textFont;
+    textFont.setPointSize(12);
 
-    task.task = GuideData::Watch;
-    task.text = watchName;
-    task.link = link;
-    tasks.append(task);
+    QSizePolicy labelSizePolicy(QSizePolicy::Policy::Maximum, QSizePolicy::Policy::Minimum);
+    labelSizePolicy.setHorizontalStretch(0);
+    labelSizePolicy.setVerticalStretch(0);
 
-    addTask(task);
-}
+    QSizePolicy textSizePolicy(QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Minimum);
+    textSizePolicy.setHorizontalStretch(0);
+    textSizePolicy.setVerticalStretch(0);
 
-void Goal::addRead(const QString&readName, const QString&link) {
-    // First save them in the Vector for resaving
-    GuideData::GuideGoalTasks task;
-    task.task = GuideData::Read;
-    task.text = readName;
-    task.link = link;
-    tasks.append(task);
+    auto* taskLabel = new QLabel(goal);
+    labelSizePolicy.setHeightForWidth(taskLabel->sizePolicy().hasHeightForWidth());
+    taskLabel->setSizePolicy(labelSizePolicy);
+    taskLabel->setMinimumSize(QSize(0, 40));
+    taskLabel->setMaximumSize(QSize(90, 16777215));
 
-    addTask(task);
-}
+    taskLabel->setFont(labelFont);
+    taskLabel->setFrameShape(QFrame::Shape::Box);
+    taskLabel->setLineWidth(3);
+    taskLabel->setAlignment(Qt::AlignmentFlag::AlignCenter);
 
-void Goal::addProcess(const QString&processName, const QString&link) {
-    // First save them in the Vector for resaving
-    GuideData::GuideGoalTasks task;
-    task.task = GuideData::Process;
-    task.text = processName;
-    task.link = link;
-    tasks.append(task);
 
-    addTask(task);
-}
+    auto* taskText = new QLabel(goal);
+    textSizePolicy.setHeightForWidth(taskText->sizePolicy().hasHeightForWidth());
+    taskText->setSizePolicy(textSizePolicy);
+    taskText->setMinimumSize(QSize(0, 40));
 
-void Goal::addInfo(const QString&infoText, const QString&link) {
-    // First save them in the Vector for resaving
-    GuideData::GuideGoalTasks task;
-    task.task = GuideData::Info;
-    task.text = infoText;
-    task.link = link;
-    tasks.append(task);
+    taskText->setFont(textFont);
+    taskText->setLayoutDirection(Qt::LayoutDirection::LeftToRight);
+    taskText->setFrameShape(QFrame::Shape::Box);
+    taskText->setLineWidth(3);
+    taskText->setAlignment(Qt::AlignmentFlag::AlignCenter);
+    taskText->setWordWrap(true);
 
-    addTask(task);
-}
+    taskText->setText(task.text);
 
-void Goal::setWeek(const QString&week) {
-    ui->week->setText(week);
-}
 
-void Goal::finalise() {
-    ui->week->setGeometry(1090, 0, 100, size);
-    ui->progressSlider->setGeometry(983, 3, 104, size - 6);
-    ui->progressBackground->setGeometry(983, 3, 104, size - 6);
+    layout->addWidget(taskLabel);
+    layout->addWidget(taskText);
+
+    ui->tasks->addWidget(goal);
+
+    taskOrder.append(task.task);
+    taskLabels.append(taskLabel);
+    taskNames.append(taskText);
 }
 
 void Goal::setProgress(int progress, bool changedFile) {
+    if (progress < 3 && progress >= 0) {
+        setProgress(static_cast<GuideData::Progress>(progress), changedFile);
+    }
+}
+
+void Goal::setProgress(GuideData::Progress progress, bool changedFile) {
     QString colour;
     GuidePalette palette;
     GuidePalette::GuideElements element;
 
     switch (progress) {
-        case 2:
+        case GuideData::Finished:
             element = GuidePalette::Progress_Finished;
             break;
-        case 1:
+        case GuideData::Working:
             element = GuidePalette::Progress_Working;
             break;
-        case 0:
+        case GuideData::NotStarted:
             element = GuidePalette::Progress_NotStarted;
             break;
         default:
             element = GuidePalette::HeaderBackground;
             break;
     }
-    colour = QString::fromLatin1("background-color:%1;")
-            .arg(palette.getColor(element).name());
 
-    ui->progressSlider->setStyleSheet(colour);
-    ui->progressBackground->setStyleSheet(colour);
+    colour = QString::fromLatin1("background-color:%1;border-width:3px;border-style:solid;border-color: %2;")
+            .arg(palette.getColor(element).name())
+            .arg(palette.color(QPalette::Base).name());
 
-    QSettings settings;
-    if (changedFile && !parentGuide->isInAutoSaveList) {
-        parentGuide->isInAutoSaveList = true;
-        APPLICATION->guidesToSave.append(parentGuide);
-        APPLICATION->startAutoSaveTimer();
-    }
-    APPLICATION->isFileChanged = true;
+    QString border = QString::fromLatin1("border-width:3px;border-style:solid;border-color: %1;")
+            .arg(palette.color(QPalette::Base).name());
+
+    ui->progressSlider->setStyleSheet(colour + "border-width: 0px;");
+    ui->sliderFrame->setStyleSheet(colour + border);
 
     ui->progressSlider->setValue(progress);
 }
 
 void Goal::on_progressSlider_sliderMoved(int newValue) {
     setProgress(newValue);
+    APPLICATION->autoSave(parent->parent);
 }
 
-GuideData::GuideGoals Goal::getGoal() {
-    GuideData::GuideGoals finalGoal;
+GuideData::Object Goal::getGoal() {
+    baseGoal.setProgressFromInt(ui->progressSlider->value());
+    return baseGoal;
+}
 
-    finalGoal.name = ui->goalName->text();
-    finalGoal.goalNumber = ui->leraningGoal->text();
-    finalGoal.time = ui->goalTime->text();
-    finalGoal.week = ui->week->text();
-    finalGoal.progress = QString::number(ui->progressSlider->value());
-    finalGoal.tasks = tasks;
+GoalFrame::GoalFrame(Guide* parent, QVector<GuideData::Object>* goalsI) : QFrame(parent), ui(new Ui::GoalFrame) {
+    ui->setupUi(this);
+    this->parent = parent;
+    if (goalsI)
+        for (auto goal: *goalsI) {
+            Goal* newGoal = new Goal(this, &goal);
+            ui->verticalLayout->addWidget(newGoal);
+            goals.append(newGoal);
+        }
+    else
+        qCritical() << "No Goals in Goalframe!";
+}
 
-    return finalGoal;
+GoalFrame::~GoalFrame() {
+    delete ui;
+}
+
+void GoalFrame::updateStyle() {
+    GuidePalette palette;
+
+    const QString frameStyle = QString::fromLatin1("background-color: %1;").arg(palette.color(QPalette::Base).name());
+    const QString textStyle = QString::fromLatin1("color: %1;").arg(palette.getColor(GuidePalette::ObjectText).name());
+    const QString labelStyle = QString::fromLatin1(
+                "background-color: %1; color: %2; border-width:3px;border-style:solid;border-color: %3;")
+            .arg(palette.getColor(GuidePalette::HeaderBackground).name())
+            .arg(palette.getColor(GuidePalette::HeaderText).name())
+            .arg(palette.color(QPalette::Base).name());
+
+
+    setStyleSheet(frameStyle);
+    ui->subjectLabel->setStyleSheet(textStyle);
+    ui->time->setStyleSheet(labelStyle);
+    ui->done->setStyleSheet(labelStyle);
+    ui->week->setStyleSheet(labelStyle);
+
+    for (auto goal: goals)
+        goal->updateStyle();
+}
+
+void GoalFrame::retranslateUi() {
+    ui->retranslateUi(this);
+
+    for (auto goal: goals)
+        goal->retranslateUi();
+}
+
+QVector<GuideData::Object> GoalFrame::getGoals() {
+    QVector<GuideData::Object> goalData;
+
+    for (auto goal: goals)
+        goalData.append(goal->getGoal());
+
+    return goalData;
 }

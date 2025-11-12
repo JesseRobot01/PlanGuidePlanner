@@ -79,8 +79,8 @@
     <message>
         <location line="+5"/>
         <location line="+100"/>
-        <location filename="../creator/Creator.cpp" line="+161"/>
-        <location line="+68"/>
+        <location filename="../creator/Creator.cpp" line="+177"/>
+        <location line="+43"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
@@ -91,38 +91,38 @@
     </message>
     <message>
         <location line="+5"/>
-        <location filename="../creator/Creator.cpp" line="+33"/>
-        <location line="+194"/>
-        <location line="+250"/>
-        <location line="+174"/>
+        <location filename="../creator/Creator.cpp" line="+19"/>
+        <location line="+173"/>
+        <location line="+261"/>
+        <location line="+171"/>
         <location line="+2"/>
         <source>Guide</source>
         <translation>Guide</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location filename="../creator/Creator.cpp" line="-610"/>
-        <location line="+8"/>
-        <location line="+183"/>
-        <location line="+244"/>
+        <location filename="../creator/Creator.cpp" line="-602"/>
+        <location line="+1"/>
         <location line="+174"/>
+        <location line="+255"/>
+        <location line="+171"/>
         <source>Period</source>
         <translation>Period</translation>
     </message>
     <message>
         <location line="+5"/>
         <location line="+139"/>
-        <location filename="../creator/Creator.cpp" line="-711"/>
-        <location line="+80"/>
-        <location line="+145"/>
-        <location line="+35"/>
-        <location line="+36"/>
-        <location line="+43"/>
-        <location line="+199"/>
-        <location line="+47"/>
-        <location line="+20"/>
-        <location line="+98"/>
-        <location line="+9"/>
+        <location filename="../creator/Creator.cpp" line="-657"/>
+        <location line="+45"/>
+        <location line="+122"/>
+        <location line="+30"/>
+        <location line="+37"/>
+        <location line="+44"/>
+        <location line="+209"/>
+        <location line="+41"/>
+        <location line="+18"/>
+        <location line="+102"/>
+        <location line="+10"/>
         <source>Information</source>
         <translation>Information</translation>
     </message>
@@ -153,43 +153,57 @@
     </message>
     <message>
         <location line="+8"/>
-        <location filename="../creator/Creator.cpp" line="-716"/>
-        <location line="+217"/>
-        <location line="+156"/>
-        <location line="+204"/>
-        <location line="+125"/>
+        <location filename="../creator/Creator.cpp" line="-662"/>
+        <location line="+159"/>
+        <location line="+153"/>
+        <location line="+208"/>
+        <location line="+127"/>
         <source>Work</source>
         <translation>Work</translation>
     </message>
     <message>
         <location line="+5"/>
-        <location filename="../creator/Creator.cpp" line="-701"/>
-        <location line="+222"/>
-        <location line="+360"/>
-        <location line="+120"/>
+        <location filename="../creator/Creator.cpp" line="-646"/>
+        <location line="+164"/>
+        <location line="+361"/>
+        <location line="+122"/>
         <source>Watch/ Listen</source>
         <translation>Watch/ Listen</translation>
     </message>
     <message>
         <location line="+5"/>
-        <location filename="../creator/Creator.cpp" line="-701"/>
-        <location line="+218"/>
-        <location line="+360"/>
-        <location line="+124"/>
+        <location filename="../creator/Creator.cpp" line="-646"/>
+        <location line="+160"/>
+        <location line="+361"/>
+        <location line="+126"/>
         <source>Read</source>
         <translation>Read</translation>
     </message>
     <message>
         <location line="+5"/>
-        <location filename="../creator/Creator.cpp" line="-701"/>
-        <location line="+223"/>
-        <location line="+360"/>
-        <location line="+119"/>
+        <location filename="../creator/Creator.cpp" line="-646"/>
+        <location line="+165"/>
+        <location line="+361"/>
+        <location line="+121"/>
         <source>Process</source>
         <translation>Process</translation>
     </message>
     <message>
-        <location line="+156"/>
+        <location line="+55"/>
+        <location filename="../creator/Creator.cpp" line="-627"/>
+        <location line="+175"/>
+        <location line="+80"/>
+        <location line="+268"/>
+        <source>Date</source>
+        <translation>Date</translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>Duration</source>
+        <translation>Duration</translation>
+    </message>
+    <message>
+        <location line="+102"/>
         <source>Ctrl+Shift+S</source>
         <translatorcomment>Why do I have to translate this?!</translatorcomment>
         <translation>Ctrl+Shift+S</translation>
@@ -200,33 +214,33 @@
         <translation>Quit</translation>
     </message>
     <message>
-        <location line="-194"/>
-        <location filename="../creator/Creator.cpp" line="-612"/>
+        <location line="-212"/>
+        <location filename="../creator/Creator.cpp" line="-495"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
     <message>
         <location line="-10"/>
-        <location filename="../creator/Creator.cpp" line="-97"/>
-        <location line="+68"/>
+        <location filename="../creator/Creator.cpp" line="-57"/>
+        <location line="+43"/>
         <source>Number</source>
         <translation>Number</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="-8"/>
-        <location line="+196"/>
+        <location filename="../creator/Creator.cpp" line="-3"/>
+        <location line="+155"/>
         <location line="+26"/>
-        <location line="+59"/>
-        <location line="+18"/>
-        <location line="+35"/>
-        <location line="+210"/>
+        <location line="+60"/>
         <location line="+19"/>
-        <location line="+89"/>
+        <location line="+35"/>
+        <location line="+212"/>
+        <location line="+19"/>
+        <location line="+93"/>
         <source>Test</source>
         <translation>Test</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.ui" line="+180"/>
+        <location filename="../creator/Creator.ui" line="+198"/>
         <source>Open Guide</source>
         <translation>Open File</translation>
     </message>
@@ -251,111 +265,120 @@
         <translation>Save File As</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="-720"/>
-        <location line="+17"/>
-        <location line="+8"/>
-        <location line="+25"/>
-        <location line="+46"/>
-        <location line="+120"/>
-        <location line="+114"/>
+        <location filename="../creator/Creator.cpp" line="-662"/>
+        <location line="+14"/>
+        <location line="+4"/>
+        <location line="+40"/>
+        <location line="+101"/>
+        <location line="+107"/>
         <location line="+48"/>
-        <location line="+187"/>
-        <location line="+148"/>
+        <location line="+196"/>
+        <location line="+145"/>
         <location line="+6"/>
         <source>Goal</source>
         <translation>Goal</translation>
     </message>
     <message>
-        <location line="-690"/>
-        <location line="+8"/>
-        <location line="+213"/>
-        <location line="+83"/>
-        <location line="+238"/>
         <source>Time</source>
-        <translation>Time</translation>
+        <translation type="vanished">Time</translation>
     </message>
     <message>
-        <location line="-531"/>
-        <location line="+8"/>
-        <location line="+196"/>
-        <location line="+29"/>
-        <location line="+63"/>
-        <location line="+16"/>
-        <location line="+224"/>
-        <location line="+41"/>
+        <location line="-478"/>
         <source>Week</source>
         <translation>Week</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.ui" line="-140"/>
-        <location filename="../creator/Creator.cpp" line="-560"/>
-        <location line="+190"/>
-        <location line="+92"/>
-        <location line="+242"/>
+        <location filename="../creator/Creator.ui" line="-158"/>
+        <location filename="../creator/Creator.cpp" line="-146"/>
+        <location line="+149"/>
+        <location line="+88"/>
+        <location line="+247"/>
         <source>Progress</source>
         <translation>Progress</translation>
     </message>
     <message>
-        <location filename="../creator/Creator.cpp" line="-495"/>
-        <location line="+198"/>
-        <location line="+80"/>
+        <location filename="../creator/Creator.cpp" line="-467"/>
+        <location line="+164"/>
+        <location line="+82"/>
         <location line="+31"/>
-        <location line="+233"/>
-        <location line="+93"/>
+        <location line="+235"/>
+        <location line="+97"/>
         <source>Report</source>
         <translation>Report</translation>
     </message>
     <message>
-        <location line="-841"/>
-        <location line="+448"/>
+        <location line="-805"/>
+        <location line="+406"/>
         <source>Add Goal</source>
         <translation>Add Goal</translation>
     </message>
     <message>
-        <location line="-445"/>
-        <location line="+464"/>
+        <location line="-403"/>
+        <location line="+421"/>
         <source>Add Test</source>
         <translation>Add Test</translation>
     </message>
     <message>
-        <location line="-461"/>
-        <location line="+476"/>
+        <location line="-418"/>
+        <location line="+434"/>
         <source>Add Report</source>
         <translation>Add Report</translation>
     </message>
     <message>
-        <location line="-490"/>
-        <location line="+502"/>
+        <location line="-448"/>
+        <location line="+460"/>
         <source>Add Goal Task</source>
         <translation>Add task to goal</translation>
     </message>
     <message>
-        <location line="-499"/>
-        <location line="+517"/>
+        <location line="-457"/>
+        <location line="+475"/>
         <source>Add Test To Report</source>
         <translation>Add test to report</translation>
     </message>
     <message>
-        <location line="-501"/>
-        <location line="+224"/>
-        <location line="+523"/>
+        <location line="-461"/>
+        <location line="+478"/>
+        <source>Add Break</source>
+        <translation>Add Break</translation>
+    </message>
+    <message>
+        <location line="-472"/>
+        <location line="+192"/>
+        <location line="+516"/>
         <source>Subject Name</source>
         <translation>Subject Name</translation>
     </message>
     <message>
-        <location line="-746"/>
-        <location line="+224"/>
-        <location line="+523"/>
+        <location line="-707"/>
+        <location line="+192"/>
+        <location line="+516"/>
         <source>Short Name</source>
         <translation>Short Name</translation>
     </message>
     <message>
-        <location line="-613"/>
+        <location line="-563"/>
         <source>Link</source>
         <translation>Link</translation>
     </message>
     <message>
-        <location line="+397"/>
+        <location line="+5"/>
+        <location line="+165"/>
+        <location line="+80"/>
+        <location line="+247"/>
+        <source>Date &amp; Duration</source>
+        <translation>Date &amp; Duration</translation>
+    </message>
+    <message>
+        <location line="-264"/>
+        <location line="+95"/>
+        <location line="+230"/>
+        <location line="+87"/>
+        <source>Break</source>
+        <translation>Break</translation>
+    </message>
+    <message>
+        <location line="-295"/>
         <source>Open PlanGuidePlanner</source>
         <translation>Open File</translation>
     </message>
@@ -394,100 +417,187 @@
 <context>
     <name>Goal</name>
     <message>
-        <location filename="../ui/guide/Goal.cpp" line="+88"/>
+        <location filename="../ui/guide/Goal.cpp" line="+118"/>
         <source>UI_WORKINDICATOR</source>
         <translation>W</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+3"/>
         <source>UI_WATCHINDICATOR</source>
         <translation>W/L</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+3"/>
         <source>UI_READINDICATOR</source>
         <translation>R</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+3"/>
         <source>UI_PROCESSINDICATOR</source>
         <translation>P</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+3"/>
         <source>UI_INFOINDICATOR</source>
         <translation>I</translation>
     </message>
     <message>
-        <location filename="../ui/guide/Goal.ui" line="+14"/>
         <source>Goal</source>
-        <translation>Goal</translation>
+        <translation type="vanished">Goal</translation>
+    </message>
+    <message>
+        <location filename="../ui/guide/Goal.ui" line="+14"/>
+        <source>GoalFrame</source>
+        <translation>Goal Frame</translation>
+    </message>
+</context>
+<context>
+    <name>GoalFrame</name>
+    <message>
+        <location filename="../ui/guide/GoalFrame.ui" line="+14"/>
+        <source>GoalFrame</source>
+        <translation>Goal Frame</translation>
+    </message>
+    <message>
+        <location line="+57"/>
+        <source>Subject Index</source>
+        <translation>Subject Index</translation>
+    </message>
+    <message>
+        <location line="+77"/>
+        <source>Time</source>
+        <translation>Time</translation>
+    </message>
+    <message>
+        <location line="+49"/>
+        <source>Done</source>
+        <translation>Done</translation>
+    </message>
+    <message>
+        <location line="+43"/>
+        <source>Week</source>
+        <translation>Week</translation>
     </message>
 </context>
 <context>
     <name>Guide</name>
+    <message>
+        <source>Guide</source>
+        <translation type="vanished">Guide</translation>
+    </message>
+    <message>
+        <source>period</source>
+        <translation type="vanished">Period</translation>
+    </message>
+    <message>
+        <source>UI_WORKINDICATOR</source>
+        <translation type="vanished">W</translation>
+    </message>
+    <message>
+        <source>UI_READINDICATOR</source>
+        <translation type="vanished">R</translation>
+    </message>
+    <message>
+        <source>UI_WATCHINDICATOR</source>
+        <translation type="vanished">W/L</translation>
+    </message>
+    <message>
+        <source>Reading</source>
+        <translation type="vanished">Reading</translation>
+    </message>
+    <message>
+        <source>Work</source>
+        <translation type="vanished">Work</translation>
+    </message>
+    <message>
+        <source>Watch/ listen</source>
+        <translation type="vanished">Watch/ Listen</translation>
+    </message>
+    <message>
+        <source>Procces</source>
+        <translation type="vanished">Process</translation>
+    </message>
+    <message>
+        <source>UI_PROCESSINDICATOR</source>
+        <translation type="vanished">P</translation>
+    </message>
+    <message>
+        <source>Main Information</source>
+        <translation type="vanished">Main Information</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="vanished">Information</translation>
+    </message>
+    <message>
+        <source>UI_INFOINDICATOR</source>
+        <translation type="vanished">I</translation>
+    </message>
+</context>
+<context>
+    <name>GuideBase</name>
     <message>
         <location filename="../ui/guide/Guide.ui" line="+14"/>
         <source>Guide</source>
         <translation>Guide</translation>
     </message>
     <message>
-        <location line="+61"/>
-        <source>period</source>
+        <location line="+158"/>
+        <source>Period</source>
         <translation>Period</translation>
     </message>
     <message>
-        <location line="+201"/>
-        <source>UI_WORKINDICATOR</source>
-        <translation>W</translation>
-    </message>
-    <message>
-        <location line="+34"/>
-        <source>UI_READINDICATOR</source>
-        <translation>R</translation>
-    </message>
-    <message>
-        <location line="+34"/>
-        <source>UI_WATCHINDICATOR</source>
-        <translation>W/L</translation>
-    </message>
-    <message>
-        <location line="+31"/>
-        <source>Reading</source>
-        <translation>Reading</translation>
-    </message>
-    <message>
-        <location line="+34"/>
-        <source>Work</source>
-        <translation>Work</translation>
-    </message>
-    <message>
-        <location line="+31"/>
-        <source>Watch/ listen</source>
-        <translation>Watch/ Listen</translation>
-    </message>
-    <message>
-        <location line="+31"/>
-        <source>Procces</source>
-        <translation>Process</translation>
-    </message>
-    <message>
-        <location line="+34"/>
-        <source>UI_PROCESSINDICATOR</source>
-        <translation>P</translation>
-    </message>
-    <message>
-        <location line="+28"/>
+        <location line="+108"/>
         <source>Main Information</source>
         <translation>Main Information</translation>
     </message>
     <message>
-        <location line="+31"/>
+        <location line="+130"/>
+        <source>Work</source>
+        <translation>Work</translation>
+    </message>
+    <message>
+        <location line="+43"/>
+        <source>UI_WORKINDICATOR</source>
+        <translation>W</translation>
+    </message>
+    <message>
+        <location line="+50"/>
+        <source>Watch / Listen</source>
+        <translation>Watch/ Listen</translation>
+    </message>
+    <message>
+        <location line="+43"/>
+        <source>UI_WATCHINDICATOR</source>
+        <translation>W/L</translation>
+    </message>
+    <message>
+        <location line="+50"/>
+        <source>Reading</source>
+        <translation>Reading</translation>
+    </message>
+    <message>
+        <location line="+43"/>
+        <source>UI_READINDICATOR</source>
+        <translation>R</translation>
+    </message>
+    <message>
+        <location line="+50"/>
+        <source>Process</source>
+        <translation>Process</translation>
+    </message>
+    <message>
+        <location line="+43"/>
+        <source>UI_PROCESSINDICATOR</source>
+        <translation>P</translation>
+    </message>
+    <message>
+        <location line="+50"/>
         <source>Information</source>
         <translation>Information</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+43"/>
         <source>UI_INFOINDICATOR</source>
         <translation>I</translation>
     </message>
@@ -495,7 +605,7 @@
 <context>
     <name>GuideData</name>
     <message>
-        <location filename="../guide/GuideData.cpp" line="+12"/>
+        <location filename="../guide/GuideData.cpp" line="+14"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
@@ -512,7 +622,7 @@ Error Description: </source>
 Error Description: </translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+11"/>
         <source>Try this:</source>
         <translation>Try this:</translation>
     </message>
@@ -536,7 +646,7 @@ Error Description: </translation>
         <translation type="vanished">Search for &apos;&lt;pgp&apos; near the start of the document.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+2"/>
         <source>Try this too:</source>
         <translation>Try this too:</translation>
     </message>
@@ -551,7 +661,7 @@ Error Description: </translation>
         <translation>Try making a copy!</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+2"/>
         <source>This is also an option:</source>
         <translation>This is also an option:</translation>
     </message>
@@ -569,29 +679,24 @@ Error Description: </translation>
 <context>
     <name>Index</name>
     <message>
-        <location filename="../ui/guide/Index.ui" line="+14"/>
         <source>Index</source>
-        <translation>Subject Index</translation>
+        <translation type="vanished">Subject Index</translation>
     </message>
     <message>
-        <location line="+39"/>
         <source>Subject Index</source>
-        <translation>Subject Index</translation>
+        <translation type="vanished">Subject Index</translation>
     </message>
     <message>
-        <location line="+40"/>
         <source>Time</source>
-        <translation>Time</translation>
+        <translation type="vanished">Time</translation>
     </message>
     <message>
-        <location line="+37"/>
         <source>Done</source>
-        <translation>Done</translation>
+        <translation type="vanished">Done</translation>
     </message>
     <message>
-        <location line="+37"/>
         <source>Week</source>
-        <translation>Week</translation>
+        <translation type="vanished">Week</translation>
     </message>
 </context>
 <context>
@@ -712,13 +817,13 @@ Error Description: </translation>
         <translation>Close All Files</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="+36"/>
+        <location filename="../ui/MainWindow.cpp" line="+32"/>
         <source>Start</source>
         <translation>Start</translation>
     </message>
     <message>
         <location line="+52"/>
-        <location line="+14"/>
+        <location line="+15"/>
         <source>All Supported Files (*.pgd *.pgm *.pgx *.xml *.zip);;Zip Files (*.pgd *.pgm *.zip);;*.Xml Files (*.pgx *.xml);;All Files (*)</source>
         <translation>All Supported Files (*.pgd *.pgm *.pgx *.xml *.zip);;Zip Files (*.pgd *.pgm *.zip);;*.Xml Files (*.pgx *.xml);;All Files (*)</translation>
     </message>
@@ -728,7 +833,7 @@ Error Description: </translation>
         <translation>Open Files</translation>
     </message>
     <message>
-        <location line="+159"/>
+        <location line="+157"/>
         <source>Plan Guide Planner Document File (*.pgd);;Plan Guide Planner XML-based file (*.pgx);;XML File (*.xml);;All Files (*)</source>
         <translation>Plan Guide Planner Document File (*.pgd);;Plan Guide Planner XML-based file (*.pgx);;XML File (*.xml);;All Files (*)</translation>
     </message>
@@ -949,8 +1054,7 @@ Error Description: </translation>
 <context>
     <name>Report</name>
     <message>
-        <location filename="../ui/guide/Report.ui" line="+14"/>
-        <location line="+39"/>
+        <location filename="../ui/guide/Report.cpp" line="+108"/>
         <source>Report</source>
         <translation>Report</translation>
     </message>
@@ -994,7 +1098,7 @@ Error Description: </translation>
 <context>
     <name>Test</name>
     <message>
-        <location filename="../ui/guide/Test.ui" line="+17"/>
+        <location filename="../ui/guide/Test.ui" line="+14"/>
         <source>Test</source>
         <translation>Test</translation>
     </message>

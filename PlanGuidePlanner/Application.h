@@ -44,6 +44,8 @@ public:
 
     bool isZipFile(const QString&file);
 
+    void autoSave(Guide* guide);
+
 #ifdef Q_OS_ANDROID
 
     void requestStoragePermission();

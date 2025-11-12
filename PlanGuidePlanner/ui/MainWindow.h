@@ -40,6 +40,8 @@ public:
 
     void setTabName(int tab, QString name);
 
+    void updateGuide(int guideIndex, GuideData::Data updatedGuide);
+
 private slots:
     void on_actionPreference_triggered();
 
