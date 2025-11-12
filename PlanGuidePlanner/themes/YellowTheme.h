@@ -33,4 +33,4 @@ QColor getDarkYellowColour(GuidePalette::GuideElements element) {
     }
 }
 
-#endif //PLANGUIDEPLANNER_GREENTHEME_H
+#endif //PLANGUIDEPLANNER_YELLOWTHEME_H
