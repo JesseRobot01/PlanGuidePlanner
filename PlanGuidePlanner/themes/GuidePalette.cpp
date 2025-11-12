@@ -9,6 +9,7 @@
 #include "GreenTheme.h"
 #include "OrangeTheme.h"
 #include "RedTheme.h"
+#include "YellowTheme.h"
 
 QColor GuidePalette::getColor(GuideElements element) {
     if (isLightMode()) {
@@ -35,8 +36,10 @@ QColor GuidePalette::getLightModeColor(GuidePalette::GuideElements element) {
         return getLightRedColour(element);
     if (currentColour == "orange")
         return getLightOrangeColour(element);
-if (currentColour == "contrast")
-    return getContrastColour(element);
+    if (currentColour == "yellow")
+        return getLightYellowColour(element);
+    if (currentColour == "contrast")
+        return getContrastColour(element);
 
     return getLightBlueColour(element);
 }
@@ -53,6 +56,8 @@ QColor GuidePalette::getDarkModeColor(GuidePalette::GuideElements element) {
         return getDarkRedColour(element);
     if (currentColour == "orange")
         return getDarkOrangeColour(element);
+    if (currentColour == "yellow")
+        return getDarkYellowColour(element);
     if (currentColour == "contrast")
         return getContrastColour(element);
 

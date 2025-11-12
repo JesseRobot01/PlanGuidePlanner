@@ -26,6 +26,7 @@ set(SOURCES
         themes/GreenTheme.h
         themes/RedTheme.h
         themes/OrangeTheme.h
+        themes/YellowTheme.h
         themes/ContrastTheme.h
 )
 

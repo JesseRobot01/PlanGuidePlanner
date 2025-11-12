@@ -36,6 +36,7 @@ PreferenceWindow::PreferenceWindow(QWidget* parent)
     ui->colourDropDown->addItem(tr("Green"), "green");
     ui->colourDropDown->addItem(tr("Red"), "red");
     ui->colourDropDown->addItem(tr("Orange"), "orange");
+        ui->colourDropDown->addItem(tr("Yellow"), "yellow");
     ui->colourDropDown->addItem(tr("High Contrast"), "contrast");
 
 
