@@ -54,7 +54,7 @@ public:
         QString number;
         int time = 0;
 
-        QDate date = {0,0,0};
+        QDate date = {2024,1,1};
         Progress progress = NotStarted;
 
         void setDateFromWeek(QString weekNumber);
