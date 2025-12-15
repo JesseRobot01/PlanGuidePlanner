@@ -131,9 +131,9 @@ set(CPACK_PACKAGE_VERSION_MAJOR ${PLANGUIDEPLANNER_VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${PLANGUIDEPLANNER_VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${PLANGUIDEPLANNER_VERSION_PATCH})
 
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6core6 (>= ${Qt6Widgets_VERSION}")
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6svg6 (>= ${Qt6Widgets_VERSION}")
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6core5compat6 (>= ${Qt6Widgets_VERSION}")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6core6 (>= ${Qt6Widgets_VERSION})")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6svg6 (>= ${Qt6Widgets_VERSION})")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6core5compat6 (>= ${Qt6Widgets_VERSION})")
 
 
 set(CPACK_PACKAGE_CONTACT "JesseRobot01")
@@ -195,7 +195,7 @@ include(CPack)
 if (LINUX)
     set(BINARY_DEST_DIR "bin")
     set(LIBRARY_DEST_DIR "lib")
-
+e
     install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/planguideplanner.desktop" DESTINATION "share/applications")
     install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/PGP-AppIcon.svg" RENAME "planguideplanner.svg" DESTINATION "share/icons/hicolor/scalable/apps")
     install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/planguideplanner-mime.xml" DESTINATION "share/mime/packages")
