@@ -164,10 +164,17 @@ void Goal::processGoal(GuideData::Object goal) {
     ui->progressSlider->hide();
 
     ui->name->setText(goal.name);
-    ui->time->setText(QString::number(goal.time));
     ui->number->setText(goal.number);
-    ui->week->setText(QString::number(goal.date.weekNumber()));
 
+    if (goal.time != 0)
+        ui->time->setText(QString::number(goal.time));
+    else
+        ui->time->setText("-");
+
+    if (goal.date != QDate{2024, 01, 01})
+        ui->week->setText(QString::number(goal.date.weekNumber()));
+    else
+        ui->week->setText("-");
 
     for (auto task: goal.tasks) {
         addTask(task);
