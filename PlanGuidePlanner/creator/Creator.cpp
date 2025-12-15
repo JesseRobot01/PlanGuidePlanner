@@ -442,7 +442,7 @@ void Creator::on_addList_itemDoubleClicked(QListWidgetItem* item) {
 
         QTreeWidgetItem* timeItem = new QTreeWidgetItem(topItem);
         timeItem->setText(0, tr("Date & Duration"));
-        timeItem->setText(1, "2024-01-01");
+        timeItem->setText(1, QDate(2024, 01, 01).toString(Qt::RFC2822Date));
         timeItem->setText(2, "0");
 
         QTreeWidgetItem* progressItem = new QTreeWidgetItem(topItem);
@@ -460,7 +460,7 @@ void Creator::on_addList_itemDoubleClicked(QListWidgetItem* item) {
 
         QTreeWidgetItem* week = new QTreeWidgetItem(topItem);
         week->setText(0, tr("Date"));
-        week->setText(1, "2024-01-01");
+        week->setText(1, QDate(2024, 01, 01).toString(Qt::RFC2822Date));
 
         QTreeWidgetItem* information = new QTreeWidgetItem(topItem);
         information->setText(0, tr("Information"));

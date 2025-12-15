@@ -195,7 +195,7 @@ include(CPack)
 if (LINUX)
     set(BINARY_DEST_DIR "bin")
     set(LIBRARY_DEST_DIR "lib")
-e
+
     install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/planguideplanner.desktop" DESTINATION "share/applications")
     install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/PGP-AppIcon.svg" RENAME "planguideplanner.svg" DESTINATION "share/icons/hicolor/scalable/apps")
     install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/program_info/planguideplanner-mime.xml" DESTINATION "share/mime/packages")
