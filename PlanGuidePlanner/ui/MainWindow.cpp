@@ -562,3 +562,17 @@ void MainWindow::updateGuide(int guideIndex, GuideData::Data updatedGuide) {
 
     updateStart();
 }
+
+void MainWindow::retranslateUi() {
+    ui->retranslateUi(this);
+    startScreen->updateStart(); // Fix the language
+
+    for (auto* guideWidget: guides)
+        guideWidget->retranslateUi();
+}
+
+void MainWindow::updateStyle() {
+  startScreen->updateStart(); // Also fixes the styling
+        for (auto* guideWidget: guides)
+            guideWidget->updateStyle();
+}

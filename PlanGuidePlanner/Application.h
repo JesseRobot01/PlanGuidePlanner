@@ -46,6 +46,13 @@ public:
 
     void autoSave(Guide* guide);
 
+    void setLanguage(const QString&languageCode);
+
+    void retranslateUi();
+
+    void updateStyle();
+
+    QString defaultStyle;
 #ifdef Q_OS_ANDROID
 
     void requestStoragePermission();
@@ -56,8 +63,6 @@ public slots:
     void autoSaveTriggered();
 
 private:
-    void setLanguage(const QString&languageCode);
-
     MainWindow* appWindow;
     QTranslator* translator;
     QTimer* autoSaveTimer = new QTimer(this);

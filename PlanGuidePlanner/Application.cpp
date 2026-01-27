@@ -100,6 +100,8 @@ Application::Application(int&argc, char** argv) : QApplication(argc, argv) {
 
     // themes
     {
+        defaultStyle = style()->name(); // saving the style
+
         QString currentTheme = settings.value("Theme", "fusion_dark").toString();
 
         if (currentTheme == "fusion_dark") {
@@ -381,4 +383,12 @@ void Application::autoSave(Guide* guide) {
     guide->isInAutoSaveList = true;
     APPLICATION->guidesToSave.append(guide);
     APPLICATION->startAutoSaveTimer();
+}
+
+void Application::retranslateUi() {
+    appWindow->retranslateUi();
+}
+
+void Application::updateStyle() {
+    appWindow->updateStyle();
 }

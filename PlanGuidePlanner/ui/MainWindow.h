@@ -42,6 +42,8 @@ public:
 
     void updateGuide(int guideIndex, GuideData::Data updatedGuide);
 
+    void retranslateUi();
+    void updateStyle();
 private slots:
     void on_actionPreference_triggered();
 

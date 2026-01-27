@@ -44,13 +44,21 @@ private slots:
     void on_logsDirectoryPicker_pressed();
 
     void on_autoSaveDirPicker_pressed();
+    void on_languageSelector_currentIndexChanged(int index);
+void on_themes_currentIndexChanged(int index);
+    void on_colourDropDown_currentIndexChanged(int index);
 
+    void reject() override;
 private:
     Ui::PreferenceWindow* ui;
 
     void loadSettings();
 
     void saveSettings();
+
+    QString originalColour;
+
+    bool isLoaded= false;
 };
 
 

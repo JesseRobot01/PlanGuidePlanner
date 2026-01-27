@@ -15,7 +15,8 @@
 #include <qstandardpaths.h>
 
 #include "dialogs/RestartDialog.h"
-
+#include "themes/GuidePalette.h"
+#include <QStyleFactory>
 
 PreferenceWindow::PreferenceWindow(QWidget* parent)
     : QDialog(parent), ui(new Ui::PreferenceWindow) {
@@ -36,12 +37,13 @@ PreferenceWindow::PreferenceWindow(QWidget* parent)
     ui->colourDropDown->addItem(tr("Green"), "green");
     ui->colourDropDown->addItem(tr("Red"), "red");
     ui->colourDropDown->addItem(tr("Orange"), "orange");
-        ui->colourDropDown->addItem(tr("Yellow"), "yellow");
+    ui->colourDropDown->addItem(tr("Yellow"), "yellow");
     ui->colourDropDown->addItem(tr("High Contrast"), "contrast");
 
 
-
     loadSettings();
+    originalColour = ui->colourDropDown->currentData().toString(); // For reversing the colours
+    isLoaded = true;
 }
 
 PreferenceWindow::~PreferenceWindow() {
@@ -62,6 +64,53 @@ void PreferenceWindow::loadSettings() {
     ui->logsDirectory->setText(APPLICATION->getLogsDirLocation());
 }
 
+void PreferenceWindow::on_languageSelector_currentIndexChanged(int index) {
+    if (!isLoaded)
+        return;
+
+    APPLICATION->setLanguage(ui->languageSelector->currentData().toString());
+    ui->retranslateUi(this);
+    APPLICATION->retranslateUi();
+}
+
+void PreferenceWindow::on_themes_currentIndexChanged(int index) {
+    if (!isLoaded)
+        return;
+
+    //TODO new thememanager
+    auto currentTheme = ui->themes->currentData();
+    GuidePalette palette;
+
+    if (currentTheme == "fusion_dark") {
+        palette.setFusionDark();
+        currentTheme = "fusion";
+
+    }else
+    if (currentTheme == "fusion_light") {
+        palette.setFusionLight();
+        currentTheme = "fusion";
+    }else
+    if (currentTheme == "system") {
+        currentTheme = APPLICATION->defaultStyle;
+    }
+
+    APPLICATION->setPalette(palette);
+    APPLICATION->setStyle(currentTheme.toString());
+    APPLICATION->updateStyle();
+}
+
+void PreferenceWindow::reject() {
+    //Undo everything
+    loadSettings();
+    ui->colourDropDown->setCurrentIndex(ui->colourDropDown->findData(originalColour));
+
+    //Lazy me :)
+    on_themes_currentIndexChanged(0);
+    on_languageSelector_currentIndexChanged(0);
+    on_colourDropDown_currentIndexChanged(0);
+
+    delete this;
+}
 
 void PreferenceWindow::saveSettings() {
     QSettings settings;
@@ -76,8 +125,8 @@ void PreferenceWindow::saveSettings() {
 void PreferenceWindow::accept() {
     saveSettings();
     delete this;
-    RestartDialog* restartDialog = new RestartDialog();
-    restartDialog->show();
+   // RestartDialog* restartDialog = new RestartDialog();
+   // restartDialog->show();
 }
 
 void PreferenceWindow::on_clearDirCheck_clicked(bool isChecked) {
@@ -148,4 +197,13 @@ void PreferenceWindow::on_autoSaveDirPicker_pressed() {
 
     if (!newDir.isEmpty())
         autoSaveDir->setText(newDir);
+}
+
+void PreferenceWindow::on_colourDropDown_currentIndexChanged(int index) {
+    if (!isLoaded)
+        return;
+
+    QSettings settings;
+    settings.setValue("Colour", ui->colourDropDown->currentData());
+    APPLICATION->updateStyle();
 }
