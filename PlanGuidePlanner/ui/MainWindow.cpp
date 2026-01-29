@@ -569,6 +569,8 @@ void MainWindow::retranslateUi() {
 
     for (auto* guideWidget: guides)
         guideWidget->retranslateUi();
+
+    ui->guideSwitcher->setTabText(0, tr("Start"));
 }
 
 void MainWindow::updateStyle() {
